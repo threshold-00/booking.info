@@ -11,8 +11,30 @@ Static marketing site. No build step, no dependencies.
 
 ## Before you publish
 1. Set your address in `app.js`: `var CONTACT_EMAIL = 'you@yourdomain.com';` (the form and the "book a call" link both use it).
-2. Replace `Threshold. Built by [your name].` in the footer of both pages.
-3. Fill the `[X]` / `[Y]` / `[A] to [B]` result figures and the pull quote in `case-study.html`, and swap the two placeholder image blocks for real photos.
+2. Fill the `[X]` / `[Y]` / `[A] to [B]` result figures and the pull quote in `case-study.html`, and swap the two placeholder image blocks for real photos.
+
+## Set up git once, then just push
+
+From the unzipped folder:
+
+```bash
+git init
+git branch -M main
+git remote add origin https://github.com/threshold-00/booking.info.git
+git add .
+git commit -m "Threshold marketing site"
+git push -u origin main
+```
+
+After that, every change is three commands — no more uploading files by hand:
+
+```bash
+git add .
+git commit -m "what changed"
+git push
+```
+
+GitHub Pages rebuilds automatically on each push, usually within a minute.
 
 ## Deploy
 **GitHub Pages** — Settings → Pages → Source: Deploy from branch, `main` / root. Live at `https://threshold-00.github.io/booking.info/`.
