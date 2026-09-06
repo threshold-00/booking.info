@@ -1,7 +1,7 @@
 :root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Neue Haas Grotesk Display Pro','Neue Haas Grotesk','Helvetica Neue',Helvetica,sans-serif;--mono:'IBM Plex Mono',monospace}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--paper)}
-body{color:var(--ink);font-family:'Chivo Mono',monospace;font-weight:400;font-size:18px;line-height:21.6px;text-transform:uppercase;min-height:100vh}
+body{color:var(--ink);font-family:'Chivo Mono',monospace;font-weight:400;font-size:16px;line-height:19.2px;text-transform:uppercase;min-height:100vh}
 a{color:var(--ink);text-decoration:none}
 a:hover{color:var(--cleared)}
 ::selection{background:#cfe8d9}

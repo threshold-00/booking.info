@@ -4,7 +4,7 @@ Static marketing site. No build step, no dependencies.
 
 ## Files
 - `index.html` — home (single scroll)
-- `case-study.html` — Salty Cowboys case study
+- `case-study.html` — Salty Cowboy case study
 - `styles.css` — all styling
 - `app.js` — live-demo filtering + contact form
 - `assets/` — booking flow screenshots
