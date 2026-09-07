@@ -1,15 +1,15 @@
-# Threshold — booking.info
+# Threshold, booking.info
 
 Static marketing site. No build step, no dependencies.
 
 Live at **https://threshold-00.github.io/booking.info/**
 
 ## Files
-- `index.html` — home (single scroll)
-- `case-study.html` — Salty Cowboy case study
-- `styles.css` — all styling
-- `app.js` — live-demo filtering + contact form
-- `assets/` — booking flow screenshots
+- `index.html`, home (single scroll)
+- `case-study.html`, Salty Cowboy case study
+- `styles.css`, all styling
+- `app.js`, live-demo filtering + contact form
+- `assets/`, booking flow screenshots
 
 ## Preview locally
 
