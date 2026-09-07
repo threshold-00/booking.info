@@ -1,5 +1,5 @@
-// Threshold — static site behaviour. Set your address here (used by the contact form and call link).
-var CONTACT_EMAIL = 'hello@example.com';
+// Threshold, static site behaviour. Set your address here (used by the contact form and call link).
+var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 
 var SESSIONS = [
   { name: 'Intro session, 60 min', meta: 'ALL LEVELS / ANY GROUP SIZE', minLevel: 0, maxGroup: 3 },
@@ -63,13 +63,22 @@ document.getElementById('lead').addEventListener('submit', function (e) {
     'Email: ' + f.email.value
   ].join('\n');
   window.location.href = 'mailto:' + CONTACT_EMAIL +
-    '?subject=' + encodeURIComponent('Threshold enquiry — ' + (f.business.value || f.name.value)) +
+    '?subject=' + encodeURIComponent('Threshold enquiry, ' + (f.business.value || f.name.value)) +
     '&body=' + encodeURIComponent(body);
 });
 
 document.querySelectorAll('a[href^="mailto:hello@example.com"]').forEach(function (a) {
   a.href = a.href.replace('hello@example.com', CONTACT_EMAIL);
 });
+
+var siteHeader = document.querySelector('.site-header');
+function setHeaderOffset() {
+  if (siteHeader) {
+    document.documentElement.style.setProperty('--header-h', siteHeader.offsetHeight + 'px');
+  }
+}
+setHeaderOffset();
+window.addEventListener('resize', setHeaderOffset);
 
 var lt = document.getElementById('localTime');
 if (lt) {

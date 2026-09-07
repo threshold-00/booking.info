@@ -42,10 +42,10 @@ Serves the folder at http://localhost:3000 and reloads the browser on every save
 
 ## Site specifics
 
-- **Contact address** is the single `CONTACT_EMAIL` constant at the top of `app.js`. The contact form and every "book a call" mailto link read from it. It is currently the placeholder `hello@example.com` and needs Ro's real address before the site is promoted.
+- **Contact address** is the single `CONTACT_EMAIL` constant at the top of `app.js`, currently `rowenabaulch@outlook.com`. Change it there and nowhere else. The contact form builds its mailto from it directly, and the hardcoded `mailto:hello@example.com` links in `index.html` are deliberate hooks that `app.js` rewrites to `CONTACT_EMAIL` on load, so leave that placeholder in the HTML alone.
 - **Live demo** (`#demo` on the home page) is driven by the `SESSIONS`, `LEVELS` and `GROUPS` arrays in `app.js`. Each session has a `minLevel` and a `maxGroup`; the demo greys out or hides the ones the chosen rider level and group size do not qualify for. That filtering is the whole product argument, so keep the disqualifying combinations visible and honest.
 - **Founding members** count ("2 of 5 claimed") is hardcoded in the sticky header and in the `#founding` section of `index.html`. Update both together.
-- **Case study** still carries placeholder result figures and a placeholder pull quote to be filled in with real numbers from Salty Cowboy.
+- **Case study** had a "The results" section with three stat tiles and a Simone pull quote. It was removed on 7 Sep 2026 because the numbers are not available yet. Reinstate it from git history (`git show 70c01b3:case-study.html`) once Ro has real figures rather than rebuilding it from scratch.
 
 ## Default change workflow
 

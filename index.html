@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Threshold — booking that screens before it confirms</title>
+<title>Threshold, booking that screens before it confirms</title>
 <meta name="description" content="Booking software for businesses that need customer requirements first. Each person sees only what they qualify for." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,11 +12,19 @@
 </head>
 <body>
 <div>
-  <header style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
-    <a href="#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
-    <div style="display:flex;align-items:baseline;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.55);">
-      <span style="display:inline-flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--cleared);display:inline-block;"></span>Status / founding members: 2 of 5 claimed</span>
-      <a href="#interested" style="border-bottom:1px solid rgba(23,23,26,.35);padding-bottom:2px;">Contact</a>
+  <header class="site-header" style="position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
+    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
+      <a href="#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
+      <nav class="nav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+        <a href="#problem" class="navlink">The problem</a>
+        <a href="#solution" class="navlink">The solution</a>
+        <a href="#case-study" class="navlink">Case study</a>
+        <a href="#demo" class="navlink">Live demo</a>
+        <a href="#interested" class="navlink on">Contact</a>
+      </nav>
+    </div>
+    <div class="bar" style="display:flex;align-items:center;gap:9px;padding:13px 40px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.55);">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--cleared);display:inline-block;flex:none;"></span>Founding members: 2 of 5 claimed
     </div>
   </header>
 
@@ -32,7 +40,7 @@
     </div>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section id="problem" style="padding:0 40px 96px;">
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>The problem</p>
       <div>
@@ -42,7 +50,7 @@
     </div>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section id="solution" style="padding:0 40px 96px;">
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>The solution</p>
       <div>
@@ -78,7 +86,7 @@
     </div>
   </section>
 
-  <section style="padding:0 0 96px;">
+  <section id="case-study" style="padding:0 0 96px;">
     <div style="position:relative;overflow:hidden;background-color:#17171a;background-image:url('assets/stable-photoshoot.avif');background-size:cover;background-position:center 38%;">
       <div style="position:relative;background:linear-gradient(90deg,rgba(12,12,14,.9) 0%,rgba(12,12,14,.82) 55%,rgba(12,12,14,.6) 100%);padding:88px 40px 96px;">
         <div class="split" style="display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
@@ -145,7 +153,7 @@
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:18px;">
             <button type="submit" class="btn">Send</button>
             <span style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:rgba(23,23,26,.45);">or</span>
-            <a href="mailto:hello@example.com?subject=Threshold%20—%2020-minute%20call" style="border-bottom:1px solid rgba(23,23,26,.35);padding-bottom:3px;">Book a 20-minute call</a>
+            <a href="mailto:hello@example.com?subject=Threshold%2C%2020-minute%20call" style="border-bottom:1px solid rgba(23,23,26,.35);padding-bottom:3px;">Book a 20-minute call</a>
           </div>
           <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:28px;margin-top:32px;border-top:1px solid var(--line);max-width:760px;">
             <img src="assets/founder-portrait.png" alt="Portrait of Threshold's founder" style="display:block;width:72px;height:72px;flex:none;border-radius:50%;object-fit:cover;background:rgba(23,23,26,.06);" />

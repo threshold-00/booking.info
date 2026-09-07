@@ -32,5 +32,5 @@ git push
 GitHub Pages rebuilds automatically on each push, usually within a minute. Do not upload files through the GitHub web UI, it puts this folder and the remote out of sync.
 
 ## Still to do
-1. Set the real address in `app.js`: `var CONTACT_EMAIL = 'you@yourdomain.com';` (the form and the "book a call" link both use it).
-2. Fill the `[X]` / `[Y]` / `[A] to [B]` result figures and the pull quote in `case-study.html`, and swap the two placeholder image blocks for real photos.
+1. Swap the two placeholder image blocks in `case-study.html` for real photos.
+2. Reinstate the case study "The results" section once Simone's numbers are in hand. It was removed on 7 Sep 2026 and is recoverable from git history.
