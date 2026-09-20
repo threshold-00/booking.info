@@ -10,7 +10,10 @@ Static marketing site for Threshold, booking software for businesses that screen
 ├── case-study.html   # Salty Cowboy case study
 ├── styles.css        # all styling (design tokens live in :root)
 ├── app.js            # live-demo session filtering + contact form + mailto links
-├── assets/           # booking flow screenshots, founder portrait, photos, booking-flow.mp4
+├── assets/           # booking flow screenshots, founder portrait, photos, booking-flow.mp4, og-image.png, favicon.svg
+├── CNAME             # thresholdbooking.com (custom domain, live since 19 Sep 2026)
+├── robots.txt        # allows all, hides sitev2/, points at the sitemap
+├── sitemap.xml       # both pages; bump <lastmod> when a page changes
 ├── .nojekyll         # stops GitHub Pages running Jekyll over the files
 ├── CLAUDE.md         # this file
 └── .claude/settings.json
@@ -20,7 +23,7 @@ No build step, no bundler, no framework, no dependencies. Plain HTML, one CSS fi
 
 ## Deploy
 
-GitHub Pages serves `main` from repo root at **https://threshold-00.github.io/booking.info/**. Remote is `threshold-00/booking.info`. Every push to `main` redeploys automatically, usually within a minute. Never upload files through the GitHub web UI, it puts the local folder and the remote out of sync.
+GitHub Pages serves `main` from repo root at **https://thresholdbooking.com/** (custom domain via `CNAME`; the old https://threshold-00.github.io/booking.info/ address redirects). Every page carries a `<link rel="canonical">` to the thresholdbooking.com URL, Open Graph and Twitter tags, and a JSON-LD block, all in `<head>`. A new page needs the same set plus a `<url>` entry in `sitemap.xml`. The social preview image is `assets/og-image.png` (1200x630), rendered from a small HTML card in headless Chrome; regenerate it rather than editing the PNG. Remote is `threshold-00/booking.info`. Every push to `main` redeploys automatically, usually within a minute. Never upload files through the GitHub web UI, it puts the local folder and the remote out of sync.
 
 ## Local preview
 

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /sitev2/
+
+Sitemap: https://thresholdbooking.com/sitemap.xml
