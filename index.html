@@ -7,7 +7,7 @@
 <meta name="description" content="Booking software for businesses that need customer requirements first. Each person sees only what they qualify for." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="canonical" href="https://thresholdbooking.com/" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -81,14 +81,14 @@
     <div class="split" style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:center;">
       <h1 style="font-size:clamp(44px,7.6vw,124px);line-height:.93;letter-spacing:-.035em;margin:0;max-width:15ch;text-wrap:balance;">Availability that knows who's asking.</h1>
       <svg id="heroAnim" class="hero-anim" viewBox="0 96 640 310" role="img" aria-label="People arrive at a doorway one at a time. As each steps in, the calendar beside it shows only the slots that fit them, and one is booked." style="display:block;width:100%;max-width:580px;height:auto;justify-self:end;color:var(--ink);overflow:visible;">
-        <defs><filter id="ha-rough" filterUnits="userSpaceOnUse" x="-300" y="-300" width="1300" height="900"><feTurbulence id="ha-noise" type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="ha-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" style="fill:var(--paper)"/><line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="1.3" opacity=".45"/></pattern></defs>
-        <path d="M8 384H632" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <rect x="203" y="117" width="70" height="267" fill="url(#ha-hatch)" opacity=".55"/>
+        <defs><filter id="ha-rough" filterUnits="userSpaceOnUse" x="-300" y="-300" width="1300" height="900"><feTurbulence id="ha-noise" type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter><pattern id="ha-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" style="fill:var(--paper)"/><line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="1.3" opacity=".45"/></pattern></defs>
+        <path class="ha-ground" d="M8 384H632" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <rect class="ha-doorfill" x="203" y="117" width="70" height="267" fill="url(#ha-hatch)" opacity=".55"/>
         <path class="ha-door" d="M200 384V122Q200 114 208 114H268Q276 114 276 122V384" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-        <rect x="186" y="384" width="104" height="9" rx="2" fill="currentColor"/>
+        <rect class="ha-step" x="186" y="384" width="104" height="9" rx="2" fill="currentColor"/>
         <path class="ha-beam" d="M284 250H350" fill="none" stroke-width="2.5" stroke-dasharray="4 7" stroke-linecap="round"/>
         <rect class="ha-shadow" x="364" y="132" width="250" height="250" rx="14" fill="currentColor" opacity=".72"/>
-        <rect x="356" y="122" width="250" height="250" rx="14" style="fill:var(--panel)" stroke="currentColor" stroke-width="2"/>
+        <rect class="ha-card" x="356" y="122" width="250" height="250" rx="14" style="fill:var(--panel)" stroke="currentColor" stroke-width="2"/>
         <text x="374" y="152" style="font-family:var(--mono);font-size:12px;letter-spacing:.16em;fill:currentColor;">SEPTEMBER</text>
         <text id="haCount" x="588" y="152" text-anchor="end" style="font-family:var(--mono);font-size:12px;letter-spacing:.1em;fill:currentColor;opacity:.55;">12 SLOTS</text>
           <g class="ha-slot" data-req="1" transform="translate(374 172)"><rect class="ha-slot-bg" width="64" height="38" rx="8"/><circle class="ha-dot" cx="14" cy="19" r="2.6"/><path class="ha-check" d="M38 19l6 6 11-12" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -351,6 +351,7 @@
   </footer>
 </div>
 <a href="#interested" class="btn float-cta" id="floatCta">Book a free call</a>
+<script src="assets/rough.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

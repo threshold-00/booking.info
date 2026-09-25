@@ -56,11 +56,20 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .hero-anim .ha-slot.is-booked .ha-slot-bg{fill:var(--cleared);stroke:var(--cleared)}
 .hero-anim .ha-slot.is-booked .ha-dot{fill:var(--paper)}
 .hero-anim .ha-slot.is-booked .ha-check{opacity:1}
-/* Hand-drawn trial, only with ?sketch in the address: wobbly lines that redraw a few times a second */
+/* Hand-drawn hero: app.js redraws the shapes with rough.js and adds .sketch; the clean originals hide */
+.hero-anim.sketch .ha-orig{visibility:hidden}
 .hero-anim.sketch>*:not(defs){filter:url(#ha-rough)}
-.hero-anim.sketch .ha-shadow{fill:url(#ha-hatch);opacity:1}
 .hero-anim.sketch text{font-family:'Caveat',cursive!important;font-size:21px!important;letter-spacing:.02em!important}
-.hero-anim.sketch .ha-slot-bg{stroke-width:1.8}
+.hero-anim .ha-r-door{transition:color .4s}
+.hero-anim.scan .ha-r-door{color:var(--cleared)}
+.hero-anim .ha-r-doorfill{opacity:.35}
+.hero-anim .ha-r-shadow{opacity:.8}
+.hero-anim .ha-r-closed,.hero-anim .ha-r-booked{opacity:0;transition:opacity .35s}
+.hero-anim .ha-slot.is-closed .ha-r-closed{opacity:1}
+.hero-anim .ha-slot.is-booked .ha-r-booked{opacity:1}
+.hero-anim .ha-r-line{transition:color .35s}
+.hero-anim .ha-slot.is-open .ha-r-line,.hero-anim .ha-slot.is-booked .ha-r-line{color:var(--cleared)}
+.hero-anim .ha-slot.is-open .ha-r-line path{stroke-width:2.6}
 @media (max-width:820px){
   .split{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
   header{padding:20px!important}

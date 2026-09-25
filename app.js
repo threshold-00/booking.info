@@ -162,17 +162,68 @@ if (lt) {
   new IntersectionObserver(function (e) { formIn = e[0].isIntersecting; sync(); }).observe(form);
 })();
 
-// Hand-drawn trial for the hero, only when the address has ?sketch. Not linked from anywhere.
+// Hand-drawn hero: redraws each shape of #heroAnim with rough.js as pencil strokes and hatching,
+// hides the clean originals, then lets the lines boil gently. Without rough.js the clean vector stays.
 (function () {
   var svg = document.getElementById('heroAnim');
-  if (!svg || !/[?&]sketch\b/.test(location.search)) return;
-  var font = document.createElement('link');
-  font.rel = 'stylesheet';
-  font.href = 'https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap';
-  document.head.appendChild(font);
+  if (!svg || !window.rough) return;
+  var rc = rough.svg(svg), seed = 7;
+  var NS = 'http://www.w3.org/2000/svg';
+  function rr(x, y, w, h, r) {
+    return 'M' + (x + r) + ' ' + y + 'H' + (x + w - r) + 'Q' + (x + w) + ' ' + y + ' ' + (x + w) + ' ' + (y + r) +
+      'V' + (y + h - r) + 'Q' + (x + w) + ' ' + (y + h) + ' ' + (x + w - r) + ' ' + (y + h) +
+      'H' + (x + r) + 'Q' + x + ' ' + (y + h) + ' ' + x + ' ' + (y + h - r) + 'V' + (y + r) + 'Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y + 'Z';
+  }
+  // One pencil layer. colour is a CSS colour the layer inherits as currentColor, so tokens work.
+  function draw(d, o, colour, cls) {
+    var g = rc.path(d, Object.assign({ roughness: 1.1, bowing: 1.3, stroke: 'currentColor', strokeWidth: 2, seed: seed++ }, o));
+    if (colour) g.style.color = colour;
+    if (cls) g.setAttribute('class', cls);
+    return g;
+  }
+  function circle(cx, cy, r) { return 'M' + (cx - r) + ' ' + cy + 'a' + r + ' ' + r + ' 0 1 0 ' + 2 * r + ' 0a' + r + ' ' + r + ' 0 1 0 ' + -2 * r + ' 0Z'; }
+  function swap(orig, layers) {
+    layers.forEach(function (l) { orig.parentNode.insertBefore(l, orig); });
+    orig.classList.add('ha-orig');
+  }
+  var q = function (s, r) { return (r || svg).querySelector(s); };
+  var PAPER = 'var(--paper)', PANEL = 'var(--panel)', INK = 'var(--ink)';
+  var hatch = { stroke: 'none', fill: 'currentColor', fillStyle: 'hachure', hachureGap: 6, fillWeight: 1.1, hachureAngle: -41 };
+  var solid = { stroke: 'none', fill: 'currentColor', fillStyle: 'solid' };
+
+  swap(q('.ha-ground'), [draw('M8 384H632', { strokeWidth: 2.2, roughness: 1.4 })]);
+  swap(q('.ha-doorfill'), [draw('M203 117H273V384H203Z', Object.assign({}, hatch, { hachureGap: 8 }), null, 'ha-r-doorfill')]);
+  swap(q('.ha-door'), [draw('M200 384V122Q200 114 208 114H268Q276 114 276 122V384', { strokeWidth: 3, fill: 'none' }, null, 'ha-r-door')]);
+  swap(q('.ha-step'), [draw('M186 384H290V393H186Z', Object.assign({}, hatch, { hachureGap: 2.5, stroke: 'currentColor', strokeWidth: 1.5 }))]);
+  swap(q('.ha-shadow'), [draw(rr(364, 132, 250, 250, 14), Object.assign({}, hatch, { hachureGap: 7 }), null, 'ha-r-shadow')]);
+  swap(q('.ha-card'), [draw(rr(356, 122, 250, 250, 14), solid, PANEL), draw(rr(356, 122, 250, 250, 14), { strokeWidth: 2 })]);
+
+  [].forEach.call(svg.querySelectorAll('.ha-slot'), function (slot) {
+    var box = rr(0, 0, 64, 38, 8);
+    swap(q('.ha-slot-bg', slot), [
+      draw(box, Object.assign({}, hatch, { hachureGap: 5, fillWeight: 1 }), null, 'ha-r-closed'),
+      draw(box, Object.assign({}, solid, { roughness: 1.4 }), 'var(--cleared)', 'ha-r-booked'),
+      draw(box, { strokeWidth: 1.6, roughness: 1 }, null, 'ha-r-line')
+    ]);
+  });
+
+  [].forEach.call(svg.querySelectorAll('.ha-fig'), function (fig) {
+    var art = q('g[transform]', fig);
+    var level = fig.getAttribute('data-level');
+    var parts = art.children;
+    var legs = parts[0], body = parts[1], head = parts[2], badge = parts[3];
+    var bodyD = 'M-17 -20C-17 -64 17 -64 17 -20Z';
+    swap(legs, [draw('M-6 0V-24M6 0V-24', { strokeWidth: 2.4, roughness: 1.2 })]);
+    var fill = level === '1' ? [] :
+      level === '3' ? [draw(bodyD, { stroke: 'none', fill: 'currentColor', fillStyle: 'zigzag', hachureGap: 2.2, fillWeight: 1.4 })] :
+      [draw(bodyD, Object.assign({}, hatch, { hachureGap: 4, fillWeight: .9 }))];
+    swap(body, [draw(bodyD, solid, PAPER)].concat(fill, [draw(bodyD, { strokeWidth: 2 })]));
+    swap(head, [draw(circle(0, -78, 13), solid, PAPER), draw(circle(0, -78, 13), { strokeWidth: 2 })]);
+    swap(badge, [draw(rr(-22, -121, 44, 18, 9), solid, PAPER), draw(rr(-22, -121, 44, 18, 9), { strokeWidth: 1.3, roughness: .9 })]);
+  });
+
   svg.classList.add('sketch');
-  var noise = document.getElementById('ha-noise');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var seed = 1;
-  setInterval(function () { seed = seed % 3 + 1; noise.setAttribute('seed', seed); }, 160);
+  var noise = document.getElementById('ha-noise'), n = 1;
+  setInterval(function () { n = n % 3 + 1; noise.setAttribute('seed', n); }, 180);
 })();
