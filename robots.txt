@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /sitev2/
+Disallow: /demo/phones/
 
 Sitemap: https://thresholdbooking.com/sitemap.xml
