@@ -1,9 +1,15 @@
 // Threshold, static site behaviour. Set your address here (used by the contact form and call link).
 var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 
+// Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.
+var FORM_ENDPOINT = '';
+
 document.getElementById('lead').addEventListener('submit', function (e) {
   e.preventDefault();
   var f = e.target;
+  var btn = f.querySelector('button[type=submit]');
+  var status = document.getElementById('leadStatus');
+  var subject = 'Threshold enquiry, ' + (f.business.value || f.name.value);
   var lines = [
     'Name: ' + f.name.value,
     'Business: ' + f.business.value,
@@ -12,9 +18,29 @@ document.getElementById('lead').addEventListener('submit', function (e) {
   var ref = f.referredBy.value.trim();
   if (ref) lines.push('Referred by: ' + ref);
   var body = lines.join('\n');
-  window.location.href = 'mailto:' + CONTACT_EMAIL +
-    '?subject=' + encodeURIComponent('Threshold enquiry, ' + (f.business.value || f.name.value)) +
-    '&body=' + encodeURIComponent(body);
+  function mailDraft() {
+    window.location.href = 'mailto:' + CONTACT_EMAIL +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+  }
+  if (!FORM_ENDPOINT) return mailDraft();
+  if (f._gotcha.value) return; // spam bots fill the hidden field
+  var data = new FormData(f);
+  data.append('_subject', subject);
+  data.append('_replyto', f.email.value);
+  btn.disabled = true;
+  status.textContent = 'Sending...';
+  fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); })
+    .then(function () {
+      f.reset();
+      status.textContent = 'Thanks, that has reached us. We will reply by email.';
+    })
+    .catch(function () {
+      status.textContent = 'That did not send, so we have opened an email for you instead.';
+      mailDraft();
+    })
+    .then(function () { btn.disabled = false; });
 });
 
 document.querySelectorAll('a[href^="mailto:hello@example.com"]').forEach(function (a) {
