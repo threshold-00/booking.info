@@ -227,3 +227,48 @@ if (lt) {
   var noise = document.getElementById('ha-noise'), n = 1;
   setInterval(function () { n = n % 3 + 1; noise.setAttribute('seed', n); }, 180);
 })();
+
+// Verticals scroller under the hero: moves left by default, and reverses to move right
+// while the page itself is being scrolled upward. Pauses on hover, static under reduced motion.
+(function () {
+  var scroll = document.querySelector('.vert-scroll');
+  var track = document.querySelector('.vert-track');
+  if (!scroll || !track) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var halfWidth = 0;
+  function measure() { halfWidth = track.scrollWidth / 2; }
+  measure();
+  window.addEventListener('resize', measure);
+
+  var SPEED = 34; // px per second
+  var dir = 1; // 1 = leftward (default), -1 = rightward
+  var lastScrollY = window.scrollY;
+  var scrollTimer;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    if (y > lastScrollY + 1) dir = 1;
+    else if (y < lastScrollY - 1) dir = -1;
+    lastScrollY = y;
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () { dir = 1; }, 1200); // drift back to the default direction once scrolling stops
+  }, { passive: true });
+
+  var hovered = false;
+  scroll.addEventListener('mouseenter', function () { hovered = true; });
+  scroll.addEventListener('mouseleave', function () { hovered = false; });
+
+  var pos = 0, last = null;
+  function frame(t) {
+    if (last === null) last = t;
+    var dt = (t - last) / 1000;
+    last = t;
+    if (!hovered && halfWidth > 0) {
+      pos += dir * SPEED * dt;
+      pos = ((pos % halfWidth) + halfWidth) % halfWidth;
+      track.style.transform = 'translateX(' + (-pos) + 'px)';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();

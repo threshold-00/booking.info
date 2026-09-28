@@ -36,6 +36,11 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .on-dark .btn:hover{background:var(--cleared);color:var(--paper)}
 /* Solution tiles: arrows in the gaps between the four steps */
 .flow-arrow{position:absolute;top:50%;left:100%;width:32px;display:flex;justify-content:center;transform:translate(8px,-50%);color:rgba(23,23,26,.4)}
+/* Verticals scroller under the hero: driven by app.js, direction follows page scroll direction */
+@media (prefers-reduced-motion:reduce){
+  .vert-track{transform:none!important;flex-wrap:wrap;white-space:normal}
+  .vert-track .vert-set:nth-child(2){display:none}
+}
 /* Floating call button: shows once past the hero, hides over the contact section (app.js) */
 .float-cta{position:fixed;right:24px;bottom:24px;z-index:50;box-shadow:0 6px 20px rgba(23,23,26,.18);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s,background .2s}
 .float-cta.on{opacity:1;transform:none;pointer-events:auto}
