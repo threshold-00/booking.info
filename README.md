@@ -2,7 +2,7 @@
 
 Static marketing site. No build step, no dependencies.
 
-Live at **https://threshold-00.github.io/booking.info/**
+Live at **https://thresholdbooking.com/**
 
 ## Files
 - `index.html`, home (single scroll)
