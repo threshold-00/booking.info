@@ -4,44 +4,155 @@ var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.
 var FORM_ENDPOINT = '';
 
-document.getElementById('lead').addEventListener('submit', function (e) {
-  e.preventDefault();
-  var f = e.target;
-  var btn = f.querySelector('button[type=submit]');
-  var status = document.getElementById('leadStatus');
-  var subject = 'Threshold enquiry, ' + (f.business.value || f.name.value);
-  var lines = [
-    'Name: ' + f.name.value,
-    'Business: ' + f.business.value,
-    'Email: ' + f.email.value
-  ];
-  var ref = f.referredBy.value.trim();
-  if (ref) lines.push('Referred by: ' + ref);
-  var body = lines.join('\n');
-  function mailDraft() {
-    window.location.href = 'mailto:' + CONTACT_EMAIL +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(body);
-  }
-  if (!FORM_ENDPOINT) return mailDraft();
-  if (f._gotcha.value) return; // spam bots fill the hidden field
-  var data = new FormData(f);
-  data.append('_subject', subject);
-  data.append('_replyto', f.email.value);
-  btn.disabled = true;
-  status.textContent = 'Sending...';
-  fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); })
-    .then(function () {
-      f.reset();
-      status.textContent = 'Thanks, that has reached us. We will reply by email.';
-    })
-    .catch(function () {
-      status.textContent = 'That did not send, so we have opened an email for you instead.';
-      mailDraft();
-    })
-    .then(function () { btn.disabled = false; });
+// Hero category filter chips: visual toggle only, no filtering logic yet since there's
+// one live destination. Clicking a category selects it alone; clicking "All" clears it.
+document.querySelectorAll('.cat-toggle').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var group = btn.closest('[role="group"]');
+    if (!group) return;
+    group.querySelectorAll('.cat-toggle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    btn.setAttribute('aria-pressed', 'true');
+  });
 });
+
+// Explore nearby map (Leaflet, vendored in assets/leaflet/). Real listings only, no
+// placeholder pins. Centres on the user's location when granted, falls back to the
+// Mornington Peninsula, then fits bounds to whatever pins exist. Filter chips reuse the
+// same category set and .opt styling as the Experiences section above, wired here to
+// actually show/hide pins since this is the section the brief asked for real filtering on.
+(function () {
+  var mapEl = document.getElementById('exploreMap');
+  if (!mapEl || typeof L === 'undefined') return;
+
+  var FALLBACK_CENTER = [-38.373, 144.952]; // Mornington Peninsula
+
+  // Real listings only. Add a pin here once a business goes live with a bookable page.
+  var pins = [
+    {
+      cat: 'horse',
+      name: 'Salty Cowboy, Bali',
+      lat: -8.6500,
+      lng: 115.2167,
+      description: 'A horse rescue and riding centre where every booking is screened by riding level and weight.',
+      price: 'From IDR 1,250,000',
+      link: 'bali/'
+    }
+  ];
+
+  var map = L.map(mapEl, { scrollWheelZoom: false }).setView(FALLBACK_CENTER, 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  var markers = pins.map(function (p) {
+    var m = L.marker([p.lat, p.lng]);
+    m.threshCat = p.cat;
+    m.addTo(map);
+    m.bindPopup(
+      '<strong>' + p.name + '</strong><br>' +
+      p.description + '<br>' +
+      '<strong>' + p.price + '</strong><br>' +
+      '<a href="' + p.link + '">View listing &rarr;</a>'
+    );
+    return m;
+  });
+
+  function fitToPins(extra) {
+    var points = pins.map(function (p) { return [p.lat, p.lng]; });
+    if (extra) points = points.concat([extra]);
+    if (!points.length) return;
+    map.fitBounds(L.latLngBounds(points), { padding: [40, 40], maxZoom: 10 });
+  }
+  fitToPins();
+
+  var statusEl = document.getElementById('nearbyStatus');
+  function setStatus(text) { if (statusEl) statusEl.textContent = text; }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var userLatLng = [pos.coords.latitude, pos.coords.longitude];
+      L.marker(userLatLng).addTo(map).bindPopup('You are here');
+      fitToPins(userLatLng);
+      setStatus('Showing experiences near you');
+    }, function () {
+      setStatus('Showing all experiences. Enable location to see what’s nearest.');
+    }, { timeout: 6000 });
+  } else {
+    setStatus('Showing all experiences');
+  }
+
+  document.querySelectorAll('.map-cat-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var group = btn.closest('[role="group"]');
+      if (group) group.querySelectorAll('.map-cat-toggle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      var cat = btn.getAttribute('data-cat');
+      markers.forEach(function (m) {
+        var show = cat === 'all' || m.threshCat === cat;
+        var onMap = map.hasLayer(m);
+        if (show && !onMap) m.addTo(map);
+        if (!show && onMap) map.removeLayer(m);
+      });
+    });
+  });
+})();
+
+// Wires a lead/sign-up form generically: every named field becomes a line (checkboxes
+// with the same name are grouped onto one line), posted to Formspree when FORM_ENDPOINT
+// is set, falling back to a mail draft to CONTACT_EMAIL otherwise.
+function wireLeadForm(form) {
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target;
+    var btn = f.querySelector('button[type=submit]');
+    var status = f.querySelector('.form-status');
+    var subjectBase = f.getAttribute('data-subject') || 'Threshold enquiry';
+    var titleField = f.elements['business'] || f.elements['name'];
+    var subject = subjectBase + (titleField && titleField.value ? ', ' + titleField.value : '');
+    var lines = [], grouped = {}, order = [];
+    [].forEach.call(f.elements, function (el) {
+      if (!el.name || el.name === '_gotcha' || el.type === 'submit' || el.type === 'button') return;
+      var label = el.getAttribute('data-label') || el.name;
+      if (el.type === 'checkbox') {
+        if (!el.checked) return;
+        if (!(label in grouped)) { grouped[label] = []; order.push(label); }
+        grouped[label].push(el.value);
+        return;
+      }
+      var v = (el.value || '').trim();
+      if (v) lines.push(label + ': ' + v);
+    });
+    order.forEach(function (label) { lines.push(label + ': ' + grouped[label].join(', ')); });
+    var body = lines.join('\n');
+    function mailDraft() {
+      window.location.href = 'mailto:' + CONTACT_EMAIL +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+    }
+    if (!FORM_ENDPOINT) return mailDraft();
+    if (f._gotcha && f._gotcha.value) return; // spam bots fill the hidden field
+    var data = new FormData(f);
+    data.append('_subject', subject);
+    if (f.elements['email']) data.append('_replyto', f.elements['email'].value);
+    btn.disabled = true;
+    if (status) status.textContent = 'Sending...';
+    fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); })
+      .then(function () {
+        f.reset();
+        if (status) status.textContent = f.getAttribute('data-success') || 'Thanks, that has reached us. We will reply by email.';
+      })
+      .catch(function () {
+        if (status) status.textContent = 'That did not send, so we have opened an email for you instead.';
+        mailDraft();
+      })
+      .then(function () { btn.disabled = false; });
+  });
+}
+wireLeadForm(document.getElementById('lead'));
+wireLeadForm(document.getElementById('bizSignup'));
 
 document.querySelectorAll('a[href^="mailto:hello@example.com"]').forEach(function (a) {
   a.href = a.href.replace('hello@example.com', CONTACT_EMAIL);
@@ -154,7 +265,7 @@ if (lt) {
 (function () {
   var btn = document.getElementById('floatCta');
   var hero = document.getElementById('top');
-  var form = document.getElementById('interested');
+  var form = document.getElementById('interested') || document.getElementById('signup') || document.querySelector('footer');
   if (!btn || !hero || !form || !('IntersectionObserver' in window)) return;
   var heroIn = true, formIn = false;
   function sync() { btn.classList.toggle('on', !heroIn && !formIn); }
