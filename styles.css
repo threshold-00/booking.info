@@ -1,4 +1,4 @@
-:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Neue Haas Grotesk Display Pro','Neue Haas Grotesk','Helvetica Neue',Helvetica,sans-serif;--mono:'IBM Plex Mono',monospace}
+:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Neue Haas Grotesk Display Pro','Neue Haas Grotesk','Helvetica Neue',Helvetica,sans-serif;--mono:'IBM Plex Mono',monospace;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--gutter:40px;--section-y:var(--s-9);--r-pill:999px}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--paper)}
 body{color:var(--ink);font-family:'Chivo Mono',monospace;font-weight:400;font-size:12px;line-height:17px;text-transform:uppercase;min-height:100vh}
@@ -75,14 +75,51 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .hero-anim .ha-r-line{transition:color .35s}
 .hero-anim .ha-slot.is-open .ha-r-line,.hero-anim .ha-slot.is-booked .ha-r-line{color:var(--cleared)}
 .hero-anim .ha-slot.is-open .ha-r-line path{stroke-width:2.6}
+/* Card component: sentence case for titles and descriptions, uppercase for price/tags only */
+.card{display:block;color:var(--ink);border:1px solid var(--line);overflow:hidden;background:var(--paper)}
+.card--placeholder{border-style:dashed;opacity:.7}
+.card__media{aspect-ratio:4/3;background:var(--panel) center/cover no-repeat}
+.card__body{padding:var(--s-4)}
+.card__loc{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0 0 6px}
+.card__title{font-family:var(--display);font-weight:500;font-size:17px;line-height:1.2;letter-spacing:-.01em;margin:0 0 var(--s-2);text-transform:none}
+.card__desc{font-family:var(--display);font-size:14px;line-height:1.4;text-transform:none;letter-spacing:0;color:rgba(23,23,26,.7);margin:0 0 var(--s-3)}
+.card__meta{padding-top:var(--s-3);border-top:1px solid var(--line);display:grid;gap:6px}
+.card__price{font-family:var(--mono);font-size:11px;line-height:15px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--cleared);margin:0}
+.card:hover{border-color:var(--ink)}
+.card--placeholder:hover{border-color:var(--line)}
+/* Leaflet map: greyscale tiles, ink pins, brand popups */
+#exploreMap .leaflet-tile-pane,#mpMap .leaflet-tile-pane{filter:grayscale(1) contrast(.9) brightness(1.04) sepia(.08)}
+#exploreMap,#mpMap{background:var(--panel)}
+.th-pin{color:var(--ink);background:none;border:0}
+.th-pin:hover,.th-pin.is-active{color:var(--cleared)}
+.th-pin svg{display:block;filter:drop-shadow(0 2px 3px rgba(23,23,26,.25))}
+.th-you{background:var(--cleared);border:3px solid var(--paper);border-radius:50%;box-shadow:0 0 0 1px var(--ink)}
+#exploreMap .leaflet-popup-content-wrapper,#mpMap .leaflet-popup-content-wrapper{background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-radius:0;box-shadow:0 6px 20px rgba(23,23,26,.18)}
+#exploreMap .leaflet-popup-tip,#mpMap .leaflet-popup-tip{background:var(--paper);border:1px solid var(--ink);box-shadow:none}
+#exploreMap .leaflet-popup-content,#mpMap .leaflet-popup-content{margin:16px;text-transform:none;font-family:var(--display);font-size:14px;line-height:1.4}
+.pop-title{font-weight:500;font-size:16px;margin:0 0 6px}
+.pop-desc{margin:0 0 10px;color:rgba(23,23,26,.7)}
+.pop-price{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--cleared);margin:0 0 10px}
+.pop-link{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ink)}
+.pop-link:hover{color:var(--cleared);border-bottom-color:var(--cleared)}
+#exploreMap .leaflet-bar,#mpMap .leaflet-bar{border:1px solid var(--ink);border-radius:0;box-shadow:none}
+#exploreMap .leaflet-bar a,#mpMap .leaflet-bar a{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line);width:36px;height:36px;line-height:36px;font-family:var(--mono)}
+#exploreMap .leaflet-bar a:hover,#mpMap .leaflet-bar a:hover{background:var(--ink);color:var(--paper)}
+#exploreMap .leaflet-control-attribution,#mpMap .leaflet-control-attribution{background:rgba(243,242,238,.85);font-family:var(--mono);font-size:10px;text-transform:none;color:rgba(23,23,26,.6)}
+#exploreMap .leaflet-control-attribution a,#mpMap .leaflet-control-attribution a{color:var(--ink)}
+#exploreMap .leaflet-container a.leaflet-popup-close-button,#mpMap .leaflet-container a.leaflet-popup-close-button{color:var(--ink)}
 @media (max-width:820px){
+  :root{--gutter:20px;--section-y:var(--s-8)}
   .split{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
   header{padding:20px!important}
   .site-header{padding:0!important}
-  .bar{padding-left:20px!important;padding-right:20px!important;flex-wrap:wrap}
-  .nav{width:100%;gap:12px 16px!important;font-size:10px!important}
+  .bar{padding:14px 20px!important;flex-wrap:nowrap;align-items:center}
+  .nav{width:auto;gap:12px 16px!important;font-size:11px!important}
+  .navlink{padding:12px 0}
   section,footer{padding-left:20px!important;padding-right:20px!important}
-  #top{padding-top:72px!important}
+  #top{padding:56px 20px 64px!important}
+  #top h1{margin-bottom:20px!important}
+  #top>p{margin-bottom:24px!important}
   .desk-only{display:none}
   .offer-grid{grid-template-columns:minmax(0,1fr)!important}
   .offer-grid .offer-head{display:none}
@@ -90,7 +127,9 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
   .offer-grid [data-col]::before{content:attr(data-col);display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;opacity:.7;margin-bottom:6px}
   .phone-track{gap:24px;margin-right:-20px;padding-right:20px}
   .phone-track>figure{width:240px}
-  .float-cta{right:16px;bottom:16px}
+  .float-cta{right:16px;bottom:16px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px)}
   .flow{grid-template-columns:minmax(0,1fr)!important}
   .flow-arrow{display:none}
+  .btn-ghost{padding:13px 18px}
+  footer{flex-direction:column;gap:var(--s-3)!important}
 }
