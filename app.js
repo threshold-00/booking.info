@@ -4,16 +4,6 @@ var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.
 var FORM_ENDPOINT = '';
 
-// Hero category filter chips: visual toggle only, no filtering logic yet since there's
-// one live destination. Clicking a category selects it alone; clicking "All" clears it.
-document.querySelectorAll('.cat-toggle').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var group = btn.closest('[role="group"]');
-    if (!group) return;
-    group.querySelectorAll('.cat-toggle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-    btn.setAttribute('aria-pressed', 'true');
-  });
-});
 
 // Explore nearby map (Leaflet, vendored in assets/leaflet/). Real listings only, no
 // placeholder pins. Centres on the user's location when granted, falls back to the
@@ -33,8 +23,8 @@ document.querySelectorAll('.cat-toggle').forEach(function (btn) {
       name: 'Salty Cowboy, Bali',
       lat: -8.6500,
       lng: 115.2167,
-      description: 'A horse rescue and riding centre where every booking is screened by riding level and weight.',
-      price: 'From IDR 1,250,000',
+      description: 'Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.',
+      price: 'From $50 AUD',
       link: 'bali/'
     }
   ];
@@ -82,20 +72,6 @@ document.querySelectorAll('.cat-toggle').forEach(function (btn) {
     setStatus('Showing all experiences');
   }
 
-  document.querySelectorAll('.map-cat-toggle').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var group = btn.closest('[role="group"]');
-      if (group) group.querySelectorAll('.map-cat-toggle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-      btn.setAttribute('aria-pressed', 'true');
-      var cat = btn.getAttribute('data-cat');
-      markers.forEach(function (m) {
-        var show = cat === 'all' || m.threshCat === cat;
-        var onMap = map.hasLayer(m);
-        if (show && !onMap) m.addTo(map);
-        if (!show && onMap) map.removeLayer(m);
-      });
-    });
-  });
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes
