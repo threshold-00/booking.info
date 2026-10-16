@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Threshold, booking software for small tour operators who screen before they confirm</title>
-<meta name="description" content="One booking page that gathers the answers you need before a slot is confirmed. Built for small adventure and tour operators who can't afford a bad match." />
+<title>Things to do on the Mornington Peninsula and in Bali | Threshold</title>
+<meta name="description" content="Unique experiences run by the local people who started them. On the Mornington Peninsula and in Bali." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -15,14 +15,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Threshold" />
 <meta property="og:url" content="https://thresholdbooking.com/" />
-<meta property="og:title" content="Threshold, booking software for small tour operators who screen before they confirm" />
-<meta property="og:description" content="One booking page that gathers the answers you need before a slot is confirmed. Built for small adventure and tour operators who can't afford a bad match." />
+<meta property="og:title" content="Things to do on the Mornington Peninsula and in Bali | Threshold" />
+<meta property="og:description" content="Unique experiences run by the local people who started them. On the Mornington Peninsula and in Bali." />
 <meta property="og:image" content="https://thresholdbooking.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Threshold, booking software for small tour operators who screen before they confirm" />
-<meta name="twitter:description" content="One booking page that gathers the answers you need before a slot is confirmed. Built for small adventure and tour operators who can't afford a bad match." />
+<meta name="twitter:title" content="Things to do on the Mornington Peninsula and in Bali | Threshold" />
+<meta name="twitter:description" content="Unique experiences run by the local people who started them. On the Mornington Peninsula and in Bali." />
 <meta name="twitter:image" content="https://thresholdbooking.com/assets/og-image.png" />
 <script type="application/ld+json">
 {
@@ -37,12 +37,18 @@
     {
       "@type": "WebSite",
       "name": "Threshold",
-      "url": "https://thresholdbooking.com/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://thresholdbooking.com/bali/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "url": "https://thresholdbooking.com/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://thresholdbooking.com/"
+        }
+      ]
     }
   ]
 }
@@ -54,82 +60,94 @@
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:34px 40px;border-bottom:1px solid var(--line);">
       <a href="#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-        <a href="bali/" class="navlink on">Browse tours</a>
-        <a href="for-business/" class="btn-ghost" style="padding:9px 16px;">For operators</a>
+        <a href="#browse" class="navlink on">Browse experiences</a>
+        <a href="for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
       </nav>
     </div>
   </header>
 
   <section id="top" style="padding:96px 40px 120px;max-width:900px;margin:0 auto;text-align:center;">
     <h1 style="font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;">Something you'll actually remember doing.</h1>
-    <p style="margin:0 0 36px;color:rgba(23,23,26,.68);">From skydiving to pottery classes, discover and book small-group experiences in the Mornington Peninsula and beyond.</p>
-    <form action="bali/" method="get" style="display:flex;align-items:center;gap:0;max-width:600px;margin:0 auto 18px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 6px 6px 22px;">
-      <input type="text" name="q" placeholder="Try &quot;Bali&quot;" list="destinations" autocomplete="off" style="flex:1;border:0;padding:12px 10px;text-transform:none;background:none;" />
-      <datalist id="destinations"><option value="Bali"></option></datalist>
-      <button type="submit" class="btn" style="border-radius:999px;padding:13px 26px;">Search</button>
-    </form>
+    <p style="margin:0 0 36px;color:rgba(23,23,26,.68);">Unique experiences run by the local people who started them. On the Mornington Peninsula and in Bali.</p>
+    <a href="#browse" class="btn" style="border-radius:999px;padding:15px 32px;">Find an experience</a>
+  </section>
+
+  <section id="why" style="padding:0 40px 88px;max-width:1100px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+      <div style="padding:28px;border:1px solid var(--line);background:var(--panel);">
+        <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;">Made by a person, not a platform.</h3>
+        <p style="margin:0;color:rgba(23,23,26,.72);">Every experience is run by its owner. You'll meet the person who built it.</p>
+      </div>
+      <div style="padding:28px;border:1px solid var(--line);background:var(--panel);">
+        <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;">Support local.</h3>
+        <p style="margin:0;color:rgba(23,23,26,.72);">Your booking goes to a small local business, not a faceless chain.</p>
+      </div>
+      <div style="padding:28px;border:1px solid var(--line);background:var(--panel);">
+        <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;">Chosen with care.</h3>
+        <p style="margin:0;color:rgba(23,23,26,.72);">We list fewer places on purpose. If we wouldn't book it ourselves, it isn't here.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 40px 88px;max-width:680px;margin:0 auto;">
+    <figure style="margin:0;position:relative;">
+      <picture>
+        <source media="(max-width:820px)" srcset="assets/photos/coastline-mobile.webp" type="image/webp" />
+        <source media="(max-width:820px)" srcset="assets/photos/coastline-mobile.jpg" type="image/jpeg" />
+        <source srcset="assets/photos/coastline.webp" type="image/webp" />
+        <img src="assets/photos/coastline.jpg" alt="A person stands silhouetted in a sea cave on Victoria's coastline, reflections in still water at their feet" loading="lazy" width="1200" height="900" style="width:100%;height:auto;display:block;" />
+      </picture>
+      <figcaption style="margin-top:10px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:rgba(23,23,26,.45);">Photo by <a href="https://unsplash.com/@nisarga_ekbote" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.25);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.25);">Unsplash</a></figcaption>
+    </figure>
   </section>
 
   <section id="browse" style="padding:0 40px 88px;max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
-      <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Experiences</h2>
-      <span style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.45);">More added as operators join</span>
+      <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;">Experiences</h2>
+      <p style="margin:0;max-width:62ch;color:rgba(23,23,26,.68);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Slow down on a retreat. Try a class you've never heard of.</p>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;" role="group" aria-label="Filter by category">
-      <button type="button" class="opt cat-toggle" data-cat="all" aria-pressed="true" style="border-radius:999px;">All</button>
-      <button type="button" class="opt cat-toggle" data-cat="horse" aria-pressed="false" style="border-radius:999px;">🐴 Horse riding</button>
-      <button type="button" class="opt cat-toggle" data-cat="dive" aria-pressed="false" style="border-radius:999px;">🤿 Dive &amp; snorkel</button>
-      <button type="button" class="opt cat-toggle" data-cat="surf" aria-pressed="false" style="border-radius:999px;">🏄 Surf</button>
-      <button type="button" class="opt cat-toggle" data-cat="climb" aria-pressed="false" style="border-radius:999px;">🧗 Climbing</button>
-      <button type="button" class="opt cat-toggle" data-cat="creative" aria-pressed="false" style="border-radius:999px;">🎨 Creative</button>
-      <button type="button" class="opt cat-toggle" data-cat="moto" aria-pressed="false" style="border-radius:999px;">🏍️ Motorbike tours</button>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 28px;">
+      <a href="mornington-peninsula/" class="btn-ghost hov" style="padding:11px 20px;border-radius:999px;">Mornington Peninsula</a>
+      <a href="bali/" class="btn-ghost hov" style="padding:11px 20px;border-radius:999px;">Bali</a>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
       <a href="bali/" style="display:block;color:var(--ink);border:1px solid var(--line);overflow:hidden;">
         <div style="aspect-ratio:4/3;background-image:url('assets/stable-photoshoot.avif');background-size:cover;background-position:center 38%;"></div>
         <div style="padding:18px;">
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Horse riding, Bali</h3>
-          <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.68);">Small-group and private rides for all experience levels</p>
+          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.5);">Bali</p>
+          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Salty Cowboy</h3>
+          <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.68);">Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.</p>
           <div style="padding-top:12px;border-top:1px solid var(--line);display:grid;gap:6px;">
-            <p style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;color:var(--cleared);">From $45 AUD</p>
-            <p style="margin:0;font-family:var(--mono);font-size:11px;line-height:15px;letter-spacing:.02em;color:rgba(23,23,26,.55);">Beach rides · Sunset rides · Beginner lessons</p>
+            <p style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;color:var(--cleared);">From $50 AUD</p>
           </div>
         </div>
       </a>
-      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
+      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
         <div style="aspect-ratio:4/3;background:var(--panel);"></div>
         <div style="padding:18px;">
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Dive &amp; snorkel</h3>
-          <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.5);">More added as operators join</p>
-          <div style="padding-top:12px;border-top:1px solid var(--line);display:grid;gap:6px;">
-            <p style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;color:rgba(23,23,26,.4);">Price range TBC</p>
-            <p style="margin:0;font-family:var(--mono);font-size:11px;line-height:15px;letter-spacing:.02em;color:rgba(23,23,26,.45);">Reef dives · Snorkel trips · PADI courses</p>
-          </div>
+          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Mornington Peninsula</p>
+          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
+          <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
+      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
         <div style="aspect-ratio:4/3;background:var(--panel);"></div>
         <div style="padding:18px;">
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Surf</h3>
-          <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.5);">More added as operators join</p>
-          <div style="padding-top:12px;border-top:1px solid var(--line);display:grid;gap:6px;">
-            <p style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;color:rgba(23,23,26,.4);">Price range TBC</p>
-            <p style="margin:0;font-family:var(--mono);font-size:11px;line-height:15px;letter-spacing:.02em;color:rgba(23,23,26,.45);">Group lessons · Private coaching · Board hire</p>
-          </div>
+          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Mornington Peninsula</p>
+          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
+          <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
+      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
         <div style="aspect-ratio:4/3;background:var(--panel);"></div>
         <div style="padding:18px;">
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Creative experiences</h3>
-          <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.5);">More added as operators join</p>
-          <div style="padding-top:12px;border-top:1px solid var(--line);display:grid;gap:6px;">
-            <p style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;color:rgba(23,23,26,.4);">Price range TBC</p>
-            <p style="margin:0;font-family:var(--mono);font-size:11px;line-height:15px;letter-spacing:.02em;color:rgba(23,23,26,.45);">Pottery · Lamp making · Cooking classes</p>
-          </div>
+          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Bali</p>
+          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
+          <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
     </div>
+    <p style="margin:48px 0 0;text-align:center;font-size:14px;line-height:1.5;color:rgba(23,23,26,.7);">Interesting things for interesting people. Get off your phone and out into the real world.</p>
   </section>
 
   <section id="nearby" style="padding:0 40px 88px;max-width:1200px;margin:0 auto;">
@@ -137,41 +155,32 @@
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore nearby</h2>
       <span id="nearbyStatus" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.45);">Locating you&hellip;</span>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 20px;" role="group" aria-label="Filter map by category">
-      <button type="button" class="opt map-cat-toggle" data-cat="all" aria-pressed="true" style="border-radius:999px;">All</button>
-      <button type="button" class="opt map-cat-toggle" data-cat="horse" aria-pressed="false" style="border-radius:999px;">🐴 Horse riding</button>
-      <button type="button" class="opt map-cat-toggle" data-cat="dive" aria-pressed="false" style="border-radius:999px;">🤿 Dive &amp; snorkel</button>
-      <button type="button" class="opt map-cat-toggle" data-cat="surf" aria-pressed="false" style="border-radius:999px;">🏄 Surf</button>
-      <button type="button" class="opt map-cat-toggle" data-cat="climb" aria-pressed="false" style="border-radius:999px;">🧗 Climbing</button>
-      <button type="button" class="opt map-cat-toggle" data-cat="creative" aria-pressed="false" style="border-radius:999px;">🎨 Creative</button>
-      <button type="button" class="opt map-cat-toggle" data-cat="moto" aria-pressed="false" style="border-radius:999px;">🏍️ Motorbike tours</button>
-    </div>
     <div id="exploreMap" style="border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
 
   <section style="padding:0 40px 96px;max-width:1200px;margin:0 auto;">
     <div style="border-top:1px solid var(--line);padding-top:64px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
       <div>
-        <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 10px;">Run tours or activities?</h2>
-        <p style="margin:0;max-width:48ch;color:rgba(23,23,26,.7);">List them on Threshold, free to join, no contract lock-in.</p>
+        <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 10px;">Run your own experience?</h2>
+        <p style="margin:0;max-width:48ch;color:rgba(23,23,26,.7);">List it with Threshold.</p>
       </div>
-      <a href="for-business/" class="btn">List your tours</a>
+      <a href="for-business/" class="btn">List your business</a>
     </div>
   </section>
 
   <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.5);">
     <span style="color:var(--ink);">© 2026 Threshold</span>
-    <span>Real operators, hand-picked for you.</span>
     <nav style="display:flex;gap:20px;flex-wrap:wrap;">
-      <a href="bali/" class="navlink">Browse tours</a>
-      <a href="for-business/" class="navlink">For operators</a>
+      <a href="mornington-peninsula/" class="navlink">Mornington Peninsula</a>
+      <a href="bali/" class="navlink">Bali</a>
+      <a href="for-business/" class="navlink">For businesses</a>
       <a href="faq/" class="navlink">FAQ</a>
       <a href="for-business/#interested" class="navlink">Contact</a>
     </nav>
     <span id="localTime"></span>
   </footer>
 </div>
-<a href="#browse" class="btn float-cta" id="floatCta">Browse tours</a>
+<a href="#browse" class="btn float-cta" id="floatCta">Browse experiences</a>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
 <script src="app.js"></script>

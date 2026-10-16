@@ -4,16 +4,6 @@ var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.
 var FORM_ENDPOINT = '';
 
-// Hero category filter chips: visual toggle only, no filtering logic yet since there's
-// one live destination. Clicking a category selects it alone; clicking "All" clears it.
-document.querySelectorAll('.cat-toggle').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var group = btn.closest('[role="group"]');
-    if (!group) return;
-    group.querySelectorAll('.cat-toggle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-    btn.setAttribute('aria-pressed', 'true');
-  });
-});
 
 // Explore nearby map (Leaflet, vendored in assets/leaflet/). Real listings only, no
 // placeholder pins. Centres on the user's location when granted, falls back to the
@@ -33,11 +23,27 @@ document.querySelectorAll('.cat-toggle').forEach(function (btn) {
       name: 'Salty Cowboy, Bali',
       lat: -8.6500,
       lng: 115.2167,
-      description: 'A horse rescue and riding centre where every booking is screened by riding level and weight.',
-      price: 'From IDR 1,250,000',
+      description: 'Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.',
+      price: 'From $50 AUD',
       link: 'bali/'
     }
   ];
+
+  // Custom ink SVG pin icon with --cleared active state
+  function pinIcon(active) {
+    return L.divIcon({
+      className: 'th-pin' + (active ? ' is-active' : ''),
+      html: '<svg viewBox="0 0 28 36" width="28" height="36" aria-hidden="true"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>',
+      iconSize: [28, 36],
+      iconAnchor: [14, 35],
+      popupAnchor: [0, -30]
+    });
+  }
+
+  // User location pin
+  function userIcon() {
+    return L.divIcon({ className: 'th-you', iconSize: [14, 14] });
+  }
 
   var map = L.map(mapEl, { scrollWheelZoom: false }).setView(FALLBACK_CENTER, 7);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -46,15 +52,18 @@ document.querySelectorAll('.cat-toggle').forEach(function (btn) {
   }).addTo(map);
 
   var markers = pins.map(function (p) {
-    var m = L.marker([p.lat, p.lng]);
+    var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.name, keyboard: true });
     m.threshCat = p.cat;
     m.addTo(map);
     m.bindPopup(
-      '<strong>' + p.name + '</strong><br>' +
-      p.description + '<br>' +
-      '<strong>' + p.price + '</strong><br>' +
-      '<a href="' + p.link + '">View listing &rarr;</a>'
+      '<p class="pop-title">' + p.name + '</p>' +
+      '<p class="pop-desc">' + p.description + '</p>' +
+      '<p class="pop-price">' + p.price + '</p>' +
+      '<a class="pop-link" href="' + p.link + '">View listing &rarr;</a>',
+      { closeButton: true, maxWidth: 260 }
     );
+    m.on('popupopen', function () { m.setIcon(pinIcon(true)); });
+    m.on('popupclose', function () { m.setIcon(pinIcon(false)); });
     return m;
   });
 
@@ -72,30 +81,16 @@ document.querySelectorAll('.cat-toggle').forEach(function (btn) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (pos) {
       var userLatLng = [pos.coords.latitude, pos.coords.longitude];
-      L.marker(userLatLng).addTo(map).bindPopup('You are here');
+      L.marker(userLatLng, { icon: userIcon() }).addTo(map).bindPopup('You are here');
       fitToPins(userLatLng);
       setStatus('Showing experiences near you');
     }, function () {
-      setStatus('Showing all experiences. Enable location to see what’s nearest.');
+      setStatus('Showing all experiences. Enable location to see what is nearest.');
     }, { timeout: 6000 });
   } else {
     setStatus('Showing all experiences');
   }
 
-  document.querySelectorAll('.map-cat-toggle').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var group = btn.closest('[role="group"]');
-      if (group) group.querySelectorAll('.map-cat-toggle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-      btn.setAttribute('aria-pressed', 'true');
-      var cat = btn.getAttribute('data-cat');
-      markers.forEach(function (m) {
-        var show = cat === 'all' || m.threshCat === cat;
-        var onMap = map.hasLayer(m);
-        if (show && !onMap) m.addTo(map);
-        if (!show && onMap) map.removeLayer(m);
-      });
-    });
-  });
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes
