@@ -1,11 +1,11 @@
 # Threshold
-> Unique experiences run by the local people who started them. On the Mornington Peninsula and in Bali.
+> Unique experiences run by the local people who started them. In Victoria, Australia and Bali.
 
 Threshold is a booking site for small, owner-run experience businesses. Businesses pay 8% only when Threshold brings them a booking. Nothing upfront.
 
 ## Pages
 - [Home](https://thresholdbooking.com/)
-- [Mornington Peninsula](https://thresholdbooking.com/mornington-peninsula/)
+- [Victoria, Australia](https://thresholdbooking.com/mornington-peninsula/)
 - [Bali](https://thresholdbooking.com/bali/)
 - [FAQ](https://thresholdbooking.com/faq/)
 - [For businesses](https://thresholdbooking.com/for-business/)
