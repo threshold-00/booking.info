@@ -114,7 +114,7 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
   header{padding:20px!important}
   .site-header{padding:0!important}
   .bar{padding:14px 20px!important;flex-wrap:nowrap;align-items:center}
-  .nav{width:auto;gap:12px 16px!important;font-size:11px!important}
+  .nav{width:100%;gap:12px 16px!important;font-size:10px!important}
   .navlink{padding:12px 0}
   section,footer{padding-left:20px!important;padding-right:20px!important}
   #top{padding:56px 20px 64px!important}
