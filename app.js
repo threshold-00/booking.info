@@ -218,18 +218,22 @@ window.ThCurrency = (function () {
   var regionRadios = regionGroup ? [].slice.call(regionGroup.querySelectorAll('.region-radio')) : [];
   var seeAllBtns = [].slice.call(document.querySelectorAll('.see-all'));
 
-  var state = { cat: '', sub: '', region: '' };
+  // state.cat is a list of selected category chips (OR'd together); an empty list means
+  // "All" and shows every experience.
+  var state = { cat: [], sub: '', region: '' };
 
   function readURL() {
     var params = new URLSearchParams(window.location.search);
-    state.cat = params.get('cat') || '';
+    var cat = params.get('cat') || '';
+    state.cat = cat ? cat.split(',').filter(Boolean) : [];
     state.sub = params.get('sub') || '';
     state.region = params.get('region') || '';
   }
 
   function writeURL() {
     var params = new URLSearchParams(window.location.search);
-    ['cat', 'sub', 'region'].forEach(function (key) {
+    if (state.cat.length) params.set('cat', state.cat.join(',')); else params.delete('cat');
+    ['sub', 'region'].forEach(function (key) {
       if (state[key]) params.set(key, state[key]); else params.delete(key);
     });
     var qs = params.toString();
@@ -239,11 +243,12 @@ window.ThCurrency = (function () {
 
   function cardMatches(card, opts) {
     opts = opts || {};
-    if (!opts.ignoreCat && state.cat) {
-      var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
-      if (cats.indexOf(state.cat) === -1) return false;
+    var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
+    if (!opts.ignoreCat && state.cat.length) {
+      var matchesAnyCat = state.cat.some(function (cat) { return cats.indexOf(cat) !== -1; });
+      if (!matchesAnyCat) return false;
     }
-    if (!opts.ignoreSub && state.sub) {
+    if (!opts.ignoreSub && state.sub && cats.indexOf('horse') !== -1) {
       if (card.getAttribute('data-type') !== state.sub) return false;
     }
     if (state.region) {
@@ -253,7 +258,7 @@ window.ThCurrency = (function () {
   }
 
   function hasActiveFilters() {
-    return !!(state.cat || state.sub || state.region);
+    return !!(state.cat.length || state.sub || state.region);
   }
 
   // Sub-chip counts reflect the currently visible horse cards, respecting region and
@@ -334,12 +339,30 @@ window.ThCurrency = (function () {
     if (!show) setSub('');
   }
 
-  function setCat(cat) {
-    state.cat = cat || '';
+  // Category chips are multi-select: toggles a cat in/out of state.cat. Clicking "All"
+  // (an empty cat) always clears the selection back to everything.
+  function toggleCat(cat) {
+    if (!cat) {
+      state.cat = [];
+    } else {
+      var i = state.cat.indexOf(cat);
+      if (i === -1) state.cat.push(cat); else state.cat.splice(i, 1);
+    }
+    applyCatState();
+  }
+
+  function setCat(cats) {
+    state.cat = cats ? [cats] : [];
+    applyCatState();
+  }
+
+  function applyCatState() {
     catChips.forEach(function (chip) {
-      chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === state.cat ? 'true' : 'false');
+      var cat = chip.getAttribute('data-cat');
+      var pressed = cat ? state.cat.indexOf(cat) !== -1 : state.cat.length === 0;
+      chip.setAttribute('aria-pressed', pressed ? 'true' : 'false');
     });
-    showHorseSub(state.cat === 'horse');
+    showHorseSub(state.cat.indexOf('horse') !== -1);
     writeURL();
     render();
   }
@@ -355,8 +378,7 @@ window.ThCurrency = (function () {
 
   catChips.forEach(function (chip) {
     chip.addEventListener('click', function () {
-      var cat = chip.getAttribute('data-cat');
-      setCat(state.cat === cat && cat ? '' : cat);
+      toggleCat(chip.getAttribute('data-cat'));
       if (chip === horseChip) chip.focus();
     });
   });
@@ -384,9 +406,10 @@ window.ThCurrency = (function () {
     btn.addEventListener('click', function () {
       var cat = btn.getAttribute('data-cat') || '';
       var sub = btn.getAttribute('data-sub') || '';
-      state.cat = cat;
+      state.cat = cat ? [cat] : [];
       catChips.forEach(function (chip) {
-        chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === cat ? 'true' : 'false');
+        var c = chip.getAttribute('data-cat');
+        chip.setAttribute('aria-pressed', c ? state.cat.indexOf(c) !== -1 : state.cat.length === 0);
       });
       showHorseSub(cat === 'horse');
       state.sub = sub;
@@ -403,7 +426,7 @@ window.ThCurrency = (function () {
   });
 
   function clearFilters() {
-    state = { cat: '', sub: '', region: '' };
+    state = { cat: [], sub: '', region: '' };
     catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
     regionRadios.forEach(function (radio) { radio.setAttribute('aria-checked', radio.getAttribute('data-region') === '' ? 'true' : 'false'); });
     showHorseSub(false);
@@ -415,9 +438,10 @@ window.ThCurrency = (function () {
 
   readURL();
   catChips.forEach(function (chip) {
-    chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === state.cat ? 'true' : 'false');
+    var c = chip.getAttribute('data-cat');
+    chip.setAttribute('aria-pressed', c ? state.cat.indexOf(c) !== -1 : state.cat.length === 0);
   });
-  showHorseSub(state.cat === 'horse');
+  showHorseSub(state.cat.indexOf('horse') !== -1);
   subChips.forEach(function (chip) {
     chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
   });
