@@ -1,0 +1,699 @@
+{
+  "business": {
+    "name": "Salty Cowboy",
+    "whatsapp": "6281237312248"
+  },
+  "activities": [
+    {
+      "slug": "beach-ride",
+      "title": "Guided horse ride through rice fields to the beach",
+      "sourceName": "Beach & Rice Field Ride",
+      "cat": "horse",
+      "type": "rides",
+      "durations": [
+        {
+          "id": "1hr",
+          "label": "1 hr",
+          "priceIDR": 1600000,
+          "startTimes": [
+            "8:00am",
+            "5:00pm"
+          ]
+        },
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 2200000,
+          "startTimes": [
+            "8:00am",
+            "4:30pm"
+          ]
+        }
+      ],
+      "basis": "per booking, up to 5 riders",
+      "overview": "A guided ride out through the rice fields to the beach. Our grooms come with you the whole way, on foot, so this is a relaxed, well supported ride even if you've never been on a horse before.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 5 riders, privately guided"
+        },
+        {
+          "label": "Weight",
+          "value": "Max 75kg per rider with clothes on. Max 2 riders over 70kg. Riders are weighed at the stables."
+        },
+        {
+          "label": "Experience",
+          "value": "Beginner"
+        }
+      ],
+      "included": [
+        "Helmets and boots",
+        "Staff guiding on foot the whole way",
+        "Photos taken on your phone by our team"
+      ],
+      "notIncluded": [],
+      "addon": null,
+      "serviceTaxIncluded": true,
+      "images": [
+        {
+          "file": "beach-ride.jpg",
+          "alt": "Horse and rider on the beach with rice fields behind, Salty Cowboy Bali"
+        }
+      ],
+      "cardDesc": "A relaxed guided ride along the beach and through rice fields."
+    },
+    {
+      "slug": "insta-ride",
+      "title": "Two-hour horse ride with photo stops, village to beach",
+      "sourceName": "Insta Ride",
+      "cat": "horse",
+      "type": "rides",
+      "durations": [
+        {
+          "id": "2hr",
+          "label": "2 hr",
+          "priceIDR": 2700000,
+          "startTimes": [
+            "8:00am",
+            "4:00pm"
+          ]
+        }
+      ],
+      "basis": "per booking, up to 5 riders",
+      "overview": "Our longest ride, with more stops for photos through the village, beach and rice fields. Grooms take you to the best spots along the way. Golden hour is ideal if you can book it.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 5 riders, privately guided"
+        },
+        {
+          "label": "Weight",
+          "value": "Max 75kg per rider with clothes on. Max 2 riders over 70kg. Riders are weighed at the stables."
+        },
+        {
+          "label": "Experience",
+          "value": "Beginner"
+        }
+      ],
+      "included": [
+        "Helmets and boots",
+        "Staff guiding on foot the whole way",
+        "Photos taken on your phone by our team"
+      ],
+      "notIncluded": [],
+      "addon": null,
+      "serviceTaxIncluded": true,
+      "images": [
+        {
+          "file": "insta-ride.jpg",
+          "alt": "Rider on a horse pausing for a photo on the way to the beach"
+        }
+      ],
+      "cardDesc": "Our longest ride, with plenty of stops for photos along the way."
+    },
+    {
+      "slug": "beach-photoshoot",
+      "title": "Beach and rice field photoshoot with a groomed horse",
+      "sourceName": "Beach Photoshoot",
+      "cat": "horse",
+      "type": "photoshoots",
+      "durations": [
+        {
+          "id": "1hr",
+          "label": "1 hr",
+          "priceIDR": 1750000,
+          "startTimes": [
+            "8:00am",
+            "9:00am",
+            "10:00am",
+            "11:00am",
+            "12:00pm",
+            "1:00pm",
+            "2:00pm",
+            "3:00pm",
+            "4:00pm"
+          ]
+        },
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 2250000,
+          "startTimes": [
+            "8:00am",
+            "9:00am",
+            "10:00am",
+            "11:00am",
+            "12:00pm",
+            "1:00pm",
+            "2:00pm",
+            "3:00pm",
+            "4:00pm"
+          ]
+        }
+      ],
+      "basis": "one person per horse",
+      "overview": "A static shoot for fashion, pre-wedding or personal sessions, along a 900m route through the rice fields to the beach. Time starts when you leave the stables. Out of respect for local culture, please no swimwear. Share your outfit plans with Simone beforehand.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "One person per horse"
+        },
+        {
+          "label": "Experience",
+          "value": "No riding experience needed, the horse stays walking"
+        }
+      ],
+      "included": [
+        "A beautifully groomed horse",
+        "Staff to help and assist you",
+        "The 900m walk through the village and along the rice fields to the beach"
+      ],
+      "notIncluded": [
+        "Photographer (available as an add-on)"
+      ],
+      "addon": {
+        "label": "Add a Salty Cowboy photographer",
+        "priceText": "+IDR 2,000,000 per hour, 20 edited images per hour"
+      },
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "photo-beach.jpg",
+          "alt": "Groomed horse posed on the beach for a photoshoot"
+        },
+        {
+          "file": "gallery-beach-1.jpg",
+          "alt": "Horse and model on the beach at sunset"
+        },
+        {
+          "file": "gallery-beach-2.jpg",
+          "alt": "Close up of a horse on the beach during a photoshoot"
+        },
+        {
+          "file": "gallery-ricefield-1.jpg",
+          "alt": "Horse walking through rice fields on the way to the beach"
+        },
+        {
+          "file": "gallery-ricefield-2.jpg",
+          "alt": "Rider leading a horse through the rice terraces"
+        }
+      ],
+      "cardDesc": "A static photoshoot with a groomed horse on the beach and rice fields."
+    },
+    {
+      "slug": "horse-grooming",
+      "title": "Horse grooming class with the stable manager",
+      "sourceName": "Horse grooming (wet or dry)",
+      "cat": "horse",
+      "type": "lessons",
+      "durations": [
+        {
+          "id": "1hr",
+          "label": "1 hr",
+          "priceIDR": 1250000,
+          "startTimes": [
+            "8:30am",
+            "9:30am",
+            "10:30am"
+          ]
+        },
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 1875000,
+          "startTimes": [
+            "8:30am",
+            "9:30am",
+            "10:30am"
+          ]
+        }
+      ],
+      "basis": "up to 2 people",
+      "overview": "Learn the finer art of grooming, wet or dry, with tips for Bali's warm, humid climate, taught by the stable manager. There's time for questions along the way.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Up to 2 people"
+        }
+      ],
+      "included": [],
+      "notIncluded": [],
+      "addon": null,
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "grooming.jpg",
+          "alt": "Stable manager teaching a grooming class with a horse"
+        }
+      ],
+      "cardDesc": "Learn wet or dry grooming from the stable manager."
+    },
+    {
+      "slug": "join-up-lesson",
+      "title": "Join Up: natural horsemanship lesson, no riding",
+      "sourceName": "Join Up Lesson",
+      "cat": "horse",
+      "type": "lessons",
+      "durations": [
+        {
+          "id": "1hr",
+          "label": "1 hr",
+          "priceIDR": 2500000,
+          "startTimes": [
+            "8:30am",
+            "9:30am"
+          ]
+        },
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 3150000,
+          "startTimes": [
+            "8:30am",
+            "9:30am"
+          ]
+        }
+      ],
+      "basis": "per person, up to 2",
+      "overview": "An introduction to natural horsemanship. Learn to \"join up\" a horse so it chooses to stay with you. Hands-on, grounded, and entirely off the saddle.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 2 people"
+        },
+        {
+          "label": "Experience",
+          "value": "Beginner"
+        }
+      ],
+      "included": [],
+      "notIncluded": [
+        "Riding"
+      ],
+      "addon": null,
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "join-up.jpg",
+          "alt": "Trainer working with a horse in a Join Up natural horsemanship lesson"
+        }
+      ],
+      "cardDesc": "A hands-on, no-riding lesson in natural horsemanship."
+    },
+    {
+      "slug": "stable-photoshoot",
+      "title": "Western stable photoshoot with horses behind you",
+      "sourceName": "Stable Photoshoot",
+      "cat": "horse",
+      "type": "photoshoots",
+      "durations": [
+        {
+          "id": "1hr",
+          "label": "1 hr",
+          "priceIDR": 1750000,
+          "startTimes": [
+            "8:30am",
+            "10:30am",
+            "2:30pm",
+            "4:30pm"
+          ]
+        },
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 2250000,
+          "startTimes": [
+            "8:30am",
+            "10:00am",
+            "2:30pm",
+            "4:00pm"
+          ]
+        },
+        {
+          "id": "2hr",
+          "label": "2 hr",
+          "priceIDR": 2750000,
+          "startTimes": [
+            "8:30am",
+            "9:30am",
+            "2:30pm",
+            "3:30pm"
+          ]
+        },
+        {
+          "id": "3hr",
+          "label": "3 hr",
+          "priceIDR": 3750000,
+          "startTimes": [
+            "8:30am",
+            "2:30pm"
+          ]
+        }
+      ],
+      "basis": "up to 5 people on the team",
+      "overview": "A rustic, Western-style stable backdrop for fashion, pre-wedding or personal shoots. Horses stay in their stables for this one, so it suits a crew as well as a couple.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 5 people total, including all crew and models"
+        }
+      ],
+      "included": [
+        "Western-style stable backdrop",
+        "Team assistance"
+      ],
+      "notIncluded": [
+        "Photographer (available as an add-on)"
+      ],
+      "addon": {
+        "label": "Add a Salty Cowboy photographer",
+        "priceText": "+IDR 2,000,000 per hour, 20 edited images per hour"
+      },
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "photo-stable.jpg",
+          "alt": "Western-style stable backdrop with horses for a photoshoot"
+        },
+        {
+          "file": "gallery-stable-1.jpg",
+          "alt": "Horse standing in the stable photoshoot setting"
+        },
+        {
+          "file": "gallery-stable-2.jpg",
+          "alt": "Model posed with a horse in the stable backdrop"
+        },
+        {
+          "file": "gallery-stable-3.jpg",
+          "alt": "Close up of a horse in the stable photoshoot area"
+        },
+        {
+          "file": "gallery-stable-4.jpg",
+          "alt": "Western saddle and tack on display in the stable photoshoot"
+        }
+      ],
+      "cardDesc": "A rustic Western-style stable backdrop for your shoot."
+    },
+    {
+      "slug": "paddock-photoshoot",
+      "title": "Green paddock photoshoot with grazing horses",
+      "sourceName": "Paddock Photoshoot",
+      "cat": "horse",
+      "type": "photoshoots",
+      "durations": [
+        {
+          "id": "1hr",
+          "label": "1 hr",
+          "priceIDR": 1750000,
+          "startTimes": [
+            "8:30am",
+            "10:30am",
+            "2:30pm",
+            "4:30pm"
+          ]
+        },
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 2250000,
+          "startTimes": [
+            "8:30am",
+            "10:00am",
+            "2:30pm",
+            "4:00pm"
+          ]
+        },
+        {
+          "id": "2hr",
+          "label": "2 hr",
+          "priceIDR": 2750000,
+          "startTimes": [
+            "8:30am",
+            "9:30am",
+            "2:30pm",
+            "3:30pm"
+          ]
+        },
+        {
+          "id": "3hr",
+          "label": "3 hr",
+          "priceIDR": 3750000,
+          "startTimes": [
+            "8:30am",
+            "2:30pm"
+          ]
+        }
+      ],
+      "basis": "up to 5 people on the team",
+      "overview": "An open green paddock backdrop with grazing horses, shot from outside the fence. A soft, natural setting that doesn't need direct contact with the horses.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 5 people total, including all crew and models"
+        },
+        {
+          "label": "Experience",
+          "value": "No entering the paddocks or touching the horses"
+        }
+      ],
+      "included": [
+        "Paddock location",
+        "Grazing horses in view"
+      ],
+      "notIncluded": [
+        "Photographer (available as an add-on)"
+      ],
+      "addon": {
+        "label": "Add a Salty Cowboy photographer",
+        "priceText": "+IDR 2,000,000 per hour, 20 edited images per hour"
+      },
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "photo-paddock-card.jpg",
+          "alt": "Green paddock with grazing horses for a photoshoot"
+        },
+        {
+          "file": "gallery-paddock-1.jpg",
+          "alt": "Horses grazing in the green paddock"
+        },
+        {
+          "file": "gallery-paddock-2.jpg",
+          "alt": "Paddock photoshoot backdrop with horses in the distance"
+        },
+        {
+          "file": "gallery-paddock-3.jpg",
+          "alt": "Grazing horse in the paddock photoshoot setting"
+        },
+        {
+          "file": "gallery-paddock-4.jpg",
+          "alt": "Green paddock with horses and a mountain view"
+        }
+      ],
+      "cardDesc": "An open green paddock with grazing horses in view."
+    },
+    {
+      "slug": "dressage-masterclass",
+      "title": "Private dressage lesson in the arena",
+      "sourceName": "Dressage Masterclass (Private lesson)",
+      "cat": "horse",
+      "type": "lessons",
+      "durations": [
+        {
+          "id": "50min",
+          "label": "50 min",
+          "priceIDR": 2900000,
+          "startTimes": [
+            "8:30am",
+            "9:30am"
+          ]
+        }
+      ],
+      "basis": "private, 1 rider",
+      "overview": "A private dressage lesson for all levels, in the arena. Learn dressage from scratch or come polish up your existing skills.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Private booking, 1 rider"
+        },
+        {
+          "label": "Weight",
+          "value": "Max 75kg per rider with clothes on. Max 2 riders over 70kg. Riders are weighed at the stables."
+        },
+        {
+          "label": "Experience",
+          "value": "All levels"
+        }
+      ],
+      "included": [],
+      "notIncluded": [],
+      "addon": null,
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "dressage.jpg",
+          "alt": "Rider and horse in a private dressage lesson in the arena"
+        }
+      ],
+      "cardDesc": "A private dressage lesson for all levels, in the arena."
+    },
+    {
+      "slug": "cottages-photoshoot",
+      "title": "Rustic wooden cottage photoshoot (no horses)",
+      "sourceName": "Cottages Photoshoot",
+      "cat": "horse",
+      "type": "photoshoots",
+      "durations": [
+        {
+          "id": "3hr",
+          "label": "3 hr session",
+          "priceIDR": 4500000,
+          "startTimes": [
+            "8:30am",
+            "2:30pm"
+          ]
+        }
+      ],
+      "basis": "per session, up to 6 people",
+      "overview": "A rustic wooden cottage interior for fashion, pre-wedding or personal shoots. This one is location only, no horses, with the whole session inside the cottage.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 6 people per cottage"
+        },
+        {
+          "label": "Experience",
+          "value": "Choice of cottage upon availability. No paddock entry on this shoot."
+        }
+      ],
+      "included": [
+        "Cottage interior",
+        "The whole session"
+      ],
+      "notIncluded": [
+        "Horses",
+        "Photographer (available as an add-on)"
+      ],
+      "addon": {
+        "label": "Add a Salty Cowboy photographer",
+        "priceText": "+IDR 2,000,000 per hour, 20 edited images per hour"
+      },
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "photo-cottages.jpg",
+          "alt": "Rustic wooden cottage exterior used for a photoshoot"
+        },
+        {
+          "file": "gallery-cottages-1.jpg",
+          "alt": "Interior of the rustic wooden cottage photoshoot setting"
+        },
+        {
+          "file": "gallery-cottages-2.jpg",
+          "alt": "Wooden cottage photoshoot backdrop with natural light"
+        },
+        {
+          "file": "gallery-cottages-3.jpg",
+          "alt": "Detail of the cottage interior used for photoshoots"
+        },
+        {
+          "file": "gallery-cottages-4.jpg",
+          "alt": "Rustic cottage photoshoot corner with wooden furniture"
+        }
+      ],
+      "cardDesc": "A rustic wooden cottage interior, no horses included."
+    },
+    {
+      "slug": "group-clinic",
+      "title": "Leadership and trust clinic with horses, for groups",
+      "sourceName": "Group Clinic (Leadership/horsemanship class)",
+      "cat": "horse",
+      "type": "lessons",
+      "durations": [
+        {
+          "id": "1.5hr",
+          "label": "1.5 hr",
+          "priceIDR": 6000000,
+          "startTimes": [
+            "8:30am"
+          ]
+        }
+      ],
+      "basis": "flat per group, 3 to 6 people",
+      "overview": "A hands-on session in leadership, communication and trust, taught through the horse. Working at liberty in the round pen, your group learns to read body language, hold presence and earn cooperation without force, the same skills you'd use in any team setting. Popular with women's groups, business teams, and friend groups that ride.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "3 to 6 people, flat price per session, not per person"
+        },
+        {
+          "label": "Experience",
+          "value": "No riding experience needed"
+        }
+      ],
+      "included": [],
+      "notIncluded": [
+        "Riding"
+      ],
+      "addon": null,
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "group-clinic.jpg",
+          "alt": "Group leadership and trust clinic with horses"
+        }
+      ],
+      "cardDesc": "A group session in leadership and trust, built through the horse."
+    },
+    {
+      "slug": "horse-whisperer-course",
+      "title": "3-day Horse Whisperer course for two",
+      "sourceName": "Horse Whisperer Intensive Course",
+      "cat": "horse",
+      "type": "lessons",
+      "durations": [
+        {
+          "id": "course",
+          "label": "3 days, 10 hr total",
+          "priceIDR": 22500000,
+          "startTimes": [
+            "Mon and Tue 8:30am",
+            "Thu 9:00am, to midday"
+          ]
+        }
+      ],
+      "basis": "for the full course, up to 2 people",
+      "overview": "A 3-day, 10-hour course spread over Monday, Tuesday and Thursday. Two sessions build the basics, then a closing session brings it together, including 2 hours of grooming or another related activity. Open to all levels, no experience needed. This course is for two people, so bring a friend.",
+      "goodToKnow": [
+        {
+          "label": "Group size",
+          "value": "Max 2 people, one course booking per week"
+        },
+        {
+          "label": "Minimum age",
+          "value": "8 and over"
+        },
+        {
+          "label": "Experience",
+          "value": "All levels"
+        }
+      ],
+      "included": [
+        "10 hours over 3 days",
+        "2 hours of grooming or another related activity"
+      ],
+      "notIncluded": [
+        "Riding. This course is groundwork, not ridden work"
+      ],
+      "addon": null,
+      "serviceTaxIncluded": false,
+      "images": [
+        {
+          "file": "horse-whisperer.jpg",
+          "alt": "Horse Whisperer course participants working with a horse"
+        }
+      ],
+      "cardDesc": "A 3-day groundwork course for two, open to all levels."
+    }
+  ]
+}

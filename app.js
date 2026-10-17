@@ -117,7 +117,7 @@ window.ThCurrency = (function () {
       lng: 115.2167,
       description: 'Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.',
       priceIdr: 1250000,
-      link: 'bali/'
+      link: 'bali/salty-cowboy/'
     }
   ];
 

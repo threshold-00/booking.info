@@ -107,19 +107,19 @@
 
     <div class="filter-row-wrap" style="position:relative;margin:0 0 12px;">
       <div class="cat-chip-row" id="chipRow" style="display:flex;align-items:center;flex-wrap:nowrap;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;">
-        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Horse riding</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Surf</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Climbing</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Creative</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Motorbike tours</button>
-        <span aria-hidden="true" style="width:1px;height:22px;background:var(--line);flex:none;margin:0 2px;"></span>
         <div class="region-group" id="regionGroup" role="radiogroup" aria-label="Region" style="display:flex;align-items:center;gap:8px;flex:none;">
           <button type="button" class="opt region-radio" role="radio" aria-checked="true" data-region="" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
           <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="mornington" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Victoria, Australia</button>
           <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="bali" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Bali</button>
         </div>
+        <span aria-hidden="true" style="width:1px;height:22px;background:var(--line);flex:none;margin:0 2px;"></span>
+        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Horse experiences</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Surf</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Climbing</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Creative</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Motorbike tours</button>
       </div>
     </div>
 
@@ -139,119 +139,106 @@
           <button type="button" class="see-all" data-cat="horse">See all</button>
         </div>
 
-        <div class="browse-sub">
-          <div class="browse-sub__head">
-            <h4 style="font-size:14px;margin:0;">Rides <span class="browse-count" style="color:rgba(23,23,26,.5);font-weight:400;">(2)</span></h4>
-            <button type="button" class="see-all" data-cat="horse" data-sub="rides">See all</button>
-          </div>
-          <div class="card-row">
-        <a class="card sc-card" href="https://book.saltycowboybali.com/beach-ride?ref=threshold" target="_blank" rel="noopener" aria-label="Guided horse ride through rice fields to the beach (opens Salty Cowboy's booking site)" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
+        <div class="card-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=""></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/insta-ride?ref=threshold" target="_blank" rel="noopener" aria-label="Two-hour horse ride with photo stops, village to beach (opens Salty Cowboy's booking site)" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
+        <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/insta-ride.jpg" alt="Rider on a horse pausing for a photo on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
             <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">Our longest ride, with plenty of stops for photos along the way.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=""></p></div>
           </div>
         </a>
-          </div>
-        </div>
-
-        <div class="browse-sub">
-          <div class="browse-sub__head">
-            <h4 style="font-size:14px;margin:0;">Photoshoots <span class="browse-count" style="color:rgba(23,23,26,.5);font-weight:400;">(4)</span></h4>
-            <button type="button" class="see-all" data-cat="horse" data-sub="photoshoots">See all</button>
-          </div>
-          <div class="card-row">
-        <a class="card sc-card" href="https://book.saltycowboybali.com/beach-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Beach and rice field photoshoot with a groomed horse (opens Salty Cowboy's booking site)" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-beach.jpg" alt="Groomed horse posed on the beach for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-1.jpg" alt="Horse and model on the beach at sunset" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-2.jpg" alt="Close up of a horse on the beach during a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-1.jpg" alt="Horse walking through rice fields on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-2.jpg" alt="Rider leading a horse through the rice terraces" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A static photoshoot with a groomed horse on the beach and rice fields.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/stable-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Western stable photoshoot with horses behind you (opens Salty Cowboy's booking site)" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-stable.jpg" alt="Western-style stable backdrop with horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse standing in the stable photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-2.jpg" alt="Model posed with a horse in the stable backdrop" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-3.jpg" alt="Close up of a horse in the stable photoshoot area" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-4.jpg" alt="Western saddle and tack on display in the stable photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
             <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A rustic Western-style stable backdrop for your shoot.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/paddock-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Green paddock photoshoot with grazing horses (opens Salty Cowboy's booking site)" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-paddock-card.jpg" alt="Green paddock with grazing horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-1.jpg" alt="Horses grazing in the green paddock" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-2.jpg" alt="Paddock photoshoot backdrop with horses in the distance" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-3.jpg" alt="Grazing horse in the paddock photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-4.jpg" alt="Green paddock with horses and a mountain view" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
             <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">An open green paddock with grazing horses in view.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/cottages-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Rustic wooden cottage photoshoot (no horses) (opens Salty Cowboy's booking site)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-cottages.jpg" alt="Rustic wooden cottage exterior used for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-1.jpg" alt="Interior of the rustic wooden cottage photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-2.jpg" alt="Wooden cottage photoshoot backdrop with natural light" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-3.jpg" alt="Detail of the cottage interior used for photoshoots" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-4.jpg" alt="Rustic cottage photoshoot corner with wooden furniture" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
             <p class="card__loc">3 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A rustic wooden cottage interior, no horses included.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="" data-price-suffix=" / session"></p></div>
           </div>
         </a>
-          </div>
-        </div>
-
-        <div class="browse-sub">
-          <div class="browse-sub__head">
-            <h4 style="font-size:14px;margin:0;">Lessons <span class="browse-count" style="color:rgba(23,23,26,.5);font-weight:400;">(5)</span></h4>
-            <button type="button" class="see-all" data-cat="horse" data-sub="lessons">See all</button>
-          </div>
-          <div class="card-row">
-        <a class="card sc-card" href="https://book.saltycowboybali.com/horse-grooming?ref=threshold" target="_blank" rel="noopener" aria-label="Horse grooming class with the stable manager (opens Salty Cowboy's booking site)" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/grooming.jpg" alt="Stable manager teaching a grooming class with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Horse grooming class with the stable manager</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">Learn wet or dry grooming from the stable manager.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="from" data-price-suffix=""></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/join-up-lesson?ref=threshold" target="_blank" rel="noopener" aria-label="Join Up: natural horsemanship lesson, no riding (opens Salty Cowboy's booking site)" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/join-up.jpg" alt="Trainer working with a horse in a Join Up natural horsemanship lesson" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A hands-on, no-riding lesson in natural horsemanship.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" / person"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/dressage-masterclass?ref=threshold" target="_blank" rel="noopener" aria-label="Private dressage lesson in the arena (opens Salty Cowboy's booking site)" data-title="Private dressage lesson in the arena" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson in the arena" data-title="Private dressage lesson in the arena" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/dressage.jpg" alt="Rider and horse in a private dressage lesson in the arena" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Private dressage lesson in the arena</h3>
             <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A private dressage lesson for all levels, in the arena.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="" data-price-suffix=""></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/group-clinic?ref=threshold" target="_blank" rel="noopener" aria-label="Leadership and trust clinic with horses, for groups (opens Salty Cowboy's booking site)" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/group-clinic.jpg" alt="Group leadership and trust clinic with horses" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
             <p class="card__loc">1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A group session in leadership and trust, built through the horse.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="" data-price-suffix=" / group"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="https://book.saltycowboybali.com/horse-whisperer-course?ref=threshold" target="_blank" rel="noopener" aria-label="3-day Horse Whisperer course for two (opens Salty Cowboy's booking site)" data-title="3-day Horse Whisperer course for two" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course for two" data-title="3-day Horse Whisperer course for two" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/horse-whisperer.jpg" alt="Horse Whisperer course participants working with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">3-day Horse Whisperer course for two</h3>
             <p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A 3-day groundwork course for two, open to all levels.</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="" data-price-suffix=" / course"></p></div>
           </div>
         </a>
-          </div>
         </div>
       </div>
 
@@ -295,91 +282,102 @@
     </div>
 
     <div class="x-card-grid" id="browseGrid" hidden style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-      <a class="card sc-card" href="https://book.saltycowboybali.com/beach-ride?ref=threshold" target="_blank" rel="noopener" aria-label="Guided horse ride through rice fields to the beach (opens Salty Cowboy's booking site)" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
+      <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/insta-ride?ref=threshold" target="_blank" rel="noopener" aria-label="Two-hour horse ride with photo stops, village to beach (opens Salty Cowboy's booking site)" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
+      <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/insta-ride.jpg" alt="Rider on a horse pausing for a photo on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
           <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">Our longest ride, with plenty of stops for photos along the way.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/beach-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Beach and rice field photoshoot with a groomed horse (opens Salty Cowboy's booking site)" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-beach.jpg" alt="Groomed horse posed on the beach for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-1.jpg" alt="Horse and model on the beach at sunset" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-2.jpg" alt="Close up of a horse on the beach during a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-1.jpg" alt="Horse walking through rice fields on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-2.jpg" alt="Rider leading a horse through the rice terraces" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A static photoshoot with a groomed horse on the beach and rice fields.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/horse-grooming?ref=threshold" target="_blank" rel="noopener" aria-label="Horse grooming class with the stable manager (opens Salty Cowboy's booking site)" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/grooming.jpg" alt="Stable manager teaching a grooming class with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Horse grooming class with the stable manager</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">Learn wet or dry grooming from the stable manager.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="from" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/join-up-lesson?ref=threshold" target="_blank" rel="noopener" aria-label="Join Up: natural horsemanship lesson, no riding (opens Salty Cowboy's booking site)" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/join-up.jpg" alt="Trainer working with a horse in a Join Up natural horsemanship lesson" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A hands-on, no-riding lesson in natural horsemanship.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" / person"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/stable-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Western stable photoshoot with horses behind you (opens Salty Cowboy's booking site)" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-stable.jpg" alt="Western-style stable backdrop with horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse standing in the stable photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-2.jpg" alt="Model posed with a horse in the stable backdrop" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-3.jpg" alt="Close up of a horse in the stable photoshoot area" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-4.jpg" alt="Western saddle and tack on display in the stable photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
           <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A rustic Western-style stable backdrop for your shoot.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/paddock-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Green paddock photoshoot with grazing horses (opens Salty Cowboy's booking site)" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-paddock-card.jpg" alt="Green paddock with grazing horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-1.jpg" alt="Horses grazing in the green paddock" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-2.jpg" alt="Paddock photoshoot backdrop with horses in the distance" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-3.jpg" alt="Grazing horse in the paddock photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-4.jpg" alt="Green paddock with horses and a mountain view" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
           <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">An open green paddock with grazing horses in view.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/dressage-masterclass?ref=threshold" target="_blank" rel="noopener" aria-label="Private dressage lesson in the arena (opens Salty Cowboy's booking site)" data-title="Private dressage lesson in the arena" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson in the arena" data-title="Private dressage lesson in the arena" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/dressage.jpg" alt="Rider and horse in a private dressage lesson in the arena" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Private dressage lesson in the arena</h3>
           <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A private dressage lesson for all levels, in the arena.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="" data-price-suffix=""></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/cottages-photoshoot?ref=threshold" target="_blank" rel="noopener" aria-label="Rustic wooden cottage photoshoot (no horses) (opens Salty Cowboy's booking site)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-cottages.jpg" alt="Rustic wooden cottage exterior used for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-1.jpg" alt="Interior of the rustic wooden cottage photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-2.jpg" alt="Wooden cottage photoshoot backdrop with natural light" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-3.jpg" alt="Detail of the cottage interior used for photoshoots" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-4.jpg" alt="Rustic cottage photoshoot corner with wooden furniture" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
           <p class="card__loc">3 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A rustic wooden cottage interior, no horses included.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="" data-price-suffix=" / session"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/group-clinic?ref=threshold" target="_blank" rel="noopener" aria-label="Leadership and trust clinic with horses, for groups (opens Salty Cowboy's booking site)" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/group-clinic.jpg" alt="Group leadership and trust clinic with horses" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
           <p class="card__loc">1.5 hr &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A group session in leadership and trust, built through the horse.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="" data-price-suffix=" / group"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="https://book.saltycowboybali.com/horse-whisperer-course?ref=threshold" target="_blank" rel="noopener" aria-label="3-day Horse Whisperer course for two (opens Salty Cowboy's booking site)" data-title="3-day Horse Whisperer course for two" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course for two" data-title="3-day Horse Whisperer course for two" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/horse-whisperer.jpg" alt="Horse Whisperer course participants working with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">3-day Horse Whisperer course for two</h3>
           <p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A 3-day groundwork course for two, open to all levels.</p>
           <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="" data-price-suffix=" / course"></p></div>
         </div>
       </a>
