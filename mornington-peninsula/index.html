@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="/assets/fonts/inter-tight-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="../assets/leaflet/leaflet.css" />
 <link rel="canonical" href="https://thresholdbooking.com/mornington-peninsula/" />
@@ -61,11 +62,8 @@
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
       <a href="../" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-        <a href="../mornington-peninsula/" class="navlink on">Victoria, Australia</a>
-        <a href="../bali/" class="navlink">Bali</a>
-        <a href="../for-business/" class="navlink">For businesses</a>
-        <a href="../faq/" class="navlink">FAQ</a>
-        <a href="../for-business/#interested" class="navlink">Contact</a>
+        <a href="/#browse" class="navlink">Browse experiences</a>
+        <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -80,34 +78,34 @@
     <p style="margin:0;max-width:62ch;color:rgba(23,23,26,.82);">Unique experiences run by the local people who started them. From horse trails to surf lessons to maker-led classes, find something you'll actually remember doing.</p>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section style="padding:0 var(--gutter) var(--section-y);">
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>Experiences</p>
       <div>
         <h2 style="font-size:clamp(26px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 32px;max-width:20ch;">Experiences in Victoria, Australia</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
           <div style="border:1px dashed var(--line);background:var(--panel);padding:28px 24px;opacity:.7;">
-            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Horse riding</p>
+            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Horse riding</p>
             <h3 style="font-size:18px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
             <p style="margin:0;color:rgba(23,23,26,.5);">Know a business that belongs here? Let us know.</p>
           </div>
           <div style="border:1px dashed var(--line);background:var(--panel);padding:28px 24px;opacity:.7;">
-            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Surf lessons</p>
+            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Surf lessons</p>
             <h3 style="font-size:18px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
             <p style="margin:0;color:rgba(23,23,26,.5);">Know a business that belongs here? Let us know.</p>
           </div>
           <div style="border:1px dashed var(--line);background:var(--panel);padding:28px 24px;opacity:.7;">
-            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Kayak &amp; snorkel</p>
+            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Kayak &amp; snorkel</p>
             <h3 style="font-size:18px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
             <p style="margin:0;color:rgba(23,23,26,.5);">Know a business that belongs here? Let us know.</p>
           </div>
           <div style="border:1px dashed var(--line);background:var(--panel);padding:28px 24px;opacity:.7;">
-            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Dive charters</p>
+            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Dive charters</p>
             <h3 style="font-size:18px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
             <p style="margin:0;color:rgba(23,23,26,.5);">Know a business that belongs here? Let us know.</p>
           </div>
           <div style="border:1px dashed var(--line);background:var(--panel);padding:28px 24px;opacity:.7;">
-            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Scenic flights</p>
+            <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Scenic flights</p>
             <h3 style="font-size:18px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
             <p style="margin:0;color:rgba(23,23,26,.5);">Know a business that belongs here? Let us know.</p>
           </div>
@@ -117,7 +115,7 @@
               <img src="../assets/photos/pottery.jpg" alt="Hands shaping clay on a potter's wheel" loading="lazy" width="1200" height="900" style="width:100%;height:auto;display:block;" />
             </picture>
             <div style="padding:20px 24px;">
-              <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Maker classes</p>
+              <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(23,23,26,.45);margin:0 0 10px;">Maker classes</p>
               <h3 style="font-size:18px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
               <p style="margin:0 0 10px;color:rgba(23,23,26,.5);">Know a business that belongs here? Let us know.</p>
               <p style="margin:0;font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:rgba(23,23,26,.35);">Photo by <a href="https://unsplash.com/@alexandraslo" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.2);">Alexandra Slo</a> on <a href="https://unsplash.com/photos/Fc-JPZhE5nk" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.2);">Unsplash</a></p>
@@ -128,14 +126,14 @@
     </div>
   </section>
 
-  <section style="padding:0 40px 96px;max-width:1200px;margin:0 auto;overflow-x:clip;">
+  <section style="padding:0 var(--gutter) var(--section-y);max-width:1200px;margin:0 auto;overflow-x:clip;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore the area</h2>
     </div>
     <div id="mpMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section style="padding:0 var(--gutter) var(--section-y);">
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>Good to know</p>
       <div style="display:grid;gap:28px;max-width:62ch;">
@@ -151,7 +149,7 @@
     </div>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section style="padding:0 var(--gutter) var(--section-y);">
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>Related</p>
       <div style="display:flex;flex-wrap:wrap;gap:16px;">
@@ -178,13 +176,18 @@
   var mapEl = document.getElementById('mpMap');
   if (!mapEl || typeof L === 'undefined') return;
   var CENTER = [-38.373, 144.952];
-  var map = L.map(mapEl, { scrollWheelZoom: false }).setView(CENTER, 10);
+  var isMobile = window.matchMedia('(max-width:640px)').matches;
+  var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile, tap: !isMobile }).setView(CENTER, 10);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
   setTimeout(function () { map.invalidateSize(); }, 0);
-  window.addEventListener('resize', function () { map.invalidateSize(); });
+  window.addEventListener('resize', function () {
+    map.invalidateSize();
+    var mobileNow = window.matchMedia('(max-width:640px)').matches;
+    if (mobileNow) map.dragging.disable(); else map.dragging.enable();
+  });
 })();
 </script>
 <script src="../app.js"></script>

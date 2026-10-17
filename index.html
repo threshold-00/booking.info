@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="/assets/fonts/inter-tight-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
 <link rel="canonical" href="https://thresholdbooking.com/" />
@@ -57,10 +58,10 @@
 <body>
 <div>
   <header class="site-header" style="position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
-    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:34px 40px;border-bottom:1px solid var(--line);">
+    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
       <a href="#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-        <a href="#browse" class="navlink on">Browse experiences</a>
+        <a href="#browse" class="navlink">Browse experiences</a>
         <a href="for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
@@ -70,65 +71,96 @@
     </div>
   </header>
 
-  <section id="top" style="position:relative;padding:140px 40px 120px;text-align:center;">
-    <div style="max-width:900px;margin:0 auto;">
+  <section id="top" style="position:relative;padding:140px 40px 120px;text-align:center;overflow:hidden;">
+    <picture>
+      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile.webp" type="image/webp" />
+      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile.jpg" />
+      <source srcset="assets/photos/coastline.webp" type="image/webp" />
+      <img src="assets/photos/coastline.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+    </picture>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,15,17,.5),rgba(15,15,17,.62));z-index:1;"></div>
+    <div style="position:relative;z-index:2;max-width:900px;margin:0 auto;">
       <h1 style="font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;color:var(--paper);">Something you'll actually remember doing.</h1>
       <p style="margin:0 0 36px;color:rgba(243,242,238,.88);">Unique experiences run by the local people who started them. In Victoria, Australia and Bali.</p>
-      <a href="#browse" class="btn" style="border-radius:999px;padding:15px 32px;">Find an experience</a>
+      <form role="search" id="searchForm" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:480px;margin:0 auto 20px;">
+        <label for="searchInput" class="sr-only">Search experiences</label>
+        <input type="search" id="searchInput" name="q" placeholder="Try horse riding, pottery, Bali" style="flex:1 1 220px;min-height:44px;background:rgba(243,242,238,.07);border:1px solid rgba(243,242,238,.4);padding:0 18px;color:var(--paper);font:inherit;outline:none;" />
+        <button type="submit" class="btn" style="min-height:44px;">Search</button>
+      </form>
+      <div class="cat-chip-row" id="chipRow" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:600px;margin:0 auto;">
+        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="border-radius:var(--r-pill);min-height:44px;">All</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" style="border-radius:var(--r-pill);min-height:44px;">🐴 Horse riding</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="border-radius:var(--r-pill);min-height:44px;">🤿 Dive &amp; snorkel</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="border-radius:var(--r-pill);min-height:44px;">🏄 Surf</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="border-radius:var(--r-pill);min-height:44px;">🧗 Climbing</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="border-radius:var(--r-pill);min-height:44px;">🎨 Creative</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="border-radius:var(--r-pill);min-height:44px;">🏍️ Motorbike tours</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="photoshoots" style="border-radius:var(--r-pill);min-height:44px;">📸 Photoshoots</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="lessons" style="border-radius:var(--r-pill);min-height:44px;">🧭 Lessons</button>
+      </div>
     </div>
-    <p style="position:absolute;right:20px;bottom:14px;margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(243,242,238,.65);">Photo by <a href="https://unsplash.com/@nisarga_ekbote" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Unsplash</a></p>
+    <p style="position:absolute;right:20px;bottom:14px;margin:0;z-index:2;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:rgba(243,242,238,.65);">Photo by <a href="https://unsplash.com/@nisarga_ekbote" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Unsplash</a></p>
   </section>
 
   <section id="browse" style="padding:72px 40px 88px;max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;">Experiences</h2>
-      <p style="margin:0;max-width:62ch;color:rgba(23,23,26,.68);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Slow down on a retreat. Try a class you've never heard of.</p>
+      <p style="margin:0 0 14px;max-width:62ch;color:rgba(23,23,26,.68);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Paint a landscape. Slow down on a retreat. Try a class you've never heard of.</p>
+      <p aria-hidden="true" style="margin:0;font-size:20px;letter-spacing:.1em;">🐴 🤿 🏄 🧗 🎨 🏍️ 📸 🧭</p>
+      <span class="sr-only">Experiences across horse riding, diving, surfing, climbing, creative classes, motorbike tours, photoshoots and lessons.</span>
     </div>
-    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 28px;">
-      <a href="mornington-peninsula/" class="btn-ghost hov" style="padding:11px 20px;border-radius:999px;">Victoria, Australia</a>
-      <a href="bali/" class="btn-ghost hov" style="padding:11px 20px;border-radius:999px;">Bali</a>
+    <div class="region-group" id="regionGroup" role="radiogroup" aria-label="Region" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 20px;">
+      <button type="button" class="opt region-radio" role="radio" aria-checked="true" data-region="" style="border-radius:var(--r-pill);min-height:44px;">All</button>
+      <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="mornington" style="border-radius:var(--r-pill);min-height:44px;">Victoria, Australia</button>
+      <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="bali" style="border-radius:var(--r-pill);min-height:44px;">Bali</button>
     </div>
-    <div class="x-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-      <a href="https://book.saltycowboybali.com/" class="x-card" style="display:block;color:var(--ink);border:1px solid var(--line);overflow:hidden;">
+    <p id="browseCount" aria-live="polite" style="margin:0 0 16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(23,23,26,.55);"></p>
+    <div class="x-card-grid" id="browseGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <a href="https://book.saltycowboybali.com/" class="x-card" data-title="Salty Cowboy" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-keywords="horse riding beach rescue" style="display:block;color:var(--ink);border:1px solid var(--line);overflow:hidden;">
         <div class="x-card__media" style="aspect-ratio:4/3;background-image:url('assets/stable-photoshoot.avif');background-size:cover;background-position:center 38%;"></div>
-        <div class="x-card__body" style="padding:18px;">
-          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.5);">Bali</p>
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Salty Cowboy</h3>
-          <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.68);">Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.</p>
-          <div style="padding-top:12px;border-top:1px solid var(--line);display:grid;gap:6px;">
-            <p style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;color:var(--cleared);">From $50 AUD</p>
+        <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc">Bali</p>
+          <h3 class="card__title">Salty Cowboy</h3>
+          <p class="card__desc">Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.</p>
+          <div class="card__meta">
+            <p class="card__price">From $50 AUD</p>
           </div>
         </div>
       </a>
-      <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+      <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
         <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
-        <div class="x-card__body" style="padding:18px;">
-          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Victoria, Australia</p>
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+        <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc" style="color:rgba(23,23,26,.4);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+      <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
         <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
-        <div class="x-card__body" style="padding:18px;">
-          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Victoria, Australia</p>
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+        <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc" style="color:rgba(23,23,26,.4);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+      <div class="x-card" data-placeholder="true" data-region="bali" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
         <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
-        <div class="x-card__body" style="padding:18px;">
-          <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Bali</p>
-          <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+        <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc" style="color:rgba(23,23,26,.4);">Bali</p>
+          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
+    </div>
+    <div id="browseEmpty" hidden style="padding:40px 0;text-align:center;">
+      <p style="margin:0 0 16px;color:rgba(23,23,26,.68);">Nothing matches yet. Try All regions, or one of these:</p>
+      <div id="browseEmptyChips" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 20px;"></div>
+      <button type="button" id="clearFilters" class="btn-ghost hov" style="padding:11px 20px;">Clear filters</button>
     </div>
     <p style="margin:48px 0 0;text-align:center;font-size:14px;line-height:1.5;color:rgba(23,23,26,.7);">Interesting things for interesting people. Get off your phone and out into the real world.</p>
   </section>
 
-  <section id="why" style="padding:0 40px 88px;max-width:1100px;margin:0 auto;">
+  <section id="why" style="padding:0 var(--gutter) var(--section-y);max-width:1100px;margin:0 auto;">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
       <div class="benefit-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M10 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M13 10.5V5a1.5 1.5 0 0 1 3 0v7"/><path d="M16 12V9a1.5 1.5 0 0 1 3 0v6c0 3.3-2.5 6-6 6h-2c-2.2 0-3.3-.7-4.5-2.2L3 14.5c-.5-.7-.3-1.5.3-1.9.6-.4 1.4-.2 1.9.4L7 15"/></svg>
@@ -154,15 +186,15 @@
     </div>
   </section>
 
-  <section id="nearby" style="padding:0 40px 88px;max-width:1200px;margin:0 auto;">
+  <section id="nearby" style="padding:0 var(--gutter) var(--section-y);max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore nearby</h2>
-      <span id="nearbyStatus" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.45);">Locating you&hellip;</span>
+      <span id="nearbyStatus" style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.45);">Locating you&hellip;</span>
     </div>
     <div id="exploreMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
 
-  <section style="padding:0 40px 96px;max-width:1200px;margin:0 auto;">
+  <section style="padding:0 var(--gutter) var(--section-y);max-width:1200px;margin:0 auto;">
     <div style="border-top:1px solid var(--line);padding-top:64px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
       <div>
         <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 10px;">Run your own experience?</h2>

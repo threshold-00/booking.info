@@ -45,7 +45,8 @@ var FORM_ENDPOINT = '';
     return L.divIcon({ className: 'th-you', iconSize: [14, 14] });
   }
 
-  var map = L.map(mapEl, { scrollWheelZoom: false }).setView(FALLBACK_CENTER, 7);
+  var isMobile = window.matchMedia('(max-width:640px)').matches;
+  var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile, tap: !isMobile }).setView(FALLBACK_CENTER, 7);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -76,7 +77,11 @@ var FORM_ENDPOINT = '';
   fitToPins();
 
   setTimeout(function () { map.invalidateSize(); }, 0);
-  window.addEventListener('resize', function () { map.invalidateSize(); });
+  window.addEventListener('resize', function () {
+    map.invalidateSize();
+    var mobileNow = window.matchMedia('(max-width:640px)').matches;
+    if (mobileNow) map.dragging.disable(); else map.dragging.enable();
+  });
 
   var statusEl = document.getElementById('nearbyStatus');
   function setStatus(text) { if (statusEl) statusEl.textContent = text; }
@@ -94,6 +99,205 @@ var FORM_ENDPOINT = '';
     setStatus('Showing all experiences');
   }
 
+})();
+
+// Homepage search, category chips and region toggle (#browse). Filters the experience
+// cards in place with AND logic (search text AND category AND region), never navigates,
+// and syncs state to the URL so a link like /?region=bali#browse opens pre-filtered.
+// Placeholder "spot waiting to be filled" cards only show with no filters active.
+(function () {
+  var grid = document.getElementById('browseGrid');
+  if (!grid) return;
+
+  var searchForm = document.getElementById('searchForm');
+  var searchInput = document.getElementById('searchInput');
+  var chipRow = document.getElementById('chipRow');
+  var regionGroup = document.getElementById('regionGroup');
+  var countEl = document.getElementById('browseCount');
+  var emptyEl = document.getElementById('browseEmpty');
+  var emptyChips = document.getElementById('browseEmptyChips');
+  var clearBtn = document.getElementById('clearFilters');
+
+  var cards = [].slice.call(grid.querySelectorAll('.x-card'));
+  var realCards = cards.filter(function (c) { return !c.hasAttribute('data-placeholder'); });
+  var catChips = chipRow ? [].slice.call(chipRow.querySelectorAll('.cat-chip')) : [];
+  var regionRadios = regionGroup ? [].slice.call(regionGroup.querySelectorAll('.region-radio')) : [];
+
+  var state = { q: '', cat: '', region: '' };
+
+  function readURL() {
+    var params = new URLSearchParams(window.location.search);
+    state.q = params.get('q') || '';
+    state.cat = params.get('cat') || '';
+    state.region = params.get('region') || '';
+  }
+
+  function writeURL() {
+    var params = new URLSearchParams(window.location.search);
+    ['q', 'cat', 'region'].forEach(function (key) {
+      if (state[key]) params.set(key, state[key]); else params.delete(key);
+    });
+    var qs = params.toString();
+    var url = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+    history.replaceState(null, '', url);
+  }
+
+  function cardMatches(card) {
+    var q = state.q.trim().toLowerCase();
+    if (q) {
+      var haystack = [
+        card.getAttribute('data-title'),
+        card.getAttribute('data-business'),
+        card.getAttribute('data-region'),
+        card.getAttribute('data-cat'),
+        card.getAttribute('data-keywords')
+      ].join(' ').toLowerCase();
+      if (haystack.indexOf(q) === -1) return false;
+    }
+    if (state.cat) {
+      var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
+      if (cats.indexOf(state.cat) === -1) return false;
+    }
+    if (state.region) {
+      if (card.getAttribute('data-region') !== state.region) return false;
+    }
+    return true;
+  }
+
+  function hasActiveFilters() {
+    return !!(state.q.trim() || state.cat || state.region);
+  }
+
+  function chipsWithResults() {
+    return catChips.filter(function (chip) {
+      var cat = chip.getAttribute('data-cat');
+      if (!cat) return false;
+      return realCards.some(function (card) {
+        var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
+        return cats.indexOf(cat) !== -1;
+      });
+    });
+  }
+
+  function render() {
+    var active = hasActiveFilters();
+    var visibleReal = 0;
+
+    cards.forEach(function (card) {
+      var isPlaceholder = card.hasAttribute('data-placeholder');
+      if (isPlaceholder) {
+        card.hidden = active;
+        return;
+      }
+      var match = cardMatches(card);
+      card.hidden = !match;
+      if (match) visibleReal++;
+    });
+
+    if (countEl) {
+      var label = visibleReal === 1 ? '1 experience' : visibleReal + ' experiences';
+      if (state.region === 'bali') label += ' in Bali';
+      else if (state.region === 'mornington') label += ' in Victoria, Australia';
+      countEl.textContent = active ? label : '';
+    }
+
+    if (emptyEl) {
+      var showEmpty = visibleReal === 0 && active;
+      emptyEl.hidden = !showEmpty;
+      if (showEmpty && emptyChips) {
+        emptyChips.innerHTML = '';
+        chipsWithResults().slice(0, 3).forEach(function (chip) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'opt';
+          b.style.borderRadius = 'var(--r-pill)';
+          b.style.minHeight = '44px';
+          b.textContent = chip.textContent;
+          b.addEventListener('click', function () {
+            setCat(chip.getAttribute('data-cat'));
+          });
+          emptyChips.appendChild(b);
+        });
+      }
+    }
+  }
+
+  function setCat(cat) {
+    state.cat = cat || '';
+    catChips.forEach(function (chip) {
+      chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === state.cat ? 'true' : 'false');
+    });
+    writeURL();
+    render();
+  }
+
+  function setRegion(region) {
+    state.region = region || '';
+    regionRadios.forEach(function (radio) {
+      radio.setAttribute('aria-checked', radio.getAttribute('data-region') === state.region ? 'true' : 'false');
+    });
+    writeURL();
+    render();
+  }
+
+  function setQuery(q) {
+    state.q = q || '';
+    writeURL();
+    render();
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      setQuery(searchInput.value);
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var browseSection = document.getElementById('browse');
+      if (browseSection) browseSection.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+      if (countEl) countEl.focus();
+    });
+  }
+
+  catChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var cat = chip.getAttribute('data-cat');
+      setCat(state.cat === cat && cat ? '' : cat);
+    });
+  });
+
+  regionRadios.forEach(function (radio, i) {
+    radio.addEventListener('click', function () {
+      setRegion(radio.getAttribute('data-region'));
+    });
+    radio.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var next = e.key === 'ArrowRight' ? (i + 1) % regionRadios.length : (i - 1 + regionRadios.length) % regionRadios.length;
+      regionRadios[next].focus();
+      setRegion(regionRadios[next].getAttribute('data-region'));
+    });
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      if (searchInput) searchInput.value = '';
+      state = { q: '', cat: '', region: '' };
+      catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
+      regionRadios.forEach(function (radio) { radio.setAttribute('aria-checked', radio.getAttribute('data-region') === '' ? 'true' : 'false'); });
+      writeURL();
+      render();
+    });
+  }
+
+  readURL();
+  if (searchInput) searchInput.value = state.q;
+  catChips.forEach(function (chip) {
+    chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === state.cat ? 'true' : 'false');
+  });
+  regionRadios.forEach(function (radio) {
+    radio.setAttribute('aria-checked', radio.getAttribute('data-region') === state.region ? 'true' : 'false');
+  });
+  if (countEl) countEl.setAttribute('tabindex', '-1');
+  render();
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes

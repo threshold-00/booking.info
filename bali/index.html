@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="/assets/fonts/inter-tight-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="canonical" href="https://thresholdbooking.com/bali/" />
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
@@ -97,11 +98,8 @@
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
       <a href="../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-        <a href="../mornington-peninsula/" class="navlink">Victoria, Australia</a>
-        <a href="../bali/" class="navlink on">Bali</a>
-        <a href="../for-business/" class="navlink">For businesses</a>
-        <a href="../faq/" class="navlink">FAQ</a>
-        <a href="../for-business/#interested" class="navlink">Contact</a>
+        <a href="/#browse" class="navlink">Browse experiences</a>
+        <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -116,7 +114,7 @@
         <source srcset="../assets/photos/surfboards.webp" type="image/webp" />
         <img src="../assets/photos/surfboards.jpg" alt="Colourful surfboards lined up on a Bali beach at golden hour, ocean and beachgoers in the background" loading="lazy" width="1200" height="900" style="width:100%;height:auto;display:block;" />
       </picture>
-      <figcaption style="margin-top:10px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:rgba(23,23,26,.45);">Photo by <a href="https://unsplash.com/@katarinahumajova" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.25);">Katarina Humajova</a> on <a href="https://unsplash.com/photos/hk_cErcqS4Q" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.25);">Unsplash</a></figcaption>
+      <figcaption style="margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(23,23,26,.45);">Photo by <a href="https://unsplash.com/@katarinahumajova" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.25);">Katarina Humajova</a> on <a href="https://unsplash.com/photos/hk_cErcqS4Q" target="_blank" rel="noopener" style="border-bottom:1px solid rgba(23,23,26,.25);">Unsplash</a></figcaption>
     </figure>
   </section>
 
@@ -126,13 +124,13 @@
     <p style="margin:0;max-width:62ch;color:rgba(23,23,26,.82);">Unique experiences run by the local people who started them. Browse what's available, pick a date, and book directly with the business.</p>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section style="padding:0 var(--gutter) var(--section-y);">
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>Bookable now</p>
       <div>
         <h2 style="font-size:clamp(26px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 32px;max-width:20ch;">Experiences in Bali</h2>
         <div style="border:1px solid var(--line);background:var(--panel);padding:28px 24px;max-width:58ch;">
-          <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--cleared);margin:0 0 10px;"><span style="width:7px;height:7px;border-radius:50%;background:var(--cleared);display:inline-block;flex:none;"></span>Horse riding</p>
+          <p style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--cleared);margin:0 0 10px;"><span style="width:7px;height:7px;border-radius:50%;background:var(--cleared);display:inline-block;flex:none;"></span>Horse riding</p>
           <h3 style="font-size:22px;line-height:1.15;letter-spacing:-.015em;margin:0 0 12px;">Salty Cowboy</h3>
           <p style="margin:0 0 12px;color:rgba(23,23,26,.7);">Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.</p>
           <p style="margin:0 0 18px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;font-weight:500;color:var(--cleared);">From $50 AUD</p>

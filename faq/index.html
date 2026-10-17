@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="/assets/fonts/inter-tight-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="canonical" href="https://thresholdbooking.com/faq/" />
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
@@ -107,11 +108,8 @@
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
       <a href="../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-        <a href="../mornington-peninsula/" class="navlink">Victoria, Australia</a>
-        <a href="../bali/" class="navlink">Bali</a>
-        <a href="../for-business/" class="navlink">For businesses</a>
-        <a href="../faq/" class="navlink on">FAQ</a>
-        <a href="../for-business/#interested" class="navlink">Contact</a>
+        <a href="/#browse" class="navlink">Browse experiences</a>
+        <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -126,7 +124,7 @@
     <p style="margin:0;max-width:62ch;color:rgba(23,23,26,.82);">What Threshold is, how it's different from a big OTA, and how businesses get listed.</p>
   </section>
 
-  <section style="padding:0 40px 96px;">
+  <section style="padding:0 var(--gutter) var(--section-y);">
     <div style="border-top:1px solid var(--line);padding-top:28px;max-width:820px;display:grid;gap:40px;">
       <div>
         <h2 style="font-size:22px;line-height:1.15;letter-spacing:-.015em;margin:0 0 12px;">What is Threshold?</h2>
