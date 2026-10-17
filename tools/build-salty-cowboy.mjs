@@ -60,8 +60,9 @@ function header(base) {
         <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
         <select id="currencySelect" class="currency-select" aria-label="Currency">
-          <option value="IDR">IDR</option>
           <option value="AUD">AUD</option>
+          <option value="USD">USD</option>
+          <option value="IDR">IDR</option>
         </select>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
@@ -95,8 +96,8 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="preload" href="/assets/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" href="/assets/fonts/switzer-600.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="${base}styles.css" />
 <link rel="canonical" href="https://thresholdbooking.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
@@ -189,7 +190,7 @@ function cardMini(a, base) {
   const img = a.images[0];
   const perPerson = a.priceUnit === 'person';
   return `<a class="card" href="${base}bali/salty-cowboy/${a.slug}/" style="display:block;">
-          <div class="card__media" style="background-image:url('${base}assets/salty-cowboy/${img.file}');background-size:cover;background-position:center;"></div>
+          <div class="card__media" style="background-image:url('${base}assets/salty-cowboy/${img.file}');background-size:cover;background-position:${img.imagePosition || 'center'};"></div>
           <div class="card__body">
             <h3 class="card__title">${esc(a.title)}</h3>
             <p class="card__loc">${esc(a.durations[0].label)} &middot; Salty Cowboy &middot; Bali</p>

@@ -11,60 +11,69 @@ var FORM_ENDPOINT = '';
 // localStorage, since this is a static multi-page site with no shared app state.
 window.ThCurrency = (function () {
   var CURRENCY_KEY = 'th_currency';
-  var RATE_KEY = 'th_idr_aud_rate';
-  var RATE_TS_KEY = 'th_idr_aud_rate_ts';
-  var FALLBACK_RATE = 0.0001; // approx 1 IDR = 0.0001 AUD (about 10,000 IDR per AUD)
+  var RATE_KEYS = { AUD: 'th_idr_aud_rate', USD: 'th_idr_usd_rate' };
+  var RATE_TS_KEY = 'th_idr_rate_ts';
+  // Fallback rates, used only until the live fetch below succeeds or if it
+  // fails. AUD matches the rate already shipped; USD was pulled from the
+  // same source (frankfurter.app) on 2026-10-18 (1 IDR = 0.000055 USD) and
+  // shown to Ro rather than invented, per her brief.
+  var FALLBACK_RATES = { AUD: 0.0001, USD: 0.000055 };
+  var DEFAULT_CURRENCY = 'AUD';
   var RATE_MAX_AGE = 1000 * 60 * 60 * 6; // refetch at most every 6 hours
 
   function getCurrency() {
-    try { return localStorage.getItem(CURRENCY_KEY) || 'IDR'; } catch (e) { return 'IDR'; }
+    try { return localStorage.getItem(CURRENCY_KEY) || DEFAULT_CURRENCY; } catch (e) { return DEFAULT_CURRENCY; }
   }
   function setCurrency(c) {
     try { localStorage.setItem(CURRENCY_KEY, c); } catch (e) { /* ignore */ }
     render();
   }
-  function getCachedRate() {
+  function getCachedRates() {
     try {
       var ts = Number(localStorage.getItem(RATE_TS_KEY) || 0);
-      var rate = Number(localStorage.getItem(RATE_KEY));
-      if (rate && Date.now() - ts < RATE_MAX_AGE) return rate;
+      if (Date.now() - ts >= RATE_MAX_AGE) return null;
+      var aud = Number(localStorage.getItem(RATE_KEYS.AUD));
+      var usd = Number(localStorage.getItem(RATE_KEYS.USD));
+      if (aud && usd) return { AUD: aud, USD: usd };
     } catch (e) { /* ignore */ }
     return null;
   }
-  function cacheRate(rate) {
+  function cacheRates(rates) {
     try {
-      localStorage.setItem(RATE_KEY, String(rate));
+      localStorage.setItem(RATE_KEYS.AUD, String(rates.AUD));
+      localStorage.setItem(RATE_KEYS.USD, String(rates.USD));
       localStorage.setItem(RATE_TS_KEY, String(Date.now()));
     } catch (e) { /* ignore */ }
   }
 
-  var rate = getCachedRate() || FALLBACK_RATE;
+  var rates = getCachedRates() || FALLBACK_RATES;
 
   function fetchRate() {
-    fetch('https://api.frankfurter.app/latest?from=IDR&to=AUD')
+    fetch('https://api.frankfurter.app/latest?from=IDR&to=AUD,USD')
       .then(function (r) { return r.ok ? r.json() : Promise.reject(r); })
       .then(function (data) {
-        var live = data && data.rates && data.rates.AUD;
-        if (live) {
-          rate = live;
-          cacheRate(live);
+        var live = data && data.rates;
+        if (live && live.AUD && live.USD) {
+          rates = { AUD: live.AUD, USD: live.USD };
+          cacheRates(rates);
           render();
         }
       })
-      .catch(function () { /* keep the fallback rate */ });
+      .catch(function () { /* keep the fallback rates */ });
   }
 
   function formatIDR(amount) {
     return 'IDR ' + Math.round(amount).toLocaleString('en-US');
   }
-  function formatAUD(amount) {
+  function formatConverted(amount, code) {
     var n = amount >= 100 ? Math.round(amount) : Math.round(amount * 100) / 100;
-    return '$' + n.toLocaleString('en-US') + ' AUD';
+    return 'approx. $' + n.toLocaleString('en-US') + ' ' + code;
   }
 
   function format(idrAmount, opts) {
     opts = opts || {};
-    var text = getCurrency() === 'AUD' ? formatAUD(idrAmount * rate) : formatIDR(idrAmount);
+    var currency = getCurrency();
+    var text = currency === 'IDR' ? formatIDR(idrAmount) : formatConverted(idrAmount * rates[currency], currency);
     return (opts.prefix ? opts.prefix + ' ' : '') + text + (opts.suffix || '');
   }
 

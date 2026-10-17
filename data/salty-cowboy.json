@@ -116,7 +116,7 @@
         {
           "file": "insta-ride.jpg",
           "alt": "Rider on a horse pausing for a photo on the way to the beach",
-          "imagePosition": "center 80%"
+          "imagePosition": "center 15%"
         }
       ],
       "cardDesc": "Our longest ride, with plenty of stops for photos along the way.",
@@ -323,7 +323,8 @@
       "images": [
         {
           "file": "join-up.jpg",
-          "alt": "Trainer working with a horse in a Join Up natural horsemanship lesson"
+          "alt": "Trainer working with a horse in a Join Up natural horsemanship lesson",
+          "imagePosition": "center 15%"
         }
       ],
       "cardDesc": "A hands-on lesson in natural horsemanship, learning to earn a horse's trust.",
@@ -407,7 +408,8 @@
       "images": [
         {
           "file": "photo-stable.jpg",
-          "alt": "Western-style stable backdrop with horses for a photoshoot"
+          "alt": "Western-style stable backdrop with horses for a photoshoot",
+          "imagePosition": "center 15%"
         },
         {
           "file": "gallery-stable-1.jpg",
@@ -571,7 +573,7 @@
         {
           "file": "dressage.jpg",
           "alt": "Rider and horse in a private dressage lesson",
-          "imagePosition": "center 20%"
+          "imagePosition": "center 15%"
         }
       ],
       "cardDesc": "A private dressage lesson for all levels.",
@@ -697,7 +699,7 @@
     },
     {
       "slug": "horse-whisperer-course",
-      "title": "3-day Horse Whisperer course for two",
+      "title": "3-day Horse Whisperer course",
       "sourceName": "Horse Whisperer Intensive Course",
       "cat": "horse",
       "type": "lessons",
@@ -741,7 +743,7 @@
         {
           "file": "horse-whisperer.jpg",
           "alt": "Horse Whisperer course participants working with a horse",
-          "imagePosition": "center 20%"
+          "imagePosition": "center 15%"
         }
       ],
       "cardDesc": "A 3-day groundwork course for two, open to all levels.",

@@ -1,10 +1,8 @@
-/* Self-hosted heading font. Neue Haas Grotesk Display is a paid license Threshold
-   doesn't hold yet, so this is the free match agreed as the fallback: Switzer
-   (Fontshare, free to self-host), a grotesk built as a close Helvetica/Neue Haas
-   stand-in. Swap in the licensed Neue Haas files later by replacing this @font-face. */
-@font-face{font-family:'Switzer';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/switzer-400.woff2') format('woff2')}
-@font-face{font-family:'Switzer';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/switzer-600.woff2') format('woff2')}
-:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Switzer','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',monospace;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--gutter:40px;--section-y:var(--s-9);--r-pill:999px;
+/* Self-hosted heading font: Neue Haas Grotesk Display Pro, Roman (400) and
+   Medium (600), licensed and provided by Ro. */
+@font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
+@font-face{font-family:'Neue Haas';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/neuehaas-600.woff2') format('woff2')}
+:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Neue Haas','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',monospace;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--gutter:40px;--section-y:var(--s-9);--r-pill:999px;
   --ink-2:rgba(23,23,26,.70);--ink-3:rgba(23,23,26,.62);--ink-disabled:rgba(23,23,26,.45);--paper-2:rgba(243,242,238,.78);--paper-3:rgba(243,242,238,.62);--cleared-tint:rgba(31,111,69,.18);--line-ui:rgba(23,23,26,.50);--line-dark:rgba(243,242,238,.18);--line-ui-dark:rgba(243,242,238,.40);--tint-hover:rgba(23,23,26,.04);--tint-hover-dark:rgba(243,242,238,.12);--paper-glass:rgba(243,242,238,.92);--scrim:linear-gradient(180deg,rgba(23,23,26,.5),rgba(23,23,26,.65));--scrim-side:linear-gradient(90deg,rgba(23,23,26,.9),rgba(23,23,26,.82) 55%,rgba(23,23,26,.6));--scrim-strong:rgba(23,23,26,.95);--focus:var(--cleared);--focus-dark:var(--paper);--focus-offset:2px;--shadow-float:0 6px 20px rgba(23,23,26,.18);--shadow-bar:0 -6px 20px rgba(23,23,26,.12);
   --font-body:var(--mono);--t-display:clamp(2.25rem,1.318rem + 3.978vw,4.5rem);--t-headline:clamp(1.75rem,1.336rem + 1.768vw,2.75rem);--t-subhead:clamp(1.25rem,1.146rem + .442vw,1.5rem);--t-title:clamp(1rem,.974rem + .11vw,1.0625rem);--t-body:.875rem;--t-small:.8125rem;--t-label:.6875rem;--w-regular:400;--w-strong:600;--w-mono:400;--w-mono-strong:500;
   --s-10:128px;--container:1200px;--container-narrow:820px;--measure:62ch;--measure-narrow:34ch;--r-0:0;--r-round:50%;--bw:1px;--bw-strong:2px}
@@ -156,6 +154,18 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 #exploreMap .leaflet-container a.leaflet-popup-close-button,#mpMap .leaflet-container a.leaflet-popup-close-button{color:var(--ink)}
 #top{color:var(--paper)}
 #top img{object-position:center 55%}
+@media (min-width:821px){
+  #top{min-height:clamp(560px,72svh,760px);display:flex;align-items:center;justify-content:center}
+}
+
+/* Full-bleed band (the "made by a person" strip): background spans the
+   viewport, content stays inside .container, matching the /for-business/
+   pattern of a full-width section with an inner .container. */
+.band{padding:var(--s-7) 0}
+
+/* Filter group labels (Location / Experience) */
+.filter-group-label{display:block;margin:0 0 var(--s-2)}
+.filter-group+.filter-group{margin-top:var(--s-5)}
 /* Mobile hamburger nav: button is hidden above 640px, the menu panel is always in the
    DOM but only shown (as a full-width overlay) once JS adds .is-open at narrow widths */
 .nav{display:flex}
