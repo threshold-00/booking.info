@@ -311,7 +311,17 @@ window.ThCurrency = (function () {
       var label = count === 1 ? '1 experience' : count + ' experiences';
       if (state.region === 'bali') label += ' in Bali';
       else if (state.region === 'mornington') label += ' in Victoria, Australia';
-      countEl.textContent = label;
+      countEl.textContent = '';
+      countEl.appendChild(document.createTextNode(label));
+      if (count === 0) {
+        countEl.appendChild(document.createTextNode(' · '));
+        var seeAllLink = document.createElement('button');
+        seeAllLink.type = 'button';
+        seeAllLink.className = 'see-all';
+        seeAllLink.textContent = 'See all experiences';
+        seeAllLink.addEventListener('click', clearFilters);
+        countEl.appendChild(seeAllLink);
+      }
     }
 
     if (emptyEl) {
@@ -421,16 +431,16 @@ window.ThCurrency = (function () {
     });
   });
 
-  if (clearBtn) {
-    clearBtn.addEventListener('click', function () {
-      state = { cat: '', sub: '', region: '' };
-      catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
-      regionRadios.forEach(function (radio) { radio.setAttribute('aria-checked', radio.getAttribute('data-region') === '' ? 'true' : 'false'); });
-      showHorseSub(false);
-      writeURL();
-      render();
-    });
+  function clearFilters() {
+    state = { cat: '', sub: '', region: '' };
+    catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
+    regionRadios.forEach(function (radio) { radio.setAttribute('aria-checked', radio.getAttribute('data-region') === '' ? 'true' : 'false'); });
+    showHorseSub(false);
+    writeURL();
+    render();
   }
+
+  if (clearBtn) clearBtn.addEventListener('click', clearFilters);
 
   readURL();
   catChips.forEach(function (chip) {
@@ -445,23 +455,6 @@ window.ThCurrency = (function () {
   });
   if (countEl) countEl.setAttribute('tabindex', '-1');
   render();
-
-  // Single scrollable filter row (category + region chips together, Viator-style):
-  // a circular next arrow scrolls the row, and hides itself once there's nothing
-  // left to scroll to.
-  var filterRowNext = document.getElementById('filterRowNext');
-  if (chipRow && filterRowNext) {
-    function updateFilterRowNext() {
-      var atEnd = chipRow.scrollLeft + chipRow.clientWidth >= chipRow.scrollWidth - 2;
-      filterRowNext.hidden = atEnd;
-    }
-    filterRowNext.addEventListener('click', function () {
-      chipRow.scrollBy({ left: 220, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    });
-    chipRow.addEventListener('scroll', updateFilterRowNext, { passive: true });
-    window.addEventListener('resize', updateFilterRowNext);
-    updateFilterRowNext();
-  }
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes
