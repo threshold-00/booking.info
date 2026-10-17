@@ -4,6 +4,98 @@ var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.
 var FORM_ENDPOINT = '';
 
+// Site-wide currency toggle. All experience prices are sourced in IDR; this converts
+// them to AUD using a live rate (frankfurter.app, free, no key) cached in localStorage,
+// with a fixed fallback rate if the fetch fails or hasn't run yet. The chosen currency
+// and any element marked data-price-idr are kept in sync across every page via
+// localStorage, since this is a static multi-page site with no shared app state.
+window.ThCurrency = (function () {
+  var CURRENCY_KEY = 'th_currency';
+  var RATE_KEY = 'th_idr_aud_rate';
+  var RATE_TS_KEY = 'th_idr_aud_rate_ts';
+  var FALLBACK_RATE = 0.0001; // approx 1 IDR = 0.0001 AUD (about 10,000 IDR per AUD)
+  var RATE_MAX_AGE = 1000 * 60 * 60 * 6; // refetch at most every 6 hours
+
+  function getCurrency() {
+    try { return localStorage.getItem(CURRENCY_KEY) || 'IDR'; } catch (e) { return 'IDR'; }
+  }
+  function setCurrency(c) {
+    try { localStorage.setItem(CURRENCY_KEY, c); } catch (e) { /* ignore */ }
+    render();
+  }
+  function getCachedRate() {
+    try {
+      var ts = Number(localStorage.getItem(RATE_TS_KEY) || 0);
+      var rate = Number(localStorage.getItem(RATE_KEY));
+      if (rate && Date.now() - ts < RATE_MAX_AGE) return rate;
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+  function cacheRate(rate) {
+    try {
+      localStorage.setItem(RATE_KEY, String(rate));
+      localStorage.setItem(RATE_TS_KEY, String(Date.now()));
+    } catch (e) { /* ignore */ }
+  }
+
+  var rate = getCachedRate() || FALLBACK_RATE;
+  var rateIsLive = !!getCachedRate();
+
+  function fetchRate() {
+    fetch('https://api.frankfurter.app/latest?from=IDR&to=AUD')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r); })
+      .then(function (data) {
+        var live = data && data.rates && data.rates.AUD;
+        if (live) {
+          rate = live;
+          rateIsLive = true;
+          cacheRate(live);
+          render();
+        }
+      })
+      .catch(function () { /* keep the fallback rate */ });
+  }
+
+  function formatIDR(amount) {
+    return 'IDR ' + Math.round(amount).toLocaleString('en-US');
+  }
+  function formatAUD(amount) {
+    var n = amount >= 100 ? Math.round(amount) : Math.round(amount * 100) / 100;
+    return '$' + n.toLocaleString('en-US') + ' AUD' + (rateIsLive ? '' : ' (approx)');
+  }
+
+  function format(idrAmount, opts) {
+    opts = opts || {};
+    var text = getCurrency() === 'AUD' ? formatAUD(idrAmount * rate) : formatIDR(idrAmount);
+    return (opts.prefix ? opts.prefix + ' ' : '') + text + (opts.suffix || '');
+  }
+
+  function render() {
+    var currency = getCurrency();
+    document.querySelectorAll('[data-price-idr]').forEach(function (el) {
+      var idr = Number(el.getAttribute('data-price-idr'));
+      if (!idr) return;
+      el.textContent = format(idr, {
+        prefix: el.getAttribute('data-price-prefix') || '',
+        suffix: el.getAttribute('data-price-suffix') || ''
+      });
+    });
+    document.querySelectorAll('.currency-opt').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', btn.getAttribute('data-currency') === currency ? 'true' : 'false');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.currency-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () { setCurrency(btn.getAttribute('data-currency')); });
+    });
+    render();
+    fetchRate();
+  });
+
+  return { format: format, getCurrency: getCurrency, setCurrency: setCurrency, render: render };
+})();
+
 
 // Explore nearby map (Leaflet, vendored in assets/leaflet/). Real listings only, no
 // placeholder pins. Centres on the user's location when granted, falls back to the
@@ -24,7 +116,7 @@ var FORM_ENDPOINT = '';
       lat: -8.6500,
       lng: 115.2167,
       description: 'Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.',
-      price: 'From $50 AUD',
+      priceIdr: 1250000,
       link: 'bali/'
     }
   ];
@@ -57,10 +149,12 @@ var FORM_ENDPOINT = '';
     m.threshCat = p.cat;
     m.addTo(map);
     m.bindPopup(
-      '<p class="pop-title">' + p.name + '</p>' +
-      '<p class="pop-desc">' + p.description + '</p>' +
-      '<p class="pop-price">' + p.price + '</p>' +
-      '<a class="pop-link" href="' + p.link + '">View listing &rarr;</a>',
+      function () {
+        return '<p class="pop-title">' + p.name + '</p>' +
+          '<p class="pop-desc">' + p.description + '</p>' +
+          '<p class="pop-price">' + window.ThCurrency.format(p.priceIdr, { prefix: 'from' }) + '</p>' +
+          '<a class="pop-link" href="' + p.link + '">View listing &rarr;</a>';
+      },
       { closeButton: true, maxWidth: 260 }
     );
     m.on('popupopen', function () { m.setIcon(pinIcon(true)); });
@@ -609,4 +703,61 @@ if (lt) {
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+})();
+
+// Phase 4: Salty Cowboy card image carousels. Dots and prev/next scroll one slide each,
+// stopPropagation so the controls don't trigger the card's own link, and the sr-only
+// live text announces "Photo X of N" for screen readers. No autoplay.
+(function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('.card__carousel').forEach(function (carousel) {
+    var track = carousel.querySelector('.card__track');
+    var slides = track ? Array.prototype.slice.call(track.querySelectorAll('.card__slide')) : [];
+    if (slides.length < 2) return; // one image means no controls
+
+    var prev = carousel.querySelector('.card__nav--prev');
+    var next = carousel.querySelector('.card__nav--next');
+    var dotsWrap = carousel.querySelector('.card__dots');
+    var srText = carousel.querySelector('.sr-only');
+    var dots = slides.map(function (_, i) {
+      var d = document.createElement('span');
+      if (i === 0) d.className = 'is-active';
+      dotsWrap.appendChild(d);
+      return d;
+    });
+
+    function activeIndex() {
+      var scrollLeft = track.scrollLeft, width = track.clientWidth || 1;
+      return Math.round(scrollLeft / width);
+    }
+    function updateActive() {
+      var i = Math.max(0, Math.min(slides.length - 1, activeIndex()));
+      dots.forEach(function (d, j) { d.className = j === i ? 'is-active' : ''; });
+      if (srText) srText.textContent = 'Photo ' + (i + 1) + ' of ' + slides.length;
+    }
+    function goTo(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: i * track.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    if (prev) prev.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      goTo(activeIndex() - 1);
+    });
+    if (next) next.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      goTo(activeIndex() + 1);
+    });
+    dots.forEach(function (d, i) {
+      d.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(i); });
+    });
+    track.addEventListener('click', function (e) { e.stopPropagation(); });
+    track.addEventListener('scroll', function () {
+      clearTimeout(track._thScrollTimer);
+      track._thScrollTimer = setTimeout(updateActive, 80);
+    }, { passive: true });
+
+    updateActive();
+  });
 })();
