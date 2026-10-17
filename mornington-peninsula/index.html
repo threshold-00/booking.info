@@ -60,13 +60,17 @@
   <header class="site-header" style="position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
       <a href="../" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
-      <nav class="nav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="../mornington-peninsula/" class="navlink on">Victoria, Australia</a>
         <a href="../bali/" class="navlink">Bali</a>
         <a href="../for-business/" class="navlink">For businesses</a>
         <a href="../faq/" class="navlink">FAQ</a>
         <a href="../for-business/#interested" class="navlink">Contact</a>
       </nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
     </div>
   </header>
 
@@ -124,11 +128,11 @@
     </div>
   </section>
 
-  <section style="padding:0 40px 96px;max-width:1200px;margin:0 auto;">
+  <section style="padding:0 40px 96px;max-width:1200px;margin:0 auto;overflow-x:clip;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore the area</h2>
     </div>
-    <div id="mpMap" style="border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
+    <div id="mpMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
 
   <section style="padding:0 40px 96px;">
@@ -179,7 +183,10 @@
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
+  setTimeout(function () { map.invalidateSize(); }, 0);
+  window.addEventListener('resize', function () { map.invalidateSize(); });
 })();
 </script>
+<script src="../app.js"></script>
 </body>
 </html>

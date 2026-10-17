@@ -85,13 +85,19 @@
 <body>
 <div>
 
-  <header style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 28px 40px; border-bottom: 1px solid rgba(23,23,26,0.14); position: sticky; top: 0; background: rgba(243,242,238,0.92); backdrop-filter: blur(8px); z-index: 20;">
-    <a href="index.html" style="font-family: 'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, sans-serif; text-transform: none; font-weight: 500; font-size: 17px; letter-spacing: 0.22em; text-transform: uppercase;">Threshold</a>
-    <nav style="display: flex; align-items: baseline; gap: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
-      <a href="bali/" class="navlink">Bali</a>
-      <a href="for-business/" class="navlink">For businesses</a>
-      <a href="for-business/#interested" class="navlink">Contact</a>
-    </nav>
+  <header class="site-header" style="position: sticky; top: 0; background: rgba(243,242,238,0.92); backdrop-filter: blur(8px); z-index: 20;">
+    <div class="bar" style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 28px 40px; border-bottom: 1px solid var(--line);">
+      <a href="index.html" class="display" style="font-size: 17px; letter-spacing: 0.22em; text-transform: uppercase;">Threshold</a>
+      <nav class="nav" id="siteNav" style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 28px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
+        <a href="bali/" class="navlink">Bali</a>
+        <a href="for-business/" class="navlink">For businesses</a>
+        <a href="for-business/#interested" class="navlink">Contact</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
+    </div>
   </header>
 
   <section style="padding: 96px 40px 80px;">
@@ -180,5 +186,6 @@
     <span>8.6500 S, 115.2167 E / Bali</span>
   </footer>
 </div>
+<script src="app.js"></script>
 </body>
 </html>

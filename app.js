@@ -75,6 +75,9 @@ var FORM_ENDPOINT = '';
   }
   fitToPins();
 
+  setTimeout(function () { map.invalidateSize(); }, 0);
+  window.addEventListener('resize', function () { map.invalidateSize(); });
+
   var statusEl = document.getElementById('nearbyStatus');
   function setStatus(text) { if (statusEl) statusEl.textContent = text; }
 
@@ -152,6 +155,31 @@ wireLeadForm(document.getElementById('bizSignup'));
 document.querySelectorAll('a[href^="mailto:hello@example.com"]').forEach(function (a) {
   a.href = a.href.replace('hello@example.com', CONTACT_EMAIL);
 });
+
+// Mobile hamburger nav: toggles the full-width menu, swaps the icon via aria-expanded,
+// and closes on a link tap or Escape. Same markup and behaviour on every page.
+(function () {
+  var toggle = document.getElementById('navToggle');
+  var nav = toggle && document.getElementById(toggle.getAttribute('aria-controls'));
+  if (!toggle || !nav) return;
+  function close() {
+    toggle.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('is-open');
+  }
+  function open() {
+    toggle.setAttribute('aria-expanded', 'true');
+    nav.classList.add('is-open');
+  }
+  toggle.addEventListener('click', function () {
+    if (nav.classList.contains('is-open')) close(); else open();
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+})();
 
 var siteHeader = document.querySelector('.site-header');
 function setHeaderOffset() {

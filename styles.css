@@ -109,6 +109,24 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 #exploreMap .leaflet-control-attribution a,#mpMap .leaflet-control-attribution a{color:var(--ink)}
 #exploreMap .leaflet-container a.leaflet-popup-close-button,#mpMap .leaflet-container a.leaflet-popup-close-button{color:var(--ink)}
 #top{background-image:linear-gradient(180deg,rgba(15,15,17,.5),rgba(15,15,17,.62)),url('assets/photos/coastline.jpg');background-size:cover;background-position:center 55%;color:var(--paper)}
+/* Mobile hamburger nav: button is hidden above 640px, the menu panel is always in the
+   DOM but only shown (as a full-width overlay) once JS adds .is-open at narrow widths */
+.nav-toggle{display:none;background:none;border:0;padding:8px;margin:-8px;cursor:pointer;color:var(--ink);align-items:center;justify-content:center;flex:none}
+.nav-toggle svg{display:block;width:24px;height:24px}
+.nav-toggle .icon-close{display:none}
+.nav-toggle[aria-expanded="true"] .icon-burger{display:none}
+.nav-toggle[aria-expanded="true"] .icon-close{display:block}
+/* Benefits section (moved below the experiences on the homepage): plain rows, no boxes */
+.benefit-row{display:flex;align-items:flex-start;gap:18px}
+.benefit-row svg{flex:none;width:28px;height:28px;color:var(--ink)}
+/* Dark footer on every page, overriding the per-page inline colours */
+footer{background:var(--ink)!important;border-top-color:rgba(243,242,238,.18)!important;color:rgba(243,242,238,.68)!important}
+footer span{color:rgba(243,242,238,.68)!important}
+footer a{color:rgba(243,242,238,.78)!important}
+footer a:hover{color:var(--paper)!important}
+footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+#nearby{overflow-x:clip}
+#exploreMap,#mpMap{width:100%;max-width:100%;box-sizing:border-box}
 @media (max-width:820px){
   :root{--gutter:20px;--section-y:var(--s-8)}
   .split{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
@@ -133,4 +151,19 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
   .flow-arrow{display:none}
   .btn-ghost{padding:13px 18px}
   footer{flex-direction:column;gap:var(--s-3)!important}
+}
+@media (max-width:640px){
+  .bar{min-height:auto}
+  .nav-toggle{display:flex}
+  .nav{display:none}
+  .nav.is-open{display:flex!important;position:fixed;top:var(--header-h,64px);left:0;right:0;bottom:0;background:var(--paper);flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:8px 20px!important;font-size:13px!important;z-index:19;overflow-y:auto}
+  .nav.is-open a{display:flex;align-items:center;min-height:44px;width:100%;padding:12px 0!important;border-bottom:1px solid var(--line)}
+  .nav.is-open .btn-ghost{justify-content:center;margin-top:12px;border:1px solid rgba(23,23,26,.3)}
+  #top{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:24px 20px!important}
+  #top>div{margin:0 auto}
+  .benefit-row+.benefit-row{margin-top:28px}
+  #browse .x-card-grid{gap:10px!important}
+  #browse .x-card__media{aspect-ratio:16/10!important;height:auto!important}
+  #browse .x-card__body{padding:10px 12px!important}
+  #exploreMap,#mpMap{aspect-ratio:4/5;max-height:70vh;min-height:0}
 }

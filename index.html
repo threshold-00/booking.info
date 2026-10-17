@@ -59,10 +59,14 @@
   <header class="site-header" style="position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:34px 40px;border-bottom:1px solid var(--line);">
       <a href="#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
-      <nav class="nav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="#browse" class="navlink on">Browse experiences</a>
         <a href="for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
       </nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
     </div>
   </header>
 
@@ -75,24 +79,7 @@
     <p style="position:absolute;right:20px;bottom:14px;margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(243,242,238,.65);">Photo by <a href="https://unsplash.com/@nisarga_ekbote" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Unsplash</a></p>
   </section>
 
-  <section id="why" style="padding:72px 40px 88px;max-width:1100px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
-      <div style="padding:28px;border:1px solid var(--line);background:var(--panel);">
-        <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;">Made by a person, not a platform.</h3>
-        <p style="margin:0;color:rgba(23,23,26,.72);">Every experience is run by its owner. You'll meet the person who built it.</p>
-      </div>
-      <div style="padding:28px;border:1px solid var(--line);background:var(--panel);">
-        <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;">Support local.</h3>
-        <p style="margin:0;color:rgba(23,23,26,.72);">Your booking goes to a small local business, not a faceless chain.</p>
-      </div>
-      <div style="padding:28px;border:1px solid var(--line);background:var(--panel);">
-        <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;">Chosen with care.</h3>
-        <p style="margin:0;color:rgba(23,23,26,.72);">We list fewer places on purpose. If we wouldn't book it ourselves, it isn't here.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="browse" style="padding:0 40px 88px;max-width:1200px;margin:0 auto;">
+  <section id="browse" style="padding:72px 40px 88px;max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;">Experiences</h2>
       <p style="margin:0;max-width:62ch;color:rgba(23,23,26,.68);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Slow down on a retreat. Try a class you've never heard of.</p>
@@ -101,10 +88,10 @@
       <a href="mornington-peninsula/" class="btn-ghost hov" style="padding:11px 20px;border-radius:999px;">Victoria, Australia</a>
       <a href="bali/" class="btn-ghost hov" style="padding:11px 20px;border-radius:999px;">Bali</a>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-      <a href="https://book.saltycowboybali.com/" style="display:block;color:var(--ink);border:1px solid var(--line);overflow:hidden;">
-        <div style="aspect-ratio:4/3;background-image:url('assets/stable-photoshoot.avif');background-size:cover;background-position:center 38%;"></div>
-        <div style="padding:18px;">
+    <div class="x-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <a href="https://book.saltycowboybali.com/" class="x-card" style="display:block;color:var(--ink);border:1px solid var(--line);overflow:hidden;">
+        <div class="x-card__media" style="aspect-ratio:4/3;background-image:url('assets/stable-photoshoot.avif');background-size:cover;background-position:center 38%;"></div>
+        <div class="x-card__body" style="padding:18px;">
           <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.5);">Bali</p>
           <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;">Salty Cowboy</h3>
           <p style="margin:0 0 14px;font-size:12px;line-height:16px;color:rgba(23,23,26,.68);">Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.</p>
@@ -113,25 +100,25 @@
           </div>
         </div>
       </a>
-      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
-        <div style="aspect-ratio:4/3;background:var(--panel);"></div>
-        <div style="padding:18px;">
+      <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+        <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
+        <div class="x-card__body" style="padding:18px;">
           <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Victoria, Australia</p>
           <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
           <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
-        <div style="aspect-ratio:4/3;background:var(--panel);"></div>
-        <div style="padding:18px;">
+      <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+        <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
+        <div class="x-card__body" style="padding:18px;">
           <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Victoria, Australia</p>
           <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
           <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
-        <div style="aspect-ratio:4/3;background:var(--panel);"></div>
-        <div style="padding:18px;">
+      <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+        <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
+        <div class="x-card__body" style="padding:18px;">
           <p style="margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.4);">Bali</p>
           <h3 style="font-size:15px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
           <p style="margin:0;font-size:12px;line-height:16px;color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
@@ -141,12 +128,38 @@
     <p style="margin:48px 0 0;text-align:center;font-size:14px;line-height:1.5;color:rgba(23,23,26,.7);">Interesting things for interesting people. Get off your phone and out into the real world.</p>
   </section>
 
+  <section id="why" style="padding:0 40px 88px;max-width:1100px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+      <div class="benefit-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M10 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M13 10.5V5a1.5 1.5 0 0 1 3 0v7"/><path d="M16 12V9a1.5 1.5 0 0 1 3 0v6c0 3.3-2.5 6-6 6h-2c-2.2 0-3.3-.7-4.5-2.2L3 14.5c-.5-.7-.3-1.5.3-1.9.6-.4 1.4-.2 1.9.4L7 15"/></svg>
+        <div>
+          <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px;">Made by a person, not a platform.</h3>
+          <p style="margin:0;color:rgba(23,23,26,.72);">Every experience is run by its owner. You'll meet the person who built it.</p>
+        </div>
+      </div>
+      <div class="benefit-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H10v-5a2 2 0 0 1 4 0v5h3.5a1 1 0 0 0 1-1v-9"/></svg>
+        <div>
+          <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px;">Support local.</h3>
+          <p style="margin:0;color:rgba(23,23,26,.72);">Your booking goes to a small local business, not a faceless chain.</p>
+        </div>
+      </div>
+      <div class="benefit-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.7-7.5-10A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3c0 5.3-7.5 10-7.5 10Z"/></svg>
+        <div>
+          <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px;">Chosen with care.</h3>
+          <p style="margin:0;color:rgba(23,23,26,.72);">We list fewer places on purpose. If we wouldn't book it ourselves, it isn't here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="nearby" style="padding:0 40px 88px;max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore nearby</h2>
       <span id="nearbyStatus" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.45);">Locating you&hellip;</span>
     </div>
-    <div id="exploreMap" style="border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
+    <div id="exploreMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
 
   <section style="padding:0 40px 96px;max-width:1200px;margin:0 auto;">
