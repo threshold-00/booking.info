@@ -546,10 +546,6 @@ function setHeaderOffset() {
 setHeaderOffset();
 window.addEventListener('resize', setHeaderOffset);
 
-var lt = document.getElementById('localTime');
-if (lt) {
-  lt.textContent = 'Local time ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-}
 
 // Hero animation: people step up to the threshold one at a time, and the calendar
 // shows only the slots that fit each of them before one is booked.

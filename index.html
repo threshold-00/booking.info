@@ -7,7 +7,7 @@
 <meta name="description" content="Unique experiences run by the local people who started them. In Victoria, Australia and Bali." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/switzer-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles.css" />
@@ -130,7 +130,7 @@
     </div>
   </header>
 
-  <section id="top" style="position:relative;padding:140px 40px 120px;text-align:center;overflow:hidden;">
+  <section id="top" style="position:relative;padding:var(--s-10) 40px var(--s-10);text-align:center;overflow:hidden;">
     <picture>
       <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile.webp" type="image/webp" />
       <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile.jpg" />
@@ -151,7 +151,7 @@
     <p style="position:absolute;right:20px;bottom:14px;margin:0;z-index:2;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:rgba(243,242,238,.65);">Photo by <a href="https://unsplash.com/@nisarga_ekbote" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Unsplash</a></p>
   </section>
 
-    <section id="browse" style="padding:72px 40px 88px;max-width:1200px;margin:0 auto;">
+    <section id="browse" style="padding:72px 40px 88px;max-width:var(--container);margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;">Experiences</h2>
       <p style="margin:0;max-width:none;color:var(--ink-2);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Paint a landscape. Slow down on a retreat. Try a class you've never heard of.</p>
@@ -491,7 +491,7 @@
     </div>
   </section>
 
-  <section id="nearby" style="padding:0 var(--gutter) var(--section-y);max-width:1200px;margin:0 auto;">
+  <section id="nearby" style="padding:0 var(--gutter) var(--section-y);max-width:var(--container);margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore nearby</h2>
       <span id="nearbyStatus" style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">Locating you&hellip;</span>
@@ -540,7 +540,6 @@
       <a href="#faq" class="navlink">FAQ</a>
       <a href="for-business/#interested" class="navlink">Contact</a>
     </nav>
-    <span id="localTime"></span>
   </footer>
 </div>
 <script src="assets/rough.js"></script>

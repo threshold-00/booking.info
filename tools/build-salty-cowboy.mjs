@@ -70,7 +70,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <meta name="description" content="${esc(description)}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/switzer-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="${base}styles.css" />
@@ -102,7 +102,7 @@ function goodToKnowRows(a) {
 
 function dl(rows) {
   return `<dl style="margin:0;display:grid;gap:14px;">
-${rows.map(r => `      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">${esc(r.label)}</dt><dd style="margin:0;color:rgba(23,23,26,.82);">${r.html || esc(r.value)}</dd></div>`).join('\n')}
+${rows.map(r => `      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">${esc(r.label)}</dt><dd style="margin:0;color:var(--ink-2);">${r.html || esc(r.value)}</dd></div>`).join('\n')}
     </dl>`;
 }
 
@@ -213,7 +213,7 @@ ${a.addon ? `      <label style="display:flex;align-items:flex-start;gap:8px;mar
         <span>Total</span>
         <span id="bookingTotal" aria-live="polite" style="font-size:15px;font-weight:600;color:var(--ink);"></span>
       </p>
-${a.serviceTaxIncluded ? `      <p style="margin:0 0 16px;font-size:11px;color:var(--ink-3);">Service tax included</p>\n` : ''}      <p id="startTimesLine" style="margin:16px 0;color:rgba(23,23,26,.78);"></p>
+${a.serviceTaxIncluded ? `      <p style="margin:0 0 16px;font-size:11px;color:var(--ink-3);">Service tax included</p>\n` : ''}      <p id="startTimesLine" style="margin:16px 0;color:var(--ink-2);"></p>
       <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta" target="_blank" rel="noopener" style="display:flex;justify-content:center;width:100%;padding:15px 0;">Check dates with Salty Cowboy &rarr;</a>
       <p style="margin:12px 0 0;font-size:11px;line-height:1.5;color:var(--ink-3);">You'll finish booking with Salty Cowboy. Simone confirms your date on WhatsApp. No payment is taken now.</p>
     </aside>`;
@@ -294,7 +294,7 @@ ${header(base)}
     <span>${esc(a.title)}</span>
   </nav>
 
-  <section style="padding:24px 40px 0;max-width:1200px;">
+  <section style="padding:24px 40px 0;max-width:var(--container);">
     <h1 style="font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 10px;max-width:28ch;">${esc(a.title)}</h1>
     <p style="margin:0 0 20px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);">${a.durations.map(d => esc(d.label)).join(' - ')} &middot; ${esc(a.basis)} &middot; Bali &middot; <a href="#business" class="navlink">Run by Salty Cowboy</a></p>
     ${galleryMarkup(a, base)}
@@ -306,13 +306,13 @@ ${header(base)}
     </div>
   </section>
 
-  <section style="padding:0 40px var(--section-y);max-width:1200px;">
+  <section style="padding:0 40px var(--section-y);max-width:var(--container);">
     <div class="detail-layout" style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:48px;align-items:start;">
       <div>
         <div id="know" role="tabpanel" aria-labelledby="tab-know" tabindex="0" style="scroll-margin-top:100px;">
           <div style="max-width:62ch;">
             <h2 style="font-size:20px;margin:0 0 14px;">Overview</h2>
-            <p style="margin:0;color:rgba(23,23,26,.82);line-height:1.6;">${esc(a.overview)}</p>
+            <p style="margin:0;color:var(--ink-2);line-height:1.6;">${esc(a.overview)}</p>
           </div>
 
           <div style="margin:40px 0 0;">
@@ -343,7 +343,7 @@ ${header(base)}
             <div style="aspect-ratio:1/1;background:var(--panel);border:1px solid var(--line);"></div>
             <div>
               <p style="margin:0 0 8px;font-weight:600;">Owner-run by Simone.</p>
-              <p style="margin:0 0 12px;color:rgba(23,23,26,.78);">Riding with Salty Cowboy is supporting our rescue horses!</p>
+              <p style="margin:0 0 12px;color:var(--ink-2);">Riding with Salty Cowboy is supporting our rescue horses!</p>
               <a href="${base}case-study.html" class="navlink">Read their story</a>
             </div>
           </div>
@@ -357,7 +357,7 @@ ${header(base)}
         <div id="faq" role="tabpanel" aria-labelledby="tab-faq" tabindex="0" style="max-width:72ch;scroll-margin-top:100px;">
           <h2 style="font-size:20px;margin:0 0 16px;">FAQ</h2>
           <div style="display:grid;gap:4px;">
-${faqs.map(f => `            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">${esc(f.q)}</summary><p style="margin:10px 0 0;color:rgba(23,23,26,.78);">${esc(f.a)}</p></details>`).join('\n')}
+${faqs.map(f => `            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">${esc(f.q)}</summary><p style="margin:10px 0 0;color:var(--ink-2);">${esc(f.a)}</p></details>`).join('\n')}
           </div>
         </div>
 
@@ -426,10 +426,10 @@ ${header(base)}
 
   <section style="padding:24px 40px 0;max-width:1100px;">
     <h1 style="font-size:clamp(32px,5vw,56px);line-height:1.02;letter-spacing:-.03em;margin:0 0 20px;">Salty Cowboy</h1>
-    <p style="margin:0 0 40px;max-width:62ch;color:rgba(23,23,26,.82);">An owner-run horse rescue and riding centre in Bali, run by Simone. Every horse here has a story, some retired from work, others rescued from neglect. All 11 experiences below.</p>
+    <p style="margin:0 0 40px;max-width:62ch;color:var(--ink-2);">An owner-run horse rescue and riding centre in Bali, run by Simone. Every horse here has a story, some retired from work, others rescued from neglect. All 11 experiences below.</p>
   </section>
 
-  <section style="padding:0 40px var(--section-y);max-width:1200px;">
+  <section style="padding:0 40px var(--section-y);max-width:var(--container);">
     <div class="card-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
 ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
     </div>
