@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Demo: Booking flow states | Threshold</title>
+<meta name="description" content="Reference gallery of every state in the Threshold booking demo." />
+<link rel="stylesheet" href="../../../styles.css" />
+<link rel="stylesheet" href="../../../assets/booking/booking.css" />
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+<div role="note" class="demo-banner"><span class="mono-tag">DEMO</span><span>Demo listing. This is an example business to show how booking works. It isn't real and you can't book it.</span></div>
+<div class="bk">
+  <header class="site-header" style="position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
+    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:20px 40px;border-bottom:1px solid var(--line);">
+      <span style="display:flex;align-items:baseline;"><a href="../../../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a><span class="header-demo-tag">DEMO</span></span>
+      <a href="../" class="navlink" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;">Back to listing</a>
+    </div>
+  </header>
+
+  <section style="padding:32px 40px var(--section-y);max-width:900px;">
+    <h1 style="font-size:28px;margin:0 0 8px;">Booking flow states <span class="example-badge">EXAMPLE</span></h1>
+    <p class="muted" style="margin:0 0 32px;">A reference gallery of every state in the booking flow, for review. Not a live flow.</p>
+
+    <div class="bk-states-frame"><h3>Calendar: day states</h3>
+      <div class="bk-cal__grid" style="max-width:360px;">
+        <button type="button" class="bk-cal__cell"><span>12</span><span class="bk-cal__dot"></span></button>
+        <button type="button" class="bk-cal__cell" aria-disabled="true"><span>13</span></button>
+        <button type="button" class="bk-cal__cell" data-today="true"><span>14</span><span class="bk-cal__dot"></span></button>
+        <button type="button" class="bk-cal__cell" aria-selected="true"><span>15</span><span class="bk-cal__dot"></span></button>
+      </div>
+      <p class="bk-field__hint">Left to right: available, closed/blackout, today, selected.</p>
+    </div>
+
+    <div class="bk-states-frame"><h3>Slot chips: few left, full, selected</h3>
+      <div class="bk-slots" style="max-width:420px;">
+        <button type="button" class="bk-chip"><span class="bk-chip__time">9:00am</span><span class="bk-chip__sub">2 hr &middot; $95 pp</span><span class="bk-chip__sub">2 places left</span></button>
+        <button type="button" class="bk-chip" disabled><span class="bk-chip__time">11:00am</span><span class="bk-chip__sub">Full</span></button>
+        <button type="button" class="bk-chip" aria-pressed="true"><span class="bk-chip__time">1:00pm</span><span class="bk-chip__sub">2 hr &middot; $95 pp</span></button>
+      </div>
+    </div>
+
+    <div class="bk-states-frame"><h3>Stepper at min / max</h3>
+      <div class="bk-stepper"><button type="button" class="bk-stepper__btn" disabled>&minus;</button><span class="bk-stepper__count">1</span><button type="button" class="bk-stepper__btn">+</button></div>
+      <div class="bk-stepper"><button type="button" class="bk-stepper__btn">&minus;</button><span class="bk-stepper__count">6</span><button type="button" class="bk-stepper__btn" disabled>+</button></div>
+    </div>
+
+    <div class="bk-states-frame"><h3>Screening: pass, warn, fail, consent</h3>
+      <div class="bk-guest-row" data-outcome="pass"><p class="mono">Guest 1</p><div class="bk-flag bk-flag--pass"><span class="bk-flag__icon">&#10003;</span><span>Looks good</span></div></div>
+      <div class="bk-guest-row" data-outcome="warn"><p class="mono">Guest 2</p><label class="bk-consent"><input type="checkbox" /><span>I'm this surfer's parent or guardian, and I'm making this booking for them (under 16).</span></label><div class="bk-flag bk-flag--warn"><span class="bk-flag__icon">i</span><span>Needs guardian consent</span></div></div>
+      <div class="bk-guest-row" data-outcome="fail"><p class="mono">Guest 3</p><div class="bk-flag bk-flag--fail"><span class="bk-flag__icon">&times;</span><span>Lessons are for ages 10 and up. Please check the age entered, or message the business about other options.</span></div></div>
+    </div>
+
+    <div class="bk-states-frame"><h3>Field errors</h3>
+      <div class="bk-field has-error"><label class="bk-field__label">Email</label><input class="err" value="not-an-email" /><p class="bk-field__error">That email doesn't look right. Check it and try again.</p></div>
+    </div>
+
+    <div class="bk-states-frame"><h3>Confirmation status: pending, confirmed, declined, expired, cancelled</h3>
+      <p class="mono muted-min" style="margin:0 0 8px;">Pending</p>
+      <p style="margin:0 0 16px;">Request sent. Jo replies within 24 hours. You'll get an email either way.</p>
+      <p class="mono muted-min" style="margin:0 0 8px;">Confirmed</p>
+      <p style="margin:0 0 16px;">You're booked. Ref EX-4K7Q2P. Add to calendar.</p>
+      <p class="mono muted-min" style="margin:0 0 8px;">Declined</p>
+      <p style="margin:0 0 16px;">Example Surf School (Demo) can't take this time (full). Other times: Sat 9am, Sun 9am, Mon 9am.</p>
+      <p class="mono muted-min" style="margin:0 0 8px;">Expired</p>
+      <p style="margin:0 0 16px;">We didn't hear back in time, so your request has lapsed. You haven't been charged.</p>
+      <p class="mono muted-min" style="margin:0 0 8px;">Cancelled by business</p>
+      <p style="margin:0;">Example Surf School (Demo) has called off your lesson (weather). Choose a new time, or get a full refund.</p>
+    </div>
+
+    <div class="bk-states-frame"><h3>Business request card (respond page)</h3>
+      <p class="mono muted-min">NEW REQUEST &middot; EX-4K7Q2P <span class="example-badge">DEMO</span></p>
+      <p style="margin:8px 0;">Beginner group lesson, Sat 14 Mar, 9:00am AEDT, 2 people, $190</p>
+      <div class="bk-flag bk-flag--warn" style="margin:0 0 12px;"><span class="bk-flag__icon">i</span><span>1 guardian consent given</span></div>
+      <p class="muted" style="margin:0 0 16px;">Reply by Sun 15 Mar, 9:00am</p>
+      <div style="display:flex;gap:10px;"><button type="button" class="btn">Confirm</button><button type="button" class="btn-ghost">Decline</button></div>
+    </div>
+
+    <div class="bk-states-frame"><h3>Decline reason sheet</h3>
+      <p class="muted" style="margin:0 0 10px;">Why can't you take this time?</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;"><button type="button" class="bk-chip" aria-pressed="true">Full</button><button type="button" class="bk-chip">Weather</button><button type="button" class="bk-chip">Rules</button><button type="button" class="bk-chip">Other</button></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
