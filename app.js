@@ -210,7 +210,6 @@ window.ThCurrency = (function () {
   var regionGroup = document.getElementById('regionGroup');
   var countEl = document.getElementById('browseCount');
   var emptyEl = document.getElementById('browseEmpty');
-  var emptyChips = document.getElementById('browseEmptyChips');
   var clearBtn = document.getElementById('clearFilters');
 
   var cards = [].slice.call(grid.querySelectorAll('.x-card, .sc-card'));
@@ -257,17 +256,6 @@ window.ThCurrency = (function () {
 
   function hasActiveFilters() {
     return !!(state.cat || state.sub || state.region);
-  }
-
-  function chipsWithResults() {
-    return catChips.filter(function (chip) {
-      var cat = chip.getAttribute('data-cat');
-      if (!cat) return false;
-      return realCards.some(function (card) {
-        var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
-        return cats.indexOf(cat) !== -1;
-      });
-    });
   }
 
   // Sub-chip counts reflect the currently visible horse cards, respecting region and
@@ -327,21 +315,6 @@ window.ThCurrency = (function () {
     if (emptyEl) {
       var showEmpty = active && visibleReal === 0;
       emptyEl.hidden = !showEmpty;
-      if (showEmpty && emptyChips) {
-        emptyChips.innerHTML = '';
-        chipsWithResults().slice(0, 3).forEach(function (chip) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.className = 'opt';
-          b.style.borderRadius = 'var(--r-pill)';
-          b.style.minHeight = '44px';
-          b.textContent = chip.textContent;
-          b.addEventListener('click', function () {
-            setCat(chip.getAttribute('data-cat'));
-          });
-          emptyChips.appendChild(b);
-        });
-      }
     }
 
     updateSubCounts();
