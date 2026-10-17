@@ -65,8 +65,8 @@
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
-      <a href="../../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
-      <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <a href="../../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
+      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
@@ -101,7 +101,7 @@
             <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
             <p class="card__loc">1 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p>
-            <p class="card__price" data-price-idr="1600000" data-price-prefix="from"></p>
+            <p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=" per person"></p>
           </div>
         </a>
       <a class="card" href="../../bali/salty-cowboy/insta-ride/" style="display:block;">
@@ -110,7 +110,7 @@
             <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
             <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">Our longest ride, with plenty of stops for photos along the way.</p>
-            <p class="card__price" data-price-idr="2700000" data-price-prefix=""></p>
+            <p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=" per person"></p>
           </div>
         </a>
       <a class="card" href="../../bali/salty-cowboy/beach-photoshoot/" style="display:block;">
@@ -119,7 +119,7 @@
             <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
             <p class="card__loc">1 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A styled photoshoot with a groomed horse along the beach and rice fields.</p>
-            <p class="card__price" data-price-idr="1750000" data-price-prefix="from"></p>
+            <p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=" per person"></p>
           </div>
         </a>
       <a class="card" href="../../bali/salty-cowboy/horse-grooming/" style="display:block;">
@@ -137,7 +137,7 @@
             <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
             <p class="card__loc">1 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A hands-on lesson in natural horsemanship, learning to earn a horse's trust.</p>
-            <p class="card__price" data-price-idr="2500000" data-price-prefix="from"></p>
+            <p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" per person"></p>
           </div>
         </a>
       <a class="card" href="../../bali/salty-cowboy/stable-photoshoot/" style="display:block;">
@@ -161,10 +161,10 @@
       <a class="card" href="../../bali/salty-cowboy/dressage-masterclass/" style="display:block;">
           <div class="card__media" style="background-image:url('../../assets/salty-cowboy/dressage.jpg');background-size:cover;background-position:center;"></div>
           <div class="card__body">
-            <h3 class="card__title">Private dressage lesson in the arena</h3>
+            <h3 class="card__title">Private dressage lesson</h3>
             <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
-            <p class="card__desc">A private dressage lesson for all levels, in the arena.</p>
-            <p class="card__price" data-price-idr="2900000" data-price-prefix=""></p>
+            <p class="card__desc">A private dressage lesson for all levels.</p>
+            <p class="card__price" data-price-idr="2900000" data-price-prefix="" data-price-suffix=" per person"></p>
           </div>
         </a>
       <a class="card" href="../../bali/salty-cowboy/cottages-photoshoot/" style="display:block;">
@@ -199,12 +199,12 @@
 
   <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">
     <span style="color:var(--ink);">&copy; 2026 Threshold</span>
-    <nav style="display:flex;gap:20px;flex-wrap:wrap;">
-      <a href="../../mornington-peninsula/" class="navlink">Victoria, Australia</a>
-      <a href="../../bali/" class="navlink">Bali</a>
-      <a href="../../for-business/" class="navlink">For businesses</a>
-      <a href="../../#faq" class="navlink">FAQ</a>
-      <a href="../../for-business/#interested" class="navlink">Contact</a>
+    <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="../../mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
+      <a href="../../bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
+      <a href="../../for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
+      <a href="../../#faq" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">FAQ</a>
+      <a href="../../for-business/#interested" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Contact</a>
     </nav>
   </footer>
 </div>

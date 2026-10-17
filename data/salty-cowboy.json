@@ -1,7 +1,13 @@
 {
   "business": {
     "name": "Salty Cowboy",
-    "whatsapp": "6281237312248"
+    "whatsapp": "6281237312248",
+    "meetingPoint": {
+      "label": "Salty Cowboy stables",
+      "lat": -8.604414,
+      "lng": 115.0896784,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=-8.604414,115.0896784"
+    }
   },
   "activities": [
     {
@@ -30,20 +36,20 @@
           ]
         }
       ],
-      "basis": "per booking, up to 5 riders",
-      "overview": "A guided ride out through the rice fields to the beach. Our grooms come with you the whole way, on foot, so this is a relaxed, well supported ride even if you've never been on a horse before.",
+      "basis": "per person, up to 5 riders",
+      "overview": "A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.",
       "goodToKnow": [
         {
           "label": "Group size",
-          "value": "Max 5 riders, privately guided"
+          "value": "Up to 5 riders, privately guided"
         },
         {
           "label": "Weight",
-          "value": "Max 75kg per rider with clothes on. Max 2 riders over 70kg. Riders are weighed at the stables."
+          "value": "Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded."
         },
         {
-          "label": "Experience",
-          "value": "Beginner"
+          "label": "Riding experience",
+          "value": "None needed. If you've never ridden or are a beginner, staff lead your horse on a lead rope for the whole ride. Intermediate and advanced riders can trot and canter in moderation, with no galloping, and your guide assesses you when you reach the beach."
         }
       ],
       "included": [
@@ -57,10 +63,13 @@
       "images": [
         {
           "file": "beach-ride.jpg",
-          "alt": "Horse and rider on the beach with rice fields behind, Salty Cowboy Bali"
+          "alt": "Horse and rider on the beach with rice fields behind, Salty Cowboy Bali",
+          "imagePosition": "center 28%"
         }
       ],
-      "cardDesc": "A relaxed guided ride along the beach and through rice fields."
+      "cardDesc": "A relaxed guided ride along the beach and through rice fields.",
+      "priceUnit": "person",
+      "maxPeople": 5
     },
     {
       "slug": "insta-ride",
@@ -79,20 +88,20 @@
           ]
         }
       ],
-      "basis": "per booking, up to 5 riders",
-      "overview": "Our longest ride, with more stops for photos through the village, beach and rice fields. Grooms take you to the best spots along the way. Golden hour is ideal if you can book it.",
+      "basis": "per person, up to 5 riders",
+      "overview": "Our longest ride, with more stops for photos through the village, beach and rice fields. Grooms take you to the best spots along the way. Golden hour is ideal.",
       "goodToKnow": [
         {
           "label": "Group size",
-          "value": "Max 5 riders, privately guided"
+          "value": "Up to 5 riders, privately guided"
         },
         {
           "label": "Weight",
-          "value": "Max 75kg per rider with clothes on. Max 2 riders over 70kg. Riders are weighed at the stables."
+          "value": "Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded."
         },
         {
-          "label": "Experience",
-          "value": "Beginner"
+          "label": "Riding experience",
+          "value": "None needed. If you've never ridden or are a beginner, staff lead your horse on a lead rope for the whole ride. Intermediate and advanced riders can trot and canter in moderation, with no galloping, and your guide assesses you when you reach the beach."
         }
       ],
       "included": [
@@ -106,10 +115,13 @@
       "images": [
         {
           "file": "insta-ride.jpg",
-          "alt": "Rider on a horse pausing for a photo on the way to the beach"
+          "alt": "Rider on a horse pausing for a photo on the way to the beach",
+          "imagePosition": "center 80%"
         }
       ],
-      "cardDesc": "Our longest ride, with plenty of stops for photos along the way."
+      "cardDesc": "Our longest ride, with plenty of stops for photos along the way.",
+      "priceUnit": "person",
+      "maxPeople": 5
     },
     {
       "slug": "beach-photoshoot",
@@ -159,8 +171,20 @@
           "value": "One person per horse"
         },
         {
-          "label": "Experience",
-          "value": "No riding experience needed, the horse stays walking"
+          "label": "Format",
+          "value": "Static photoshoot, not riding except walking. Shooting time starts when you leave the stables and ends when you're back."
+        },
+        {
+          "label": "Helmets",
+          "value": "Required on the walk to and from the beach"
+        },
+        {
+          "label": "Clothing",
+          "value": "No swimwear or bikinis, out of respect for local culture"
+        },
+        {
+          "label": "Before your shoot",
+          "value": "Share your shoot purpose, brand or client, and outfit plans with Salty Cowboy beforehand"
         }
       ],
       "included": [
@@ -198,7 +222,9 @@
           "alt": "Rider leading a horse through the rice terraces"
         }
       ],
-      "cardDesc": "A styled photoshoot with a groomed horse along the beach and rice fields."
+      "cardDesc": "A styled photoshoot with a groomed horse along the beach and rice fields.",
+      "priceUnit": "person",
+      "maxPeople": 1
     },
     {
       "slug": "horse-grooming",
@@ -229,7 +255,7 @@
         }
       ],
       "basis": "up to 2 people",
-      "overview": "Learn the finer art of grooming, wet or dry, with tips for Bali's warm, humid climate, taught by the stable manager. There's time for questions along the way.",
+      "overview": "Learn the finer art of grooming, wet or dry, with tips for Bali's damp, hot climate, taught by the stable manager. There's time for questions along the way.",
       "goodToKnow": [
         {
           "label": "Group size",
@@ -246,7 +272,9 @@
           "alt": "Stable manager teaching a grooming class with a horse"
         }
       ],
-      "cardDesc": "Learn wet or dry grooming from the stable manager."
+      "cardDesc": "Learn wet or dry grooming from the stable manager.",
+      "priceUnit": "group",
+      "maxPeople": 2
     },
     {
       "slug": "join-up-lesson",
@@ -298,7 +326,9 @@
           "alt": "Trainer working with a horse in a Join Up natural horsemanship lesson"
         }
       ],
-      "cardDesc": "A hands-on lesson in natural horsemanship, learning to earn a horse's trust."
+      "cardDesc": "A hands-on lesson in natural horsemanship, learning to earn a horse's trust.",
+      "priceUnit": "person",
+      "maxPeople": 2
     },
     {
       "slug": "stable-photoshoot",
@@ -351,11 +381,15 @@
         }
       ],
       "basis": "up to 5 people on the team",
-      "overview": "A rustic, Western-style stable backdrop for fashion, pre-wedding or personal shoots. Horses stay in their stables for this one, so it suits a crew as well as a couple.",
+      "overview": "A rustic, Western-style stable backdrop for fashion, pre-wedding or personal shoots. Horses stay in their stables for this one.",
       "goodToKnow": [
         {
           "label": "Group size",
-          "value": "Max 5 people total, including all crew and models"
+          "value": "Max 5 people on the team"
+        },
+        {
+          "label": "Horses",
+          "value": "The horses stay in their stables. Private horses are not available for pictures."
         }
       ],
       "included": [
@@ -392,7 +426,9 @@
           "alt": "Western saddle and tack on display in the stable photoshoot"
         }
       ],
-      "cardDesc": "A rustic Western-style stable backdrop for your shoot."
+      "cardDesc": "A rustic Western-style stable backdrop for your shoot.",
+      "priceUnit": "group",
+      "maxPeople": 5
     },
     {
       "slug": "paddock-photoshoot",
@@ -445,15 +481,15 @@
         }
       ],
       "basis": "up to 5 people on the team",
-      "overview": "An open green paddock backdrop with grazing horses, shot from outside the fence. A soft, natural setting that doesn't need direct contact with the horses.",
+      "overview": "An open green paddock backdrop with grazing horses. You can also shoot outside the paddock in designated areas. A soft, natural setting that doesn't need direct contact with the horses.",
       "goodToKnow": [
         {
           "label": "Group size",
-          "value": "Max 5 people total, including all crew and models"
+          "value": "Max 5 people on the team"
         },
         {
-          "label": "Experience",
-          "value": "No entering the paddocks or touching the horses"
+          "label": "Rules",
+          "value": "Entering the paddocks and touching the horses is not permitted"
         }
       ],
       "included": [
@@ -490,11 +526,13 @@
           "alt": "Green paddock with horses and a mountain view"
         }
       ],
-      "cardDesc": "An open green paddock with grazing horses in view."
+      "cardDesc": "An open green paddock with grazing horses in view.",
+      "priceUnit": "group",
+      "maxPeople": 5
     },
     {
       "slug": "dressage-masterclass",
-      "title": "Private dressage lesson in the arena",
+      "title": "Private dressage lesson",
       "sourceName": "Dressage Masterclass (Private lesson)",
       "cat": "horse",
       "type": "lessons",
@@ -510,7 +548,7 @@
         }
       ],
       "basis": "private, 1 rider",
-      "overview": "A private dressage lesson for all levels, in the arena. Learn dressage from scratch or come polish up your existing skills.",
+      "overview": "A private dressage lesson for all levels. Learn dressage from scratch or come polish up your existing skills.",
       "goodToKnow": [
         {
           "label": "Group size",
@@ -518,7 +556,7 @@
         },
         {
           "label": "Weight",
-          "value": "Max 75kg per rider with clothes on. Max 2 riders over 70kg. Riders are weighed at the stables."
+          "value": "Max 75kg per rider with clothes on. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded."
         },
         {
           "label": "Experience",
@@ -532,10 +570,13 @@
       "images": [
         {
           "file": "dressage.jpg",
-          "alt": "Rider and horse in a private dressage lesson in the arena"
+          "alt": "Rider and horse in a private dressage lesson",
+          "imagePosition": "center 20%"
         }
       ],
-      "cardDesc": "A private dressage lesson for all levels, in the arena."
+      "cardDesc": "A private dressage lesson for all levels.",
+      "priceUnit": "person",
+      "maxPeople": 1
     },
     {
       "slug": "cottages-photoshoot",
@@ -555,7 +596,7 @@
         }
       ],
       "basis": "per session, up to 6 people",
-      "overview": "A rustic wooden cottage interior for fashion, pre-wedding or personal shoots. This one is location only, no horses, with the whole session inside the cottage.",
+      "overview": "A rustic wooden cottage interior for fashion, pre-wedding or personal shoots. This one is location only, no horses. Photos are taken inside the cottage or the private garden.",
       "goodToKnow": [
         {
           "label": "Group size",
@@ -564,6 +605,10 @@
         {
           "label": "Experience",
           "value": "Choice of cottage upon availability. No paddock entry on this shoot."
+        },
+        {
+          "label": "Cottage",
+          "value": "Priced by availability of cottage, or choose the designated photoshoot cottage (no pool)"
         }
       ],
       "included": [
@@ -601,7 +646,9 @@
           "alt": "Rustic cottage photoshoot corner with wooden furniture"
         }
       ],
-      "cardDesc": "A rustic wooden cottage interior, styled for fashion, pre-wedding or personal shoots."
+      "cardDesc": "A rustic wooden cottage interior, styled for fashion, pre-wedding or personal shoots.",
+      "priceUnit": "group",
+      "maxPeople": 6
     },
     {
       "slug": "group-clinic",
@@ -620,7 +667,7 @@
         }
       ],
       "basis": "flat per group, 3 to 6 people",
-      "overview": "A hands-on session in leadership, communication and trust, taught through the horse. Working at liberty in the round pen, your group learns to read body language, hold presence and earn cooperation without force, the same skills you'd use in any team setting. Popular with women's groups, business teams, and friend groups that ride.",
+      "overview": "A hands-on session in leadership, communication and trust, taught through the horse. Working in the arena, your group learns to read body language, hold presence and earn cooperation without force, the same skills you'd use in any team setting. Popular with women's groups, business teams, and friend groups that love horses.",
       "goodToKnow": [
         {
           "label": "Group size",
@@ -643,7 +690,10 @@
           "alt": "Group leadership and trust clinic with horses"
         }
       ],
-      "cardDesc": "A group session in leadership and trust, built through the horse."
+      "cardDesc": "A group session in leadership and trust, built through the horse.",
+      "priceUnit": "group",
+      "minPeople": 3,
+      "maxPeople": 6
     },
     {
       "slug": "horse-whisperer-course",
@@ -690,10 +740,13 @@
       "images": [
         {
           "file": "horse-whisperer.jpg",
-          "alt": "Horse Whisperer course participants working with a horse"
+          "alt": "Horse Whisperer course participants working with a horse",
+          "imagePosition": "center 20%"
         }
       ],
-      "cardDesc": "A 3-day groundwork course for two, open to all levels."
+      "cardDesc": "A 3-day groundwork course for two, open to all levels.",
+      "priceUnit": "group",
+      "maxPeople": 2
     }
   ]
 }

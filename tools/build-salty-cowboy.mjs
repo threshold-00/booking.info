@@ -32,8 +32,8 @@ function moreFrom(current, n) {
 function header(base) {
   return `  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
-      <a href="${base}index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
-      <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <a href="${base}index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
+      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
@@ -53,12 +53,12 @@ function header(base) {
 function footer(base) {
   return `  <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">
     <span style="color:var(--ink);">&copy; 2026 Threshold</span>
-    <nav style="display:flex;gap:20px;flex-wrap:wrap;">
-      <a href="${base}mornington-peninsula/" class="navlink">Victoria, Australia</a>
-      <a href="${base}bali/" class="navlink">Bali</a>
-      <a href="${base}for-business/" class="navlink">For businesses</a>
-      <a href="${base}#faq" class="navlink">FAQ</a>
-      <a href="${base}for-business/#interested" class="navlink">Contact</a>
+    <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="${base}mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
+      <a href="${base}bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
+      <a href="${base}for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
+      <a href="${base}#faq" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">FAQ</a>
+      <a href="${base}for-business/#interested" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Contact</a>
     </nav>
   </footer>`;
 }
@@ -90,13 +90,13 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 
 function goodToKnowRows(a) {
   const rows = [...a.goodToKnow];
-  rows.push({ label: 'Arrive', value: 'Arrive 15 minutes before your start time' });
-  rows.push({ label: 'Hours', value: 'Closed Sundays and Saturday afternoons' });
   rows.push({
     label: 'Meeting point',
     value: null,
-    html: `<a href="https://wa.me/${business.whatsapp}">Ask Salty Cowboy</a>`
+    html: `${esc("Salty Cowboy's stables. There's no pickup, so make your own way there.")}<br /><a href="${esc(business.meetingPoint.mapsUrl)}" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;padding:9px 16px;min-height:44px;align-items:center;">Get directions</a>`
   });
+  rows.push({ label: 'Arrive', value: 'Arrive 15 minutes before your start time' });
+  rows.push({ label: 'Hours', value: 'Closed Sundays and Saturday afternoons' });
   return rows.filter(r => r.value || r.html);
 }
 
@@ -108,13 +108,17 @@ ${rows.map(r => `      <div><dt style="font-family:var(--mono);font-size:11px;le
 
 function includedList(a) {
   if (!a.included.length && !a.notIncluded.length) return '';
-  return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:62ch;">
-      <div>
+  const includedCol = `<div>
         <p style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px;">Included</p>
         <ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px;">
 ${a.included.map(i => `          <li style="display:flex;gap:8px;"><span aria-hidden="true" style="color:var(--cleared);">&check;</span><span>${esc(i)}</span></li>`).join('\n')}
         </ul>
-      </div>
+      </div>`;
+  if (!a.notIncluded.length) {
+    return `<div style="max-width:40ch;">${includedCol.replace('Included', "What's included")}</div>`;
+  }
+  return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:62ch;">
+      ${includedCol}
       <div>
         <p style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px;">Not included</p>
         <ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px;">
@@ -141,48 +145,52 @@ function faqItems(a) {
   });
   items.push({ q: 'How do I book?', a: 'Tap "Check dates with Salty Cowboy" below. You\'ll finish booking directly with Salty Cowboy, and Simone confirms your date on WhatsApp. No payment is taken on Threshold.' });
   items.push({ q: 'What are the start times?', a: `Start times depend on the duration you choose. See the times table above, and note Salty Cowboy is closed Sundays and Saturday afternoons.` });
-  if (a.goodToKnow.some(g => g.label === 'Weight')) {
-    items.push({ q: 'Is there a weight limit?', a: 'Max 75kg per rider with clothes on. Max 2 riders over 70kg per ride. Riders are weighed at the stables.' });
+  const weightRow = a.goodToKnow.find(g => g.label === 'Weight');
+  if (weightRow) {
+    items.push({ q: 'Is there a weight limit?', a: weightRow.value });
   }
   if (a.addon) {
     items.push({ q: 'Can I add a photographer?', a: `Yes. ${a.addon.label}: ${a.addon.priceText}.` });
   }
-  items.push({ q: 'What if I need to cancel?', a: 'Cancellation terms are set by Salty Cowboy. Ask them before you book.' });
+  items.push({ q: 'What if I need to cancel?', a: "Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book." });
   return items.slice(0, 6);
 }
 
 function cardMini(a, base) {
   const price = lowPrice(a);
   const img = a.images[0];
+  const perPerson = a.priceUnit === 'person';
   return `<a class="card" href="${base}bali/salty-cowboy/${a.slug}/" style="display:block;">
           <div class="card__media" style="background-image:url('${base}assets/salty-cowboy/${img.file}');background-size:cover;background-position:center;"></div>
           <div class="card__body">
             <h3 class="card__title">${esc(a.title)}</h3>
             <p class="card__loc">${esc(a.durations[0].label)} &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">${esc(a.cardDesc)}</p>
-            <p class="card__price" data-price-idr="${price}" data-price-prefix="${a.durations.length > 1 ? 'from' : ''}"></p>
+            <p class="card__price" data-price-idr="${price}" data-price-prefix="${a.durations.length > 1 ? 'from' : ''}"${perPerson ? ' data-price-suffix=" per person"' : ''}></p>
           </div>
         </a>`;
 }
 
 function galleryMarkup(a, base) {
-  // Compact header gallery: a short horizontally-scrolling strip of thumbnails
-  // (not a full-width hero image), so it sits under the heading rather than
-  // dominating the page. Every thumbnail opens the same lightbox as before.
+  // Hero image scales with its column instead of a fixed pixel height: full-bleed
+  // 4:3 on mobile (the .gallery-grid CSS collapses to one column under 820px),
+  // about 60% width with a 2x2 thumbnail grid alongside it on desktop.
   const imgs = a.images;
-  const h = 160;
+  const hero = imgs[0];
+  const heroPos = hero.imagePosition || 'center';
+  const heroImg = `<img src="${base}assets/salty-cowboy/${hero.file}" alt="${esc(hero.alt)}" width="1200" height="900" fetchpriority="high" loading="eager" decoding="async"${imgs.length > 1 ? ' data-lightbox-index="0"' : ''} style="display:block;width:100%;height:100%;object-fit:cover;object-position:${heroPos};cursor:${imgs.length > 1 ? 'pointer' : 'default'};" />`;
   if (imgs.length === 1) {
-    const img = imgs[0];
     return `<div class="detail-gallery" id="detailGallery" style="margin:0 0 20px;">
-      <div style="height:${h}px;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);">
-        <img src="${base}assets/salty-cowboy/${img.file}" alt="${esc(img.alt)}" width="213" height="${h}" loading="eager" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" />
-      </div>
+      <div style="aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
     </div>`;
   }
-  const thumbs = imgs.map((img, i) => `<div style="flex:none;height:${h}px;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);scroll-snap-align:start;"><img src="${base}assets/salty-cowboy/${img.file}" alt="${esc(img.alt)}" width="213" height="${h}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" data-lightbox-index="${i}" style="display:block;width:100%;height:100%;object-fit:cover;cursor:pointer;" /></div>`).join('\n      ');
+  const thumbs = imgs.slice(1, 5).map((img, i) => `<div style="aspect-ratio:1/1;overflow:hidden;border:1px solid var(--line);"><img src="${base}assets/salty-cowboy/${img.file}" alt="${esc(img.alt)}" width="480" height="480" loading="lazy" decoding="async" data-lightbox-index="${i + 1}" style="display:block;width:100%;height:100%;object-fit:cover;object-position:${img.imagePosition || 'center'};cursor:pointer;" /></div>`).join('\n        ');
   return `<div class="detail-gallery" id="detailGallery" style="margin:0 0 20px;">
-      <div class="gallery-strip">
-      ${thumbs}
+      <div class="gallery-grid">
+        <div style="aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
+        <div class="gallery-grid__thumbs">
+        ${thumbs}
+        </div>
       </div>
       <button type="button" id="seeAllPhotos" class="btn-ghost" style="margin-top:10px;padding:9px 16px;min-height:44px;align-items:center;">See all ${imgs.length} photos</button>
       <dialog id="lightbox" aria-label="Photo gallery">
@@ -197,25 +205,45 @@ function galleryMarkup(a, base) {
     </div>`;
 }
 
+function riderNoun(a) { return a.slug === 'join-up-lesson' ? 'person' : 'rider'; }
+function riderNounPlural(a) { return riderNoun(a) === 'person' ? 'people' : 'riders'; }
+function hasStepper(a) { return a.priceUnit === 'person' && a.maxPeople > 1; }
+
 function bookingPanel(a) {
   const low = lowPrice(a);
+  const perPerson = a.priceUnit === 'person';
+  const stepper = hasStepper(a);
+  const noun = riderNoun(a);
+  const nounPlural = riderNounPlural(a);
   return `<aside class="booking-panel" style="position:sticky;top:var(--s-5);border:1px solid var(--line);padding:24px;background:var(--panel);">
-      <p style="margin:0 0 4px;font-family:var(--mono);font-size:19px;font-weight:600;color:var(--ink);" data-price-idr="${low}" data-price-prefix="${a.durations.length > 1 ? 'from' : ''}"></p>
+      <p style="margin:0 0 4px;font-family:var(--mono);font-size:19px;font-weight:600;color:var(--ink);" data-price-idr="${low}" data-price-prefix="${a.durations.length > 1 ? 'from' : ''}"${perPerson ? ' data-price-suffix=" per person"' : ''}></p>
       <p style="margin:0 0 20px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);">${esc(a.basis)}</p>
       <div role="radiogroup" aria-label="Duration" id="durationGroup" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;">
-${a.durations.map((d, i) => `        <button type="button" class="opt duration-chip" role="radio" aria-checked="${i === 0}" data-duration-id="${d.id}" data-price-idr="${d.priceIDR}" style="border-radius:var(--r-pill);min-height:44px;padding:8px 14px;">${esc(d.label)}<span class="duration-chip__price" data-price-idr="${d.priceIDR}" style="display:block;font-size:11px;color:var(--ink-3);"></span></button>`).join('\n')}
+${a.durations.map((d, i) => `        <button type="button" class="opt duration-chip" role="radio" aria-checked="${i === 0}" data-duration-id="${d.id}" data-label="${esc(d.label)}" data-chip-idr="${d.priceIDR}" style="border-radius:var(--r-pill);min-height:44px;padding:8px 14px;">${esc(d.label)}<span class="duration-chip__price" data-price-idr="${d.priceIDR}"${perPerson ? ' data-price-suffix=" per person"' : ''} style="display:block;font-size:11px;color:var(--ink-3);"></span></button>`).join('\n')}
       </div>
-${a.addon ? `      <label style="display:flex;align-items:flex-start;gap:8px;margin:0 0 16px;cursor:pointer;">
+${stepper ? `      <div id="riderStepper" data-max-people="${a.maxPeople}" data-min-people="1" data-noun="${noun}" data-noun-plural="${nounPlural}" style="margin:0 0 16px;">
+        <p style="margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">${noun === 'person' ? 'People' : 'Riders'}</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button type="button" id="riderMinus" aria-label="Remove a ${noun}" style="width:44px;height:44px;min-width:44px;border:1px solid var(--line-ui);background:transparent;font-family:var(--mono);font-size:18px;cursor:pointer;">&minus;</button>
+          <span id="riderCount" style="min-width:24px;text-align:center;font-weight:600;">1</span>
+          <button type="button" id="riderPlus" aria-label="Add a ${noun}" style="width:44px;height:44px;min-width:44px;border:1px solid var(--line-ui);background:transparent;font-family:var(--mono);font-size:18px;cursor:pointer;">+</button>
+        </div>
+        <p style="margin:8px 0 0;font-size:11px;color:var(--ink-3);">Up to ${a.maxPeople} ${nounPlural}</p>
+      </div>
+` : ''}${a.addon ? `      <label style="display:flex;align-items:flex-start;gap:8px;margin:0 0 16px;cursor:pointer;">
         <input type="checkbox" id="addonCheckbox" style="margin-top:3px;" />
         <span>${esc(a.addon.label)}: ${esc(a.addon.priceText)}</span>
       </label>
 ` : ''}      <p style="display:flex;justify-content:space-between;align-items:baseline;margin:0 0 4px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
-        <span>Total</span>
+        <span id="bookingTotalLabel">Total</span>
         <span id="bookingTotal" aria-live="polite" style="font-size:15px;font-weight:600;color:var(--ink);"></span>
       </p>
 ${a.serviceTaxIncluded ? `      <p style="margin:0 0 16px;font-size:11px;color:var(--ink-3);">Service tax included</p>\n` : ''}      <p id="startTimesLine" style="margin:16px 0;color:var(--ink-2);"></p>
-      <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta" target="_blank" rel="noopener" style="display:flex;justify-content:center;width:100%;padding:15px 0;">Check dates with Salty Cowboy &rarr;</a>
-      <p style="margin:12px 0 0;font-size:11px;line-height:1.5;color:var(--ink-3);">You'll finish booking with Salty Cowboy. Simone confirms your date on WhatsApp. No payment is taken now.</p>
+${(() => { const w = a.goodToKnow.find(g => g.label === 'Weight'); return w ? `      <div style="border:1px solid var(--line-ui);padding:12px 14px;margin:0 0 16px;display:flex;gap:10px;align-items:flex-start;">
+        <span aria-hidden="true" style="flex:none;width:16px;height:16px;border:1px solid var(--ink-3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink-3);">i</span>
+        <span style="font-size:12px;color:var(--ink-2);">Before you book: ${esc(w.value)}</span>
+      </div>\n` : ''; })()}      <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta" style="display:flex;justify-content:center;width:100%;padding:15px 0;">Check dates with Salty Cowboy &rarr;</a>
+      <p style="margin:12px 0 0;font-size:11px;line-height:1.5;color:var(--ink-3);">You'll send your request to Salty Cowboy on WhatsApp. Simone reviews and confirms every request. Threshold doesn't take payment.</p>
     </aside>`;
 }
 
@@ -224,7 +252,7 @@ function mobileStickyBar(a) {
     <span style="font-family:var(--mono);font-size:12px;">
       <span id="mobileStickyDuration"></span> &middot; <span id="mobileStickyTotal"></span>
     </span>
-    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" target="_blank" rel="noopener" style="min-height:48px;display:flex;align-items:center;padding:0 20px;">Check dates &rarr;</a>
+    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" style="min-height:48px;display:flex;align-items:center;padding:0 20px;">Check dates &rarr;</a>
   </div>`;
 }
 
@@ -234,7 +262,15 @@ function jsonLd(a, canonicalPath) {
     name: d.label,
     price: String(d.priceIDR),
     priceCurrency: 'IDR',
-    url: `https://book.saltycowboybali.com/${a.slug}?ref=threshold`
+    url: `https://book.saltycowboybali.com/${a.slug}?ref=threshold`,
+    ...(a.priceUnit === 'person' ? {
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: d.priceIDR,
+        priceCurrency: 'IDR',
+        referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitText: 'person' }
+      }
+    } : {})
   }));
   const graph = [
     {
@@ -252,6 +288,11 @@ function jsonLd(a, canonicalPath) {
       description: a.overview,
       image: a.images.map(img => `https://thresholdbooking.com/assets/salty-cowboy/${img.file}`),
       provider: { '@type': 'LocalBusiness', name: 'Salty Cowboy' },
+      location: {
+        '@type': 'Place',
+        name: business.meetingPoint.label,
+        geo: { '@type': 'GeoCoordinates', latitude: business.meetingPoint.lat, longitude: business.meetingPoint.lng }
+      },
       offers
     },
     {
@@ -286,65 +327,63 @@ ${jsonLd(a, canonicalPath)}
 <body>
 <div>
 ${header(base)}
+<main id="main">
 
   <nav aria-label="Breadcrumb" style="padding:20px 40px 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
-    <a href="${base}index.html#top" class="navlink">Home</a> /
-    <a href="/?region=bali#browse" class="navlink">Bali</a> /
-    <a href="${base}bali/salty-cowboy/" class="navlink">Salty Cowboy</a> /
+    <a href="${base}index.html#top" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Home</a> /
+    <a href="/?region=bali#browse" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a> /
+    <a href="${base}bali/salty-cowboy/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Salty Cowboy</a> /
     <span>${esc(a.title)}</span>
   </nav>
 
   <section style="padding:24px 40px 0;max-width:var(--container);">
     <h1 style="font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 10px;max-width:28ch;">${esc(a.title)}</h1>
-    <p style="margin:0 0 20px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);">${a.durations.map(d => esc(d.label)).join(' - ')} &middot; ${esc(a.basis)} &middot; Bali &middot; <a href="#business" class="navlink">Run by Salty Cowboy</a></p>
+    <p style="margin:0 0 14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);">${a.durations.map(d => esc(d.label)).join(' or ')} &middot; ${a.priceUnit === 'person' ? `Up to ${a.maxPeople} ${riderNounPlural(a)}` : esc(a.basis)} &middot; Bali</p>
+    <a href="#business" class="navlink" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;margin:0 0 20px;">
+      <img src="${base}assets/simone-horse.jpg" alt="" width="40" height="40" loading="lazy" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;" />
+      <span>Run by Simone &middot; Salty Cowboy</span>
+    </a>
     ${galleryMarkup(a, base)}
-    <div class="tab-nav" role="tablist" aria-label="Sections">
-      <button type="button" role="tab" id="tab-know" aria-controls="know" aria-selected="true">Know before you go</button>
-      <button type="button" role="tab" id="tab-times" aria-controls="times" aria-selected="false" tabindex="-1">Times and booking</button>
-      <button type="button" role="tab" id="tab-business" aria-controls="business" aria-selected="false" tabindex="-1">Meet the business</button>
-      <button type="button" role="tab" id="tab-faq" aria-controls="faq" aria-selected="false" tabindex="-1">FAQ</button>
-    </div>
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#overview">Overview</a>
+      <a href="#know">Good to know</a>
+      <a href="#times">Times</a>
+      <a href="#business">The business</a>
+      <a href="#faq">FAQ</a>
+    </nav>
   </section>
 
   <section style="padding:0 40px var(--section-y);max-width:var(--container);">
     <div class="detail-layout" style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:48px;align-items:start;">
-      <div>
-        <div id="know" role="tabpanel" aria-labelledby="tab-know" tabindex="0" style="scroll-margin-top:100px;">
-          <div style="max-width:62ch;">
-            <h2 style="font-size:20px;margin:0 0 14px;">Overview</h2>
-            <p style="margin:0;color:var(--ink-2);line-height:1.6;">${esc(a.overview)}</p>
-          </div>
-
-          <div style="margin:40px 0 0;">
-            <h2 style="font-size:20px;margin:0 0 16px;">Good to know</h2>
-            ${dl(goodToKnowRows(a))}
-          </div>
-
-          ${(a.included.length || a.notIncluded.length) ? `<div style="margin:40px 0 0;">
-            <h2 style="font-size:20px;margin:0 0 16px;">Included and not included</h2>
-            ${includedList(a)}
-          </div>` : ''}
-
-          <div style="margin:40px 0 0;">
-            <h2 style="font-size:20px;margin:0 0 12px;">Cancellation</h2>
-            <p style="margin:0;color:var(--ink-2);">Cancellation terms are set by Salty Cowboy. Ask them before you book.${ridingNote ? ' Riders over 75kg cannot ride and are not refunded.' : ''}</p>
-          </div>
+      ${bookingPanel(a)}
+      <div class="detail-content">
+        <div id="overview" aria-labelledby="h-overview" style="max-width:62ch;scroll-margin-top:68px;">
+          <h2 id="h-overview" style="font-size:20px;margin:0 0 14px;">Overview</h2>
+          <p style="margin:0;color:var(--ink-2);line-height:1.6;">${esc(a.overview)}</p>
         </div>
 
-        <div id="times" role="tabpanel" aria-labelledby="tab-times" tabindex="0" style="scroll-margin-top:100px;">
-          <h2 style="font-size:20px;margin:0 0 16px;">Times</h2>
+        <div id="know" aria-labelledby="h-know" style="margin:40px 0 0;scroll-margin-top:68px;">
+          <h2 id="h-know" style="font-size:20px;margin:0 0 16px;">Good to know</h2>
+          ${dl(goodToKnowRows(a))}
+        </div>
+
+        ${(a.included.length || a.notIncluded.length) ? `<div id="included" style="margin:40px 0 0;">
+          ${includedList(a)}
+        </div>` : ''}
+
+        <div id="times" aria-labelledby="h-times" style="margin:40px 0 0;scroll-margin-top:68px;">
+          <h2 id="h-times" style="font-size:20px;margin:0 0 16px;">Times</h2>
           ${timesTable(a)}
         </div>
 
-        <div id="business" role="tabpanel" aria-labelledby="tab-business" tabindex="0" style="scroll-margin-top:100px;">
-          <h2 style="font-size:20px;margin:0 0 16px;">Meet the business</h2>
+        <div id="business" aria-labelledby="h-business" style="margin:40px 0 0;scroll-margin-top:68px;">
+          <h2 id="h-business" style="font-size:20px;margin:0 0 16px;">Meet the business</h2>
           <div style="display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;max-width:62ch;">
-            <!-- TODO: add a photo of Simone when supplied -->
-            <div style="aspect-ratio:1/1;background:var(--panel);border:1px solid var(--line);"></div>
+            <img src="${base}assets/simone-horse.jpg" alt="Simone reaching out to one of the horses at Salty Cowboy, Bali" width="120" height="120" loading="lazy" style="aspect-ratio:1/1;object-fit:cover;border:1px solid var(--line);" />
             <div>
               <p style="margin:0 0 8px;font-weight:600;">Owner-run by Simone.</p>
-              <p style="margin:0 0 12px;color:var(--ink-2);">Riding with Salty Cowboy is supporting our rescue horses!</p>
-              <a href="${base}case-study.html" class="navlink">Read their story</a>
+              <p style="margin:0 0 12px;color:var(--ink-2);">Every booking goes straight back into the paddock: vet care, feed, farrier visits, and the horses themselves. Some come in underweight or scared of people. We give them time until they're ready.</p>
+              <a href="${base}case-study.html" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Read their story</a>
             </div>
           </div>
 
@@ -354,8 +393,14 @@ ${header(base)}
           </div>
         </div>
 
-        <div id="faq" role="tabpanel" aria-labelledby="tab-faq" tabindex="0" style="max-width:72ch;scroll-margin-top:100px;">
-          <h2 style="font-size:20px;margin:0 0 16px;">FAQ</h2>
+        <div id="cancellation" aria-labelledby="h-cancellation" style="margin:40px 0 0;">
+          <h2 id="h-cancellation" style="font-size:20px;margin:0 0 12px;">Cancellation</h2>
+          <p style="margin:0 0 10px;color:var(--ink-2);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.${ridingNote ? ' Bookings over 75kg are not refunded.' : ''}</p>
+          <a href="https://wa.me/${business.whatsapp}" target="_blank" rel="noopener" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;display:inline-flex;">Ask on WhatsApp</a>
+        </div>
+
+        <div id="faq" aria-labelledby="h-faq" style="margin:40px 0 0;max-width:72ch;scroll-margin-top:68px;">
+          <h2 id="h-faq" style="font-size:20px;margin:0 0 16px;">FAQ</h2>
           <div style="display:grid;gap:4px;">
 ${faqs.map(f => `            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">${esc(f.q)}</summary><p style="margin:10px 0 0;color:var(--ink-2);">${esc(f.a)}</p></details>`).join('\n')}
           </div>
@@ -368,11 +413,10 @@ ${more.map(m => '            ' + cardMini(m, base)).join('\n')}
           </div>
         </div>
       </div>
-
-      ${bookingPanel(a)}
     </div>
   </section>
 
+</main>
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
