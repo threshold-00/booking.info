@@ -214,7 +214,7 @@ window.ThCurrency = (function () {
 
   var chipRow = document.getElementById('chipRow');
   var horseSub = document.getElementById('horseSub');
-  var regionGroup = document.getElementById('regionGroup');
+  var locationSelect = document.getElementById('locationSelect');
   var countEl = document.getElementById('browseCount');
   var emptyEl = document.getElementById('browseEmpty');
   var clearBtn = document.getElementById('clearFilters');
@@ -224,7 +224,6 @@ window.ThCurrency = (function () {
   var catChips = chipRow ? [].slice.call(chipRow.querySelectorAll('.cat-chip')) : [];
   var horseChip = catChips.filter(function (c) { return c.getAttribute('data-cat') === 'horse'; })[0];
   var subChips = horseSub ? [].slice.call(horseSub.querySelectorAll('.sub-chip')) : [];
-  var regionRadios = regionGroup ? [].slice.call(regionGroup.querySelectorAll('.region-radio')) : [];
   var seeAllBtns = [].slice.call(document.querySelectorAll('.see-all'));
 
   // state.cat is a list of selected category chips (OR'd together); an empty list means
@@ -378,9 +377,7 @@ window.ThCurrency = (function () {
 
   function setRegion(region) {
     state.region = region || '';
-    regionRadios.forEach(function (radio) {
-      radio.setAttribute('aria-checked', radio.getAttribute('data-region') === state.region ? 'true' : 'false');
-    });
+    if (locationSelect) locationSelect.value = state.region;
     writeURL();
     render();
   }
@@ -398,18 +395,11 @@ window.ThCurrency = (function () {
     });
   });
 
-  regionRadios.forEach(function (radio, i) {
-    radio.addEventListener('click', function () {
-      setRegion(radio.getAttribute('data-region'));
+  if (locationSelect) {
+    locationSelect.addEventListener('change', function () {
+      setRegion(locationSelect.value);
     });
-    radio.addEventListener('keydown', function (e) {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      e.preventDefault();
-      var next = e.key === 'ArrowRight' ? (i + 1) % regionRadios.length : (i - 1 + regionRadios.length) % regionRadios.length;
-      regionRadios[next].focus();
-      setRegion(regionRadios[next].getAttribute('data-region'));
-    });
-  });
+  }
 
   seeAllBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -437,7 +427,6 @@ window.ThCurrency = (function () {
   function clearFilters() {
     state = { cat: [], sub: '', region: '' };
     catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
-    regionRadios.forEach(function (radio) { radio.setAttribute('aria-checked', radio.getAttribute('data-region') === '' ? 'true' : 'false'); });
     showHorseSub(false);
     writeURL();
     render();
@@ -454,9 +443,7 @@ window.ThCurrency = (function () {
   subChips.forEach(function (chip) {
     chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
   });
-  regionRadios.forEach(function (radio) {
-    radio.setAttribute('aria-checked', radio.getAttribute('data-region') === state.region ? 'true' : 'false');
-  });
+  if (locationSelect) locationSelect.value = state.region;
   if (countEl) countEl.setAttribute('tabindex', '-1');
   render();
 })();
@@ -769,18 +756,31 @@ window.addEventListener('resize', setHeaderOffset);
       scrollTimer = setTimeout(function () { dir = 1; }, 1200); // drift back to the default direction once scrolling stops
     }, { passive: true });
 
-    var hovered = false, focused = false;
+    var hovered = false, focused = false, paused = false;
     scroll.addEventListener('mouseenter', function () { hovered = true; });
     scroll.addEventListener('mouseleave', function () { hovered = false; });
     scroll.addEventListener('focusin', function () { focused = true; });
     scroll.addEventListener('focusout', function () { focused = false; });
+
+    // Visible pause control (WCAG 2.2.2): a button elsewhere on the page
+    // referencing this scroller by id via data-marquee.
+    if (scroll.id) {
+      var pauseBtn = document.querySelector('.marquee-pause[data-marquee="' + scroll.id + '"]');
+      if (pauseBtn) {
+        pauseBtn.addEventListener('click', function () {
+          paused = !paused;
+          pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+          pauseBtn.textContent = paused ? 'Play' : 'Pause';
+        });
+      }
+    }
 
     var pos = 0, last = null;
     function frame(t) {
       if (last === null) last = t;
       var dt = (t - last) / 1000;
       last = t;
-      if (!hovered && !focused && halfWidth > 0) {
+      if (!hovered && !focused && !paused && halfWidth > 0) {
         pos += dir * SPEED * dt;
         pos = ((pos % halfWidth) + halfWidth) % halfWidth;
         track.style.transform = 'translateX(' + (-pos) + 'px)';

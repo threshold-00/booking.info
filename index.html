@@ -133,18 +133,27 @@
 
   <section id="top" style="position:relative;padding:var(--s-10) 40px var(--s-10);text-align:center;overflow:hidden;">
     <picture>
-      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile.webp" type="image/webp" />
-      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile.jpg" />
-      <source srcset="assets/photos/coastline.webp" type="image/webp" />
-      <img src="assets/photos/coastline.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile-1080.webp 1080w, assets/photos/coastline-mobile-1620.webp 1620w" sizes="100vw" type="image/webp" />
+      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile-1080.jpg" />
+      <source srcset="assets/photos/coastline-1440.webp 1440w, assets/photos/coastline-2400.webp 2400w, assets/photos/coastline-3456.webp 3456w" sizes="100vw" type="image/webp" />
+      <img src="assets/photos/coastline-2400.jpg" width="2400" height="1800" alt="" aria-hidden="true" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
     </picture>
     <div aria-hidden="true" style="position:absolute;inset:0;background:var(--scrim);z-index:1;"></div>
     <div style="position:relative;z-index:2;max-width:900px;margin:0 auto;">
-      <h1 style="font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;color:var(--paper);">Something you'll actually remember doing.</h1>
-      <p style="margin:0 0 36px;color:rgba(243,242,238,.88);">Unique experiences run by the local people who started them. In Victoria, Australia and Bali.</p>
+      <h1 style="font-size:clamp(47px,7.8vw,83px);line-height:1.1;letter-spacing:-.01em;margin:0 0 36px;text-wrap:balance;color:var(--paper);">Something you'll actually remember doing.</h1>
+      <p style="margin:0 auto 36px;max-width:56ch;font-size:17px;line-height:1.55;color:rgba(243,242,238,.88);">Unique experiences run by the local people who started them. In Victoria, Australia and Bali.</p>
       <a href="#browse" class="btn" style="margin:0 auto;display:inline-flex;">Browse experiences</a>
     </div>
-    <p style="position:absolute;right:20px;bottom:14px;margin:0;z-index:2;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:rgba(243,242,238,.65);">Photo by <a href="https://unsplash.com/@nisarga_ekbote" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Unsplash</a></p>
+    <p class="t-label" style="position:absolute;right:20px;bottom:14px;margin:0;z-index:2;font-family:var(--mono);color:rgba(243,242,238,.65);">Photo by <a href="https://unsplash.com/@nisarga_1993" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(243,242,238,.4);">Unsplash</a></p>
+  </section>
+
+  <section aria-label="Kinds of experiences" style="padding:56px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="marquee-row">
+      <div class="vert-scroll" id="homeMarquee" style="flex:1;min-width:0;max-width:100%;overflow:hidden;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);">
+        <div class="vert-track" style="display:inline-flex;font-family:var(--mono);font-size:12px;color:var(--ink-2);"><span class="vert-set"><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F434;</span><span>Horse riding</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F93F;</span><span>Dive &amp; snorkel</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3C4;</span><span>Surf</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D7;</span><span>Climbing</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A8;</span><span>Creative</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3CD;&#xFE0F;</span><span>Motorbike tours</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F4F8;</span><span>Photo sessions</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F373;</span><span>Cooking classes</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F377;</span><span>Wine tastings</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A3;</span><span>Fishing charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x26F5;</span><span>Boat charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D8;</span><span>Yoga</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span></span><span class="vert-set" aria-hidden="true"><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F434;</span><span>Horse riding</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F93F;</span><span>Dive &amp; snorkel</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3C4;</span><span>Surf</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D7;</span><span>Climbing</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A8;</span><span>Creative</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3CD;&#xFE0F;</span><span>Motorbike tours</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F4F8;</span><span>Photo sessions</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F373;</span><span>Cooking classes</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F377;</span><span>Wine tastings</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A3;</span><span>Fishing charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x26F5;</span><span>Boat charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D8;</span><span>Yoga</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span></span></div>
+      </div>
+      <button type="button" class="marquee-pause" data-marquee="homeMarquee" aria-pressed="false" style="margin-right:40px;">Pause</button>
+    </div>
   </section>
 
   <section class="band" style="background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
@@ -175,45 +184,38 @@
     </div>
   </section>
 
-    <section id="browse" class="container" style="padding:72px 0 88px;">
+    <section id="browse" class="container" style="padding-top:72px;padding-bottom:88px;">
     <div style="margin-bottom:24px;">
-      <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;">Experiences</h2>
-      <p style="margin:0;max-width:none;color:var(--ink-2);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Paint a landscape. Slow down on a retreat. Try a class you've never heard of.</p>
+      <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0;">Experiences</h2>
     </div>
 
-    <section aria-label="Kinds of experiences" style="max-width:720px;margin:0 0 32px;min-width:0;">
-      <div class="vert-scroll" style="max-width:100%;overflow:hidden;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);">
-        <div class="vert-track" style="display:inline-flex;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2);"><span class="vert-set"><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F434;</span><span>Horse riding</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F93F;</span><span>Dive &amp; snorkel</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3C4;</span><span>Surf</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D7;</span><span>Climbing</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A8;</span><span>Creative</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3CD;&#xFE0F;</span><span>Motorbike tours</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F4F8;</span><span>Photo sessions</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F373;</span><span>Cooking classes</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F377;</span><span>Wine tastings</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A3;</span><span>Fishing charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x26F5;</span><span>Boat charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D8;</span><span>Yoga</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span></span><span class="vert-set" aria-hidden="true"><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F434;</span><span>Horse riding</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F93F;</span><span>Dive &amp; snorkel</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3C4;</span><span>Surf</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D7;</span><span>Climbing</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A8;</span><span>Creative</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3CD;&#xFE0F;</span><span>Motorbike tours</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F4F8;</span><span>Photo sessions</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F373;</span><span>Cooking classes</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F377;</span><span>Wine tastings</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F3A3;</span><span>Fishing charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x26F5;</span><span>Boat charters</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span><span style="display:inline-flex;align-items:center;gap:10px;padding:0 28px;"><span aria-hidden="true">&#x1F9D8;</span><span>Yoga</span></span><span aria-hidden="true" style="padding:0 4px;opacity:.35;">&middot;</span></span></div>
-      </div>
-    </section>
-
     <div class="filter-group">
-      <span class="t-label filter-group-label" id="locationLabel">Location</span>
-      <div class="region-group cat-chip-row" id="regionGroup" role="radiogroup" aria-labelledby="locationLabel" style="display:flex;align-items:center;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;">
-        <button type="button" class="opt region-radio" role="radio" aria-checked="true" data-region="" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
-        <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="mornington" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Victoria, Australia</button>
-        <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="bali" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Bali</button>
-      </div>
+      <label class="t-label filter-group-label" for="locationSelect" id="locationLabel">Location</label>
+      <select id="locationSelect" class="location-select">
+        <option value="">All locations</option>
+        <option value="mornington">Victoria</option>
+        <option value="bali">Bali</option>
+      </select>
     </div>
 
     <div class="filter-group">
       <span class="t-label filter-group-label" id="experienceLabel">Experience</span>
       <div class="cat-chip-row" id="chipRow" role="group" aria-labelledby="experienceLabel" style="display:flex;align-items:center;flex-wrap:nowrap;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;">
-        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Horse experiences</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Surf</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Climbing</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Creative</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Motorbike tours</button>
+        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Horse experiences</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Surf</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Climbing</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Creative</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Motorbike tours</button>
       </div>
     </div>
 
     <div class="cat-chip-row browse-sub" id="horseSub" hidden style="display:flex;flex-wrap:wrap;gap:8px;margin:var(--s-3) 0 20px;">
-      <button type="button" class="opt sub-chip" aria-pressed="true" data-type="" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">All horse (11)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="rides" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">Rides (2)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">Photoshoots (4)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">Lessons (5)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="true" data-type="" style="min-height:44px;padding:6px 14px;font-size:11px;">All horse (11)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="rides" style="min-height:44px;padding:6px 14px;font-size:11px;">Rides (2)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="min-height:44px;padding:6px 14px;font-size:11px;">Photoshoots (4)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="min-height:44px;padding:6px 14px;font-size:11px;">Lessons (5)</button>
     </div>
 
     <h2 id="browseCount" aria-live="polite" style="margin:var(--s-6) 0 var(--s-4);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400;"></h2>
@@ -323,43 +325,6 @@
         </div>
       </div>
 
-      <div class="browse-group" aria-labelledby="group-businesses" style="margin-top:56px;">
-        <h2 id="group-businesses" style="font-size:clamp(22px,2.8vw,30px);line-height:1.1;letter-spacing:-.02em;margin:0 0 20px;">Featured businesses</h2>
-        <div class="card-row">
-        <a class="card" href="case-study.html" style="display:block;">
-          <div class="card__media" style="background-image:url('assets/simone-horse.jpg');background-size:cover;background-position:center;"></div>
-          <div class="card__body">
-            <p class="card__loc">Horse riding &middot; Bali</p>
-            <h3 class="card__title">Salty Cowboy</h3>
-            <p class="card__desc">Owner-run stable with rescue horses. 11 experiences, from quick rides to a 3-day course.</p>
-          </div>
-        </a>
-        <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
-          <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
-          <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
-          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
-        </div>
-      </div>
-        <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
-          <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
-          <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
-          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
-        </div>
-      </div>
-        <div class="x-card" data-placeholder="true" data-region="bali" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
-          <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
-          <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:var(--ink-3);">Bali</p>
-          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
-        </div>
-      </div>
-        </div>
-      </div>
     </div>
 
     <div class="x-card-grid" id="browseGrid" hidden style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
@@ -494,7 +459,47 @@
     </div>
   </section>
 
-  <section id="nearby" class="container" style="padding:0 0 var(--section-y);">
+  <section id="featured" class="container" style="padding-bottom:var(--section-y);">
+      <div class="browse-group" aria-labelledby="group-businesses">
+        <h2 id="group-businesses" style="font-size:clamp(22px,2.8vw,30px);line-height:1.1;letter-spacing:-.02em;margin:0 0 20px;">Featured businesses</h2>
+        <div class="card-row">
+        <a class="card" href="case-study.html" style="display:block;">
+          <div class="card__media" style="background-image:url('assets/simone-horse.jpg');background-size:cover;background-position:center;"></div>
+          <div class="card__body">
+            <p class="card__loc">Horse riding &middot; Bali</p>
+            <h3 class="card__title">Salty Cowboy</h3>
+            <p class="card__desc">Owner-run stable with rescue horses. 11 experiences, from quick rides to a 3-day course.</p>
+          </div>
+        </a>
+        <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
+          <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
+          <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
+        </div>
+      </div>
+        <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
+          <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
+          <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
+        </div>
+      </div>
+        <div class="x-card" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
+          <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
+          <div class="x-card__body card__body" style="padding:18px;">
+          <p class="card__loc" style="color:var(--ink-3);">Bali</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
+        </div>
+      </div>
+        </div>
+      </div>
+  </section>
+
+  <section id="nearby" class="container" style="padding-bottom:var(--section-y);">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore nearby</h2>
       <span id="nearbyStatus" style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">Locating you&hellip;</span>
@@ -502,8 +507,8 @@
     <div id="exploreMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
 
-  <section id="faq" class="container" style="padding:0 0 var(--section-y);">
-    <div style="border-top:1px solid var(--line);padding-top:28px;max-width:820px;">
+  <section id="faq" class="container" style="padding-bottom:var(--section-y);">
+    <div style="border-top:1px solid var(--line);padding-top:28px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 28px;">Frequently asked questions</h2>
       <div style="display:grid;gap:0;">
         <details class="faq-item">
