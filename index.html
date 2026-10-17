@@ -84,7 +84,7 @@
           "name": "Do I need an account to book?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Pick your date, fill in your details, and book. There's nothing to set up."
+            "text": "No. Tap Book on any experience to message the business on WhatsApp. They confirm your date and how to pay. There's no live availability on Threshold yet."
           }
         },
         {
@@ -111,12 +111,12 @@
 </head>
 <body>
 <div>
-  <header class="site-header" style="position:sticky;top:0;background:rgba(243,242,238,0.92);backdrop-filter:blur(8px);z-index:20;">
+  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
       <a href="#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" id="siteNav" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="#browse" class="navlink">Browse experiences</a>
-        <a href="for-business/" class="btn-ghost" style="padding:9px 16px;">For businesses</a>
+        <a href="for-business/" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
         <select id="currencySelect" class="currency-select" aria-label="Currency">
           <option value="IDR">IDR</option>
@@ -137,7 +137,7 @@
       <source srcset="assets/photos/coastline.webp" type="image/webp" />
       <img src="assets/photos/coastline.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
     </picture>
-    <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,15,17,.5),rgba(15,15,17,.62));z-index:1;"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:var(--scrim);z-index:1;"></div>
     <div style="position:relative;z-index:2;max-width:900px;margin:0 auto;">
       <h1 style="font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;color:var(--paper);">Something you'll actually remember doing.</h1>
       <p style="margin:0 0 36px;color:rgba(243,242,238,.88);">Unique experiences run by the local people who started them. In Victoria, Australia and Bali.</p>
@@ -154,35 +154,35 @@
     <section id="browse" style="padding:72px 40px 88px;max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px;">Experiences</h2>
-      <p style="margin:0;max-width:none;color:rgba(23,23,26,.68);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Paint a landscape. Slow down on a retreat. Try a class you've never heard of.</p>
+      <p style="margin:0;max-width:none;color:var(--ink-2);">Ride a horse along the beach. Jump out of a plane. Throw a pot. Paint a landscape. Slow down on a retreat. Try a class you've never heard of.</p>
     </div>
 
     <div class="filter-row-wrap" style="position:relative;margin:0 0 12px;">
       <div class="cat-chip-row" id="chipRow" style="display:flex;align-items:center;flex-wrap:nowrap;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;">
         <div class="region-group" id="regionGroup" role="radiogroup" aria-label="Region" style="display:flex;align-items:center;gap:8px;flex:none;">
-          <button type="button" class="opt region-radio" role="radio" aria-checked="true" data-region="" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
-          <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="mornington" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Victoria, Australia</button>
-          <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="bali" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Bali</button>
+          <button type="button" class="opt region-radio" role="radio" aria-checked="true" data-region="" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
+          <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="mornington" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Victoria, Australia</button>
+          <button type="button" class="opt region-radio" role="radio" aria-checked="false" data-region="bali" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Bali</button>
         </div>
         <span aria-hidden="true" style="width:1px;height:22px;background:var(--line);flex:none;margin:0 2px;"></span>
-        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Horse experiences</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Surf</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Climbing</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Creative</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;flex:none;scroll-snap-align:start;">Motorbike tours</button>
+        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">All</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Horse experiences</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Surf</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Climbing</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Creative</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;flex:none;scroll-snap-align:start;">Motorbike tours</button>
       </div>
     </div>
 
     <div class="cat-chip-row browse-sub" id="horseSub" hidden style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;">
-      <button type="button" class="opt sub-chip" aria-pressed="true" data-type="" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;font-size:11px;">All horse (11)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="rides" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;font-size:11px;">Rides (2)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;font-size:11px;">Photoshoots (4)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="border-radius:var(--r-pill);min-height:34px;padding:6px 14px;font-size:11px;">Lessons (5)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="true" data-type="" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">All horse (11)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="rides" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">Rides (2)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">Photoshoots (4)</button>
+      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="border-radius:var(--r-pill);min-height:44px;padding:6px 14px;font-size:11px;">Lessons (5)</button>
     </div>
 
-    <p id="browseCount" aria-live="polite" style="margin:0 0 16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(23,23,26,.55);"></p>
+    <p id="browseCount" aria-live="polite" style="margin:0 0 16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);"></p>
 
     <div id="browseDefault">
       <div class="browse-group" aria-labelledby="group-horse">
@@ -305,28 +305,28 @@
             <p class="card__desc">Owner-run stable with rescue horses. 11 experiences, from quick rides to a 3-day course.</p>
           </div>
         </a>
-        <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+        <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
           <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
           <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:rgba(23,23,26,.4);">Victoria, Australia</p>
-          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-        <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+        <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
           <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
           <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:rgba(23,23,26,.4);">Victoria, Australia</p>
-          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-        <div class="x-card" data-placeholder="true" data-region="bali" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+        <div class="x-card" data-placeholder="true" data-region="bali" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
           <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
           <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:rgba(23,23,26,.4);">Bali</p>
-          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+          <p class="card__loc" style="color:var(--ink-3);">Bali</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
         </div>
@@ -433,35 +433,35 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="" data-price-suffix=" / course"></p></div>
         </div>
       </a>
-      <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+      <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
         <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
         <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:rgba(23,23,26,.4);">Victoria, Australia</p>
-          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+      <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
         <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
         <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:rgba(23,23,26,.4);">Victoria, Australia</p>
-          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+          <p class="card__loc" style="color:var(--ink-3);">Victoria, Australia</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
-      <div class="x-card" data-placeholder="true" data-region="bali" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;opacity:.7;">
+      <div class="x-card" data-placeholder="true" data-region="bali" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
         <div class="x-card__media" style="aspect-ratio:4/3;background:var(--panel);"></div>
         <div class="x-card__body card__body" style="padding:18px;">
-          <p class="card__loc" style="color:rgba(23,23,26,.4);">Bali</p>
-          <h3 class="card__title" style="color:rgba(23,23,26,.6);">A spot waiting to be filled</h3>
-          <p class="card__desc" style="color:rgba(23,23,26,.45);">Know a business that belongs here? Let us know.</p>
+          <p class="card__loc" style="color:var(--ink-3);">Bali</p>
+          <h3 class="card__title" style="color:var(--ink-3);">A spot waiting to be filled</h3>
+          <p class="card__desc" style="color:var(--ink-3);">Know a business that belongs here? Let us know.</p>
         </div>
       </div>
     </div>
 
     <div id="browseEmpty" hidden style="margin-top:20px;">
-      <p style="margin:0 0 16px;color:rgba(23,23,26,.68);">Nothing matches yet. Try All regions, or clear your filters.</p>
-      <button type="button" id="clearFilters" class="btn-ghost" style="padding:11px 20px;">Clear filters</button>
+      <p style="margin:0 0 16px;color:var(--ink-2);">Nothing matches yet. Try All regions, or clear your filters.</p>
+      <button type="button" id="clearFilters" class="btn-ghost" style="padding:11px 20px;min-height:44px;align-items:center;">Clear filters</button>
     </div>
   </section>
 
@@ -471,21 +471,21 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M10 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M13 10.5V5a1.5 1.5 0 0 1 3 0v7"/><path d="M16 12V9a1.5 1.5 0 0 1 3 0v6c0 3.3-2.5 6-6 6h-2c-2.2 0-3.3-.7-4.5-2.2L3 14.5c-.5-.7-.3-1.5.3-1.9.6-.4 1.4-.2 1.9.4L7 15"/></svg>
         <div>
           <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px;">Made by a person, not a platform.</h3>
-          <p style="margin:0;color:rgba(23,23,26,.72);">Every experience is run by its owner. You'll meet the person who built it.</p>
+          <p style="margin:0;color:var(--ink-2);">Every experience is run by its owner. You'll meet the person who built it.</p>
         </div>
       </div>
       <div class="benefit-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H10v-5a2 2 0 0 1 4 0v5h3.5a1 1 0 0 0 1-1v-9"/></svg>
         <div>
           <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px;">Support local.</h3>
-          <p style="margin:0;color:rgba(23,23,26,.72);">Your booking goes to a small local business, not a faceless chain.</p>
+          <p style="margin:0;color:var(--ink-2);">Your booking goes to a small local business, not a faceless chain.</p>
         </div>
       </div>
       <div class="benefit-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.7-7.5-10A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3c0 5.3-7.5 10-7.5 10Z"/></svg>
         <div>
           <h3 style="font-size:18px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px;">Chosen with care.</h3>
-          <p style="margin:0;color:rgba(23,23,26,.72);">We list fewer places on purpose. If we wouldn't book it ourselves, it isn't here.</p>
+          <p style="margin:0;color:var(--ink-2);">We list fewer places on purpose. If we wouldn't book it ourselves, it isn't here.</p>
         </div>
       </div>
     </div>
@@ -494,7 +494,7 @@
   <section id="nearby" style="padding:0 var(--gutter) var(--section-y);max-width:1200px;margin:0 auto;">
     <div style="margin-bottom:24px;">
       <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;">Explore nearby</h2>
-      <span id="nearbyStatus" style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.45);">Locating you&hellip;</span>
+      <span id="nearbyStatus" style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">Locating you&hellip;</span>
     </div>
     <div id="exploreMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
   </section>
@@ -517,7 +517,7 @@
         </details>
         <details class="faq-item">
           <summary>Do I need an account to book?</summary>
-          <p>No. Pick your date, fill in your details, and book. There's nothing to set up.</p>
+          <p>No. Tap Book on any experience to message the business on WhatsApp. They confirm your date and how to pay. There's no live availability on Threshold yet.</p>
         </details>
         <details class="faq-item">
           <summary>How do businesses get listed on Threshold?</summary>
@@ -531,7 +531,7 @@
     </div>
   </section>
 
-  <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,23,26,.5);">
+  <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">
     <span style="color:var(--ink);">© 2026 Threshold</span>
     <nav style="display:flex;gap:20px;flex-wrap:wrap;">
       <a href="mornington-peninsula/" class="navlink">Victoria, Australia</a>

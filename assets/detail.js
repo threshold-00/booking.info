@@ -124,6 +124,51 @@
     });
   }
 
+  // Section tabs: progressive enhancement. Without JS every panel stays visible
+  // and stacked (the markup has no hidden attributes), so the page still reads
+  // fine. With JS, only the active panel shows under the tab row.
+  var tabs = [].slice.call(document.querySelectorAll('.tab-nav [role="tab"]'));
+  if (tabs.length) {
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+
+    function activate(index, focusPanel) {
+      tabs.forEach(function (t, i) {
+        var isActive = i === index;
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.tabIndex = isActive ? 0 : -1;
+      });
+      panels.forEach(function (p, i) { if (p) p.hidden = i !== index; });
+      if (focusPanel && panels[index]) panels[index].focus();
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { activate(i, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        else return;
+        e.preventDefault();
+        tabs[next].focus();
+        activate(next, false);
+      });
+    });
+
+    // Links elsewhere on the page that point at a panel id (e.g. "Run by Salty
+    // Cowboy" linking to #business) should switch tabs too, not just scroll
+    // to a hidden panel.
+    panels.forEach(function (panel, i) {
+      if (!panel) return;
+      [].slice.call(document.querySelectorAll('a[href="#' + panel.id + '"]')).forEach(function (link) {
+        link.addEventListener('click', function () { activate(i, false); });
+      });
+    });
+
+    activate(0, false);
+  }
+
   // Mobile sticky bar: hidden while the inline booking button is on screen
   var stickyBar = document.getElementById('mobileStickyBar');
   var inlineCta = document.getElementById('bookingCta');
