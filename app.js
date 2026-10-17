@@ -226,6 +226,20 @@ window.ThCurrency = (function () {
   var subChips = horseSub ? [].slice.call(horseSub.querySelectorAll('.sub-chip')) : [];
   var seeAllBtns = [].slice.call(document.querySelectorAll('.see-all'));
 
+  // Hide any Experience chip whose category has no live listings yet, worked
+  // out from the card data at runtime so a chip appears on its own once the
+  // first business in that category is listed. "All" always shows.
+  (function hideEmptyCatChips() {
+    var liveCats = {};
+    realCards.forEach(function (card) {
+      (card.getAttribute('data-cat') || '').split(/\s+/).forEach(function (c) { if (c) liveCats[c] = true; });
+    });
+    catChips.forEach(function (chip) {
+      var cat = chip.getAttribute('data-cat');
+      if (cat && !liveCats[cat]) chip.hidden = true;
+    });
+  })();
+
   // state.cat is a list of selected category chips (OR'd together); an empty list means
   // "All" and shows every experience.
   var state = { cat: [], sub: '', region: '' };

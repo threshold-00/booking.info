@@ -162,6 +162,18 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 #exploreMap .leaflet-control-attribution a,#mpMap .leaflet-control-attribution a{color:var(--ink)}
 #exploreMap .leaflet-container a.leaflet-popup-close-button,#mpMap .leaflet-container a.leaflet-popup-close-button{color:var(--ink)}
 #top{color:var(--paper)}
+/* Shared full-bleed photo hero pattern: used on the homepage (#top) and
+   /for-business/ (#intro), so both heroes share one set of rules instead of
+   duplicating the type and overlay styling per page. */
+.hero-photo{position:relative;padding:var(--s-10) 40px var(--s-10);text-align:center;overflow:hidden;color:var(--paper)}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-scrim{position:absolute;inset:0;background:var(--scrim);z-index:1}
+.hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto}
+.hero-h1{font-size:clamp(36px,6vw,64px);line-height:1.1;letter-spacing:-.01em;margin:0 0 36px;text-wrap:balance;color:var(--paper)}
+.hero-sub{margin:0 auto 36px;max-width:56ch;font-size:17px;line-height:1.55;color:rgba(243,242,238,.88)}
+.hero-credit{position:absolute;right:20px;bottom:14px;margin:0;z-index:2;color:rgba(243,242,238,.65)}
+.hero-credit a{color:inherit;border-bottom:1px solid rgba(243,242,238,.4)}
+@media (min-width:821px){.hero-photo{min-height:clamp(560px,72svh,760px);display:flex;align-items:center;justify-content:center}}
 #top img{object-position:center 55%}
 @media (min-width:821px){
   #top{min-height:clamp(560px,72svh,760px);display:flex;align-items:center;justify-content:center}
@@ -251,7 +263,7 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 #top .cat-chip:hover{border-color:var(--paper);color:var(--paper)}
 #top .cat-chip[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .region-radio[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.x-card[hidden],.card[hidden]{display:none!important}
+.x-card[hidden],.card[hidden],.opt[hidden]{display:none!important}
 #horseSub[hidden],#browseGrid[hidden]{display:none!important}
 @media (max-width:820px){
   .cat-chip-row{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;margin-left:calc(var(--gutter) * -1);margin-right:calc(var(--gutter) * -1);padding-left:var(--gutter);padding-right:var(--gutter)}
