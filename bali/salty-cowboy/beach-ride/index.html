@@ -163,10 +163,10 @@
 }
 </script>
 </head>
-<body>
+<body class="has-sticky-bar">
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
-    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
+    <div class="bar container" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
       <a href="../../../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
       <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
@@ -185,141 +185,158 @@
   </header>
 <main id="main">
 
-  <nav aria-label="Breadcrumb" style="padding:20px 40px 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
-    <a href="../../../index.html#top" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Home</a> /
-    <a href="/?region=bali#browse" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a> /
-    <a href="../../../bali/salty-cowboy/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Salty Cowboy</a> /
-    <span>Guided horse ride through rice fields to the beach</span>
+  <nav class="container detail-crumbs" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
+    <a href="../../../index.html#top" class="navlink breadcrumb-link">Home</a> /
+    <a href="/?region=bali#browse" class="navlink breadcrumb-link">Bali</a> /
+    <a href="../../../bali/salty-cowboy/" class="navlink breadcrumb-link">Salty Cowboy</a>
+    <span class="breadcrumb-current-sep"> /</span>
+    <span class="breadcrumb-current">Guided horse ride through rice fields to the beach</span>
   </nav>
 
-  <section style="padding:24px 40px 0;max-width:var(--container);">
-    <h1 style="font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 10px;max-width:28ch;">Guided horse ride through rice fields to the beach</h1>
-    <p style="margin:0 0 14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);">1 hr or 1.5 hr &middot; Up to 5 riders &middot; Bali</p>
-    <a href="#business" class="navlink" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;margin:0 0 20px;">
-      <img src="../../../assets/simone-horse.jpg" alt="" width="40" height="40" loading="lazy" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;" />
-      <span>Run by Simone &middot; Salty Cowboy</span>
-    </a>
-    <div class="detail-gallery" id="detailGallery" style="margin:0 0 20px;">
-      <div style="aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);"><img src="../../../assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="1200" height="900" fetchpriority="high" loading="eager" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center 28%;cursor:default;" /></div>
+  <div class="container detail-layout">
+    <div class="detail-head">
+      <h1>Guided horse ride through rice fields to the beach</h1>
+      <p class="meta-line">1 hr or 1.5 hr &middot; Up to 5 riders &middot; Bali</p>
+      <a href="#business" class="owner-strip navlink">
+        <img src="../../../assets/simone-horse.jpg" alt="" width="40" height="40" loading="lazy" style="width:40px;height:40px;object-fit:cover;flex:none;" />
+        <span>Run by Simone &middot; Salty Cowboy</span>
+      </a>
+      <ul class="fact-row" style="margin:var(--s-4) 0 var(--s-5);">
+        <li>Up to 5 riders</li>
+        <li>No experience needed</li>
+        <li>Meet at Salty Cowboy stables</li>
+      </ul>
+      <div class="detail-gallery" id="detailGallery">
+      <div style="aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);"><img src="../../../assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="825" height="1100" fetchpriority="high" loading="eager" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center 28%;cursor:default;" /></div>
     </div>
-    <nav class="page-nav" aria-label="On this page">
-      <a href="#overview">Overview</a>
-      <a href="#know">Good to know</a>
-      <a href="#times">Times</a>
-      <a href="#business">The business</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-  </section>
+    </div>
 
-  <section style="padding:0 40px var(--section-y);max-width:var(--container);">
-    <div class="detail-layout" style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:48px;align-items:start;">
-      <aside class="booking-panel" style="position:sticky;top:var(--s-5);border:1px solid var(--line);padding:24px;background:var(--panel);">
-      <p style="margin:0 0 4px;font-family:var(--mono);font-size:19px;font-weight:600;color:var(--ink);" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=" per person"></p>
-      <p style="margin:0 0 20px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);">per person, up to 5 riders</p>
-      <div role="radiogroup" aria-label="Duration" id="durationGroup" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;">
-        <button type="button" class="opt duration-chip" role="radio" aria-checked="true" data-duration-id="1hr" data-label="1 hr" data-chip-idr="1600000" style="border-radius:var(--r-pill);min-height:44px;padding:8px 14px;">1 hr<span class="duration-chip__price" data-price-idr="1600000" data-price-suffix=" per person" style="display:block;font-size:11px;color:var(--ink-3);"></span></button>
-        <button type="button" class="opt duration-chip" role="radio" aria-checked="false" data-duration-id="1.5hr" data-label="1.5 hr" data-chip-idr="2200000" style="border-radius:var(--r-pill);min-height:44px;padding:8px 14px;">1.5 hr<span class="duration-chip__price" data-price-idr="2200000" data-price-suffix=" per person" style="display:block;font-size:11px;color:var(--ink-3);"></span></button>
+    <aside class="booking-panel" aria-label="Book this experience">
+      <div class="bp-group">
+        <p class="bp-price t-subhead" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=" per person"></p>
+        <p class="bp-basis">per person, up to 5 riders</p>
       </div>
-      <div id="riderStepper" data-max-people="5" data-min-people="1" data-noun="rider" data-noun-plural="riders" style="margin:0 0 16px;">
-        <p style="margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">Riders</p>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button type="button" id="riderMinus" aria-label="Remove a rider" style="width:44px;height:44px;min-width:44px;border:1px solid var(--line-ui);background:transparent;font-family:var(--mono);font-size:18px;cursor:pointer;">&minus;</button>
-          <span id="riderCount" style="min-width:24px;text-align:center;font-weight:600;">1</span>
-          <button type="button" id="riderPlus" aria-label="Add a rider" style="width:44px;height:44px;min-width:44px;border:1px solid var(--line-ui);background:transparent;font-family:var(--mono);font-size:18px;cursor:pointer;">+</button>
+      <div class="bp-group">
+        <div class="bp-choices">
+          <div role="radiogroup" aria-label="Duration" id="durationGroup">
+        <button type="button" class="opt duration-chip" role="radio" aria-checked="true" tabindex="0" data-duration-id="1hr" data-label="1 hr" data-chip-idr="1600000">1 hr<span class="duration-chip__price" data-price-idr="1600000" data-price-suffix=" per person"></span></button>
+        <button type="button" class="opt duration-chip" role="radio" aria-checked="false" tabindex="-1" data-duration-id="1.5hr" data-label="1.5 hr" data-chip-idr="2200000">1.5 hr<span class="duration-chip__price" data-price-idr="2200000" data-price-suffix=" per person"></span></button>
+          </div>
+          <div id="riderStepper" data-max-people="5" data-min-people="1" data-noun="rider" data-noun-plural="riders">
+            <p class="bp-label" style="margin:0 0 8px;">Riders</p>
+            <div class="stepper-row">
+              <button type="button" class="stepper-btn" id="riderMinus" aria-label="Remove a rider">&minus;</button>
+              <span id="riderCount" class="stepper-count">1</span>
+              <button type="button" class="stepper-btn" id="riderPlus" aria-label="Add a rider">+</button>
+            </div>
+          </div>
         </div>
-        <p style="margin:8px 0 0;font-size:11px;color:var(--ink-3);">Up to 5 riders</p>
       </div>
-      <p style="display:flex;justify-content:space-between;align-items:baseline;margin:0 0 4px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
-        <span id="bookingTotalLabel">Total</span>
-        <span id="bookingTotal" aria-live="polite" style="font-size:15px;font-weight:600;color:var(--ink);"></span>
-      </p>
-      <p style="margin:0 0 16px;font-size:11px;color:var(--ink-3);">Service tax included</p>
-      <p id="startTimesLine" style="margin:16px 0;color:var(--ink-2);"></p>
-      <div style="border:1px solid var(--line-ui);padding:12px 14px;margin:0 0 16px;display:flex;gap:10px;align-items:flex-start;">
-        <span aria-hidden="true" style="flex:none;width:16px;height:16px;border:1px solid var(--ink-3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink-3);">i</span>
-        <span style="font-size:12px;color:var(--ink-2);">Before you book: Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded.</span>
+      <div class="bp-group bp-result">
+        <p class="bp-total-row bp-label" aria-live="polite" aria-atomic="true">
+          <span id="bookingTotalLabel">Total</span>
+          <span id="bookingTotal" class="bp-total-value"></span>
+        </p>
+        <p class="bp-note">Service tax included</p>
+        <p id="startTimesLine" class="bp-note"></p>
       </div>
-      <a href="https://book.saltycowboybali.com/beach-ride?ref=threshold" class="btn" id="bookingCta" style="display:flex;justify-content:center;width:100%;padding:15px 0;">Check dates with Salty Cowboy &rarr;</a>
-      <p style="margin:12px 0 0;font-size:11px;line-height:1.5;color:var(--ink-3);">You'll send your request to Salty Cowboy on WhatsApp. Simone reviews and confirms every request. Threshold doesn't take payment.</p>
+      <div class="bp-group bp-decision">
+        <div class="bp-warn">
+          <span class="bp-warn-icon" aria-hidden="true">i</span>
+          <span class="bp-note">Before you book: Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded.</span>
+        </div>
+        <a href="https://book.saltycowboybali.com/beach-ride?ref=threshold" class="btn" id="bookingCta">Check dates with Salty Cowboy &rarr;</a>
+        <p class="bp-note bp-handoff">You'll send your request to Salty Cowboy on WhatsApp. Simone reviews and confirms every request. Threshold doesn't take payment.</p>
+      </div>
     </aside>
-      <div class="detail-content">
-        <div id="overview" aria-labelledby="h-overview" style="max-width:62ch;scroll-margin-top:68px;">
-          <h2 id="h-overview" style="font-size:20px;margin:0 0 14px;">Overview</h2>
-          <p style="margin:0;color:var(--ink-2);line-height:1.6;">A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.</p>
-        </div>
 
-        <div id="know" aria-labelledby="h-know" style="margin:40px 0 0;scroll-margin-top:68px;">
-          <h2 id="h-know" style="font-size:20px;margin:0 0 16px;">Good to know</h2>
-          <dl style="margin:0;display:grid;gap:14px;">
-      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">Group size</dt><dd style="margin:0;color:var(--ink-2);">Up to 5 riders, privately guided</dd></div>
-      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">Weight</dt><dd style="margin:0;color:var(--ink-2);">Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded.</dd></div>
-      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">Riding experience</dt><dd style="margin:0;color:var(--ink-2);">None needed. If you've never ridden or are a beginner, staff lead your horse on a lead rope for the whole ride. Intermediate and advanced riders can trot and canter in moderation, with no galloping, and your guide assesses you when you reach the beach.</dd></div>
-      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">Meeting point</dt><dd style="margin:0;color:var(--ink-2);">Salty Cowboy's stables. There's no pickup, so make your own way there.<br /><a href="https://www.google.com/maps/search/?api=1&amp;query=-8.604414,115.0896784" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;padding:9px 16px;min-height:44px;align-items:center;">Get directions</a></dd></div>
-      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">Arrive</dt><dd style="margin:0;color:var(--ink-2);">Arrive 15 minutes before your start time</dd></div>
-      <div><dt style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px;">Hours</dt><dd style="margin:0;color:var(--ink-2);">Closed Sundays and Saturday afternoons</dd></div>
+    <div class="detail-content">
+      <nav class="page-nav" aria-label="On this page">
+        <a href="#overview">Overview</a>
+        <a href="#know">Good to know</a>
+        <a href="#times">Times</a>
+        <a href="#business">The business</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <section id="overview" aria-labelledby="h-overview">
+        <h2 id="h-overview">Overview</h2>
+        <p class="prose">A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.</p>
+      </section>
+
+      <section id="know" aria-labelledby="h-know">
+        <h2 id="h-know">Good to know</h2>
+        <dl>
+      <div><dt>Group size</dt><dd>Up to 5 riders, privately guided</dd></div>
+      <div><dt>Weight</dt><dd>Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded.</dd></div>
+      <div><dt>Riding experience</dt><dd>None needed. If you've never ridden or are a beginner, staff lead your horse on a lead rope for the whole ride. Intermediate and advanced riders can trot and canter in moderation, with no galloping, and your guide assesses you when you reach the beach.</dd></div>
+      <div><dt>Meeting point</dt><dd>Salty Cowboy's stables. There's no pickup, so make your own way there.<br /><a href="https://www.google.com/maps/search/?api=1&amp;query=-8.604414,115.0896784" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;padding:9px 16px;min-height:44px;align-items:center;">Get directions<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="sr-only"> (opens in a new tab)</span></a></dd></div>
+      <div><dt>Arrive</dt><dd>Arrive 15 minutes before your start time</dd></div>
+      <div><dt>Hours</dt><dd>Closed Sundays and Saturday afternoons</dd></div>
     </dl>
-        </div>
+      </section>
 
-        <div id="included" style="margin:40px 0 0;">
-          <div style="max-width:40ch;"><div>
-        <p style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px;">What's included</p>
-        <ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px;">
+      <section id="included" aria-labelledby="h-included">
+        <h2 id="h-included">What's included</h2>
+        <div style="max-width:35em;"><div>
+        <p class="bp-label" style="margin:0 0 10px;">What&#8217;s included</p>
+        <ul class="prose" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;max-width:none;">
           <li style="display:flex;gap:8px;"><span aria-hidden="true" style="color:var(--cleared);">&check;</span><span>Helmets and boots</span></li>
           <li style="display:flex;gap:8px;"><span aria-hidden="true" style="color:var(--cleared);">&check;</span><span>Staff guiding on foot the whole way</span></li>
           <li style="display:flex;gap:8px;"><span aria-hidden="true" style="color:var(--cleared);">&check;</span><span>Photos taken on your phone by our team</span></li>
         </ul>
       </div></div>
-        </div>
+      </section>
 
-        <div id="times" aria-labelledby="h-times" style="margin:40px 0 0;scroll-margin-top:68px;">
-          <h2 id="h-times" style="font-size:20px;margin:0 0 16px;">Times</h2>
-          <table style="width:100%;border-collapse:collapse;max-width:62ch;">
-      <thead><tr><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">Duration</th><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">Start times</th></tr></thead>
+      <section id="times" aria-labelledby="h-times">
+        <h2 id="h-times">Times</h2>
+        <table>
+      <thead><tr><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--line);">Duration</th><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--line);">Start times</th></tr></thead>
       <tbody>
         <tr><td style="padding:10px 0;border-bottom:1px solid var(--line);">1 hr</td><td style="padding:10px 0;border-bottom:1px solid var(--line);">8:00am, 5:00pm</td></tr>
         <tr><td style="padding:10px 0;border-bottom:1px solid var(--line);">1.5 hr</td><td style="padding:10px 0;border-bottom:1px solid var(--line);">8:00am, 4:30pm</td></tr>
       </tbody>
     </table>
-        </div>
+      </section>
 
-        <div id="business" aria-labelledby="h-business" style="margin:40px 0 0;scroll-margin-top:68px;">
-          <h2 id="h-business" style="font-size:20px;margin:0 0 16px;">Meet the business</h2>
-          <div style="display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;max-width:62ch;">
-            <img src="../../../assets/simone-horse.jpg" alt="Simone reaching out to one of the horses at Salty Cowboy, Bali" width="120" height="120" loading="lazy" style="aspect-ratio:1/1;object-fit:cover;border:1px solid var(--line);" />
-            <div>
-              <p style="margin:0 0 8px;font-weight:600;">Owner-run by Simone.</p>
-              <p style="margin:0 0 12px;color:var(--ink-2);">Every booking goes straight back into the paddock: vet care, feed, farrier visits, and the horses themselves. Some come in underweight or scared of people. We give them time until they're ready.</p>
-              <a href="../../../case-study.html" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Read their story</a>
-            </div>
-          </div>
-
-          <div style="margin:40px 0 0;">
-            <h2 style="font-size:20px;margin:0 0 12px;">Reviews</h2>
-            <p style="margin:0;color:var(--ink-2);">No reviews on Threshold yet. This listing is new.</p>
+      <section id="business" aria-labelledby="h-business">
+        <h2 id="h-business">Meet the business</h2>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:var(--s-5);align-items:center;max-width:35em;">
+          <img src="../../../assets/simone-horse.jpg" alt="Simone reaching out to one of the horses at Salty Cowboy, Bali" width="120" height="120" loading="lazy" style="aspect-ratio:1/1;object-fit:cover;border:1px solid var(--line);" />
+          <div>
+            <p class="card-title" style="margin:0 0 var(--s-2);">Owner-run by Simone.</p>
+            <p class="prose" style="max-width:none;margin:0 0 var(--s-3);">Every booking goes straight back into the paddock: vet care, feed, farrier visits, and the horses themselves. Some come in underweight or scared of people. We give them time until they're ready.</p>
+            <a href="../../../case-study.html" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Read their story</a>
           </div>
         </div>
+      </section>
 
-        <div id="cancellation" aria-labelledby="h-cancellation" style="margin:40px 0 0;">
-          <h2 id="h-cancellation" style="font-size:20px;margin:0 0 12px;">Cancellation</h2>
-          <p style="margin:0 0 10px;color:var(--ink-2);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book. Bookings over 75kg are not refunded.</p>
-          <a href="https://wa.me/6281237312248" target="_blank" rel="noopener" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;display:inline-flex;">Ask on WhatsApp</a>
+      <section id="reviews" aria-labelledby="h-reviews">
+        <h2 id="h-reviews">Reviews</h2>
+        <p class="prose">No reviews on Threshold yet. This listing is new.</p>
+      </section>
+
+      <section id="cancellation" aria-labelledby="h-cancellation">
+        <h2 id="h-cancellation">Cancellation</h2>
+        <p class="prose" style="margin:0 0 var(--s-3);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book. Bookings over 75kg are not refunded.</p>
+        <a href="https://wa.me/6281237312248" target="_blank" rel="noopener" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;display:inline-flex;">Ask on WhatsApp</a>
+      </section>
+
+      <section id="faq" aria-labelledby="h-faq">
+        <h2 id="h-faq">FAQ</h2>
+        <div style="display:grid;gap:4px;">
+          <details><summary>What's included in guided horse ride through rice fields to the beach?</summary><p>Helmets and boots, Staff guiding on foot the whole way, Photos taken on your phone by our team.</p></details>
+          <details><summary>How do I book?</summary><p>Tap &quot;Check dates with Salty Cowboy&quot; below. You'll finish booking directly with Salty Cowboy, and Simone confirms your date on WhatsApp. No payment is taken on Threshold.</p></details>
+          <details><summary>What are the start times?</summary><p>Start times depend on the duration you choose. See the times table above, and note Salty Cowboy is closed Sundays and Saturday afternoons.</p></details>
+          <details><summary>Is there a weight limit?</summary><p>Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded.</p></details>
+          <details><summary>What if I need to cancel?</summary><p>Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.</p></details>
         </div>
+      </section>
 
-        <div id="faq" aria-labelledby="h-faq" style="margin:40px 0 0;max-width:72ch;scroll-margin-top:68px;">
-          <h2 id="h-faq" style="font-size:20px;margin:0 0 16px;">FAQ</h2>
-          <div style="display:grid;gap:4px;">
-            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">What's included in guided horse ride through rice fields to the beach?</summary><p style="margin:10px 0 0;color:var(--ink-2);">Helmets and boots, Staff guiding on foot the whole way, Photos taken on your phone by our team.</p></details>
-            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">How do I book?</summary><p style="margin:10px 0 0;color:var(--ink-2);">Tap &quot;Check dates with Salty Cowboy&quot; below. You'll finish booking directly with Salty Cowboy, and Simone confirms your date on WhatsApp. No payment is taken on Threshold.</p></details>
-            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">What are the start times?</summary><p style="margin:10px 0 0;color:var(--ink-2);">Start times depend on the duration you choose. See the times table above, and note Salty Cowboy is closed Sundays and Saturday afternoons.</p></details>
-            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">Is there a weight limit?</summary><p style="margin:10px 0 0;color:var(--ink-2);">Weight limit 70kg with clothes on. Up to 2 riders per booking can be between 70kg and 75kg. Riders are weighed at the stables. Riders over 75kg cannot ride, and bookings over 75kg are not refunded.</p></details>
-            <details style="border-bottom:1px solid var(--line);padding:14px 0;"><summary style="cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center;">What if I need to cancel?</summary><p style="margin:10px 0 0;color:var(--ink-2);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.</p></details>
-          </div>
-        </div>
-
-        <div style="margin:48px 0 0;">
-          <h2 style="font-size:20px;margin:0 0 16px;">More from Salty Cowboy</h2>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-            <a class="card" href="../../../bali/salty-cowboy/insta-ride/" style="display:block;">
+      <section aria-labelledby="h-more">
+        <h2 id="h-more">More from Salty Cowboy</h2>
+        <div class="more-grid">
+          <a class="card" href="../../../bali/salty-cowboy/insta-ride/" style="display:block;">
           <div class="card__media" style="background-image:url('../../../assets/salty-cowboy/insta-ride.jpg');background-size:cover;background-position:center;"></div>
           <div class="card__body">
             <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
@@ -328,16 +345,16 @@
             <p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=" per person"></p>
           </div>
         </a>
-            <a class="card" href="../../../bali/salty-cowboy/beach-photoshoot/" style="display:block;">
+          <a class="card" href="../../../bali/salty-cowboy/beach-photoshoot/" style="display:block;">
           <div class="card__media" style="background-image:url('../../../assets/salty-cowboy/photo-beach.jpg');background-size:cover;background-position:center;"></div>
           <div class="card__body">
             <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
             <p class="card__loc">1 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A styled photoshoot with a groomed horse along the beach and rice fields.</p>
-            <p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=" per person"></p>
+            <p class="card__price" data-price-idr="1750000" data-price-prefix="from"></p>
           </div>
         </a>
-            <a class="card" href="../../../bali/salty-cowboy/horse-grooming/" style="display:block;">
+          <a class="card" href="../../../bali/salty-cowboy/horse-grooming/" style="display:block;">
           <div class="card__media" style="background-image:url('../../../assets/salty-cowboy/grooming.jpg');background-size:cover;background-position:center;"></div>
           <div class="card__body">
             <h3 class="card__title">Horse grooming class with the stable manager</h3>
@@ -346,30 +363,31 @@
             <p class="card__price" data-price-idr="1250000" data-price-prefix="from"></p>
           </div>
         </a>
-          </div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
+  </div>
 
 </main>
-  <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">
-    <span style="color:var(--ink);">&copy; 2026 Threshold</span>
-    <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
-      <a href="../../../mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
-      <a href="../../../bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
-      <a href="../../../for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
-      <a href="../../../#faq" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">FAQ</a>
-      <a href="../../../for-business/#interested" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Contact</a>
-    </nav>
+  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
+    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <span style="color:var(--ink);">&copy; 2026 Threshold</span>
+      <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
+        <a href="../../../mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
+        <a href="../../../bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
+        <a href="../../../for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
+        <a href="../../../#faq" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">FAQ</a>
+        <a href="../../../for-business/#interested" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Contact</a>
+      </nav>
+    </div>
   </footer>
 </div>
-<div class="mobile-sticky-bar" id="mobileStickyBar" style="position:fixed;left:0;right:0;bottom:0;z-index:50;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px calc(env(safe-area-inset-bottom,0px) + 12px);background:var(--paper);border-top:1px solid var(--line);box-shadow:var(--shadow-bar);">
-    <span style="font-family:var(--mono);font-size:12px;">
-      <span id="mobileStickyDuration"></span> &middot; <span id="mobileStickyTotal"></span>
+<aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
+    <span class="t-small">
+      <span id="mobileStickyDuration"></span> &middot; <strong id="mobileStickyTotal"></strong>
     </span>
-    <a href="https://book.saltycowboybali.com/beach-ride?ref=threshold" class="btn" style="min-height:48px;display:flex;align-items:center;padding:0 20px;">Check dates &rarr;</a>
-  </div>
+    <a href="https://book.saltycowboybali.com/beach-ride?ref=threshold" class="btn">Check dates &rarr;</a>
+  </aside>
 <script src="../../../app.js"></script>
 <script src="../../../assets/detail.js" defer></script>
 </body>

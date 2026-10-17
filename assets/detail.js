@@ -81,11 +81,28 @@
     }
   }
 
+  function selectChip(chip) {
+    chips.forEach(function (c) {
+      c.setAttribute('aria-checked', c === chip ? 'true' : 'false');
+      c.setAttribute('tabindex', c === chip ? '0' : '-1');
+    });
+    render();
+  }
+
   chips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      chips.forEach(function (c) { c.setAttribute('aria-checked', 'false'); });
-      chip.setAttribute('aria-checked', 'true');
-      render();
+    chip.addEventListener('click', function () { selectChip(chip); chip.focus(); });
+    // G2: roving tabindex radiogroup keyboard support.
+    chip.addEventListener('keydown', function (e) {
+      var i = chips.indexOf(chip);
+      var next = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = chips[(i + 1) % chips.length];
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = chips[(i - 1 + chips.length) % chips.length];
+      else if (e.key === 'Home') next = chips[0];
+      else if (e.key === 'End') next = chips[chips.length - 1];
+      if (!next) return;
+      e.preventDefault();
+      selectChip(next);
+      next.focus();
     });
   });
 

@@ -97,7 +97,7 @@
 <body>
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
-    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:28px 40px;border-bottom:1px solid var(--line);">
+    <div class="bar container" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
       <a href="../index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;">Threshold</a>
       <nav class="nav" id="siteNav" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
@@ -143,7 +143,7 @@
             <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=" per person"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
@@ -152,7 +152,7 @@
             <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
             <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">Our longest ride, with plenty of stops for photos along the way.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=" per person"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
@@ -179,7 +179,7 @@
             <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A hands-on lesson in natural horsemanship, learning to earn a horse's trust.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" / person"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" per person"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
@@ -240,7 +240,8 @@
     </div>
   </section>
 
-  <footer style="border-top:1px solid var(--line);padding:28px 40px 44px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);">
+  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
+    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
     <span style="color:var(--ink);">© 2026 Threshold</span>
     <nav style="display:flex;gap:20px;flex-wrap:wrap;">
       <a href="../mornington-peninsula/" class="navlink">Victoria, Australia</a>
@@ -249,6 +250,7 @@
       <a href="../#faq" class="navlink">FAQ</a>
       <a href="../for-business/#interested" class="navlink">Contact</a>
     </nav>
+  </div>
   </footer>
 </div>
 <script src="../app.js"></script>
