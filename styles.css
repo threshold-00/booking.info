@@ -2,6 +2,7 @@
    doesn't hold yet, so this is the free match agreed as the fallback: Switzer
    (Fontshare, free to self-host), a grotesk built as a close Helvetica/Neue Haas
    stand-in. Swap in the licensed Neue Haas files later by replacing this @font-face. */
+@font-face{font-family:'Switzer';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/switzer-400.woff2') format('woff2')}
 @font-face{font-family:'Switzer';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/switzer-600.woff2') format('woff2')}
 :root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Switzer','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',monospace;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--gutter:40px;--section-y:var(--s-9);--r-pill:999px}
 *{box-sizing:border-box}
