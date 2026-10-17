@@ -1,8 +1,9 @@
 /* Self-hosted heading font. Neue Haas Grotesk Display is a paid license Threshold
-   doesn't hold yet, so this is the free match agreed as the Phase 1 fallback:
-   swap in the licensed Neue Haas files later by replacing this @font-face. */
-@font-face{font-family:'Inter Tight';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/inter-tight-600.woff2') format('woff2')}
-:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Inter Tight','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',monospace;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--gutter:40px;--section-y:var(--s-9);--r-pill:999px}
+   doesn't hold yet, so this is the free match agreed as the fallback: Switzer
+   (Fontshare, free to self-host), a grotesk built as a close Helvetica/Neue Haas
+   stand-in. Swap in the licensed Neue Haas files later by replacing this @font-face. */
+@font-face{font-family:'Switzer';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/switzer-600.woff2') format('woff2')}
+:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--display:'Switzer','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',monospace;--s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--gutter:40px;--section-y:var(--s-9);--r-pill:999px}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--paper)}
 body{color:var(--ink);font-family:'Chivo Mono',monospace;font-weight:400;font-size:12px;line-height:17px;text-transform:uppercase;min-height:100vh}
@@ -183,14 +184,12 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 #top .cat-chip:hover{border-color:var(--paper);color:var(--paper)}
 #top .cat-chip[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .region-radio[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.x-card[hidden]{display:none!important}
+.x-card[hidden],.card[hidden]{display:none!important}
+#horseSub[hidden],#browseGrid[hidden]{display:none!important}
 @media (max-width:820px){
   .cat-chip-row{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;margin-left:calc(var(--gutter) * -1);margin-right:calc(var(--gutter) * -1);padding-left:var(--gutter);padding-right:var(--gutter)}
   .cat-chip-row::-webkit-scrollbar{display:none}
   .cat-chip-row .cat-chip{flex:none;scroll-snap-align:start}
-  .region-group{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;margin-left:calc(var(--gutter) * -1);margin-right:calc(var(--gutter) * -1);padding-left:var(--gutter);padding-right:var(--gutter)}
-  .region-group::-webkit-scrollbar{display:none}
-  .region-group .region-radio{flex:none;scroll-snap-align:start}
 }
 
 /* Phase 2: map must not paint over the sticky header or the mobile nav overlay.
@@ -220,10 +219,28 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
   .card__nav{opacity:1}
 }
 
+/* Update brief 3: single scrollable filter row (category + region), Viator-style, with
+   a circular next arrow over the fade edge. */
+#chipRow{padding-right:40px}
+#chipRow::-webkit-scrollbar{display:none}
+.filter-row-next{position:absolute;top:50%;right:0;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:var(--paper);border:1px solid rgba(23,23,26,.25);display:flex;align-items:center;justify-content:center;font-size:19px;line-height:1;cursor:pointer;color:var(--ink);box-shadow:-14px 0 14px -2px var(--paper)}
+.filter-row-next:hover,.filter-row-next:focus-visible{border-color:var(--ink);outline:none}
+.filter-row-next[hidden]{display:none!important}
+
+/* Update brief 3: Experiences grouped rows, horse sub-chips, and See all links */
+.card-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.see-all{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(23,23,26,.6);white-space:nowrap;background:none;border:0;cursor:pointer;padding:0}
+.see-all:hover,.see-all:focus-visible{color:var(--cleared);outline:none}
+.browse-sub{border-left:2px solid var(--line);padding-left:16px;margin:28px 0 0}
+.browse-group__head,.browse-sub__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 16px;flex-wrap:wrap}
+@media (max-width:820px){
+  .card-row{display:flex;overflow-x:auto;scroll-snap-type:x proximity;gap:14px;margin-left:calc(var(--gutter) * -1);margin-right:calc(var(--gutter) * -1);padding-left:var(--gutter);padding-right:var(--gutter);scrollbar-width:none}
+  .card-row::-webkit-scrollbar{display:none}
+  .card-row>*{flex:0 0 82%;scroll-snap-align:start}
+  .browse-sub{padding-left:12px}
+}
+
 /* Site-wide currency toggle: switches displayed prices between IDR and a live AUD conversion */
-.currency-toggle{display:inline-flex;border:1px solid rgba(23,23,26,.25);border-radius:var(--r-pill);overflow:hidden}
-.currency-opt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;min-height:30px;background:none;border:0;color:rgba(23,23,26,.55);cursor:pointer}
-.currency-opt[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-#top .currency-toggle{border-color:rgba(243,242,238,.4)}
-#top .currency-opt{color:rgba(243,242,238,.82)}
-#top .currency-opt[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.currency-select{font:inherit;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;min-height:30px;padding:0 24px 0 10px;background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317171a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 6px center/12px;border:1px solid rgba(23,23,26,.25);border-radius:var(--r-pill);color:var(--ink);cursor:pointer;appearance:none;-webkit-appearance:none}
+#top .currency-select{background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3f2ee' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");border-color:rgba(243,242,238,.4);color:rgba(243,242,238,.92)}
+#top .currency-select option{color:var(--ink)}

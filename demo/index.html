@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Threshold booking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:'Chivo Mono',monospace;text-transform:uppercase}
+body{display:flex;flex-direction:column}
+.bar{display:flex;gap:0;border-bottom:1px solid var(--line);background:var(--paper)}
+.tab{flex:1;min-width:0;padding:12px 14px;border:0;border-right:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.tab:last-child{border-right:0}
+.tab .name{display:block;font-size:12px;letter-spacing:.02em}
+.tab .proves{display:block;margin-top:4px;font-family:var(--mono);font-size:10px;line-height:1.4;text-transform:none;color:rgba(23,23,26,.6)}
+.tab[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.tab[aria-selected=true] .proves{color:rgba(243,242,238,.75)}
+.tab:hover:not([aria-selected=true]):not(:disabled){background:var(--panel)}
+.tab:disabled{cursor:not-allowed;opacity:.45}
+.stage{flex:1;min-height:0;background:var(--ink)}
+iframe{display:block;width:100%;height:100%;border:0}
+@media (max-width:820px){.tab{padding:10px}.tab .proves{display:none}}
+</style>
+</head>
+<body>
+<nav class="bar" role="tablist" aria-label="Choose a demo business">
+  <button class="tab" role="tab" data-v="water" disabled><span class="name">Water</span><span class="proves">Swim check and weight limits. Next.</span></button>
+  <button class="tab" role="tab" data-v="dive"><span class="name">Freedive</span><span class="proves">Certification, swim and medical gates</span></button>
+  <button class="tab" role="tab" data-v="studio" disabled><span class="name">Studio</span><span class="proves">Intake and capacity. Next.</span></button>
+</nav>
+<div class="stage"><iframe id="app" title="Threshold booking demo"></iframe></div>
+<script>
+(function () {
+  var READY = ["dive"];
+  var frame = document.getElementById("app");
+  var tabs = [].slice.call(document.querySelectorAll(".tab"));
+  function show(v) {
+    if (READY.indexOf(v) === -1) v = READY[0];
+    tabs.forEach(function (t) { t.setAttribute("aria-selected", t.getAttribute("data-v") === v ? "true" : "false"); });
+    frame.src = "app/index.html?vertical=" + v;
+    try { history.replaceState(null, "", "?vertical=" + v); } catch (e) {}
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { if (!t.disabled) show(t.getAttribute("data-v")); });
+    if (READY.indexOf(t.getAttribute("data-v")) !== -1) t.disabled = false;
+  });
+  var m = /[?&]vertical=([a-z]+)/.exec(window.location.search);
+  show(m ? m[1] : READY[0]);
+})();
+</script>
+</body>
+</html>

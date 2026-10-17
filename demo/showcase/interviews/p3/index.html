@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Saltgrass Trail Rides, prototype</title>
+<style>
+*{box-sizing:border-box}
+.ig,.wa,.thread{overflow-x:hidden !important}
+html,body{margin:0;height:100%;overflow:hidden;font-family:-apple-system,Helvetica,Arial,sans-serif;background:#e5ddd5;}
+.wa{position:absolute;inset:0;bottom:56px;background:#e5ddd5;display:flex;flex-direction:column;}
+.bar{flex:none;background:#075e54;color:#fff;padding:14px;padding-top:calc(14px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:10px;}
+.bar .back{font-size:19px;line-height:1;}
+.bar .avatar{width:36px;height:36px;border-radius:50%;background:#128c7e;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:none;}
+.bar .who .name{font-size:15px;font-weight:600;}
+.bar .who .sub{font-size:11px;opacity:.8;}
+.metabanner{background:#fef9e7;color:#7a6418;font-size:11px;line-height:1.4;padding:7px 14px;text-align:center;}
+.thread{flex:1;overflow-y:auto;overflow-x:hidden;padding:14px 10px;display:flex;flex-direction:column;gap:9px;}
+.bubble{max-width:300px;min-width:0;padding:10px 13px;border-radius:9px;font-size:14.5px;line-height:1.4;opacity:0;transform:translateY(6px);box-shadow:0 1px 1px rgba(0,0,0,.08);overflow-wrap:break-word;}
+.bubble.on{opacity:1 !important;transform:none !important;}
+.bubble.c{align-self:flex-end;background:#dcf8c6;border-top-right-radius:2px;}
+.bubble.a{align-self:flex-start;background:#fff;border-top-left-radius:2px;}
+.bubble.a .label{display:block;font-size:11px;color:#9aa0a6;margin-top:4px;}
+.bottombar{position:absolute;left:0;right:0;bottom:0;background:#f3f2ee;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;border-top:1px solid rgba(23,23,26,.14);}
+.step-n{font-size:10px;letter-spacing:.08em;color:rgba(23,23,26,.55);}
+.nextBtn{margin-left:auto;font:inherit;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;padding:10px 18px;border:1px solid #17171a;background:#17171a;color:#f3f2ee;}
+.nextBtn:disabled{opacity:.4;}
+</style>
+</head>
+<body>
+<div class="wa">
+  <div class="bar"><span class="back">&#8592;</span><div class="avatar">S</div><div class="who"><div class="name">Saltgrass Trail Rides</div><div class="sub">Business account</div></div></div>
+  <div class="metabanner">This business uses a secure service from Meta to manage this chat.</div>
+  <div class="thread" id="waThread">
+    <div class="bubble c" data-i="1">Hi! Can a beginner do the beach ride on Saturday?</div>
+    <div class="bubble a" data-i="2">Hi! The Beach ride suits confident riders. The Bush trail is great for beginners and also runs Saturday. How much riding have you done?</div>
+    <div class="bubble a" data-i="3">How much riding have you done?<span class="label">Quick reply</span></div>
+    <div class="bubble c" data-i="4">A few times</div>
+    <div class="bubble a" data-i="5">Great, the Bush trail it is. What's your weight band, for the right horse?</div>
+    <div class="bubble a" data-i="6">What's your weight band, for the right horse?<span class="label">Quick reply</span></div>
+    <div class="bubble c" data-i="7">70 to 95 kg</div>
+    <div class="bubble a" data-i="8">And your age band?</div>
+    <div class="bubble a" data-i="9">And your age band?<span class="label">Quick reply</span></div>
+    <div class="bubble c" data-i="10">16 and over</div>
+    <div class="bubble a" data-i="11">Saturday has 8:00, 10:30, 1:00pm and 3:00pm. Which works?</div>
+    <div class="bubble a" data-i="12">Saturday times<span class="label">List message</span></div>
+    <div class="bubble c" data-i="13">10:30am</div>
+    <div class="bubble a" data-i="14">Booked for 10:30. Pay the 30% deposit here to lock it in:<span class="label">Payment link</span></div>
+    <div class="bubble a" data-i="15">See you Saturday at 10:30!</div>
+  </div>
+</div>
+<div class="bottombar">
+  <span class="step-n" id="stepN">0 / 15</span>
+  <button class="nextBtn" id="nextBtn">Tap to advance &#8594;</button>
+</div>
+<script>
+(function(){
+  var bubbles = [].slice.call(document.querySelectorAll('#waThread .bubble'));
+  var thread = document.getElementById('waThread');
+  var nextBtn = document.getElementById('nextBtn');
+  var stepN = document.getElementById('stepN');
+  var shown = 0;
+  function scrollBottom(){ if (bubbles[shown-1]) bubbles[shown-1].scrollIntoView({block:'end'}); }
+  function showNext(){
+    if (shown >= bubbles.length) { shown = 0; bubbles.forEach(function(b){ b.classList.remove('on'); }); thread.scrollTop = 0; stepN.textContent = '0 / ' + bubbles.length; return; }
+    bubbles[shown].classList.add('on');
+    shown++;
+    stepN.textContent = shown + ' / ' + bubbles.length;
+    scrollBottom();
+  }
+  nextBtn.addEventListener('click', showNext);
+  thread.addEventListener('click', showNext);
+  requestAnimationFrame(function(){ requestAnimationFrame(showNext); });
+})();
+</script>
+</body>
+</html>

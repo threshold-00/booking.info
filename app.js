@@ -80,14 +80,14 @@ window.ThCurrency = (function () {
         suffix: el.getAttribute('data-price-suffix') || ''
       });
     });
-    document.querySelectorAll('.currency-opt').forEach(function (btn) {
-      btn.setAttribute('aria-pressed', btn.getAttribute('data-currency') === currency ? 'true' : 'false');
+    document.querySelectorAll('.currency-select').forEach(function (sel) {
+      sel.value = currency;
     });
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.currency-opt').forEach(function (btn) {
-      btn.addEventListener('click', function () { setCurrency(btn.getAttribute('data-currency')); });
+    document.querySelectorAll('.currency-select').forEach(function (sel) {
+      sel.addEventListener('change', function () { setCurrency(sel.value); });
     });
     render();
     fetchRate();
@@ -195,40 +195,44 @@ window.ThCurrency = (function () {
 
 })();
 
-// Homepage search, category chips and region toggle (#browse). Filters the experience
-// cards in place with AND logic (search text AND category AND region), never navigates,
-// and syncs state to the URL so a link like /?region=bali#browse opens pre-filtered.
-// Placeholder "spot waiting to be filled" cards only show with no filters active.
+// Homepage search, category chips, horse sub-chips and region toggle (#browse). Filters
+// the experience cards in place with AND logic (search text AND category AND sub-type
+// AND region), never navigates, and syncs state to the URL so a link like
+// /?region=bali#browse opens pre-filtered. With no filters active, the grouped default
+// view (#browseDefault) shows; any filter switches to the flat results grid (#browseGrid).
 (function () {
   var grid = document.getElementById('browseGrid');
+  var defaultView = document.getElementById('browseDefault');
   if (!grid) return;
 
-  var searchForm = document.getElementById('searchForm');
-  var searchInput = document.getElementById('searchInput');
   var chipRow = document.getElementById('chipRow');
+  var horseSub = document.getElementById('horseSub');
   var regionGroup = document.getElementById('regionGroup');
   var countEl = document.getElementById('browseCount');
   var emptyEl = document.getElementById('browseEmpty');
   var emptyChips = document.getElementById('browseEmptyChips');
   var clearBtn = document.getElementById('clearFilters');
 
-  var cards = [].slice.call(grid.querySelectorAll('.x-card'));
+  var cards = [].slice.call(grid.querySelectorAll('.x-card, .sc-card'));
   var realCards = cards.filter(function (c) { return !c.hasAttribute('data-placeholder'); });
   var catChips = chipRow ? [].slice.call(chipRow.querySelectorAll('.cat-chip')) : [];
+  var horseChip = catChips.filter(function (c) { return c.getAttribute('data-cat') === 'horse'; })[0];
+  var subChips = horseSub ? [].slice.call(horseSub.querySelectorAll('.sub-chip')) : [];
   var regionRadios = regionGroup ? [].slice.call(regionGroup.querySelectorAll('.region-radio')) : [];
+  var seeAllBtns = [].slice.call(document.querySelectorAll('.see-all'));
 
-  var state = { q: '', cat: '', region: '' };
+  var state = { cat: '', sub: '', region: '' };
 
   function readURL() {
     var params = new URLSearchParams(window.location.search);
-    state.q = params.get('q') || '';
     state.cat = params.get('cat') || '';
+    state.sub = params.get('sub') || '';
     state.region = params.get('region') || '';
   }
 
   function writeURL() {
     var params = new URLSearchParams(window.location.search);
-    ['q', 'cat', 'region'].forEach(function (key) {
+    ['cat', 'sub', 'region'].forEach(function (key) {
       if (state[key]) params.set(key, state[key]); else params.delete(key);
     });
     var qs = params.toString();
@@ -236,21 +240,14 @@ window.ThCurrency = (function () {
     history.replaceState(null, '', url);
   }
 
-  function cardMatches(card) {
-    var q = state.q.trim().toLowerCase();
-    if (q) {
-      var haystack = [
-        card.getAttribute('data-title'),
-        card.getAttribute('data-business'),
-        card.getAttribute('data-region'),
-        card.getAttribute('data-cat'),
-        card.getAttribute('data-keywords')
-      ].join(' ').toLowerCase();
-      if (haystack.indexOf(q) === -1) return false;
-    }
-    if (state.cat) {
+  function cardMatches(card, opts) {
+    opts = opts || {};
+    if (!opts.ignoreCat && state.cat) {
       var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
       if (cats.indexOf(state.cat) === -1) return false;
+    }
+    if (!opts.ignoreSub && state.sub) {
+      if (card.getAttribute('data-type') !== state.sub) return false;
     }
     if (state.region) {
       if (card.getAttribute('data-region') !== state.region) return false;
@@ -259,7 +256,7 @@ window.ThCurrency = (function () {
   }
 
   function hasActiveFilters() {
-    return !!(state.q.trim() || state.cat || state.region);
+    return !!(state.cat || state.sub || state.region);
   }
 
   function chipsWithResults() {
@@ -273,30 +270,52 @@ window.ThCurrency = (function () {
     });
   }
 
+  // Sub-chip counts reflect the currently visible horse cards, respecting region and
+  // search but not the sub-chip selection itself, per the brief.
+  function updateSubCounts() {
+    if (!subChips.length) return;
+    var horseCards = realCards.filter(function (card) {
+      var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
+      if (cats.indexOf('horse') === -1) return false;
+      return cardMatches(card, { ignoreCat: true, ignoreSub: true });
+    });
+    subChips.forEach(function (chip) {
+      var type = chip.getAttribute('data-type');
+      var n = type ? horseCards.filter(function (c) { return c.getAttribute('data-type') === type; }).length : horseCards.length;
+      var base = chip.getAttribute('data-label') || chip.textContent.replace(/\s*\(\d+\)\s*$/, '');
+      chip.setAttribute('data-label', base);
+      chip.textContent = base + ' (' + n + ')';
+    });
+  }
+
   function render() {
     var active = hasActiveFilters();
-    var visibleReal = 0;
 
+    if (defaultView) defaultView.hidden = active;
+    grid.hidden = !active;
+
+    var visibleReal = 0;
     cards.forEach(function (card) {
       var isPlaceholder = card.hasAttribute('data-placeholder');
       if (isPlaceholder) {
         card.hidden = active;
         return;
       }
-      var match = cardMatches(card);
+      var match = active ? cardMatches(card) : false;
       card.hidden = !match;
       if (match) visibleReal++;
     });
 
     if (countEl) {
-      var label = visibleReal === 1 ? '1 experience' : visibleReal + ' experiences';
+      var count = active ? visibleReal : realCards.length;
+      var label = count === 1 ? '1 experience' : count + ' experiences';
       if (state.region === 'bali') label += ' in Bali';
       else if (state.region === 'mornington') label += ' in Victoria, Australia';
-      countEl.textContent = active ? label : '';
+      countEl.textContent = label;
     }
 
     if (emptyEl) {
-      var showEmpty = visibleReal === 0 && active;
+      var showEmpty = active && visibleReal === 0;
       emptyEl.hidden = !showEmpty;
       if (showEmpty && emptyChips) {
         emptyChips.innerHTML = '';
@@ -314,6 +333,24 @@ window.ThCurrency = (function () {
         });
       }
     }
+
+    updateSubCounts();
+  }
+
+  function setSub(sub) {
+    state.sub = sub || '';
+    subChips.forEach(function (chip) {
+      chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
+    });
+    writeURL();
+    render();
+  }
+
+  function showHorseSub(show) {
+    if (!horseSub) return;
+    horseSub.hidden = !show;
+    if (horseChip) horseChip.setAttribute('aria-expanded', show ? 'true' : 'false');
+    if (!show) setSub('');
   }
 
   function setCat(cat) {
@@ -321,6 +358,7 @@ window.ThCurrency = (function () {
     catChips.forEach(function (chip) {
       chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === state.cat ? 'true' : 'false');
     });
+    showHorseSub(state.cat === 'horse');
     writeURL();
     render();
   }
@@ -334,27 +372,17 @@ window.ThCurrency = (function () {
     render();
   }
 
-  function setQuery(q) {
-    state.q = q || '';
-    writeURL();
-    render();
-  }
-
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      setQuery(searchInput.value);
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var browseSection = document.getElementById('browse');
-      if (browseSection) browseSection.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-      if (countEl) countEl.focus();
-    });
-  }
-
   catChips.forEach(function (chip) {
     chip.addEventListener('click', function () {
       var cat = chip.getAttribute('data-cat');
       setCat(state.cat === cat && cat ? '' : cat);
+      if (chip === horseChip) chip.focus();
+    });
+  });
+
+  subChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      setSub(chip.getAttribute('data-type'));
     });
   });
 
@@ -371,27 +399,69 @@ window.ThCurrency = (function () {
     });
   });
 
+  seeAllBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var cat = btn.getAttribute('data-cat') || '';
+      var sub = btn.getAttribute('data-sub') || '';
+      state.cat = cat;
+      catChips.forEach(function (chip) {
+        chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === cat ? 'true' : 'false');
+      });
+      showHorseSub(cat === 'horse');
+      state.sub = sub;
+      subChips.forEach(function (chip) {
+        chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === sub ? 'true' : 'false');
+      });
+      writeURL();
+      render();
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var browseSection = document.getElementById('browse');
+      if (browseSection) browseSection.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+      if (countEl) countEl.focus();
+    });
+  });
+
   if (clearBtn) {
     clearBtn.addEventListener('click', function () {
-      if (searchInput) searchInput.value = '';
-      state = { q: '', cat: '', region: '' };
+      state = { cat: '', sub: '', region: '' };
       catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
       regionRadios.forEach(function (radio) { radio.setAttribute('aria-checked', radio.getAttribute('data-region') === '' ? 'true' : 'false'); });
+      showHorseSub(false);
       writeURL();
       render();
     });
   }
 
   readURL();
-  if (searchInput) searchInput.value = state.q;
   catChips.forEach(function (chip) {
     chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === state.cat ? 'true' : 'false');
+  });
+  showHorseSub(state.cat === 'horse');
+  subChips.forEach(function (chip) {
+    chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
   });
   regionRadios.forEach(function (radio) {
     radio.setAttribute('aria-checked', radio.getAttribute('data-region') === state.region ? 'true' : 'false');
   });
   if (countEl) countEl.setAttribute('tabindex', '-1');
   render();
+
+  // Single scrollable filter row (category + region chips together, Viator-style):
+  // a circular next arrow scrolls the row, and hides itself once there's nothing
+  // left to scroll to.
+  var filterRowNext = document.getElementById('filterRowNext');
+  if (chipRow && filterRowNext) {
+    function updateFilterRowNext() {
+      var atEnd = chipRow.scrollLeft + chipRow.clientWidth >= chipRow.scrollWidth - 2;
+      filterRowNext.hidden = atEnd;
+    }
+    filterRowNext.addEventListener('click', function () {
+      chipRow.scrollBy({ left: 220, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+    chipRow.addEventListener('scroll', updateFilterRowNext, { passive: true });
+    window.addEventListener('resize', updateFilterRowNext);
+    updateFilterRowNext();
+  }
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes
@@ -660,49 +730,59 @@ if (lt) {
   setInterval(function () { n = n % 3 + 1; noise.setAttribute('seed', n); }, 180);
 })();
 
-// Verticals scroller under the hero: moves left by default, and reverses to move right
-// while the page itself is being scrolled upward. Pauses on hover, static under reduced motion.
+// Verticals scroller: moves left by default, and reverses to move right while the page
+// itself is being scrolled upward. Pauses on hover or keyboard focus, static under
+// reduced motion. Runs once per .vert-scroll instance (hero and /for-business/).
 (function () {
-  var scroll = document.querySelector('.vert-scroll');
-  var track = document.querySelector('.vert-track');
-  if (!scroll || !track) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var halfWidth = 0;
-  function measure() { halfWidth = track.scrollWidth / 2; }
-  measure();
-  window.addEventListener('resize', measure);
+  document.querySelectorAll('.vert-scroll').forEach(function (scroll) {
+    var track = scroll.querySelector('.vert-track');
+    if (!track) return;
 
-  var SPEED = 34; // px per second
-  var dir = 1; // 1 = leftward (default), -1 = rightward
-  var lastScrollY = window.scrollY;
-  var scrollTimer;
-  window.addEventListener('scroll', function () {
-    var y = window.scrollY;
-    if (y > lastScrollY + 1) dir = 1;
-    else if (y < lastScrollY - 1) dir = -1;
-    lastScrollY = y;
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function () { dir = 1; }, 1200); // drift back to the default direction once scrolling stops
-  }, { passive: true });
+    var sets = track.querySelectorAll('.vert-set');
+    if (sets[1]) sets[1].setAttribute('aria-hidden', 'true');
 
-  var hovered = false;
-  scroll.addEventListener('mouseenter', function () { hovered = true; });
-  scroll.addEventListener('mouseleave', function () { hovered = false; });
+    if (reduceMotion) return;
 
-  var pos = 0, last = null;
-  function frame(t) {
-    if (last === null) last = t;
-    var dt = (t - last) / 1000;
-    last = t;
-    if (!hovered && halfWidth > 0) {
-      pos += dir * SPEED * dt;
-      pos = ((pos % halfWidth) + halfWidth) % halfWidth;
-      track.style.transform = 'translateX(' + (-pos) + 'px)';
+    var halfWidth = 0;
+    function measure() { halfWidth = track.scrollWidth / 2; }
+    measure();
+    window.addEventListener('resize', measure);
+
+    var SPEED = 34; // px per second
+    var dir = 1; // 1 = leftward (default), -1 = rightward
+    var lastScrollY = window.scrollY;
+    var scrollTimer;
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY;
+      if (y > lastScrollY + 1) dir = 1;
+      else if (y < lastScrollY - 1) dir = -1;
+      lastScrollY = y;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () { dir = 1; }, 1200); // drift back to the default direction once scrolling stops
+    }, { passive: true });
+
+    var hovered = false, focused = false;
+    scroll.addEventListener('mouseenter', function () { hovered = true; });
+    scroll.addEventListener('mouseleave', function () { hovered = false; });
+    scroll.addEventListener('focusin', function () { focused = true; });
+    scroll.addEventListener('focusout', function () { focused = false; });
+
+    var pos = 0, last = null;
+    function frame(t) {
+      if (last === null) last = t;
+      var dt = (t - last) / 1000;
+      last = t;
+      if (!hovered && !focused && halfWidth > 0) {
+        pos += dir * SPEED * dt;
+        pos = ((pos % halfWidth) + halfWidth) % halfWidth;
+        track.style.transform = 'translateX(' + (-pos) + 'px)';
+      }
+      requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  });
 })();
 
 // Phase 4: Salty Cowboy card image carousels. Dots and prev/next scroll one slide each,

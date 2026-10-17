@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Saltgrass Trail Rides, prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17171a;--paper:#f3f2ee;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+.ig,.wa,.thread{overflow-x:hidden !important}
+html,body{margin:0;height:100%;background:#17171a;overflow:hidden;font-family:-apple-system,Helvetica,Arial,sans-serif;}
+.stage{position:fixed;inset:0;}
+.screenwrap{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .25s;}
+.screenwrap.on{opacity:1;pointer-events:auto;}
+.bottombar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;font-family:var(--mono);z-index:20;border-top:1px solid var(--line);}
+.step-n{font-size:10px;letter-spacing:.08em;color:rgba(23,23,26,.55);flex:none;}
+.nextBtn{margin-left:auto;font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:10px 18px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);}
+.nextBtn:disabled{opacity:.4;}
+
+/* Instagram */
+.ig{position:absolute;inset:0;bottom:48px;background:#fff;display:flex;flex-direction:column;}
+.ig .bar{flex:none;background:#fff;border-bottom:1px solid #eee;padding:14px;display:flex;align-items:center;gap:10px;padding-top:calc(14px + env(safe-area-inset-top,0px));}
+.ig .bar .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8a8370,#5c6650);}
+.ig .bar .who{font-size:14px;font-weight:600;}
+.ig .thread{flex:1;overflow-y:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;}
+.ig .postref{align-self:center;background:#fafafa;border:1px solid #eee;border-radius:14px;padding:8px 12px;font-size:12px;color:#8e8e8e;text-align:center;max-width:80%;}
+.ig .bubble{max-width:250px;min-width:0;padding:11px 14px;border-radius:18px;font-size:15px;line-height:1.4;overflow-wrap:break-word;}
+.ig .bubble.in{align-self:flex-start;background:#efefef;color:#000;}
+.ig .bubble.out{align-self:flex-end;background:linear-gradient(135deg,#5c6650,#17171a);color:#fff;}
+.ig .linkcard{align-self:flex-start;max-width:80%;border:1px solid #e3e1da;border-radius:14px;overflow:hidden;}
+.ig .linkcard .lc-img{height:90px;background:linear-gradient(135deg,#8a8370,#5c6650);}
+.ig .linkcard .lc-body{padding:10px 12px;}
+.ig .linkcard .lc-t{font-size:14px;font-weight:600;}
+.ig .linkcard .lc-s{font-size:12px;color:#8e8e8e;margin-top:2px;}
+
+/* engine */
+iframe.engine{position:absolute;top:0;left:0;right:0;bottom:48px;width:100%;height:calc(100% - 48px);border:0;background:#fff;}
+
+/* lock + record */
+.lock{position:absolute;inset:0;bottom:48px;background:radial-gradient(120% 90% at 50% -10%,#4a5568,#1a1d24 60%,#0a0b0d);color:#fff;overflow:hidden;}
+.ios-statusbar{padding:calc(16px + env(safe-area-inset-top,0px)) 26px 0;font-size:17px;font-weight:600;}
+.lock .clockwrap{text-align:center;margin-top:30px;}
+.lock .time{font-size:66px;font-weight:600;letter-spacing:-2px;line-height:1;font-family:-apple-system,"SF Pro Display",Helvetica,sans-serif;}
+.lock .date{font-size:18px;font-weight:500;opacity:.92;margin-top:4px;}
+.notif{margin:24px 14px 0;background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-radius:18px;padding:16px 17px;}
+.notif .top{display:flex;align-items:center;gap:7px;font-size:15px;font-weight:600;opacity:.95;margin-bottom:7px;}
+.notif .top .now{margin-left:auto;font-weight:400;opacity:.7;font-size:14px;}
+.notif .appicon{width:24px;height:24px;border-radius:7px;background:#17171a;display:flex;align-items:center;justify-content:center;flex:none;}
+.notif .appicon .d{width:9px;height:9px;border-radius:50%;background:#1f6f45;}
+.notif .body{font-size:16px;line-height:1.4;}
+.notif .actions{display:flex;gap:8px;margin-top:14px;}
+.notif .actions span{flex:1;text-align:center;font-size:14px;font-weight:600;padding:11px 0;border-radius:10px;background:#4a4a4d;}
+.notif .actions .confirm{background:#1f6f45;}
+.lock .swipeup{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:500;opacity:.8;}
+.record{position:absolute;inset:0;bottom:48px;background:#f7f6f3;color:#17171a;overflow-y:auto;padding:22px 18px 30px;padding-top:calc(22px + env(safe-area-inset-top,0px));}
+.record .rtitle{font-size:19px;font-weight:700;}
+.record .rstatus{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:#1f6f4522;color:#1f6f45;padding:4px 9px;border-radius:999px;margin:8px 0 18px;}
+.record .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.record .rblk{background:#fff;border:1px solid #e3e1da;border-radius:9px;padding:12px;}
+.record .rblk .rk{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#78766d;margin-bottom:4px;}
+.record .rblk b{font-size:14px;}
+.record .answers{background:#fff;border:1px solid #e3e1da;border-radius:9px;padding:12px;font-size:13.5px;line-height:1.7;margin-bottom:14px;}
+.record .flag{border-left:3px solid #8a5a14;background:#8a5a1420;padding:10px 12px;border-radius:0 8px 8px 0;font-size:13.5px;}
+
+/* calendar */
+.cal{position:absolute;inset:0;bottom:48px;background:#fff;color:#3c4043;font-family:'Google Sans',-apple-system,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;}
+.cal .gbar{display:flex;align-items:center;gap:10px;padding:calc(13px + env(safe-area-inset-top,0px)) 14px 10px;border-bottom:1px solid #eee;}
+.cal .gtitle{font-size:17px;font-weight:500;}
+.cal .gtitle small{display:block;font-size:11px;font-weight:400;letter-spacing:.06em;color:#5f6368;text-transform:uppercase;}
+.cal .avatar{margin-left:auto;width:30px;height:30px;border-radius:50%;background:#1a73e8;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:600;}
+.cal .daylabel{display:flex;align-items:baseline;gap:8px;padding:10px 14px;}
+.cal .daylabel .num{font-size:22px;color:#1a73e8;font-weight:500;}
+.cal .daylabel .wd{font-size:13px;color:#70757a;text-transform:uppercase;letter-spacing:.04em;}
+.cal .grid{position:relative;padding:0 14px;}
+.cal .hour{display:flex;border-top:1px solid #eee;height:54px;}
+.cal .hour span{width:50px;font-size:12px;color:#70757a;transform:translateY(-8px);}
+.cal .slot{position:absolute;left:62px;right:10px;padding:9px 11px;border-left:4px solid #1e8e3e;background:#e6f4ea;border-radius:4px;font-size:12.5px;line-height:1.3;}
+.cal .slot b{display:block;font-size:13px;margin-bottom:1px;color:#1e4620;}
+.cal .slot.web{border-left-color:#1a73e8;background:#e8f0fe;}
+.cal .slot.web b{color:#174ea6;}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="screenwrap on" id="s1">
+    <div class="ig">
+      <div class="bar"><div class="avatar"></div><div class="who">saltgrasstrailrides</div></div>
+      <div class="thread">
+        <div class="postref">You commented on their post<br>"can beginners do this?"</div>
+        <div class="bubble in">Sent you a DM &middot; 21:40</div>
+        <div class="bubble in">Hi! Can a beginner do the beach ride on Saturday?</div>
+        <div class="bubble out">Beach ride needs some riding experience. Beginners start on the Bush trail, which runs Saturday too. Check if you're eligible and see times:</div>
+        <div class="linkcard">
+          <div class="lc-img"></div>
+          <div class="lc-body">
+            <div class="lc-t">Saltgrass Trail Rides</div>
+            <div class="lc-s">Book your ride &#8594;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screenwrap" id="s2">
+    <iframe class="engine" src="../app/index.html" title="Saltgrass booking page"></iframe>
+  </div>
+
+  <div class="screenwrap" id="s3">
+    <div class="lock" id="lockView">
+      <div class="ios-statusbar">9:41</div>
+      <div class="clockwrap"><div class="time">9:41</div><div class="date">Saturday, 18 October</div></div>
+      <div class="notif">
+        <div class="top"><span class="appicon"><span class="d"></span></span>SALTGRASS TRAIL RIDES<span class="now">now</span></div>
+        <div class="body">New booking SG-1042: Bush trail, Sat 18 Oct 10:30, 1 rider. Deposit paid. Flag: first ride.</div>
+        <div class="actions"><span>Dismiss</span><span class="confirm">Open</span></div>
+      </div>
+      <div class="swipeup">Tap Next to open the booking record</div>
+    </div>
+    <div class="record" id="recordView" style="display:none;">
+      <div class="rtitle">Bush trail &middot; SG-1042</div>
+      <div class="rstatus">Deposit paid</div>
+      <div class="rgrid">
+        <div class="rblk"><div class="rk">When</div><b>Sat 18 Oct, 10:30</b></div>
+        <div class="rblk"><div class="rk">Source</div><b>Instagram</b></div>
+        <div class="rblk"><div class="rk">Payment</div><b>Deposit paid, balance due</b></div>
+        <div class="rblk"><div class="rk">Waiver</div><b>Signed 17 Oct 21:52</b></div>
+      </div>
+      <div class="answers">Experience: a few times<br>Weight: 70 to 95 kg<br>Age: 16 and over<br>Pregnant: no<br>Injury or condition: no</div>
+      <div class="flag">Flag for the guide: first ride</div>
+    </div>
+  </div>
+
+  <div class="screenwrap" id="s4">
+    <div class="cal">
+      <div class="gbar"><div class="gtitle">18 October<small>Google Calendar</small></div><div class="avatar">R</div></div>
+      <div class="daylabel"><span class="num">18</span><span class="wd">Saturday</span></div>
+      <div class="grid">
+        <div class="hour"><span>8:00</span></div>
+        <div class="hour"><span>9:00</span></div>
+        <div class="hour"><span>10:00</span></div>
+        <div class="hour"><span>11:00</span></div>
+        <div class="hour"><span>12:00</span></div>
+        <div class="slot web" style="top:54px;min-height:50px;"><b>8:00 to 9:00</b>Bush trail, 2 riders, ref SG-1038</div>
+        <div class="slot" style="top:270px;min-height:50px;"><b>10:30 to 11:30</b>Bush trail, 1 rider, ref SG-1042</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="bottombar">
+  <span class="step-n" id="stepN">1 / 4</span>
+  <button class="nextBtn" id="nextBtn">Next &#8594;</button>
+</div>
+<script>
+(function(){
+  var steps = ['s1','s2','s3','s4'];
+  var idx = 0;
+  var stepN = document.getElementById('stepN');
+  var nextBtn = document.getElementById('nextBtn');
+  var lockView = document.getElementById('lockView');
+  var recordView = document.getElementById('recordView');
+  var s3Opened = false;
+
+  function render(){
+    steps.forEach(function(id, i){ document.getElementById(id).classList.toggle('on', i === idx); });
+    stepN.textContent = (idx + 1) + ' / ' + steps.length;
+    nextBtn.textContent = idx === steps.length - 1 ? 'Restart' : 'Next →';
+    if (idx === 2 && !s3Opened) {
+      lockView.style.display = '';
+      recordView.style.display = 'none';
+    }
+  }
+  nextBtn.addEventListener('click', function(){
+    if (idx === 2 && !s3Opened) { s3Opened = true; lockView.style.display = 'none'; recordView.style.display = ''; return; }
+    if (idx === steps.length - 1) { idx = 0; s3Opened = false; render(); return; }
+    idx++;
+    render();
+  });
+  window.addEventListener('message', function(e){
+    if (e && e.data === 'threshold:booked' && idx === 1) { idx = 2; s3Opened = false; render(); }
+  });
+  render();
+})();
+</script>
+</body>
+</html>
