@@ -97,8 +97,8 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .card__media{aspect-ratio:4/3;background:var(--panel) center/cover no-repeat}
 .card__body{padding:var(--s-4)}
 .card__loc{font-family:var(--display);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(23,23,26,.5);margin:0 0 6px}
-.card__title{font-family:var(--display);font-weight:400;font-size:15px;line-height:1.3;letter-spacing:-.005em;margin:0 0 var(--s-2);text-transform:none}
-.card__desc{font-family:var(--display);font-size:14px;line-height:1.4;text-transform:none;letter-spacing:0;color:rgba(23,23,26,.7);margin:0 0 var(--s-3)}
+.card__title{font-family:var(--display);font-weight:600;font-size:15px;line-height:1.3;letter-spacing:-.005em;margin:0 0 var(--s-2);text-transform:none}
+.card__desc{font-family:var(--display);font-size:14px;line-height:1.4;text-transform:none;letter-spacing:0;color:rgba(23,23,26,.7);margin:0 0 var(--s-3);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
 .card__meta{padding-top:var(--s-3);border-top:1px solid var(--line);display:grid;gap:6px}
 .card__price{font-family:var(--display);font-size:13px;line-height:15px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--ink);margin:0}
 .card:hover,.card:focus-within{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink);color:var(--ink)}
@@ -179,7 +179,7 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
   #top{min-height:85vh;min-height:85svh;display:flex;align-items:center;padding:24px 20px!important}
   #top>div{margin:0 auto}
   .benefit-row+.benefit-row{margin-top:28px}
-  #browse .x-card-grid{gap:10px!important}
+  #browse .x-card-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
   #browse .x-card__media{aspect-ratio:16/10!important;height:auto!important}
   #browse .x-card__body{padding:10px 12px!important}
   #exploreMap,#mpMap{aspect-ratio:4/5;max-height:70vh;min-height:0}

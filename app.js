@@ -39,7 +39,6 @@ window.ThCurrency = (function () {
   }
 
   var rate = getCachedRate() || FALLBACK_RATE;
-  var rateIsLive = !!getCachedRate();
 
   function fetchRate() {
     fetch('https://api.frankfurter.app/latest?from=IDR&to=AUD')
@@ -48,7 +47,6 @@ window.ThCurrency = (function () {
         var live = data && data.rates && data.rates.AUD;
         if (live) {
           rate = live;
-          rateIsLive = true;
           cacheRate(live);
           render();
         }
@@ -61,7 +59,7 @@ window.ThCurrency = (function () {
   }
   function formatAUD(amount) {
     var n = amount >= 100 ? Math.round(amount) : Math.round(amount * 100) / 100;
-    return '$' + n.toLocaleString('en-US') + ' AUD' + (rateIsLive ? '' : ' (approx)');
+    return '$' + n.toLocaleString('en-US') + ' AUD';
   }
 
   function format(idrAmount, opts) {
