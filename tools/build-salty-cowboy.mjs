@@ -214,7 +214,7 @@ ${a.addon ? `      <label style="display:flex;align-items:flex-start;gap:8px;mar
         <span id="bookingTotal" aria-live="polite" style="font-size:15px;font-weight:600;color:var(--ink);"></span>
       </p>
 ${a.serviceTaxIncluded ? `      <p style="margin:0 0 16px;font-size:11px;color:var(--ink-3);">Service tax included</p>\n` : ''}      <p id="startTimesLine" style="margin:16px 0;color:rgba(23,23,26,.78);"></p>
-      <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta" style="display:flex;justify-content:center;width:100%;padding:15px 0;">Check dates with Salty Cowboy &rarr;</a>
+      <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta" target="_blank" rel="noopener" style="display:flex;justify-content:center;width:100%;padding:15px 0;">Check dates with Salty Cowboy &rarr;</a>
       <p style="margin:12px 0 0;font-size:11px;line-height:1.5;color:var(--ink-3);">You'll finish booking with Salty Cowboy. Simone confirms your date on WhatsApp. No payment is taken now.</p>
     </aside>`;
 }
@@ -224,7 +224,7 @@ function mobileStickyBar(a) {
     <span style="font-family:var(--mono);font-size:12px;">
       <span id="mobileStickyDuration"></span> &middot; <span id="mobileStickyTotal"></span>
     </span>
-    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" style="min-height:48px;display:flex;align-items:center;padding:0 20px;">Check dates &rarr;</a>
+    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" target="_blank" rel="noopener" style="min-height:48px;display:flex;align-items:center;padding:0 20px;">Check dates &rarr;</a>
   </div>`;
 }
 
