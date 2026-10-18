@@ -837,3 +837,47 @@ window.addEventListener('resize', setHeaderOffset);
     updateActive();
   });
 })();
+
+// Sticky "Get listed" bar on /for-business/: hidden until the hero scrolls
+// out of view, hidden again once the signup form is in view or a field in it
+// is focused, same show/hide pattern as the experience-page booking bar.
+(function () {
+  var bar = document.getElementById('businessStickyBar');
+  var hero = document.getElementById('intro');
+  if (!bar || !hero) return;
+
+  var target = document.getElementById('interested');
+  var heroVisible = true, targetVisible = false, fieldFocused = false;
+
+  function syncPadding() {
+    var hidden = bar.classList.contains('is-hidden');
+    document.body.style.paddingBottom = hidden ? '0px' : bar.getBoundingClientRect().height + 'px';
+  }
+  function render() {
+    bar.classList.toggle('is-hidden', heroVisible || targetVisible || fieldFocused);
+    syncPadding();
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      heroVisible = entries[0].isIntersecting;
+      render();
+    }, { threshold: 0 }).observe(hero);
+    if (target) {
+      new IntersectionObserver(function (entries) {
+        targetVisible = entries[0].isIntersecting;
+        render();
+      }, { threshold: 0.01 }).observe(target);
+    }
+  }
+
+  document.addEventListener('focusin', function (e) {
+    if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) { fieldFocused = true; render(); }
+  });
+  document.addEventListener('focusout', function (e) {
+    if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) { fieldFocused = false; render(); }
+  });
+
+  window.addEventListener('resize', syncPadding);
+  render();
+})();

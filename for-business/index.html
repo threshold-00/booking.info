@@ -65,7 +65,7 @@
 }
 </script>
 </head>
-<body>
+<body class="has-sticky-bar">
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
@@ -91,9 +91,9 @@
     <div aria-hidden="true" class="hero-scrim" style="background:rgba(23,23,26,.8);"></div>
     <div class="hero-inner">
       <p class="t-label" style="display:flex;align-items:center;justify-content:center;gap:9px;font-family:var(--mono);color:var(--paper);margin:0 0 24px;"><span style="width:9px;height:9px;background:var(--paper);flex:none;"></span>For businesses</p>
-      <h1 class="hero-h1">Run your own experience? List with Threshold.</h1>
-      <p class="hero-sub" style="font-family:var(--mono);">Get found by people looking for experiences like yours, and keep the booking system you already use.</p>
-      <a href="#interested" class="btn" style="margin:0 auto;display:inline-flex;">Get listed</a>
+      <h1 class="hero-h1 hero-h1--lg">Run your own experience? List with Threshold.</h1>
+      <p class="hero-sub">Get found by people looking for experiences like yours, and keep the booking system you already use.</p>
+      <a href="#interested" class="btn" style="margin:0 auto;display:inline-flex;">Get listed free</a>
     </div>
     <p class="t-label hero-credit" style="font-family:var(--mono);">Photo: <a href="https://unsplash.com/@taylorheeryphoto" target="_blank" rel="noopener">Taylor Heery</a> / Unsplash</p>
   </section>
@@ -366,10 +366,9 @@
   </footer>
 </div>
 
-<div class="business-cta on-dark">
-  <p>Threshold lists small, owner-run experience businesses for customers looking for something they&rsquo;ll actually remember doing.</p>
-  <a href="#interested" class="btn">Get started</a>
-</div>
+<aside class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" id="businessStickyBar" aria-label="List your business">
+  <a href="#interested" class="btn">Get listed free</a>
+</aside>
 <script src="../assets/rough.js"></script>
 <script src="../app.js"></script>
 <script>

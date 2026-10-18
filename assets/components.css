@@ -134,13 +134,24 @@
 .marquee{display:flex;align-items:center;gap:var(--s-4);font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--ls-mono);color:var(--ink-2)}
 .marquee-pause{display:inline-flex}
 
-/* 6.11 hero photo */
+/* 6.11 hero photo: a full-bleed photo hero, used for both the homepage and
+   /for-business/ so the two share one pattern instead of each hand-rolling
+   its own hero type and centring. Content is vertically centred on mobile
+   (full viewport-height-ish hero) and h1/subtext sizes are shared via
+   .hero-h1 / .hero-h1--lg / .hero-sub rather than per-page inline styles. */
 .hero-photo{position:relative;text-align:center;overflow:hidden;color:var(--paper)}
 .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .hero-scrim{position:absolute;inset:0;background:var(--scrim);z-index:1}
-.hero-inner{position:relative;z-index:2}
-.hero-credit{font-family:var(--mono);text-transform:uppercase;color:var(--paper-2)}
+.hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto}
+.hero-h1{font-size:clamp(36px,6vw,64px);line-height:1.1;letter-spacing:-.01em;margin:0 0 var(--s-7)}
+.hero-h1--lg{font-size:clamp(47px,7.8vw,83px)}
+.hero-sub{margin:0 auto var(--s-7);max-width:44ch;font-family:var(--mono);text-transform:uppercase;font-size:var(--t-label);letter-spacing:var(--ls-label);line-height:1.5;color:var(--paper-2)}
+.hero-credit{position:absolute;right:var(--gutter);bottom:var(--s-3);font-family:var(--mono);text-transform:uppercase;color:var(--paper-2)}
 .hero-credit a{min-height:24px;display:inline-flex;align-items:center;color:inherit;border-bottom:var(--bw) solid var(--line-ui-dark)}
+@media (max-width:640px){
+  .hero-photo{min-height:clamp(420px,60svh,560px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--s-5) var(--gutter)}
+  .hero-h1{margin-bottom:var(--s-5)}
+}
 
 /* 6.12 booking panel */
 .booking-panel{background:var(--panel);border:var(--bw) solid var(--line);padding:var(--s-5)}
@@ -157,6 +168,12 @@
 @media (min-width:821px){
   .sticky-book{display:none}
 }
+
+/* Button-only variant, e.g. a sign-up CTA bar with no price or summary text:
+   same shown-after-hero / hidden-near-target / hidden-while-typing behaviour
+   as the experience-page booking bar, just a full-width button on dark. */
+.sticky-book--dark{background:var(--ink);border-top-color:var(--line-ui-dark);justify-content:center}
+.sticky-book--dark .btn{width:100%;justify-content:center}
 
 /* 6.13 breadcrumb */
 .breadcrumb{display:flex;align-items:center;gap:var(--s-2);font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}

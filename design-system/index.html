@@ -286,14 +286,19 @@
       </div>
 
       <h3 class="t-title">Hero photo</h3>
+      <p class="ds-section__intro">One pattern shared by the homepage (#top) and /for-business/ (#intro): full-bleed photo, optional eyebrow, shared h1/subtext sizing via .hero-h1 (add .hero-h1--lg for the homepage's larger size) and .hero-sub, credit bottom-right. Vertically centred below 640px (resize to see).</p>
       <div class="hero-photo" style="min-height:280px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--s-6);">
         <picture>
           <source srcset="/assets/photos/coastline-2400.webp" type="image/webp" />
           <img src="/assets/photos/coastline-2400.jpg" alt="" />
         </picture>
         <div class="hero-scrim"></div>
-        <div class="hero-inner"><h3 style="font-family:var(--display);font-size:var(--t-headline);color:var(--paper);margin:0;">Something you'll actually remember doing.</h3></div>
-        <p class="t-label hero-credit" style="position:absolute;right:20px;bottom:14px;margin:0;">Photo by <a href="https://unsplash.com/@nisarga_1993">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E">Unsplash</a></p>
+        <div class="hero-inner">
+          <span class="eyebrow" style="color:var(--paper);margin-bottom:var(--s-4);">For businesses</span>
+          <h3 class="hero-h1" style="font-family:var(--display);color:var(--paper);">Run your own experience? List with Threshold.</h3>
+          <p class="hero-sub">Get found by people looking for experiences like yours, and keep the booking system you already use.</p>
+        </div>
+        <p class="hero-credit">Photo by <a href="https://unsplash.com/@nisarga_1993">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E">Unsplash</a></p>
       </div>
 
       <h3 class="t-title">Booking panel</h3>
@@ -307,6 +312,22 @@
           </div>
           <div class="booking-panel__total"><span class="booking-panel__total-label">Total</span><span class="booking-panel__total-value" aria-live="polite">IDR 1,600,000</span></div>
           <button class="btn btn--lg" style="margin-top:var(--s-4);">Check dates with Salty Cowboy</button>
+        </div>
+      </div>
+
+      <h3 class="t-title">Sticky CTA bar</h3>
+      <p class="ds-section__intro">.sticky-book: fixed to the bottom on mobile only, shown once the hero scrolls out of view, hidden again near its target section (or while a field in it is focused), with body padding added while shown so it never covers the footer. .sticky-book--dark is the button-only variant (no price or summary text) for a page like /for-business/ with nothing to summarise.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">With a price (experience pages)</span>
+          <div class="sticky-book" style="position:static;max-width:420px;">
+            <span class="t-small">1 hr &middot; <strong>IDR 1,600,000</strong></span>
+            <button class="btn btn--lg" style="width:auto;">Check dates &rarr;</button>
+          </div>
+        </div>
+        <div><span class="ds-state-label">Button only, on dark (/for-business/)</span>
+          <div class="sticky-book sticky-book--dark on-dark" style="position:static;max-width:420px;">
+            <button class="btn btn--lg">Get listed free</button>
+          </div>
         </div>
       </div>
 
