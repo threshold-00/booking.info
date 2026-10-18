@@ -237,33 +237,19 @@
     </aside>
 
     <div class="detail-content">
-      <nav class="page-nav" aria-label="On this page">
-        <a href="#overview">Overview</a>
-        <a href="#know">Good to know</a>
-        <a href="#times">Times</a>
-        <a href="#business">The business</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+      <div class="page-nav" role="tablist" aria-label="On this page">
+        <button type="button" role="tab" id="tab-overview" aria-controls="overview" aria-selected="true" tabindex="0">Overview</button>
+        <button type="button" role="tab" id="tab-know" aria-controls="know" aria-selected="false" tabindex="-1">Good to know</button>
+        <button type="button" role="tab" id="tab-times" aria-controls="times" aria-selected="false" tabindex="-1">Times</button>
+        <button type="button" role="tab" id="tab-business" aria-controls="business" aria-selected="false" tabindex="-1">The business</button>
+        <button type="button" role="tab" id="tab-faq" aria-controls="faq" aria-selected="false" tabindex="-1">FAQ</button>
+      </div>
 
-      <section id="overview" aria-labelledby="h-overview">
+      <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
         <h2 id="h-overview">Overview</h2>
         <p class="prose">A rustic wooden cottage interior for fashion, pre-wedding or personal shoots. This one is location only, no horses. Photos are taken inside the cottage or the private garden.</p>
-      </section>
 
-      <section id="know" aria-labelledby="h-know">
-        <h2 id="h-know">Good to know</h2>
-        <dl>
-      <div><dt>Group size</dt><dd>Max 6 people per cottage</dd></div>
-      <div><dt>Experience</dt><dd>Choice of cottage upon availability. No paddock entry on this shoot.</dd></div>
-      <div><dt>Cottage</dt><dd>Priced by availability of cottage, or choose the designated photoshoot cottage (no pool)</dd></div>
-      <div><dt>Meeting point</dt><dd>Salty Cowboy's stables. There's no pickup, so make your own way there.<br /><a href="https://www.google.com/maps/search/?api=1&amp;query=-8.604414,115.0896784" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;">Get directions<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="sr-only"> (opens in a new tab)</span></a></dd></div>
-      <div><dt>Arrive</dt><dd>Arrive 15 minutes before your start time</dd></div>
-      <div><dt>Hours</dt><dd>Closed Sundays and Saturday afternoons</dd></div>
-    </dl>
-      </section>
-
-      <section id="included" aria-labelledby="h-included">
-        <h2 id="h-included">What's included</h2>
+        <h3 id="h-included">What's included</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5);max-width:none;">
       <div>
         <p class="bp-label" style="margin:0 0 10px;">Included</p>
@@ -282,7 +268,23 @@
     </div>
       </section>
 
-      <section id="times" aria-labelledby="h-times">
+      <section id="know" role="tabpanel" aria-labelledby="h-know tab-know" tabindex="0" hidden>
+        <h2 id="h-know">Good to know</h2>
+        <dl>
+      <div><dt>Group size</dt><dd>Max 6 people per cottage</dd></div>
+      <div><dt>Experience</dt><dd>Choice of cottage upon availability. No paddock entry on this shoot.</dd></div>
+      <div><dt>Cottage</dt><dd>Priced by availability of cottage, or choose the designated photoshoot cottage (no pool)</dd></div>
+      <div><dt>Meeting point</dt><dd>Salty Cowboy's stables. There's no pickup, so make your own way there.<br /><a href="https://www.google.com/maps/search/?api=1&amp;query=-8.604414,115.0896784" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;">Get directions<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="sr-only"> (opens in a new tab)</span></a></dd></div>
+      <div><dt>Arrive</dt><dd>Arrive 15 minutes before your start time</dd></div>
+      <div><dt>Hours</dt><dd>Closed Sundays and Saturday afternoons</dd></div>
+    </dl>
+
+        <h3 id="h-cancellation">Cancellation</h3>
+        <p class="prose" style="margin:0 0 var(--s-3);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.</p>
+        <a href="https://wa.me/6281237312248" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;">Ask on WhatsApp</a>
+      </section>
+
+      <section id="times" role="tabpanel" aria-labelledby="h-times tab-times" tabindex="0" hidden>
         <h2 id="h-times">Times</h2>
         <table>
       <thead><tr><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--line);">Duration</th><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--line);">Start times</th></tr></thead>
@@ -292,7 +294,7 @@
     </table>
       </section>
 
-      <section id="business" aria-labelledby="h-business">
+      <section id="business" role="tabpanel" aria-labelledby="h-business tab-business" tabindex="0" hidden>
         <h2 id="h-business">Meet the business</h2>
         <div style="display:grid;grid-template-columns:120px 1fr;gap:var(--s-5);align-items:center;max-width:35em;">
           <img src="../../../assets/simone-horse.jpg" alt="Simone reaching out to one of the horses at Salty Cowboy, Bali" width="120" height="120" loading="lazy" style="aspect-ratio:1/1;object-fit:cover;border:1px solid var(--line);" />
@@ -304,18 +306,7 @@
         </div>
       </section>
 
-      <section id="reviews" aria-labelledby="h-reviews">
-        <h2 id="h-reviews">Reviews</h2>
-        <p class="prose">No reviews on Threshold yet. This listing is new.</p>
-      </section>
-
-      <section id="cancellation" aria-labelledby="h-cancellation">
-        <h2 id="h-cancellation">Cancellation</h2>
-        <p class="prose" style="margin:0 0 var(--s-3);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.</p>
-        <a href="https://wa.me/6281237312248" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;">Ask on WhatsApp</a>
-      </section>
-
-      <section id="faq" aria-labelledby="h-faq">
+      <section id="faq" role="tabpanel" aria-labelledby="h-faq tab-faq" tabindex="0" hidden>
         <h2 id="h-faq">FAQ</h2>
         <div style="display:grid;gap:4px;">
           <details><summary>What's included in rustic wooden cottage photoshoot (no horses)?</summary><p>Cottage interior, The whole session.</p></details>
@@ -324,6 +315,9 @@
           <details><summary>Can I add a photographer?</summary><p>Yes. Add a Salty Cowboy photographer: +IDR 2,000,000 per hour, 20 edited images per hour.</p></details>
           <details><summary>What if I need to cancel?</summary><p>Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.</p></details>
         </div>
+
+        <h3 id="h-reviews" style="margin-top:var(--s-6);">Reviews</h3>
+        <p class="prose">No reviews on Threshold yet. This listing is new.</p>
       </section>
 
       <section aria-labelledby="h-more">

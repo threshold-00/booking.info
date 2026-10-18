@@ -403,35 +403,37 @@ ${facts.map(f => `        <li>${f}</li>`).join('\n')}
     ${bookingPanel(a)}
 
     <div class="detail-content">
-      <nav class="page-nav" aria-label="On this page">
-        <a href="#overview">Overview</a>
-        <a href="#know">Good to know</a>
-        <a href="#times">Times</a>
-        <a href="#business">The business</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+      <div class="page-nav" role="tablist" aria-label="On this page">
+        <button type="button" role="tab" id="tab-overview" aria-controls="overview" aria-selected="true" tabindex="0">Overview</button>
+        <button type="button" role="tab" id="tab-know" aria-controls="know" aria-selected="false" tabindex="-1">Good to know</button>
+        <button type="button" role="tab" id="tab-times" aria-controls="times" aria-selected="false" tabindex="-1">Times</button>
+        <button type="button" role="tab" id="tab-business" aria-controls="business" aria-selected="false" tabindex="-1">The business</button>
+        <button type="button" role="tab" id="tab-faq" aria-controls="faq" aria-selected="false" tabindex="-1">FAQ</button>
+      </div>
 
-      <section id="overview" aria-labelledby="h-overview">
+      <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
         <h2 id="h-overview">Overview</h2>
         <p class="prose">${esc(a.overview)}</p>
+
+        ${(a.included.length || a.notIncluded.length) ? `<h3 id="h-included">What's included</h3>
+        ${includedList(a)}` : ''}
       </section>
 
-      <section id="know" aria-labelledby="h-know">
+      <section id="know" role="tabpanel" aria-labelledby="h-know tab-know" tabindex="0" hidden>
         <h2 id="h-know">Good to know</h2>
         ${dl(goodToKnowRows(a))}
+
+        <h3 id="h-cancellation">Cancellation</h3>
+        <p class="prose" style="margin:0 0 var(--s-3);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.${ridingNote ? ' Bookings over 75kg are not refunded.' : ''}</p>
+        <a href="https://wa.me/${business.whatsapp}" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;">Ask on WhatsApp</a>
       </section>
 
-      ${(a.included.length || a.notIncluded.length) ? `<section id="included" aria-labelledby="h-included">
-        <h2 id="h-included">What's included</h2>
-        ${includedList(a)}
-      </section>` : ''}
-
-      <section id="times" aria-labelledby="h-times">
+      <section id="times" role="tabpanel" aria-labelledby="h-times tab-times" tabindex="0" hidden>
         <h2 id="h-times">Times</h2>
         ${timesTable(a)}
       </section>
 
-      <section id="business" aria-labelledby="h-business">
+      <section id="business" role="tabpanel" aria-labelledby="h-business tab-business" tabindex="0" hidden>
         <h2 id="h-business">Meet the business</h2>
         <div style="display:grid;grid-template-columns:120px 1fr;gap:var(--s-5);align-items:center;max-width:35em;">
           <img src="${base}assets/simone-horse.jpg" alt="Simone reaching out to one of the horses at Salty Cowboy, Bali" width="120" height="120" loading="lazy" style="aspect-ratio:1/1;object-fit:cover;border:1px solid var(--line);" />
@@ -443,22 +445,14 @@ ${facts.map(f => `        <li>${f}</li>`).join('\n')}
         </div>
       </section>
 
-      <section id="reviews" aria-labelledby="h-reviews">
-        <h2 id="h-reviews">Reviews</h2>
-        <p class="prose">No reviews on Threshold yet. This listing is new.</p>
-      </section>
-
-      <section id="cancellation" aria-labelledby="h-cancellation">
-        <h2 id="h-cancellation">Cancellation</h2>
-        <p class="prose" style="margin:0 0 var(--s-3);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.${ridingNote ? ' Bookings over 75kg are not refunded.' : ''}</p>
-        <a href="https://wa.me/${business.whatsapp}" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;">Ask on WhatsApp</a>
-      </section>
-
-      <section id="faq" aria-labelledby="h-faq">
+      <section id="faq" role="tabpanel" aria-labelledby="h-faq tab-faq" tabindex="0" hidden>
         <h2 id="h-faq">FAQ</h2>
         <div style="display:grid;gap:4px;">
 ${faqs.map(f => `          <details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('\n')}
         </div>
+
+        <h3 id="h-reviews" style="margin-top:var(--s-6);">Reviews</h3>
+        <p class="prose">No reviews on Threshold yet. This listing is new.</p>
       </section>
 
       <section aria-labelledby="h-more">

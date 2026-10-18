@@ -188,45 +188,57 @@
     });
   }
 
-  // In-page section nav: every section is visible and stacked (no tabs), so this
-  // just tracks which one is in view and underlines the matching link. Driven by
-  // scroll/resize (rAF-throttled) rather than IntersectionObserver: a single
-  // observer callback only reports sections whose intersection state just
-  // changed, not every section's current position, so on an abrupt jump (a nav
-  // click, Home/End, find-in-page) it can miss the one actually at the top of
-  // the viewport. Recomputing from every section's position on every frame is
-  // cheap (11 sections max) and always correct.
-  var pageNav = document.querySelector('.page-nav');
+  // In-page section nav: a real ARIA tabs widget (WAI-ARIA APG tabs pattern,
+  // automatic activation). Only one section shows at a time; the rest are
+  // [hidden]. Arrow keys move both focus and selection; Home/End jump to the
+  // first/last tab. Any other in-page link that targets a panel id (e.g. the
+  // "Meet the business" owner-strip link) switches to that tab too.
+  var pageNav = document.querySelector('.page-nav[role="tablist"]');
   if (pageNav) {
-    var links = [].slice.call(pageNav.querySelectorAll('a'));
-    var sections = links
-      .map(function (l) { return document.getElementById(l.getAttribute('href').slice(1)); })
+    var tabs = [].slice.call(pageNav.querySelectorAll('[role="tab"]'));
+    var panels = tabs
+      .map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); })
       .filter(Boolean);
-    function setCurrent(id) {
-      links.forEach(function (l) {
-        var isCurrent = l.getAttribute('href') === '#' + id;
-        l.toggleAttribute('aria-current', isCurrent);
-        if (isCurrent) l.setAttribute('aria-current', 'true');
+
+    function selectTab(tab, opts) {
+      var moveFocus = !opts || opts.moveFocus !== false;
+      tabs.forEach(function (t) {
+        var selected = t === tab;
+        t.setAttribute('aria-selected', selected ? 'true' : 'false');
+        t.tabIndex = selected ? 0 : -1;
       });
+      panels.forEach(function (p) {
+        p.hidden = p.id !== tab.getAttribute('aria-controls');
+      });
+      if (moveFocus) tab.focus();
     }
-    var LINE = 96;
-    var ticking = false;
-    function recompute() {
-      ticking = false;
-      var current = sections[0];
-      for (var i = 0; i < sections.length; i++) {
-        if (sections[i].getBoundingClientRect().top - LINE <= 0) current = sections[i];
-      }
-      setCurrent(current.id);
-    }
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(recompute);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    recompute();
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { selectTab(tab, { moveFocus: false }); });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') next = tabs[0];
+        else if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); selectTab(next); }
+      });
+    });
+
+    // Any other link pointing at a panel id (e.g. the owner-strip "Meet the
+    // business" link) activates that tab instead of jumping to hidden content.
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      if (pageNav.contains(link)) return;
+      var id = link.getAttribute('href').slice(1);
+      var tab = tabs.filter(function (t) { return t.getAttribute('aria-controls') === id; })[0];
+      if (!tab) return;
+      link.addEventListener('click', function () { selectTab(tab, { moveFocus: false }); });
+    });
+
+    // Deep link support: #know, #faq etc. in the URL on load select that tab.
+    var initialId = location.hash.slice(1);
+    var initialTab = tabs.filter(function (t) { return t.getAttribute('aria-controls') === initialId; })[0];
+    if (initialTab) selectTab(initialTab, { moveFocus: false });
   }
 
   // Mobile sticky bar: hidden while the inline booking button is on screen,
