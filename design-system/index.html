@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Threshold design system preview</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="canonical" href="/design-system/" />
+<link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="/assets/tokens.css" />
+<link rel="stylesheet" href="/assets/components.css" />
+<style>
+  @font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
+  @font-face{font-family:'Neue Haas';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/neuehaas-600.woff2') format('woff2')}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper)}
+  body{font-family:var(--display);color:var(--ink);font-size:16px;line-height:1.5}
+  html{scroll-behavior:smooth}
+  .ds-reduced-motion,html.ds-reduced-motion{scroll-behavior:auto!important}
+  .ds-reduced-motion *,.ds-reduced-motion *::before,.ds-reduced-motion *::after{animation-duration:0.001ms!important;transition-duration:0.001ms!important}
+
+  .ds-toggles{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:var(--s-6);align-items:center;background:var(--paper-glass);backdrop-filter:blur(8px);border-bottom:var(--bw) solid var(--line);padding:var(--s-3) var(--gutter)}
+  .ds-toggle-group{display:flex;align-items:center;gap:var(--s-3)}
+  .ds-toggle-group__label{font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
+  .ds-radio{display:inline-flex;align-items:center;gap:var(--s-1);min-height:44px;padding:0 var(--s-2);cursor:pointer;font-family:var(--mono);font-size:var(--t-small);text-transform:uppercase;letter-spacing:var(--ls-mono)}
+  .ds-radio input{width:18px;height:18px}
+
+  main{display:block}
+  .ds-shell{max-width:var(--container);margin:0 auto;padding-inline:var(--gutter)}
+  .ds-section{padding:var(--s-8) 0;border-bottom:var(--bw) solid var(--line)}
+  .ds-section h2{font-family:var(--display);font-size:var(--t-headline);letter-spacing:var(--ls-headline);font-weight:var(--w-strong);margin:0 0 var(--s-2)}
+  .ds-section__intro{color:var(--ink-2);max-width:var(--measure);margin:0 0 var(--s-6)}
+  .ds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--s-5)}
+  .ds-swatch{border:var(--bw) solid var(--line);padding:var(--s-3)}
+  .ds-swatch__fill{height:64px;margin-bottom:var(--s-2)}
+  .ds-swatch__name{font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label)}
+  .ds-swatch__value{font-family:var(--mono);font-size:var(--t-label);color:var(--ink-2);word-break:break-all}
+
+  .ds-specimen{border-bottom:var(--bw) solid var(--line);padding:var(--s-5) 0;display:grid;grid-template-columns:1fr 2fr;gap:var(--s-5);align-items:baseline}
+  .ds-specimen__meta{font-family:var(--mono);font-size:var(--t-label);color:var(--ink-2)}
+  @media (max-width:820px){.ds-specimen{grid-template-columns:1fr}}
+
+  .ds-mono-zoom{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:44px;display:block;margin:var(--s-4) 0}
+  .ds-mono-real{font-size:11px}
+
+  table.ds-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:var(--t-small)}
+  table.ds-table th,table.ds-table td{text-align:left;padding:var(--s-2) var(--s-3);border-bottom:var(--bw) solid var(--line)}
+  .ds-pass{color:var(--cleared)}
+  .ds-fail{color:var(--ink)}
+
+  .ds-states{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--s-5);align-items:start}
+  .ds-state-label{font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2);margin-bottom:var(--s-2);display:block}
+  .is-hover{border-color:var(--ink)!important;background:var(--tint-hover)}
+
+  .ds-swatch--ink{background:var(--ink)}
+  .ds-swatch--paper{background:var(--paper);border:var(--bw) solid var(--line)}
+  .ds-swatch--panel{background:var(--panel)}
+  .ds-swatch--cleared{background:var(--cleared)}
+
+  .ds-layout-demo{background:var(--panel);border:var(--bw) solid var(--line)}
+  .ds-layout-demo__inner{max-width:var(--container);margin:0 auto;padding:var(--s-6) var(--gutter);outline:var(--bw) dashed var(--line-ui)}
+
+  .ds-index{display:flex;gap:var(--s-2);align-items:baseline;margin-bottom:var(--s-2)}
+
+  footer.ds-footer{padding:var(--s-6) var(--gutter);color:var(--ink-2);font-family:var(--mono);font-size:var(--t-label)}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link btn btn--lg" style="width:auto;">Skip to content</a>
+
+<div class="ds-toggles">
+  <div class="ds-toggle-group">
+    <span class="ds-toggle-group__label">Mono</span>
+    <label class="ds-radio"><input type="radio" name="ds-mono" value="chivo" checked /> Chivo Mono</label>
+    <label class="ds-radio"><input type="radio" name="ds-mono" value="plex" /> IBM Plex Mono</label>
+  </div>
+  <div class="ds-toggle-group">
+    <span class="ds-toggle-group__label">Corners</span>
+    <label class="ds-radio"><input type="radio" name="ds-corners" value="pill" checked /> Pill</label>
+    <label class="ds-radio"><input type="radio" name="ds-corners" value="2px" /> 2px</label>
+    <label class="ds-radio"><input type="radio" name="ds-corners" value="square" /> Square</label>
+  </div>
+  <div class="ds-toggle-group">
+    <label class="ds-radio"><input type="checkbox" id="ds-reduced-motion" /> Preview reduced motion</label>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="ds-shell">
+
+    <section class="ds-section" id="tokens">
+      <div class="ds-index"><span class="index">[01]</span><h2>Tokens</h2></div>
+      <p class="ds-section__intro">Colour, type, spacing, radius, border, shadow, motion and breakpoints. Everything below reads from /assets/tokens.css. No value here is invented; see the brief, section 4.</p>
+
+      <h3 class="t-title">Colour</h3>
+      <div class="ds-grid" style="margin-bottom:var(--s-7);">
+        <div class="ds-swatch"><div class="ds-swatch__fill ds-swatch--ink"></div><div class="ds-swatch__name">ink</div><div class="ds-swatch__value">#17171a</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill ds-swatch--paper"></div><div class="ds-swatch__name">paper</div><div class="ds-swatch__value">#f3f2ee</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill ds-swatch--panel"></div><div class="ds-swatch__name">panel</div><div class="ds-swatch__value">#f7f6f3</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill ds-swatch--cleared"></div><div class="ds-swatch__name">cleared</div><div class="ds-swatch__value">#1f6f45</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill" style="background:var(--ink-2);"></div><div class="ds-swatch__name">ink-2</div><div class="ds-swatch__value">on light text</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill" style="background:var(--ink-3);"></div><div class="ds-swatch__name">ink-3</div><div class="ds-swatch__value">captions only</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill" style="background:var(--ink);color:var(--paper-2);padding:var(--s-2);"></div><div class="ds-swatch__name">paper-2 on ink</div></div>
+        <div class="ds-swatch"><div class="ds-swatch__fill" style="background:var(--line-ui);"></div><div class="ds-swatch__name">line-ui</div><div class="ds-swatch__value">UI borders</div></div>
+      </div>
+
+      <h3 class="t-title">Type scale</h3>
+      <div style="margin-bottom:var(--s-7);">
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-display<br />36&ndash;72px &middot; lh 1.1 &middot; <span id="ds-mono-label-1">ls -.015em</span> &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-display);font-weight:var(--w-strong);letter-spacing:var(--ls-display);line-height:1.1;">Something you'll actually remember doing.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-headline<br />28&ndash;44px &middot; lh 1.08 &middot; ls -.015em &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-headline);font-weight:var(--w-strong);letter-spacing:var(--ls-headline);line-height:1.08;">List with Threshold.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-subhead<br />20&ndash;24px &middot; lh 1.15 &middot; ls -.01em &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-subhead);font-weight:var(--w-strong);letter-spacing:var(--ls-subhead);line-height:1.15;">Horse experiences</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-title<br />16&ndash;17px &middot; lh 1.3 &middot; ls -.005em &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);letter-spacing:var(--ls-title);line-height:1.3;">Guided horse ride through rice fields to the beach</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-body<br />14px &middot; lh 1.5 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-body);line-height:1.5;">A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-small<br />13px &middot; lh 1.45 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-small);line-height:1.45;">Per person, up to 5 riders</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-label (floor)<br />11px &middot; lh 16px &middot; ls .1em &middot; uppercase mono</div><div style="font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;line-height:16px;">Check dates with Salty Cowboy</div></div>
+      </div>
+
+      <h3 class="t-title">The 11px mono specimen, large and real size</h3>
+      <p class="ds-section__intro">Same string, same markup, two sizes. Advance width is identical between Chivo Mono and IBM Plex Mono at this tracking, so the mono toggle above never reflows anything on this page.</p>
+      <span class="ds-mono-zoom">CHECK DATES WITH SALTY COWBOY</span>
+      <span class="ds-mono-real" style="font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;">CHECK DATES WITH SALTY COWBOY</span>
+
+      <h3 class="t-title" style="margin-top:var(--s-7);">Spacing</h3>
+      <div style="display:flex;flex-direction:column;gap:var(--s-2);margin-bottom:var(--s-7);">
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-1 4px</span><span style="height:16px;background:var(--ink);width:4px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-4 16px</span><span style="height:16px;background:var(--ink);width:16px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-6 32px</span><span style="height:16px;background:var(--ink);width:32px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-8 64px</span><span style="height:16px;background:var(--ink);width:64px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-10 128px</span><span style="height:16px;background:var(--ink);width:128px;"></span></div>
+      </div>
+
+      <h3 class="t-title">Radius &amp; border</h3>
+      <div style="display:flex;gap:var(--s-5);align-items:center;flex-wrap:wrap;margin-bottom:var(--s-7);">
+        <div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-0);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;">r-0</div>
+        <div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;">r-2</div>
+        <div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;">pill</div>
+        <div style="width:1px;height:40px;background:var(--ink);"></div>
+        <div style="width:2px;height:40px;background:var(--ink);"></div>
+        <span class="eyebrow">bullet</span>
+      </div>
+
+      <h3 class="t-title">Motion &amp; breakpoints</h3>
+      <p class="ds-section__intro">Easing var(--ease), durations 200/400/600ms. The bar below animates on hover; toggle "Preview reduced motion" above to confirm it goes static. Breakpoints: layout 820px, phone 640px.</p>
+      <div style="width:100%;height:8px;background:var(--line);overflow:hidden;">
+        <div id="ds-motion-demo" style="width:40%;height:100%;background:var(--cleared);transition:transform var(--dur-3) var(--ease);" onmouseenter="this.style.transform='translateX(150%)'" onmouseleave="this.style.transform='translateX(0)'"></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="contrast">
+      <div class="ds-index"><span class="index">[02]</span><h2>Contrast</h2></div>
+      <p class="ds-section__intro">Computed live by preview.js from the actual rendered colours (WCAG 2.1, alpha composited onto the stated background). Thresholds: 4.5:1 text, 3:1 large text and UI components.</p>
+      <table class="ds-table" id="ds-contrast-table">
+        <thead><tr><th>Foreground</th><th>Background</th><th>Ratio</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr data-fg="#17171a" data-bg="#f3f2ee"><td>ink</td><td>paper</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="rgba(23,23,26,.70)" data-bg="#f3f2ee"><td>ink-2</td><td>paper</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="rgba(23,23,26,.62)" data-bg="#f3f2ee"><td>ink-3</td><td>paper</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="rgba(23,23,26,.50)" data-bg="#f3f2ee" data-ui="true"><td>line-ui</td><td>paper</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="#f3f2ee" data-bg="#1f6f45"><td>paper</td><td>cleared</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="#f3f2ee" data-bg="#17171a"><td>paper</td><td>ink</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="rgba(243,242,238,.78)" data-bg="#17171a"><td>paper-2</td><td>ink</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="rgba(243,242,238,.62)" data-bg="#17171a"><td>paper-3</td><td>ink</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="rgba(243,242,238,.40)" data-bg="#17171a" data-ui="true"><td>line-ui-dark</td><td>ink</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+          <tr data-fg="#1f6f45" data-bg="#17171a"><td>cleared</td><td>ink</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
+        </tbody>
+      </table>
+      <p class="ds-section__intro" style="margin-top:var(--s-4);">The only expected FAIL is cleared on ink (2.91:1): never use it there. The focus ring on ink is paper, not cleared.</p>
+    </section>
+
+    <section class="ds-section" id="components">
+      <div class="ds-index"><span class="index">[03]</span><h2>Components</h2></div>
+      <p class="ds-section__intro">Every interactive component in default, hover (pinned with .is-hover), focus-visible, active and disabled states, plus loading where relevant.</p>
+
+      <h3 class="t-title">Buttons</h3>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Default</span><button class="btn">Browse experiences</button></div>
+        <div><span class="ds-state-label">Hover</span><button class="btn is-hover" style="background:var(--cleared);">Browse experiences</button></div>
+        <div><span class="ds-state-label">Focus-visible</span><button class="btn" style="outline:var(--bw-strong) solid var(--focus);outline-offset:var(--focus-offset);">Browse experiences</button></div>
+        <div><span class="ds-state-label">Loading</span><button class="btn" aria-busy="true"><span class="btn__label">Checking...</span></button></div>
+        <div><span class="ds-state-label">Disabled</span><button class="btn" aria-disabled="true">Sold out</button></div>
+        <div><span class="ds-state-label">Secondary</span><button class="btn btn--secondary">For businesses</button></div>
+        <div><span class="ds-state-label">btn--lg (Book)</span><button class="btn btn--lg">Check dates with Salty Cowboy</button></div>
+        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="ds-state-label" style="color:var(--paper-2);">On dark</span><button class="btn">Get listed</button></div>
+        <div><span class="ds-state-label">Link arrow</span><a href="#" class="link-arrow">See all experiences &rarr;</a></div>
+        <div><span class="ds-state-label">Icon button</span><button class="btn--icon" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button></div>
+      </div>
+
+      <h3 class="t-title">Chips</h3>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Default</span><button class="chip" aria-pressed="false">Horse experiences</button></div>
+        <div><span class="ds-state-label">Pressed</span><button class="chip" aria-pressed="true">Horse experiences</button></div>
+        <div><span class="ds-state-label">Sub chip</span><button class="chip chip--sub" aria-pressed="false">Beach ride</button></div>
+        <div><span class="ds-state-label">Option (radio)</span>
+          <div role="radiogroup" aria-label="Duration" style="display:flex;gap:var(--s-2);">
+            <button class="chip--option" role="radio" aria-checked="true">1 hr<span class="chip--option__price">IDR 1,600,000</span></button>
+            <button class="chip--option" role="radio" aria-checked="false">1.5 hr<span class="chip--option__price">IDR 2,200,000</span></button>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="t-title">Selects</h3>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Location</span>
+          <label class="sr-only" for="ds-location">Location</label>
+          <select id="ds-location" class="select">
+            <option value="">All locations</option>
+            <option value="mornington">Victoria</option>
+            <option value="bali">Bali</option>
+          </select>
+        </div>
+        <div><span class="ds-state-label">Currency</span>
+          <label class="sr-only" for="ds-currency">Currency</label>
+          <select id="ds-currency" class="select">
+            <option value="AUD">AUD</option>
+            <option value="USD">USD</option>
+            <option value="IDR">IDR</option>
+          </select>
+        </div>
+      </div>
+
+      <h3 class="t-title">Inputs</h3>
+      <form id="lead" style="display:grid;gap:var(--s-4);max-width:480px;margin-bottom:var(--s-6);">
+        <div class="field"><label for="ds-name">Name (required)</label><input id="ds-name" name="name" autocomplete="name" /></div>
+        <div class="field"><label for="ds-biz">Business name</label><input id="ds-biz" name="organization" autocomplete="organization" /></div>
+        <div class="field has-error"><label for="ds-email">Email (required)</label><input id="ds-email" name="email" type="email" autocomplete="email" aria-invalid="true" /><span class="error-msg">&otimes; Enter a valid email address</span></div>
+        <div class="field"><label for="ds-phone">Phone</label><input id="ds-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        <div class="field"><label for="ds-msg">Message</label><textarea id="ds-msg" name="message"></textarea><span class="hint">Tell us about your experience.</span></div>
+      </form>
+
+      <h3 class="t-title">Labels</h3>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="eyebrow">For businesses</span></div>
+        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="eyebrow">On dark</span></div>
+        <div><span class="tag">New</span></div>
+        <div><span class="tag tag--coming-soon">Coming soon</span></div>
+        <div><span class="badge">Example</span></div>
+      </div>
+
+      <h3 class="t-title">Cards</h3>
+      <div class="ds-grid" style="margin-bottom:var(--s-6);">
+        <article class="card">
+          <div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" /></div>
+          <p class="card__meta">Horse experiences &middot; Bali</p>
+          <h4 class="card__title">Guided horse ride through rice fields to the beach</h4>
+          <p class="card__desc">A guided ride out along the rice fields, village roads and down to the beach.</p>
+          <hr class="card__rule" />
+          <div class="card__price-row"><span class="card__price">From IDR 1,600,000</span><span class="card__basis">per person</span></div>
+          <a href="#" class="card__link" aria-label="Guided horse ride through rice fields to the beach"></a>
+        </article>
+        <article class="card">
+          <div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div>
+          <p class="card__meta">Horse experiences &middot; Bali</p>
+          <h4 class="card__title">Salty Cowboy</h4>
+          <p class="card__desc">11 experiences run by the people who started them.</p>
+          <hr class="card__rule" />
+          <div class="card__price-row"><span class="card__price">11 experiences</span></div>
+          <a href="#" class="card__link" aria-label="Salty Cowboy"></a>
+        </article>
+        <article class="card card--placeholder">
+          <div class="card__media"></div>
+          <p class="card__meta">Victoria, Australia</p>
+          <h4 class="card__title">Spot waiting to be filled</h4>
+          <p class="card__desc">We're talking with businesses here. Check back soon.</p>
+        </article>
+      </div>
+
+      <h3 class="t-title">Benefit band</h3>
+      <div class="benefit-band" style="margin-bottom:var(--s-6);">
+        <div class="benefit-band__item"><svg class="benefit-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg><h4 class="benefit-band__title">Get found</h4><p class="benefit-band__text">Threshold is built for people looking for unique experiences run by locals.</p></div>
+        <div class="benefit-band__item"><svg class="benefit-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/></svg><h4 class="benefit-band__title">Keep your system</h4><p class="benefit-band__text">Customers book through the page you already use.</p></div>
+        <div class="benefit-band__item"><svg class="benefit-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16"/></svg><h4 class="benefit-band__title">Your story leads</h4><p class="benefit-band__text">Every listing leads with you and why you started, not just a price.</p></div>
+      </div>
+
+      <h3 class="t-title">FAQ</h3>
+      <div class="faq-list" style="margin-bottom:var(--s-6);">
+        <details class="faq" open><summary>How does Threshold make money?</summary><p class="faq__answer">Businesses pay a flat commission only on bookings Threshold brings. There's no subscription and no setup fee.</p></details>
+        <details class="faq"><summary>Is there live availability?</summary><p class="faq__answer">Not yet. You book through the business's own system; Threshold doesn't hold a live calendar.</p></details>
+      </div>
+
+      <h3 class="t-title">Marquee</h3>
+      <div class="marquee" style="margin-bottom:var(--s-6);">
+        <button class="btn--icon marquee-pause" data-marquee-demo aria-pressed="false" aria-label="Pause marquee">Pause</button>
+        <span>Horse riding &middot; Diving &middot; Surf &middot; Climbing &middot; Creative &middot; Motorbike tours</span>
+      </div>
+
+      <h3 class="t-title">Hero photo</h3>
+      <div class="hero-photo" style="min-height:280px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--s-6);">
+        <picture>
+          <source srcset="/assets/photos/coastline-2400.webp" type="image/webp" />
+          <img src="/assets/photos/coastline-2400.jpg" alt="" />
+        </picture>
+        <div class="hero-scrim"></div>
+        <div class="hero-inner"><h3 style="font-family:var(--display);font-size:var(--t-headline);color:var(--paper);margin:0;">Something you'll actually remember doing.</h3></div>
+        <p class="t-label hero-credit" style="position:absolute;right:20px;bottom:14px;margin:0;">Photo by <a href="https://unsplash.com/@nisarga_1993">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E">Unsplash</a></p>
+      </div>
+
+      <h3 class="t-title">Booking panel</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s-5);margin-bottom:var(--s-6);">
+        <div style="background:var(--panel);border:var(--bw) solid var(--line);padding:var(--s-5);">Experience detail content goes here.</div>
+        <div class="booking-panel">
+          <p class="booking-panel__price">IDR 1,600,000</p>
+          <p class="booking-panel__basis">per person, up to 5 riders</p>
+          <div role="radiogroup" aria-label="Duration" style="display:flex;gap:var(--s-2);margin:var(--s-4) 0;">
+            <button class="chip--option" role="radio" aria-checked="true">1 hr<span class="chip--option__price">IDR 1,600,000</span></button>
+          </div>
+          <div class="booking-panel__total"><span class="booking-panel__total-label">Total</span><span class="booking-panel__total-value" aria-live="polite">IDR 1,600,000</span></div>
+          <button class="btn btn--lg" style="margin-top:var(--s-4);">Check dates with Salty Cowboy</button>
+        </div>
+      </div>
+
+      <h3 class="t-title">Breadcrumb</h3>
+      <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--s-6);">
+        <a href="#">Home</a><span aria-hidden="true">/</span><a href="#">Bali</a><span aria-hidden="true">/</span><a href="#">Salty Cowboy</a><span aria-hidden="true">/</span><span aria-current="page">Guided horse ride</span>
+      </nav>
+
+      <h3 class="t-title">Map frame</h3>
+      <div class="map-frame" style="max-width:480px;margin-bottom:var(--s-6);">
+        <div class="map-frame__zoom"><button class="btn--icon" aria-label="Zoom in">+</button><button class="btn--icon" aria-label="Zoom out">&minus;</button></div>
+      </div>
+
+      <h3 class="t-title">Banner</h3>
+      <div class="banner" style="margin-bottom:var(--s-2);" role="note">Salty Cowboy is approved, live and bookable.</div>
+      <div class="banner banner--light" role="note">This is free for now.</div>
+    </section>
+
+    <section class="ds-section" id="layout" style="border-bottom:0;">
+      <div class="ds-index"><span class="index">[04]</span><h2>Layout</h2></div>
+      <p class="ds-section__intro">Sections are left-aligned, inside a 1200px container with var(--gutter) side padding at var(--section-y) top and bottom. Only the full-bleed photo heroes (homepage #top and for-business #intro, via .hero-photo) are centred.</p>
+      <div class="ds-layout-demo">
+        <div class="ds-layout-demo__inner">
+          <p class="t-label" style="margin:0;">--container 1200px, --gutter 40px (20px &le;820px), --section-y 128px (96px &le;820px)</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="ds-footer">Internal preview. Not linked from the live site. noindex, nofollow.</footer>
+</main>
+
+<script src="/design-system/preview.js"></script>
+</body>
+</html>

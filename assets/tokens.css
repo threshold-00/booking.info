@@ -1,0 +1,80 @@
+/* Threshold design tokens. Single source of truth for Phase 2 adoption.
+   Values marked * in the brief override tokens.md on Ro's decisions (18 Oct 2026). */
+:root{
+  /* 4.1 fonts */
+  --display:'Neue Haas','Helvetica Neue',Arial,sans-serif;
+  --mono:'Chivo Mono',ui-monospace,monospace;
+  --mono-alt:'IBM Plex Mono',ui-monospace,monospace;
+  --font-body:var(--display);
+  --w-regular:400;--w-strong:600;--w-mono:400;--w-mono-strong:500;
+
+  /* 4.2 type scale */
+  --t-display:clamp(2.25rem,1.318rem + 3.978vw,4.5rem);
+  --t-headline:clamp(1.75rem,1.336rem + 1.768vw,2.75rem);
+  --t-subhead:clamp(1.25rem,1.146rem + .442vw,1.5rem);
+  --t-title:clamp(1rem,.974rem + .11vw,1.0625rem);
+  --t-body:.875rem;
+  --t-small:.8125rem;
+  --t-label:.6875rem;
+
+  /* 4.3 letter-spacing */
+  --ls-display:-.015em;
+  --ls-headline:-.015em;
+  --ls-subhead:-.01em;
+  --ls-title:-.005em;
+  --ls-mono:.08em;
+  --ls-label:.1em;
+
+  /* 4.4 colour */
+  --ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;
+  --ink-2:rgba(23,23,26,.70);--ink-3:rgba(23,23,26,.62);--ink-disabled:rgba(23,23,26,.45);
+  --paper-2:rgba(243,242,238,.78);--paper-3:rgba(243,242,238,.62);
+  --line:rgba(23,23,26,.14);--line-ui:rgba(23,23,26,.50);--line-dark:rgba(243,242,238,.18);--line-ui-dark:rgba(243,242,238,.40);
+  --cleared-tint:rgba(31,111,69,.18);--tint-hover:rgba(23,23,26,.04);--tint-hover-dark:rgba(243,242,238,.12);--paper-glass:rgba(243,242,238,.92);
+  --scrim:linear-gradient(180deg,rgba(23,23,26,.5),rgba(23,23,26,.65));
+  --scrim-side:linear-gradient(90deg,rgba(23,23,26,.9),rgba(23,23,26,.82) 55%,rgba(23,23,26,.6));
+  --scrim-strong:rgba(23,23,26,.95);
+  --focus:var(--cleared);--focus-dark:var(--paper);--focus-offset:2px;
+
+  /* 4.5 spacing */
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--s-10:128px;
+  --gutter:40px;
+  --section-y:var(--s-10);
+
+  /* 4.6 layout */
+  --container:1200px;--container-narrow:820px;--measure:62ch;--measure-narrow:34ch;
+
+  /* 4.7 radius, borders, bullets */
+  --r-0:0;--r-2:2px;--r-pill:999px;--r-round:50%;
+  --r-control:var(--r-pill);
+  --bw:1px;--bw-strong:2px;
+  --bullet:7px;
+
+  /* 4.8 elevation */
+  --shadow-float:0 6px 20px rgba(23,23,26,.18);
+  --shadow-bar:0 -6px 20px rgba(23,23,26,.12);
+
+  /* 4.9 motion */
+  --ease:cubic-bezier(.16,1,.3,1);
+  --dur-1:200ms;--dur-2:400ms;--dur-3:600ms;
+
+  /* 4.10 layers */
+  --z-pagenav:10;--z-menu:19;--z-header:20;--z-bar:40;--z-top:50;
+
+  /* 4.11 header height */
+  --header-h:64px;
+}
+
+@media (max-width:820px){
+  :root{
+    --gutter:20px;
+    --section-y:var(--s-9);
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  :root{
+    --dur-1:0ms;--dur-2:0ms;--dur-3:0ms;
+  }
+  html{scroll-behavior:auto}
+}
