@@ -116,15 +116,6 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .card__media{aspect-ratio:4/3;background:var(--panel) center/cover no-repeat}
 .card__body{padding:var(--s-4)}
 .card__loc{font-family:var(--display);font-size:11px;letter-spacing:.02em;color:var(--ink-3);margin:0 0 6px}
-/* Detail-page info tabs: jump links to grouped sections, Viator-style underline row */
-/* In-page section nav: sticky under the header, scrolls horizontally on
-   mobile with a right-edge fade, the current section gets an underline set
-   by an IntersectionObserver in detail.js (see .page-nav a[aria-current]). */
-.page-nav{position:sticky;top:var(--header-h,64px);z-index:10;background:var(--paper);display:flex;gap:28px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin:0 0 32px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
-.page-nav::-webkit-scrollbar{display:none}
-.page-nav [role="tab"]{font-family:var(--display);flex:none;min-height:44px;display:inline-flex;align-items:center;padding:0 0 12px;margin-top:12px;font-size:15px;font-weight:600;color:var(--ink-2);background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;cursor:pointer}
-.page-nav [role="tab"]:hover{color:var(--ink)}
-.page-nav [role="tab"][aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
 /* Activity gallery: hero image about 60% width with a 2x2 thumbnail grid beside
    it on desktop; collapses to a full-bleed hero with no thumbnails on mobile. */
 .gallery-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:8px}
@@ -341,7 +332,7 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
    old bug of a shared grid-row producing a phantom second column at narrow
    widths can't happen; there is nothing to reset at a breakpoint. */
 .detail-layout{display:grid;grid-template-columns:minmax(0,1fr);row-gap:0;padding-bottom:var(--s-8)}
-.detail-crumbs{padding:var(--s-5) 0 0}
+.detail-crumbs{padding:var(--s-5) var(--gutter) 0}
 @media (min-width:821px){
   .detail-layout{grid-template-columns:minmax(0,1fr) minmax(300px,340px);column-gap:clamp(var(--s-6),3vw,var(--s-7))}
   .detail-head{grid-column:1;grid-row:1}
@@ -349,43 +340,16 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
   .booking-panel{grid-column:2;grid-row:1 / span 2;align-self:start;position:sticky;top:calc(var(--header-h,104px) + var(--s-5));margin:0}
 }
 
-/* Brief v3 A3: selected chip must still show its price and a tick. No inline
-   colour override competes with this any more; the generator no longer sets one.
-   Square corners, not the pill shape: two lines of stacked text in a pill
-   radius reads as a blobby oval rather than a button, so this uses --r-0
-   like the rest of the site's buttons. */
-.duration-chip{flex-direction:column;align-items:center;justify-content:center;gap:2px;line-height:1.3;text-align:center}
-.duration-chip__price{display:block;font-size:var(--t-small);color:var(--ink-2)}
-.duration-chip[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.duration-chip[aria-checked="true"] .duration-chip__price{color:var(--paper-2)}
-.duration-chip[aria-checked="true"]::before{content:"\2713";font-size:12px;margin-right:var(--s-1)}
-
-/* Brief v3 B5: duration chips on one row */
-#durationGroup{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:var(--s-2)}
-.duration-chip{width:100%;min-height:52px;padding:var(--s-2) var(--s-4);border-radius:var(--r-0)}
-
-/* Brief v3 G3: rider stepper buttons */
-.stepper-btn{width:44px;height:44px;min-width:44px;border:var(--bw) solid var(--line-ui);background:transparent;color:var(--ink);font:var(--w-strong) var(--t-title)/1 var(--display);cursor:pointer}
-.stepper-btn:hover{border-color:var(--ink);background:var(--tint-hover)}
-.stepper-btn:focus-visible{outline:var(--bw-strong) solid var(--focus);outline-offset:var(--focus-offset)}
-.stepper-btn:disabled{border-style:dashed;border-color:var(--ink-disabled);color:var(--ink-2);background:transparent;cursor:not-allowed}
-.stepper-count{font:var(--w-strong) var(--t-title)/1 var(--display);min-width:var(--s-6);text-align:center}
-.stepper-row{display:flex;align-items:center;gap:var(--s-3)}
-
-/* Brief v3 C: booking panel rhythm, grouped by proximity */
+/* Brief v4: booking panel rhythm, grouped by proximity. Panel is just the
+   price line, the Check-dates button and (where the data has it) a weight
+   note below the button, now that duration chips, the rider stepper and the
+   live total have all moved out (times stay in the Times tab). */
 .bp-group+.bp-group{margin-top:16px}
 .bp-price{margin:0 0 var(--s-1)}
-.bp-basis{margin:0;font-family:var(--display);font-size:var(--t-small);color:var(--ink-2)}
-.bp-choices{display:grid;gap:var(--s-4)}
-.bp-result{border-top:var(--bw) solid var(--line);padding-top:var(--s-4);display:grid;gap:var(--s-1)}
-.bp-decision{display:grid;gap:var(--s-4)}
-.bp-label{font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono-strong);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
-.bp-total-row{display:flex;justify-content:space-between;align-items:baseline;margin:0}
-.bp-total-value{font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);color:var(--ink)}
+.bp-decision{display:grid;gap:var(--s-3)}
+.bp-label{font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono-strong);letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
 .bp-note{font-family:var(--display);font-size:var(--t-small);line-height:1.45;color:var(--ink-2);margin:0}
 .bp-note+.bp-note{margin-top:4px}
-.bp-warn{border:var(--bw) solid var(--line);padding:var(--s-3) var(--s-4);display:flex;gap:var(--s-2);align-items:flex-start}
-.bp-warn-icon{flex:none;width:16px;height:16px;border:var(--bw) solid var(--ink);border-radius:var(--r-round);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink)}
 
 /* The nav bar stays full width edge to edge (Ro's call); only page content
    below it aligns to .container. */
@@ -395,7 +359,7 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 /* Brief v3 B4: page nav sticks under the header, first child of .detail-content */
 .page-nav{position:sticky;top:var(--header-h,104px);z-index:10;background:var(--paper);display:flex;gap:28px;overflow-x:auto;scrollbar-width:none;border-bottom:var(--bw) solid var(--line);margin:0 0 var(--s-6);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
 .page-nav::-webkit-scrollbar{display:none}
-.page-nav [role="tab"]{font:var(--w-strong) var(--t-body)/1.3 var(--display);flex:none;min-height:44px;display:inline-flex;align-items:center;padding:0 0 12px;margin-top:12px;color:var(--ink-2);background:none;border:0;border-bottom:var(--bw-strong) solid transparent;margin-bottom:-1px;white-space:nowrap;cursor:pointer}
+.page-nav [role="tab"]{font:var(--w-regular) var(--t-title)/1.3 var(--display);flex:none;min-height:44px;display:inline-flex;align-items:center;padding:0 0 12px;margin-top:12px;color:var(--ink-2);background:none;border:0;border-bottom:var(--bw-strong) solid transparent;margin-bottom:-1px;white-space:nowrap;cursor:pointer}
 .page-nav [role="tab"]:hover{color:var(--ink)}
 .page-nav [role="tab"][aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
 .page-nav [role="tab"]:focus-visible{outline:2px solid var(--focus,var(--cleared));outline-offset:2px}
@@ -432,7 +396,6 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 
 /* Brief v3 D: six type sizes applied to detail-page prose and labels */
 .detail-head h1{font-family:var(--display);font-size:var(--t-headline);font-weight:var(--w-strong);line-height:1.08;letter-spacing:-.02em;max-width:24ch;text-wrap:balance;margin:var(--s-5) 0 var(--s-2)}
-.detail-head .meta-line{font:var(--w-mono-strong) var(--t-label)/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 var(--s-3)}
 .detail-content h2{font-family:var(--display);font-size:var(--t-subhead);font-weight:var(--w-strong);line-height:1.15;letter-spacing:-.01em;margin:0 0 var(--s-4)}
 .detail-content h3{font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);line-height:1.3;margin:var(--s-6) 0 var(--s-3)}
 .detail-content section+section{margin-top:var(--s-7)}
@@ -440,10 +403,10 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 .prose{font-family:var(--display);font-size:var(--t-body);line-height:1.6;color:var(--ink-2);max-width:35em}
 .prose strong,.prose dd,.prose li{color:var(--ink)}
 .detail-content dl{display:grid;gap:var(--s-4);margin:0;max-width:35em}
-.detail-content dt{font:var(--w-mono-strong) var(--t-label)/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 var(--s-1)}
+.detail-content dt{font:var(--w-mono-strong) var(--t-label)/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 var(--s-1)}
 .detail-content dd{margin:0;font-family:var(--display);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
 .detail-content table{font-family:var(--display);font-size:var(--t-body);max-width:35em;width:100%;border-collapse:collapse}
-.detail-content th{font:var(--w-mono-strong) var(--t-label)/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.detail-content th{font:var(--w-mono-strong) var(--t-label)/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
 .detail-content .card-title,.detail-content summary{font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);line-height:1.3}
 .detail-content details{padding:0;border-bottom:var(--bw) solid var(--line)}
 .detail-content summary{padding:var(--s-4) 0;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);cursor:pointer;list-style:none}

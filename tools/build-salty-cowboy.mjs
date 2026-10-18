@@ -122,7 +122,7 @@ function goodToKnowRows(a) {
   rows.push({
     label: 'Meeting point',
     value: null,
-    html: `${esc("Salty Cowboy's stables. There's no pickup, so make your own way there.")}<br /><a href="${esc(business.meetingPoint.mapsUrl)}" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;">Get directions${EXTERNAL_LINK_ICON}</a>`
+    html: `${esc("Salty Cowboy's stables. No pickup.")}<br /><a href="${esc(business.meetingPoint.mapsUrl)}" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;">Get directions${EXTERNAL_LINK_ICON}</a>`
   });
   rows.push({ label: 'Arrive', value: 'Arrive 15 minutes before your start time' });
   rows.push({ label: 'Hours', value: 'Closed Sundays and Saturday afternoons' });
@@ -241,60 +241,38 @@ function galleryMarkup(a, base) {
 
 function riderNoun(a) { return a.slug === 'join-up-lesson' ? 'person' : 'rider'; }
 function riderNounPlural(a) { return riderNoun(a) === 'person' ? 'people' : 'riders'; }
-function hasStepper(a) { return a.priceUnit === 'person' && a.maxPeople > 1; }
 
-function bookingPanel(a) {
+// Brief v4: the price line used across the booking panel and mobile sticky
+// bar. "From about [price] per person" where pricing is per person; "From
+// about [price]" plus the activity's own basis wording everywhere else, since
+// a flat per-group or per-session price has nothing to be "per person" about.
+function priceLineAttrs(a) {
   const low = lowPrice(a);
   const perPerson = a.priceUnit === 'person';
-  const stepper = hasStepper(a);
-  const noun = riderNoun(a);
-  const nounPlural = riderNounPlural(a);
+  const suffix = perPerson ? ' per person' : `, ${a.basis}`;
+  return `data-price-idr="${low}" data-price-prefix="From about" data-price-suffix="${esc(suffix)}" data-price-bare`;
+}
+
+const BOOKING_LINK_ICON = `<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="sr-only"> (opens Salty Cowboy's booking site)</span>`;
+const BOOKING_CTA_LABEL = `Check dates with Salty Cowboy${BOOKING_LINK_ICON}`;
+const BOOKING_CTA_LABEL_SHORT = `Check dates${BOOKING_LINK_ICON}`;
+
+function bookingPanel(a) {
+  const weight = a.goodToKnow.find(g => g.label === 'Weight');
   return `<aside class="booking-panel" aria-label="Book this experience">
       <div class="bp-group">
-        <p class="bp-price t-subhead" data-price-idr="${low}" data-price-prefix="${a.durations.length > 1 ? 'from' : ''}"${perPerson ? ' data-price-suffix=" per person"' : ''}></p>
-        <p class="bp-basis">${esc(a.basis)}</p>
-      </div>
-      <div class="bp-group">
-        <div class="bp-choices">
-          <div role="radiogroup" aria-label="Duration" id="durationGroup">
-${a.durations.map((d, i) => `        <button type="button" class="opt duration-chip" role="radio" aria-checked="${i === 0}" tabindex="${i === 0 ? '0' : '-1'}" data-duration-id="${d.id}" data-label="${esc(d.label)}" data-chip-idr="${d.priceIDR}">${esc(d.label)}<span class="duration-chip__price" data-price-idr="${d.priceIDR}"${perPerson ? ' data-price-suffix=" per person"' : ''}></span></button>`).join('\n')}
-          </div>
-${stepper ? `          <div id="riderStepper" data-max-people="${a.maxPeople}" data-min-people="1" data-noun="${noun}" data-noun-plural="${nounPlural}">
-            <p class="bp-label" style="margin:0 0 8px;">${noun === 'person' ? 'People' : 'Riders'}</p>
-            <div class="stepper-row">
-              <button type="button" class="stepper-btn" id="riderMinus" aria-label="Remove a ${noun}">&minus;</button>
-              <span id="riderCount" class="stepper-count">1</span>
-              <button type="button" class="stepper-btn" id="riderPlus" aria-label="Add a ${noun}">+</button>
-            </div>
-          </div>
-` : ''}${a.addon ? `          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;">
-            <input type="checkbox" id="addonCheckbox" style="margin-top:3px;" />
-            <span>${esc(a.addon.label)}: ${esc(a.addon.priceText)}</span>
-          </label>
-` : ''}        </div>
-      </div>
-      <div class="bp-group bp-result">
-        <p class="bp-total-row bp-label" aria-live="polite" aria-atomic="true">
-          <span id="bookingTotalLabel">Total</span>
-          <span id="bookingTotal" class="bp-total-value"></span>
-        </p>
-${a.serviceTaxIncluded ? `        <p class="bp-note">Service tax included</p>\n` : ''}        <p id="startTimesLine" class="bp-note"></p>
+        <p class="bp-price t-subhead" ${priceLineAttrs(a)}></p>
       </div>
       <div class="bp-group bp-decision">
-${(() => { const w = a.goodToKnow.find(g => g.label === 'Weight'); return w ? `        <div class="bp-warn">
-          <span class="bp-warn-icon" aria-hidden="true">i</span>
-          <span class="bp-note">Before you book: ${esc(w.value)}</span>
-        </div>\n` : ''; })()}        <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta">Check dates with Salty Cowboy &rarr;</a>
-      </div>
+        <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" target="_blank" rel="noopener" class="btn" id="bookingCta">${BOOKING_CTA_LABEL}</a>
+${weight ? `        <p class="bp-note">Before you book: ${esc(weight.value)}</p>\n` : ''}      </div>
     </aside>`;
 }
 
 function mobileStickyBar(a) {
   return `<aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
-    <span class="t-small">
-      <span id="mobileStickyDuration"></span> &middot; <strong id="mobileStickyTotal"></strong>
-    </span>
-    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn">Check dates &rarr;</a>
+    <span class="t-small" ${priceLineAttrs(a)}></span>
+    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" target="_blank" rel="noopener" class="btn">${BOOKING_CTA_LABEL_SHORT}</a>
   </aside>`;
 }
 
@@ -357,11 +335,14 @@ function activityPage(a, base) {
   const faqs = faqItems(a);
   const ridingNote = a.goodToKnow.some(g => g.label === 'Weight') || a.cat === 'horse' && a.type === 'rides';
 
-  // F3: fact row built only from data already on hand, not invented.
+  // F3: fact row built only from data already on hand, not invented. Carries
+  // duration and location now that .meta-line (which used to show them under
+  // the h1) is gone.
   const facts = [
+    a.durations.map(d => esc(d.label)).join(' or '),
     a.priceUnit === 'person' ? `Up to ${a.maxPeople} ${riderNounPlural(a)}` : esc(a.basis),
     'No experience needed',
-    `Meet at ${esc(business.meetingPoint.label)}`
+    `Meet at ${esc(business.meetingPoint.label)}, Bali`
   ];
 
   return `<!DOCTYPE html>
@@ -389,7 +370,6 @@ ${header(base)}
   <div class="container detail-layout">
     <div class="detail-head">
       <h1>${esc(a.title)}</h1>
-      <p class="meta-line">${a.durations.map(d => esc(d.label)).join(' or ')} &middot; ${a.priceUnit === 'person' ? `Up to ${a.maxPeople} ${riderNounPlural(a)}` : esc(a.basis)} &middot; Bali</p>
       <a href="#business" class="owner-strip navlink">
         <img src="${base}assets/simone-horse.jpg" alt="" width="40" height="40" loading="lazy" style="width:40px;height:40px;object-fit:cover;flex:none;" />
         <span>Run by Simone &middot; Salty Cowboy</span>

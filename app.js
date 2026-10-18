@@ -65,15 +65,15 @@ window.ThCurrency = (function () {
   function formatIDR(amount) {
     return 'IDR ' + Math.round(amount).toLocaleString('en-US');
   }
-  function formatConverted(amount, code) {
+  function formatConverted(amount, code, bare) {
     var n = amount >= 100 ? Math.round(amount) : Math.round(amount * 100) / 100;
-    return 'approx. $' + n.toLocaleString('en-US') + ' ' + code;
+    return (bare ? '$' : 'approx. $') + n.toLocaleString('en-US') + ' ' + code;
   }
 
   function format(idrAmount, opts) {
     opts = opts || {};
     var currency = getCurrency();
-    var text = currency === 'IDR' ? formatIDR(idrAmount) : formatConverted(idrAmount * rates[currency], currency);
+    var text = currency === 'IDR' ? formatIDR(idrAmount) : formatConverted(idrAmount * rates[currency], currency, opts.bare);
     return (opts.prefix ? opts.prefix + ' ' : '') + text + (opts.suffix || '');
   }
 
@@ -84,7 +84,8 @@ window.ThCurrency = (function () {
       if (!idr) return;
       el.textContent = format(idr, {
         prefix: el.getAttribute('data-price-prefix') || '',
-        suffix: el.getAttribute('data-price-suffix') || ''
+        suffix: el.getAttribute('data-price-suffix') || '',
+        bare: el.hasAttribute('data-price-bare')
       });
     });
     document.querySelectorAll('.currency-select').forEach(function (sel) {
