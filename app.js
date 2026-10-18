@@ -737,9 +737,10 @@ window.addEventListener('resize', setHeaderOffset);
   setInterval(function () { n = n % 3 + 1; noise.setAttribute('seed', n); }, 180);
 })();
 
-// Verticals scroller: moves left by default, and reverses to move right while the page
-// itself is being scrolled upward. Pauses on hover or keyboard focus, static under
-// reduced motion. Runs once per .vert-scroll instance (hero and /for-business/).
+// Verticals scroller: moves only while the page itself is being scrolled, in the
+// same direction as the scroll. Static whenever the user isn't scrolling, and
+// static under reduced motion. Runs once per .vert-scroll instance (hero and
+// /for-business/).
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -757,51 +758,25 @@ window.addEventListener('resize', setHeaderOffset);
     measure();
     window.addEventListener('resize', measure);
 
-    var SPEED = 34; // px per second
-    var dir = 1; // 1 = leftward (default), -1 = rightward
-    var lastScrollY = window.scrollY;
-    var scrollTimer;
+    var pos = 0, lastY = window.scrollY, queued = false;
+
+    function render() {
+      queued = false;
+      track.style.transform = 'translateX(' + (-pos) + 'px)';
+    }
+
     window.addEventListener('scroll', function () {
       var y = window.scrollY;
-      if (y > lastScrollY + 1) dir = 1;
-      else if (y < lastScrollY - 1) dir = -1;
-      lastScrollY = y;
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(function () { dir = 1; }, 1200); // drift back to the default direction once scrolling stops
-    }, { passive: true });
-
-    var hovered = false, focused = false, paused = false;
-    scroll.addEventListener('mouseenter', function () { hovered = true; });
-    scroll.addEventListener('mouseleave', function () { hovered = false; });
-    scroll.addEventListener('focusin', function () { focused = true; });
-    scroll.addEventListener('focusout', function () { focused = false; });
-
-    // Visible pause control (WCAG 2.2.2): a button elsewhere on the page
-    // referencing this scroller by id via data-marquee.
-    if (scroll.id) {
-      var pauseBtn = document.querySelector('.marquee-pause[data-marquee="' + scroll.id + '"]');
-      if (pauseBtn) {
-        pauseBtn.addEventListener('click', function () {
-          paused = !paused;
-          pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-          pauseBtn.textContent = paused ? 'Play' : 'Pause';
-        });
-      }
-    }
-
-    var pos = 0, last = null;
-    function frame(t) {
-      if (last === null) last = t;
-      var dt = (t - last) / 1000;
-      last = t;
-      if (!hovered && !focused && !paused && halfWidth > 0) {
-        pos += dir * SPEED * dt;
+      if (halfWidth > 0) {
+        pos += (y - lastY) * 0.5;
         pos = ((pos % halfWidth) + halfWidth) % halfWidth;
-        track.style.transform = 'translateX(' + (-pos) + 'px)';
       }
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
+      lastY = y;
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(render);
+      }
+    }, { passive: true });
   });
 })();
 

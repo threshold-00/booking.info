@@ -57,13 +57,13 @@ function header(base) {
       <a href="${base}index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
       <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
-        <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;">For businesses</a>
+        <a href="/for-business/" class="btn-ghost">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
-        <select id="currencySelect" class="currency-select" aria-label="Currency">
+        <span class="select-wrap"><select id="currencySelect" class="currency-select" aria-label="Currency">
           <option value="AUD">AUD</option>
           <option value="USD">USD</option>
           <option value="IDR">IDR</option>
-        </select>
+        </select></span>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -95,7 +95,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <meta name="description" content="${esc(description)}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="${base}styles.css" />
@@ -122,7 +122,7 @@ function goodToKnowRows(a) {
   rows.push({
     label: 'Meeting point',
     value: null,
-    html: `${esc("Salty Cowboy's stables. There's no pickup, so make your own way there.")}<br /><a href="${esc(business.meetingPoint.mapsUrl)}" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;padding:9px 16px;min-height:44px;align-items:center;">Get directions${EXTERNAL_LINK_ICON}</a>`
+    html: `${esc("Salty Cowboy's stables. There's no pickup, so make your own way there.")}<br /><a href="${esc(business.meetingPoint.mapsUrl)}" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:10px;">Get directions${EXTERNAL_LINK_ICON}</a>`
   });
   rows.push({ label: 'Arrive', value: 'Arrive 15 minutes before your start time' });
   rows.push({ label: 'Hours', value: 'Closed Sundays and Saturday afternoons' });
@@ -225,7 +225,7 @@ function galleryMarkup(a, base) {
         ${thumbs}
         </div>
       </div>
-      <button type="button" id="seeAllPhotos" class="btn-ghost" style="margin-top:10px;padding:9px 16px;min-height:44px;align-items:center;">See all ${imgs.length} photos</button>
+      <button type="button" id="seeAllPhotos" class="btn-ghost" style="margin-top:10px;">See all ${imgs.length} photos</button>
       <dialog id="lightbox" aria-label="Photo gallery">
         <div style="position:relative;width:min(90vw,900px);">
           <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
@@ -451,7 +451,7 @@ ${facts.map(f => `        <li>${f}</li>`).join('\n')}
       <section id="cancellation" aria-labelledby="h-cancellation">
         <h2 id="h-cancellation">Cancellation</h2>
         <p class="prose" style="margin:0 0 var(--s-3);">Salty Cowboy hasn't published cancellation terms on its booking site. Ask on WhatsApp before you book.${ridingNote ? ' Bookings over 75kg are not refunded.' : ''}</p>
-        <a href="https://wa.me/${business.whatsapp}" target="_blank" rel="noopener" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;display:inline-flex;">Ask on WhatsApp</a>
+        <a href="https://wa.me/${business.whatsapp}" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;">Ask on WhatsApp</a>
       </section>
 
       <section id="faq" aria-labelledby="h-faq">

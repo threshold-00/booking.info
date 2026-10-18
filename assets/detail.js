@@ -229,13 +229,47 @@
     recompute();
   }
 
-  // Mobile sticky bar: hidden while the inline booking button is on screen
+  // Mobile sticky bar: hidden while the inline booking button is on screen,
+  // or while a field is focused (keyboard open). Body gets padding-bottom
+  // equal to the bar's measured height so it never covers the footer, and
+  // no dead space is reserved while the bar is hidden.
   var stickyBar = document.getElementById('mobileStickyBar');
   var inlineCta = document.getElementById('bookingCta');
-  if (stickyBar && inlineCta && 'IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function (entries) {
-      stickyBar.classList.toggle('is-hidden', entries[0].isIntersecting);
-    }, { threshold: 0.01 });
-    obs.observe(inlineCta);
+  if (stickyBar && inlineCta) {
+    var ctaVisible = false, fieldFocused = false;
+
+    function syncPadding() {
+      var hidden = stickyBar.classList.contains('is-hidden');
+      document.body.style.paddingBottom = hidden ? '0px' : stickyBar.getBoundingClientRect().height + 'px';
+    }
+
+    function render() {
+      stickyBar.classList.toggle('is-hidden', ctaVisible || fieldFocused);
+      syncPadding();
+    }
+
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        ctaVisible = entries[0].isIntersecting;
+        render();
+      }, { threshold: 0.01 });
+      obs.observe(inlineCta);
+    }
+
+    document.addEventListener('focusin', function (e) {
+      if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) {
+        fieldFocused = true;
+        render();
+      }
+    });
+    document.addEventListener('focusout', function (e) {
+      if (/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) {
+        fieldFocused = false;
+        render();
+      }
+    });
+
+    window.addEventListener('resize', syncPadding);
+    render();
   }
 })();
