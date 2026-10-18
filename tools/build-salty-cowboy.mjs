@@ -201,9 +201,10 @@ function cardMini(a, base) {
 }
 
 function galleryMarkup(a, base) {
-  // Hero image scales with its column instead of a fixed pixel height: full-bleed
-  // 4:3 on mobile, capped at 60svh (B3), about 60% width with a 2x2 thumbnail
-  // grid alongside it on desktop (B1 puts this inside .detail-head).
+  // Hero image scales with its column instead of a fixed pixel height: a wide,
+  // shorter 8:3 crop (half the height of the old 4:3) so more of the booking
+  // panel and page content sit above the fold, about 60% width with a 2x2
+  // thumbnail grid alongside it on desktop (B1 puts this inside .detail-head).
   const imgs = a.images;
   const hero = imgs[0];
   const heroPos = hero.imagePosition || 'center 28%';
@@ -211,7 +212,7 @@ function galleryMarkup(a, base) {
   const heroImg = `<img src="${base}assets/salty-cowboy/${hero.file}" alt="${esc(hero.alt)}" width="${heroDims.width}" height="${heroDims.height}" fetchpriority="high" loading="eager" decoding="async"${imgs.length > 1 ? ' data-lightbox-index="0"' : ''} style="display:block;width:100%;height:100%;object-fit:cover;object-position:${heroPos};cursor:${imgs.length > 1 ? 'pointer' : 'default'};" />`;
   if (imgs.length === 1) {
     return `<div class="detail-gallery" id="detailGallery">
-      <div style="aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
+      <div style="aspect-ratio:16/6;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
     </div>`;
   }
   const thumbs = imgs.slice(1, 5).map((img, i) => {
@@ -220,7 +221,7 @@ function galleryMarkup(a, base) {
   }).join('\n        ');
   return `<div class="detail-gallery" id="detailGallery">
       <div class="gallery-grid">
-        <div style="aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
+        <div style="aspect-ratio:16/6;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
         <div class="gallery-grid__thumbs">
         ${thumbs}
         </div>
@@ -284,7 +285,6 @@ ${(() => { const w = a.goodToKnow.find(g => g.label === 'Weight'); return w ? ` 
           <span class="bp-warn-icon" aria-hidden="true">i</span>
           <span class="bp-note">Before you book: ${esc(w.value)}</span>
         </div>\n` : ''; })()}        <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" class="btn" id="bookingCta">Check dates with Salty Cowboy &rarr;</a>
-        <p class="bp-note bp-handoff">You'll send your request to Salty Cowboy on WhatsApp. Simone reviews and confirms every request. Threshold doesn't take payment.</p>
       </div>
     </aside>`;
 }
