@@ -220,18 +220,6 @@ window.ThCurrency = (function () {
   var emptyEl = document.getElementById('browseEmpty');
   var clearBtn = document.getElementById('clearFilters');
 
-  // Demo cards (data-demo) are for one business's clickable prototype. They only
-  // appear for its demo link, e.g. /?demo=example-woodshop#browse, and are removed
-  // for everyone else before anything is counted.
-  var demoSlug = new URLSearchParams(window.location.search).get('demo') || '';
-  [].slice.call(document.querySelectorAll('[data-demo]')).forEach(function (c) {
-    if (demoSlug && c.getAttribute('data-demo') === demoSlug) {
-      if (!c.classList.contains('sc-card')) c.hidden = false;
-    } else if (c.parentNode) {
-      c.parentNode.removeChild(c);
-    }
-  });
-
   var cards = [].slice.call(grid.querySelectorAll('.x-card, .sc-card'));
   var realCards = cards.filter(function (c) { return !c.hasAttribute('data-placeholder'); });
   var catChips = chipRow ? [].slice.call(chipRow.querySelectorAll('.cat-chip')) : [];

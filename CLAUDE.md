@@ -50,7 +50,7 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 
 - **Never use em-dashes** anywhere: code, copy, prose responses, commit messages. Use a comma or a full stop.
 - **Say "businesses", never "operators".** Applies to copy, nav, titles, meta, alt text, JSON-LD, llms.txt, and code comments.
-- **No fictional businesses.** Any example card is labelled "Example" in visible text, or removed.
+- **No fictional businesses.** Any example card is labelled "Example" in visible text, or removed. The Stripe test-mode demo (Example Woodshop, /demo/b/example-woodshop/) is labelled "Demo account" instead, on the homepage card and on its page.
 - **No empty category pages.** Where a hub has no business yet, use a tasteful "spot waiting to be filled" placeholder (no names, prices, reviews, business schema).
 - **No live-availability or real-time calendar claims.** No payment or calendar-sync claims (neither is built).
 - **No business pricing or commission on customer pages.** The 12% fee appears only on /for-business/ (and llms.txt).
