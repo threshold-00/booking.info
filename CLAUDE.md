@@ -1,6 +1,6 @@
 # Threshold marketing site
 
-Static marketing site for Threshold, a booking site for small, owner-run experience businesses. The pitch: unique experiences run by the local people who started them, on the Mornington Peninsula and in Bali. Businesses pay a flat 8% commission only on bookings Threshold brings. No subscription, no setup fee.
+Static marketing site for Threshold, a booking site for small, owner-run experience businesses. The pitch: unique experiences run by the local people who started them, on the Mornington Peninsula and in Bali. Free to join. From 1 May 2027, businesses pay a 12% fee (including GST and card fees) on bookings made through Threshold. No subscription, no setup fee.
 
 Salty Cowboy Bali is the first listed business.
 
@@ -16,7 +16,7 @@ Salty Cowboy Bali is the first listed business.
 ├── faq/
 │   └── index.html                # FAQ page
 ├── for-business/
-│   └── index.html                # business sign-up page (8% pricing here only)
+│   └── index.html                # business sign-up page (pricing here only)
 ├── case-study.html               # Salty Cowboy business story
 ├── styles.css                    # all styling (design tokens live in :root)
 ├── app.js                        # map, contact form, mailto links
@@ -53,7 +53,7 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 - **No fictional businesses.** Any example card is labelled "Example" in visible text, or removed.
 - **No empty category pages.** Where a hub has no business yet, use a tasteful "spot waiting to be filled" placeholder (no names, prices, reviews, business schema).
 - **No live-availability or real-time calendar claims.** No payment or calendar-sync claims (neither is built).
-- **No business pricing or commission on customer pages.** 8% appears only on /for-business/ (and llms.txt).
+- **No business pricing or commission on customer pages.** The 12% fee appears only on /for-business/ (and llms.txt).
 - **Prefer targeted patches over full-file rewrites.** Edit the specific block, do not regenerate the file.
 - **Styling is mostly inline.** Only shared primitives live in `styles.css`. Match the surrounding approach.
 - **Design tokens** are the `:root` custom properties in `styles.css`: `--ink` `#17171a`, `--paper` `#f3f2ee`, `--panel` `#f7f6f3`, `--cleared` `#1f6f45`, `--line`, `--display`, `--mono`. Use the variables, do not hardcode new hexes.
@@ -71,7 +71,7 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 
 ## Pricing
 
-Businesses pay a flat 8% commission only on bookings Threshold brings. No subscription, no setup fee. This pricing appears only on /for-business/ and in llms.txt, never on customer-facing pages (homepage, hubs, FAQ, case study).
+Free to join. From Saturday 1 May 2027, businesses pay a 12% fee, including GST, on completed bookings made through Threshold, whatever the booking's source. It's all-in: it covers card and payment fees, with no customer surcharge and no separate card fee. Each business chooses whether to bake it into its price or absorb it. At least 60 days' written notice first (so sent by Tuesday 2 Mar 2027), and businesses can leave without penalty. No subscription, no setup fee, no channel fee. 10% and 8% are retired (Ro, 20 Oct 2026). Keep pricing low-key: one small line, never a headline. This pricing appears only on /for-business/ and in llms.txt, never on customer-facing pages (homepage, hubs, FAQ, case study).
 
 ## Default change workflow
 

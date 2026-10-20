@@ -9,7 +9,7 @@ Live at **https://thresholdbooking.com/**
 - `mornington-peninsula/index.html` - Mornington Peninsula hub
 - `bali/index.html` - Bali hub
 - `faq/index.html` - FAQ
-- `for-business/index.html` - page for businesses (8% pricing)
+- `for-business/index.html` - page for businesses (12% fee including GST and card fees, from 1 May 2027)
 - `case-study.html` - Salty Cowboy business story
 - `styles.css` - all styling
 - `app.js` - map, contact form
