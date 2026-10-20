@@ -285,7 +285,7 @@
           <h4 class="card__title">Guided horse ride through rice fields to the beach</h4>
           <p class="card__desc">A guided ride out along the rice fields, village roads and down to the beach.</p>
           <hr class="card__rule" />
-          <div class="card__price-row"><span class="card__price">From IDR 1,600,000</span><span class="card__basis">per person</span></div>
+          <div class="card__price-row"><span class="card__price">From $160 AUD</span></div>
           <a href="#" class="card__link" aria-label="Guided horse ride through rice fields to the beach"></a>
         </article>
         <article class="card">
@@ -304,6 +304,17 @@
           <p class="card__desc">We're talking with businesses here. Check back soon.</p>
         </article>
       </div>
+
+      <h3 class="t-title">Card list</h3>
+      <p class="ds-section__intro">.card-list: 4 across on desktop, one card per row below 820px (resize to see), never a sideways scroll. Prices sit on the last row of every card, so they line up whatever the title length. With data-mobile-cap a homepage row shows 4 cards on mobile, then "See all".</p>
+      <div class="card-list" data-mobile-cap id="dsCardList" style="margin-bottom:var(--s-3);">
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><p class="card__meta">Horse experiences &middot; Bali</p><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $160 AUD</span></div></article>
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div><p class="card__meta">Horse experiences &middot; Bali</p><h4 class="card__title">Private dressage lesson</h4><p class="card__desc">One-to-one dressage in the arena.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $290 AUD</span></div></article>
+        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">3-day Horse Whisperer course</h4><p class="card__desc">Three days of groundwork.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $2,250 AUD</span></div></article>
+        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Horse grooming class</h4><p class="card__desc">Learn to groom with the stable manager.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $125 AUD</span></div></article>
+        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Fifth card, hidden on mobile until See all</h4><p class="card__desc">Shown on desktop.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
+      </div>
+      <button type="button" class="card-list__more" style="margin-bottom:var(--s-6);" onclick="document.getElementById('dsCardList').classList.add('is-expanded');this.hidden=true;">See all 5 experiences</button>
 
       <h3 class="t-title">Benefit band</h3>
       <div class="benefit-band" style="margin-bottom:var(--s-6);">
@@ -344,13 +355,9 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s-5);margin-bottom:var(--s-6);">
         <div style="background:var(--panel);border:var(--bw) solid var(--line);padding:var(--s-5);">Experience detail content goes here.</div>
         <div class="booking-panel">
-          <p class="booking-panel__price">IDR 1,600,000</p>
-          <p class="booking-panel__basis">per person, up to 5 riders</p>
-          <div role="radiogroup" aria-label="Duration" style="display:flex;gap:var(--s-2);margin:var(--s-4) 0;">
-            <button class="chip--option" role="radio" aria-checked="true">1 hr<span class="chip--option__price">IDR 1,600,000</span></button>
-          </div>
-          <div class="booking-panel__total"><span class="booking-panel__total-label">Total</span><span class="booking-panel__total-value" aria-live="polite">IDR 1,600,000</span></div>
+          <p class="booking-panel__price">From $160 AUD</p>
           <button class="btn btn--lg" style="margin-top:var(--s-4);">Check dates with Salty Cowboy</button>
+          <p class="booking-panel__basis" style="margin:var(--s-3) 0 0;">Before you book: Weight limit 70kg. Nothing personal, it's to protect our horses' backs.</p>
         </div>
       </div>
 
@@ -368,6 +375,19 @@
             <button class="btn btn--lg">Get listed</button>
           </div>
         </div>
+      </div>
+
+      <h3 class="t-title">Mobile menu</h3>
+      <p class="ds-section__intro">The full-screen menu under 640px. Browse experiences and For businesses look identical (same size, weight, colour, divider; no boxed button), then the currency select, full width, 44px tall, 16px text. Changing it updates every price and is remembered, exactly like the desktop select.</p>
+      <div class="site-menu" style="max-width:390px;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);">
+        <a href="#" class="site-menu__link">Browse experiences</a>
+        <a href="#" class="site-menu__link">For businesses</a>
+        <label class="sr-only" for="ds-menu-currency">Currency</label>
+        <select id="ds-menu-currency" class="select">
+          <option value="AUD">AUD</option>
+          <option value="USD">USD</option>
+          <option value="IDR">IDR</option>
+        </select>
       </div>
 
       <h3 class="t-title">Breadcrumb</h3>

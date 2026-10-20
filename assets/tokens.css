@@ -24,6 +24,7 @@
   --ls-title:-.005em;
   --ls-mono:.08em;
   --ls-label:.1em;
+  --ls-blurb:.02em; /* mono caps body text, e.g. the homepage value blurbs */
 
   /* 4.4 colour */
   --ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;

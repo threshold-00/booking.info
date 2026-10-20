@@ -223,16 +223,16 @@
 
     <div id="browseDefault">
       <div class="browse-group">
-        <div class="card-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <div class="card-row" data-mobile-cap id="browseDefaultRow">
         <!-- Demo account: made-up business for trying the Stripe test-mode booking flow -->
-        <a class="card demo-card" href="/demo/b/example-woodshop/" aria-label="Demo account: Make a dovetailed keepsake box, Example Woodshop" data-title="Make a dovetailed keepsake box" data-business="Example Woodshop" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo example woodshop woodwork box dovetail" style="display:block;">
+        <a class="card demo-card" href="/demo/b/example-woodshop/" aria-label="Demo account: Make a dovetailed keepsake box, Example Woodshop" data-title="Make a dovetailed keepsake box" data-business="Example Woodshop" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo example woodshop woodwork box dovetail">
           <div class="card__media"><img src="https://images.unsplash.com/photo-1789654499278-0ad599c8c241?fm=jpg&q=70&auto=format&fit=crop&w=800" alt="A sunlit dovetail joint on a wooden frame" width="800" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo account</span></p>
             <h3 class="card__title">Make a dovetailed keepsake box</h3>
             <p class="card__loc">2 days &middot; Example Woodshop &middot; Victoria</p>
             <p class="card__desc">Cut dovetails by hand over two days and take home a box in Tasmanian oak.</p>
-            <div class="card__meta card__row"><p class="card__price" style="margin-left:auto;">$480 per person</p></div>
+            <div class="card__meta card__row"><p class="card__price">From $480 AUD</p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
@@ -241,7 +241,7 @@
             <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=" per person"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
@@ -250,7 +250,7 @@
             <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
             <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">Our longest ride, with plenty of stops for photos along the way.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=" per person"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
@@ -259,7 +259,7 @@
             <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A styled photoshoot with a groomed horse along the beach and rice fields.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
@@ -268,7 +268,7 @@
             <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
             <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A rustic Western-style stable backdrop for your shoot.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
@@ -277,7 +277,7 @@
             <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
             <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">An open green paddock with grazing horses in view.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
@@ -286,7 +286,7 @@
             <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
             <p class="card__loc">3 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A rustic wooden cottage interior, styled for fashion, pre-wedding or personal shoots.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="" data-price-suffix=" / session"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
@@ -295,7 +295,7 @@
             <h3 class="card__title">Horse grooming class with the stable manager</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">Learn wet or dry grooming from the stable manager.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="from" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
@@ -304,7 +304,7 @@
             <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
             <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A hands-on lesson in natural horsemanship, learning to earn a horse's trust.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" per person"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
@@ -313,7 +313,7 @@
             <h3 class="card__title">Private dressage lesson</h3>
             <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A private dressage lesson for all levels, in the arena.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="" data-price-suffix=""></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
@@ -322,7 +322,7 @@
             <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
             <p class="card__loc">1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A group session in leadership and trust, built through the horse.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="" data-price-suffix=" / group"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="From"></p></div>
           </div>
         </a>
         <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
@@ -331,23 +331,24 @@
             <h3 class="card__title">3-day Horse Whisperer course</h3>
             <p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A 3-day groundwork course for two, open to all levels.</p>
-            <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="" data-price-suffix=" / course"></p></div>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="From"></p></div>
           </div>
         </a>
         </div>
+        <button type="button" class="card-cap-more" aria-controls="browseDefaultRow" aria-expanded="false">See all experiences</button>
       </div>
 
     </div>
 
-    <div class="x-card-grid" id="browseGrid" hidden style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
-        <a class="card sc-card" href="/demo/b/example-woodshop/" aria-label="Demo account: Make a dovetailed keepsake box, Example Woodshop" data-title="Make a dovetailed keepsake box" data-business="Example Woodshop" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo example woodshop woodwork box dovetail" style="display:block;">
+    <div class="x-card-grid" id="browseGrid" hidden>
+        <a class="card sc-card" href="/demo/b/example-woodshop/" aria-label="Demo account: Make a dovetailed keepsake box, Example Woodshop" data-title="Make a dovetailed keepsake box" data-business="Example Woodshop" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo example woodshop woodwork box dovetail">
           <div class="card__media"><img src="https://images.unsplash.com/photo-1789654499278-0ad599c8c241?fm=jpg&q=70&auto=format&fit=crop&w=800" alt="A sunlit dovetail joint on a wooden frame" width="800" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo account</span></p>
             <h3 class="card__title">Make a dovetailed keepsake box</h3>
             <p class="card__loc">2 days &middot; Example Woodshop &middot; Victoria</p>
             <p class="card__desc">Cut dovetails by hand over two days and take home a box in Tasmanian oak.</p>
-            <div class="card__meta card__row"><p class="card__price" style="margin-left:auto;">$480 per person</p></div>
+            <div class="card__meta card__row"><p class="card__price">From $480 AUD</p></div>
           </div>
         </a>
       <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
@@ -356,7 +357,7 @@
           <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="from" data-price-suffix=" per person"></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
@@ -365,7 +366,7 @@
           <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
           <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">Our longest ride, with plenty of stops for photos along the way.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="" data-price-suffix=" per person"></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
@@ -374,7 +375,7 @@
           <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A styled photoshoot with a groomed horse along the beach and rice fields.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
@@ -383,7 +384,7 @@
           <h3 class="card__title">Horse grooming class with the stable manager</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">Learn wet or dry grooming from the stable manager.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="from" data-price-suffix=""></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
@@ -392,7 +393,7 @@
           <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
           <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A hands-on lesson in natural horsemanship, learning to earn a horse's trust.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="from" data-price-suffix=" per person"></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
@@ -401,7 +402,7 @@
           <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
           <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A rustic Western-style stable backdrop for your shoot.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
@@ -410,7 +411,7 @@
           <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
           <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">An open green paddock with grazing horses in view.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="from" data-price-suffix=""></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
@@ -419,7 +420,7 @@
           <h3 class="card__title">Private dressage lesson</h3>
           <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A private dressage lesson for all levels, in the arena.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="" data-price-suffix=""></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
@@ -428,7 +429,7 @@
           <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
           <p class="card__loc">3 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A rustic wooden cottage interior, styled for fashion, pre-wedding or personal shoots.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="" data-price-suffix=" / session"></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
@@ -437,7 +438,7 @@
           <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
           <p class="card__loc">1.5 hr &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A group session in leadership and trust, built through the horse.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="" data-price-suffix=" / group"></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
@@ -446,7 +447,7 @@
           <h3 class="card__title">3-day Horse Whisperer course</h3>
           <p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">A 3-day groundwork course for two, open to all levels.</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="" data-price-suffix=" / course"></p></div>
+          <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="From"></p></div>
         </div>
       </a>
       <div class="x-card" data-placeholder="true" data-region="mornington" style="display:block;color:var(--ink);border:1px dashed var(--line);overflow:hidden;">
@@ -485,7 +486,7 @@
       <div class="browse-group" aria-labelledby="group-businesses">
         <h2 id="group-businesses" style="font-size:clamp(22px,2.8vw,30px);line-height:1.1;letter-spacing:-.02em;margin:0 0 20px;">New on Threshold</h2>
         <div class="card-row">
-        <a class="card" href="case-study.html" style="display:block;">
+        <a class="card" href="case-study.html">
           <div class="card__media" style="background-image:url('assets/simone-horse.jpg');background-size:cover;background-position:center;"></div>
           <div class="card__body">
             <p class="card__loc">Horse riding &middot; Bali</p>

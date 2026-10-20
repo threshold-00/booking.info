@@ -188,14 +188,13 @@ function faqItems(a) {
 function cardMini(a, base) {
   const price = lowPrice(a);
   const img = a.images[0];
-  const perPerson = a.priceUnit === 'person';
-  return `<a class="card" href="${base}bali/salty-cowboy/${a.slug}/" style="display:block;">
+  return `<a class="card" href="${base}bali/salty-cowboy/${a.slug}/">
           <div class="card__media" style="background-image:url('${base}assets/salty-cowboy/${img.file}');background-size:cover;background-position:${img.imagePosition || 'center'};"></div>
           <div class="card__body">
             <h3 class="card__title">${esc(a.title)}</h3>
             <p class="card__loc">${esc(a.durations[0].label)} &middot; Salty Cowboy &middot; Bali</p>
             <p class="card__desc">${esc(a.cardDesc)}</p>
-            <p class="card__price" data-price-idr="${price}" data-price-prefix="${a.durations.length > 1 ? 'from' : ''}"${perPerson ? ' data-price-suffix=" per person"' : ''}></p>
+            <div class="card__meta card__row"><p class="card__price" data-price-idr="${price}" data-price-prefix="From"></p></div>
           </div>
         </a>`;
 }
@@ -242,15 +241,11 @@ function galleryMarkup(a, base) {
 function riderNoun(a) { return a.slug === 'join-up-lesson' ? 'person' : 'rider'; }
 function riderNounPlural(a) { return riderNoun(a) === 'person' ? 'people' : 'riders'; }
 
-// Brief v4: the price line used across the booking panel and mobile sticky
-// bar. "From about [price] per person" where pricing is per person; "From
-// about [price]" plus the activity's own basis wording everywhere else, since
-// a flat per-group or per-session price has nothing to be "per person" about.
+// The price line used in the booking panel and mobile sticky bar: "From
+// [price]" (Ro, 20 Oct 2026). How the price is counted (per group, per
+// session) stays in the fact row under the h1.
 function priceLineAttrs(a) {
-  const low = lowPrice(a);
-  const perPerson = a.priceUnit === 'person';
-  const suffix = perPerson ? ' per person' : `, ${a.basis}`;
-  return `data-price-idr="${low}" data-price-prefix="From about" data-price-suffix="${esc(suffix)}" data-price-bare`;
+  return `data-price-idr="${lowPrice(a)}" data-price-prefix="From"`;
 }
 
 const BOOKING_LINK_ICON = `<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="sr-only"> (opens Salty Cowboy's booking site)</span>`;
@@ -502,7 +497,7 @@ ${header(base)}
   </section>
 
   <section style="padding:0 40px var(--section-y);max-width:var(--container);">
-    <div class="card-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+    <div class="card-row">
 ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
     </div>
   </section>

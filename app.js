@@ -65,15 +65,15 @@ window.ThCurrency = (function () {
   function formatIDR(amount) {
     return 'IDR ' + Math.round(amount).toLocaleString('en-US');
   }
-  function formatConverted(amount, code, bare) {
+  function formatConverted(amount, code) {
     var n = amount >= 100 ? Math.round(amount) : Math.round(amount * 100) / 100;
-    return (bare ? '$' : 'approx. $') + n.toLocaleString('en-US') + ' ' + code;
+    return '$' + n.toLocaleString('en-US') + ' ' + code;
   }
 
   function format(idrAmount, opts) {
     opts = opts || {};
     var currency = getCurrency();
-    var text = currency === 'IDR' ? formatIDR(idrAmount) : formatConverted(idrAmount * rates[currency], currency, opts.bare);
+    var text = currency === 'IDR' ? formatIDR(idrAmount) : formatConverted(idrAmount * rates[currency], currency);
     return (opts.prefix ? opts.prefix + ' ' : '') + text + (opts.suffix || '');
   }
 
@@ -84,8 +84,7 @@ window.ThCurrency = (function () {
       if (!idr) return;
       el.textContent = format(idr, {
         prefix: el.getAttribute('data-price-prefix') || '',
-        suffix: el.getAttribute('data-price-suffix') || '',
-        bare: el.hasAttribute('data-price-bare')
+        suffix: el.getAttribute('data-price-suffix') || ''
       });
     });
     document.querySelectorAll('.currency-select').forEach(function (sel) {
@@ -523,6 +522,20 @@ wireLeadForm(document.getElementById('bizSignup'));
 
 document.querySelectorAll('a[href^="mailto:hello@example.com"]').forEach(function (a) {
   a.href = a.href.replace('hello@example.com', CONTACT_EMAIL);
+});
+
+// Homepage rows capped at 4 cards on mobile (styles.css): "See all" shows the rest.
+document.querySelectorAll('.card-cap-more').forEach(function (btn) {
+  var row = document.getElementById(btn.getAttribute('aria-controls'));
+  if (!row || row.children.length <= 4) { btn.hidden = true; return; }
+  btn.textContent = 'See all ' + row.children.length + ' experiences';
+  btn.addEventListener('click', function () {
+    row.classList.add('is-expanded');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.hidden = true;
+    var fifth = row.children[4] && row.children[4].querySelector('a') || row.children[4];
+    if (fifth && fifth.focus) fifth.focus();
+  });
 });
 
 // Mobile hamburger nav: toggles the full-width menu, swaps the icon via aria-expanded,

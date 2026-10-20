@@ -44,7 +44,8 @@
   .stepper button[disabled]{color:var(--ink-disabled);cursor:default}
   .stepper output{min-width:28px;text-align:center;font-family:var(--mono);font-size:15px}
 
-  .bp-total{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3);margin:var(--s-4) 0 var(--s-3);padding-top:var(--s-3);border-top:1px solid var(--line);font-family:var(--display);font-size:15px}
+  .bp-total{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3);margin:var(--s-4) 0 0;padding-top:var(--s-3);border-top:1px solid var(--line);font-family:var(--display);font-size:15px}
+  #step1 .bp-decision{margin-top:var(--s-5)}
   .bp-total b{font-weight:600;font-size:17px}
 
   /* Step 2 */
@@ -151,7 +152,7 @@
 
           <div class="bp-total" id="total" aria-live="polite" hidden><span>Total</span><b id="totalValue"></b></div>
           <div class="bp-decision">
-            <button type="button" class="btn" id="bookingCta" disabled>Continue to details</button>
+            <button type="button" class="btn" id="bookingCta" disabled>Continue to book</button>
           </div>
           <p class="bp-note" style="margin-top:var(--s-2);">You won't be charged yet.</p>
         </div>
