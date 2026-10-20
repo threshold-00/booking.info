@@ -229,6 +229,45 @@
         <div class="field"><label for="ds-msg">Message</label><textarea id="ds-msg" name="message"></textarea><span class="hint">Tell us about your experience.</span></div>
       </form>
 
+      <h3 class="t-title">Booking panel</h3>
+      <p class="ds-section__intro">The two-step panel on experience pages. Step 1 is date and people, step 2 is details, then the card is added on Stripe's page. Business name, capacity and cancellation hours always come from the business's data.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-5);">
+        <div><span class="ds-state-label">Date pill</span><button type="button" class="date-pill" aria-pressed="false" style="width:140px;"><span>Sun 1 Nov</span></button></div>
+        <div><span class="ds-state-label">Hover</span><button type="button" class="date-pill is-hover" aria-pressed="false" style="width:140px;"><span>Sun 15 Nov</span></button></div>
+        <div><span class="ds-state-label">Selected</span><button type="button" class="date-pill" aria-pressed="true" style="width:140px;"><span>Sun 29 Nov</span></button></div>
+        <div><span class="ds-state-label">Multi-day</span><button type="button" class="date-pill" aria-pressed="false" style="width:140px;"><span>Sat 14 Nov</span><span class="date-pill__days">2 days</span></button></div>
+        <div><span class="ds-state-label">Multi-day, selected</span><button type="button" class="date-pill" aria-pressed="true" style="width:140px;"><span>Sat 28 Nov</span><span class="date-pill__days">2 days</span></button></div>
+        <div><span class="ds-state-label">Few left</span><button type="button" class="date-pill" aria-pressed="false" style="width:140px;"><span>Sat 12 Dec</span><span class="date-pill__note">2 left</span></button></div>
+        <div><span class="ds-state-label">Full</span><button type="button" class="date-pill" aria-pressed="false" disabled style="width:140px;"><span>Sat 19 Dec</span><span class="date-pill__note">Full</span></button></div>
+      </div>
+      <div class="ds-states" style="margin-bottom:var(--s-5);">
+        <div><span class="ds-state-label">Stepper, at minimum</span><div class="stepper" role="group" aria-label="Number of people"><button type="button" disabled aria-label="One fewer person">&minus;</button><output>1</output><button type="button" aria-label="One more person">+</button></div></div>
+        <div><span class="ds-state-label">Stepper, at capacity</span><div class="stepper" role="group" aria-label="Number of people"><button type="button" aria-label="One fewer person">&minus;</button><output>6</output><button type="button" disabled aria-label="One more person">+</button></div></div>
+        <div><span class="ds-state-label">Step label and change link</span><p class="bp-steplabel">Step 2 of 2</p><button type="button" class="bp-change">Change</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s-5);max-width:820px;margin-bottom:var(--s-5);">
+        <div class="bp-field"><label for="ds-bp-name">Default</label><input id="ds-bp-name" autocomplete="off" /></div>
+        <div class="bp-field"><label for="ds-bp-focus">Focus</label><input id="ds-bp-focus" class="is-focus" value="Sam Example" autocomplete="off" /></div>
+        <div class="bp-field"><label for="ds-bp-phone">With helper</label><input id="ds-bp-phone" type="tel" autocomplete="off" aria-describedby="ds-bp-phone-hint" /><p class="bp-hint" id="ds-bp-phone-hint">So the business can reach you on the day.</p></div>
+        <div class="bp-field has-error"><label for="ds-bp-email">Error</label><input id="ds-bp-email" type="email" value="sam@example" aria-invalid="true" aria-describedby="ds-bp-email-err" autocomplete="off" /><p class="bp-field-error" id="ds-bp-email-err"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg><span>That email doesn't look right</span></p></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s-5);max-width:820px;margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Summary, deposit</span>
+          <div class="bp-summary"><div class="bp-summary__row"><span>$480 &times; 2 people</span><span>$960</span></div><div class="bp-summary__row"><b>Deposit</b><b>$480</b></div><div class="bp-summary__later">Balance $480 due by Thu 12 Nov, 9am. We'll email you a link to pay it.</div></div>
+        </div>
+        <div><span class="ds-state-label">Summary, paid in full</span>
+          <div class="bp-summary"><div class="bp-summary__row"><span>$160 &times; 1 person</span><span>$160</span></div><div class="bp-summary__row"><b>Total (held, not charged)</b><b>$160</b></div></div>
+          <p class="bp-under">Next, add your card. It's held, not charged.</p>
+        </div>
+        <div><span class="ds-state-label">Policy block</span>
+          <div class="bp-policy">
+            <p>Your card is held, not charged, until the business confirms, within 24 hours. If they can't confirm, the hold is released.</p>
+            <p>Cancel 48 hours or more before the start for a full refund. Less than 48 hours before, no refund.</p>
+            <p class="bp-policy__acl">This doesn't affect your rights under Australian Consumer Law, including a refund if the business cancels.</p>
+          </div>
+        </div>
+      </div>
+
       <h3 class="t-title">Labels</h3>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
         <div><span class="eyebrow">For businesses</span></div>

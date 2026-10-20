@@ -47,6 +47,7 @@
   /* 4.7 radius, borders, bullets */
   --r-0:0;--r-2:2px;--r-pill:999px;--r-round:50%;
   --r-control:var(--r-pill);
+  --r-card:14px; /* summary boxes inside a panel, e.g. the booking panel's price summary */
   --bw:1px;--bw-strong:2px;
   --bullet:7px;
 
