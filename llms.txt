@@ -1,7 +1,7 @@
 # Threshold
 > Unique experiences run by the local people who started them. In Victoria, Australia and Bali.
 
-Threshold is a booking site for small, owner-run experience businesses. Two tiers: Featured is a free listing, customers contact the business directly, no commission, no fee, no contract. Full booking (coming soon) adds a calendar, instant or owner-confirmed bookings, online payments and channel management, for an 8% commission per booking made through Threshold plus a channel management fee to be confirmed. No contract on either tier.
+Threshold is a booking site for small, owner-run experience businesses. Two tiers: Featured is a free listing, customers contact the business directly, no commission, no fee, no contract. Full booking (coming soon) adds a calendar, business-confirmed bookings and online payments. Free for businesses until 1 May 2027, then 12% including GST on bookings made through Threshold, with card fees included. No subscription or channel fee. No contract on either tier, and businesses can leave without penalty.
 
 ## Pages
 - [Home](https://thresholdbooking.com/)
