@@ -132,19 +132,22 @@
   </header>
 
   <section id="top" class="hero-photo">
+    <!-- Looping background video (app.js starts it; it stays on the still with reduced motion). Portrait cut on phones. -->
     <picture>
-      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile-1080.webp 1080w, assets/photos/coastline-mobile-1620.webp 1620w" sizes="100vw" type="image/webp" />
-      <source media="(max-width:640px)" srcset="assets/photos/coastline-mobile-1080.jpg" />
-      <source srcset="assets/photos/coastline-1440.webp 1440w, assets/photos/coastline-2400.webp 2400w, assets/photos/coastline-3456.webp 3456w" sizes="100vw" type="image/webp" />
-      <img src="assets/photos/coastline-2400.jpg" width="2400" height="1800" alt="" aria-hidden="true" loading="eager" fetchpriority="high" />
+      <source media="(max-width:640px)" srcset="assets/video/hero-mobile-poster.jpg" />
+      <img src="assets/video/hero-desktop-poster.jpg" width="1920" height="1080" alt="" aria-hidden="true" loading="eager" fetchpriority="high" />
     </picture>
+    <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1">
+      <source media="(max-width:640px)" src="assets/video/hero-mobile.mp4" type="video/mp4" />
+      <source src="assets/video/hero-desktop.mp4" type="video/mp4" />
+    </video>
     <div aria-hidden="true" class="hero-scrim"></div>
     <div class="hero-inner">
       <h1 class="hero-h1 hero-h1--lg">Something you'll actually remember doing.</h1>
       <p class="hero-sub">Unique experiences run by the local people who started them.</p>
       <a href="#browse" class="btn" style="margin:0 auto;display:inline-flex;">Have a wander</a>
     </div>
-    <p class="t-label hero-credit" style="font-family:var(--mono);">Photo by <a href="https://unsplash.com/@nisarga_1993" target="_blank" rel="noopener">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E" target="_blank" rel="noopener">Unsplash</a></p>
+    <button type="button" class="hero-pause" id="heroPause" hidden>Pause video</button>
   </section>
 
   <section class="band" style="background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
@@ -153,8 +156,8 @@
         <div class="benefit-row">
           <span class="benefit-emoji" aria-hidden="true">&#x2764;&#xFE0F;</span>
           <div>
-            <h3 style="font-size:18px;line-height:1.2;letter-spacing:0;margin:0 0 10px;">For the adventurers and the makers.</h3>
-            <p style="margin:0;color:var(--ink-2);">Rides, dives, workshops and lessons, each run by the person who started it.</p>
+            <h3 style="font-size:18px;line-height:1.2;letter-spacing:0;margin:0 0 10px;">Come for the experience. Leave with a story to share.</h3>
+            <p style="margin:0;color:var(--ink-2);">Book for two, bring the whole crew, or meet people on the day. Each one is run by the person who started it.</p>
           </div>
         </div>
         <div class="benefit-row">

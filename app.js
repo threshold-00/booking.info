@@ -955,6 +955,25 @@ document.querySelectorAll('.card-cap-more').forEach(function (btn) {
   });
 });
 
+// Homepage background video: loads and plays only when motion is allowed, fades in
+// over its still once frames arrive, and the Pause button stops and restarts it.
+(function () {
+  var video = document.getElementById('heroVideo'), btn = document.getElementById('heroPause');
+  if (!video) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  video.addEventListener('playing', function () { video.classList.add('is-playing'); });
+  video.preload = 'auto';
+  var started = video.play();
+  if (started && started.catch) started.catch(function () { /* autoplay refused: the still stays */ });
+  if (!btn) return;
+  btn.hidden = false;
+  btn.addEventListener('click', function () {
+    var pause = !video.paused;
+    if (pause) video.pause(); else video.play();
+    btn.textContent = pause ? 'Play video' : 'Pause video';
+  });
+})();
+
 // Mobile hamburger nav: toggles the full-width menu, swaps the icon via aria-expanded,
 // and closes on a link tap or Escape. Same markup and behaviour on every page.
 (function () {
