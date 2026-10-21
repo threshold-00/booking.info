@@ -185,9 +185,37 @@
 
     <section id="browse" class="container" style="padding-top:72px;padding-bottom:88px;">
     <div class="browse-head">
-    <h2 class="browse-title" style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:0;margin:0 0 var(--s-6);">Experiences</h2>
+    <div class="browse-titlebar">
+    <h2 class="browse-title" style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:0;margin:0;">Experiences</h2>
+    <div class="view-tabs" role="tablist" aria-label="View">
+      <button type="button" class="view-tab" role="tab" id="tabGrid" aria-controls="panelGrid" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button>
+      <button type="button" class="view-tab" role="tab" id="tabMap" aria-controls="panelMap" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button>
+      <span class="view-tabs__line" aria-hidden="true"></span>
+    </div>
+    </div>
 
     <div class="filter-row">
+
+    <div class="filter-group filter-group--type">
+      <span class="t-label filter-group-label" id="experienceLabel">Type</span>
+      <div class="cat-chip-row" id="chipRow" role="group" aria-labelledby="experienceLabel" style="display:flex;align-items:center;flex-wrap:nowrap;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;">
+        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="flex:none;scroll-snap-align:start;">All</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="flex:none;scroll-snap-align:start;">Horse experiences</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="kayak" style="flex:none;scroll-snap-align:start;">Kayaking</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="flex:none;scroll-snap-align:start;">Surf</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="flex:none;scroll-snap-align:start;">Climbing</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="flex:none;scroll-snap-align:start;">Creative</button>
+        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="flex:none;scroll-snap-align:start;">Motorbike tours</button>
+      </div>
+      <div class="cat-chip-row browse-sub" id="horseSub" hidden style="display:flex;flex-wrap:wrap;gap:8px;">
+        <button type="button" class="opt sub-chip" aria-pressed="true" data-type="" style="font-size:11px;">All horse (11)</button>
+        <button type="button" class="opt sub-chip" aria-pressed="false" data-type="rides" style="font-size:11px;">Rides (2)</button>
+        <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="font-size:11px;">Photoshoots (4)</button>
+        <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="font-size:11px;">Lessons (5)</button>
+      </div>
+    </div>
+
     <div class="filter-pair">
     <div class="filter-group">
       <label class="t-label filter-group-label" for="locationSelect" id="locationLabel">Location</label>
@@ -209,37 +237,12 @@
       </select></span>
     </div>
     </div>
-
-    <div class="filter-group">
-      <span class="t-label filter-group-label" id="experienceLabel">Type</span>
-      <div class="cat-chip-row" id="chipRow" role="group" aria-labelledby="experienceLabel" style="display:flex;align-items:center;flex-wrap:nowrap;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;">
-        <button type="button" class="opt cat-chip" aria-pressed="true" data-cat="" style="flex:none;scroll-snap-align:start;">All</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub" style="flex:none;scroll-snap-align:start;">Horse experiences</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="dive" style="flex:none;scroll-snap-align:start;">Dive &amp; snorkel</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="kayak" style="flex:none;scroll-snap-align:start;">Kayaking</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="surf" style="flex:none;scroll-snap-align:start;">Surf</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="climbing" style="flex:none;scroll-snap-align:start;">Climbing</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="creative" style="flex:none;scroll-snap-align:start;">Creative</button>
-        <button type="button" class="opt cat-chip" aria-pressed="false" data-cat="motorbike" style="flex:none;scroll-snap-align:start;">Motorbike tours</button>
-      </div>
-    </div>
     </div>
 
-    <div class="cat-chip-row browse-sub" id="horseSub" hidden style="display:flex;flex-wrap:wrap;gap:8px;margin:var(--s-3) 0 20px;">
-      <button type="button" class="opt sub-chip" aria-pressed="true" data-type="" style="font-size:11px;">All horse (11)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="rides" style="font-size:11px;">Rides (2)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="font-size:11px;">Photoshoots (4)</button>
-      <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="font-size:11px;">Lessons (5)</button>
-    </div>
     </div>
 
     <div class="browse-bar">
     <h2 id="browseCount" aria-live="polite" style="margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400;"></h2>
-    <div class="view-tabs" role="tablist" aria-label="View">
-      <button type="button" class="view-tab" role="tab" id="tabGrid" aria-controls="panelGrid" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button>
-      <button type="button" class="view-tab" role="tab" id="tabMap" aria-controls="panelMap" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button>
-      <span class="view-tabs__line" aria-hidden="true"></span>
-    </div>
     </div>
 
     <div id="browseEmpty" class="empty-state" hidden>
