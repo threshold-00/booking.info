@@ -115,24 +115,24 @@ var exploreMap = (function () {
   var mapEl = document.getElementById('exploreMap');
   if (!mapEl || typeof L === 'undefined') return null;
 
-  // business: the cards' data-business. only: card ?x= keys, when one business has
-  // activities in two places.
+  // business: the cards' data-business. emoji: shown in the pin, for the activity.
+  // only: card ?x= keys, when one business has activities in two places.
   var pins = [
-    { business: 'Gordon Studio Glassblowers', place: 'Red Hill', region: 'mornington', lat: -38.3726, lng: 145.0218 },
-    { business: 'Heathcote Bike Hire', place: 'Heathcote', region: 'mornington', lat: -36.9220, lng: 144.7080 },
-    { business: 'Salty Seas Surf School', place: 'Inverloch', region: 'mornington', lat: -38.6475, lng: 145.7390 },
-    { business: 'Tiger Moth World', place: 'Torquay Airport', region: 'mornington', lat: -38.2977, lng: 144.3653 },
-    { business: 'Spring Creek Horse Rides', place: 'Bellbrae, near Torquay', region: 'mornington', lat: -38.3375, lng: 144.2533 },
-    { business: 'Indigo Woodworks', place: 'Indigo Valley', region: 'mornington', lat: -36.0860, lng: 146.8480 },
-    { business: 'Moonraker Dolphin Swims', place: 'Sorrento Pier', region: 'mornington', lat: -38.3390, lng: 144.7430 },
-    { business: 'Phoenix Pottery', place: 'Fitzroy', region: 'mornington', lat: -37.7985, lng: 144.9772 },
-    { business: 'Lygon Street Pottery', place: 'Brunswick East', region: 'mornington', lat: -37.7705, lng: 144.9715 },
-    { business: 'simétrie', place: 'Brunswick', region: 'mornington', lat: -37.7667, lng: 144.9600 },
-    { business: 'Suigeneris Atelier', place: 'Mulgrave', region: 'mornington', lat: -37.9265, lng: 145.1660 },
-    { business: 'Peachy Keen Ceramics', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
-    { business: 'East Coast Kayaking', place: 'Melbourne city, on the Yarra', region: 'mornington', lat: -37.8210, lng: 144.9640, only: ['city-day', 'city-twilight'] },
-    { business: 'East Coast Kayaking', place: 'Sandringham', region: 'mornington', lat: -37.9510, lng: 145.0010, only: ['bayside', 'point-nepean', 'phillip-island'] },
-    { business: 'Salty Cowboy', place: 'Bali', region: 'bali', lat: -8.6500, lng: 115.2167 }
+    { business: 'Gordon Studio Glassblowers', emoji: '🔥', place: 'Red Hill', region: 'mornington', lat: -38.3726, lng: 145.0218 },
+    { business: 'Heathcote Bike Hire', emoji: '🚲', place: 'Heathcote', region: 'mornington', lat: -36.9220, lng: 144.7080 },
+    { business: 'Salty Seas Surf School', emoji: '🏄', place: 'Inverloch', region: 'mornington', lat: -38.6475, lng: 145.7390 },
+    { business: 'Tiger Moth World', emoji: '✈️', place: 'Torquay Airport', region: 'mornington', lat: -38.2977, lng: 144.3653 },
+    { business: 'Spring Creek Horse Rides', emoji: '🐴', place: 'Bellbrae, near Torquay', region: 'mornington', lat: -38.3375, lng: 144.2533 },
+    { business: 'Indigo Woodworks', emoji: '🪵', place: 'Indigo Valley', region: 'mornington', lat: -36.0860, lng: 146.8480 },
+    { business: 'Moonraker Dolphin Swims', emoji: '🐬', place: 'Sorrento Pier', region: 'mornington', lat: -38.3390, lng: 144.7430 },
+    { business: 'Phoenix Pottery', emoji: '🏺', place: 'Fitzroy', region: 'mornington', lat: -37.7985, lng: 144.9772 },
+    { business: 'Lygon Street Pottery', emoji: '🏺', place: 'Brunswick East', region: 'mornington', lat: -37.7705, lng: 144.9715 },
+    { business: 'simétrie', emoji: '🧵', place: 'Brunswick', region: 'mornington', lat: -37.7667, lng: 144.9600 },
+    { business: 'Suigeneris Atelier', emoji: '🧵', place: 'Mulgrave', region: 'mornington', lat: -37.9265, lng: 145.1660 },
+    { business: 'Peachy Keen Ceramics', emoji: '🏺', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
+    { business: 'East Coast Kayaking', emoji: '🛶', place: 'Melbourne city, on the Yarra', region: 'mornington', lat: -37.8210, lng: 144.9640, only: ['city-day', 'city-twilight'] },
+    { business: 'East Coast Kayaking', emoji: '🛶', place: 'Sandringham', region: 'mornington', lat: -37.9510, lng: 145.0010, only: ['bayside', 'point-nepean', 'phillip-island'] },
+    { business: 'Salty Cowboy', emoji: '🐴', place: 'Bali', region: 'bali', lat: -8.6500, lng: 115.2167 }
   ];
 
   // Activities per pin, from the cards in the results grid (each card is there once).
@@ -149,13 +149,14 @@ var exploreMap = (function () {
     });
   }
 
-  function pinIcon(active) {
+  function pinIcon(active, emoji) {
     return L.divIcon({
       className: 'th-pin' + (active ? ' is-active' : ''),
-      html: '<svg viewBox="0 0 28 36" width="28" height="36" aria-hidden="true"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>',
-      iconSize: [28, 36],
-      iconAnchor: [14, 35],
-      popupAnchor: [0, -30]
+      html: '<span class="th-pin__in"><svg viewBox="0 0 28 36" width="34" height="44" aria-hidden="true"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="9" fill="#f3f2ee"/></svg>' +
+        (emoji ? '<span class="th-pin__emoji" aria-hidden="true">' + emoji + '</span>' : '') + '</span>',
+      iconSize: [34, 44],
+      iconAnchor: [17, 43],
+      popupAnchor: [0, -37]
     });
   }
 
@@ -213,9 +214,9 @@ var exploreMap = (function () {
   var useSheet = window.matchMedia('(max-width:820px)');
 
   function setActive(m) {
-    if (active && active !== m) { active.setIcon(pinIcon(false)); active.setZIndexOffset(0); }
+    if (active && active !== m) { active.setIcon(pinIcon(false, active.options.emoji)); active.setZIndexOffset(0); }
     active = m;
-    if (m) { m.setIcon(pinIcon(true)); m.setZIndexOffset(1000); }
+    if (m) { m.setIcon(pinIcon(true, m.options.emoji)); m.setZIndexOffset(1000); }
   }
   function closeSheet() {
     if (!sheet || sheet.hidden) return;
@@ -289,7 +290,7 @@ var exploreMap = (function () {
     map.on('popupclose', function (e) { if (e.popup === pop) setActive(null); });
 
     markers = pins.map(function (p) {
-      var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.business + ', ' + p.place, keyboard: true });
+      var m = L.marker([p.lat, p.lng], { icon: pinIcon(false, p.emoji), emoji: p.emoji, title: p.business + ', ' + p.place, keyboard: true });
       m.on('click', function () {
         if (useSheet.matches) { map.closePopup(); openSheet(m, p); return; }
         closeSheet();
