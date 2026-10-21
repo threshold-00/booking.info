@@ -15,13 +15,16 @@
   // booking_mode (data file): sandbox takes test bookings; off shows the page only.
   // Pages built before booking_mode carry none and keep working as they did.
   var OFF = C.booking_mode === 'off';
+  // link: listing only. The Book button goes to the business's own booking page.
+  var LINK = C.booking_mode === 'link';
+  var NOCARD = C.booking_mode === 'demo'; // full flow, the Worker skips the card step
   var $ = function (id) { return document.getElementById(id); };
   var q = new URLSearchParams(location.search);
   var KEYS = C.options.map(function (o) { return o.experience; });
   var state = {
     key: KEYS.indexOf(q.get('x')) >= 0 ? q.get('x') : KEYS[0],
     meta: null, slots: [], date: null, slot: null, people: 1, shown: 8,
-    answers: {}, addons: {}, camOn: false, pairPart: '', idemKey: null, idemFor: '', loadSeq: 0
+    answers: {}, addons: {}, tix: {}, tixFor: '', camOn: false, pairPart: '', idemKey: null, idemFor: '', loadSeq: 0
   };
   var ERR_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>';
 
@@ -55,6 +58,11 @@
   function isoWeekday(d) { return new Date(utcDay(d)).getUTCDay() || 7; }
   function parts(d) { return { wd: DAYS[new Date(utcDay(d)).getUTCDay()], d: +d.slice(8, 10), mon: MONTHS[+d.slice(5, 7) - 1] }; }
   function days(a, b) { return Math.round((utcDay(b) - utcDay(a)) / 864e5) + 1; }
+  // A course's length: "4 days" when it runs on back-to-back days, "8 sessions" when weekly.
+  function span(s) {
+    var n = days(s.date_local, s.end_date_local), c = s.sessions ? s.sessions.length : 0;
+    return c > 1 && c !== n ? c + ' sessions' : n + ' days';
+  }
   function range(a, b) {
     var p = parts(a);
     if (a === b) return p.wd + ' ' + p.d + ' ' + p.mon;
@@ -104,7 +112,7 @@
     state.answers = {}; state.addons = {}; state.camOn = false;
     [].forEach.call($('choices').children, function (b) { b.setAttribute('aria-pressed', b.dataset.key === key); });
     staticContent();
-    loadDates();
+    if (LINK) linkPanel(); else loadDates();
   }
 
   function staticContent() {
@@ -188,7 +196,23 @@
     var cap = Math.min(m.capacity_per_session || 1, m.people_max || 99);
     return state.slot ? Math.min(cap, state.slot.places_left) : cap;
   }
+  // Tickets: one stepper per price option (adult, child, or a pair that takes 2 places),
+  // sent to the Worker as units. state.people counts places.
+  function tickets() { var P = X().pricing === 'tickets' && state.meta && state.meta.prices; return P && P.length ? P : null; }
+  function tixTotal() { return tickets().reduce(function (t, p) { return t + (state.tix[p.key] || 0) * (p.seats_per_unit || 1); }, 0); }
   function renderParty() {
+    var T = tickets();
+    if (T) {
+      if (state.tixFor !== state.key) { state.tix = {}; T.forEach(function (p, i) { state.tix[p.key] = i ? 0 : 1; }); state.tixFor = state.key; }
+      list($('party'), T, '<div class="bp-row"><p class="bp-label"></p><div class="stepper" role="group"><button type="button" data-d="-1">&minus;</button><output aria-live="polite"></output><button type="button" data-d="1">+</button></div></div>').forEach(function (row, i) {
+        var p = T[i], b = row.querySelectorAll('button');
+        text(row.firstChild, p.label + ', ' + money(p.price_cents));
+        row.lastChild.setAttribute('aria-label', 'Number of ' + p.label);
+        b[0].setAttribute('aria-label', 'One fewer ' + p.label); b[1].setAttribute('aria-label', 'One more ' + p.label);
+        [].forEach.call(b, function (btn) { btn.onclick = function () { state.tix[p.key] = (state.tix[p.key] || 0) + +btn.dataset.d; render(); }; });
+      });
+      return;
+    }
     if (C.party.mode === 'pair') {
       $('party').innerHTML = '<div class="bp-block"><p class="bp-label" id="partyLabel"></p><div class="opt-list" role="group" aria-labelledby="partyLabel"></div></div>';
       text($('partyLabel'), C.party.label);
@@ -209,7 +233,18 @@
     }
   }
   function syncParty() {
-    var max = maxPeople();
+    var max = maxPeople(), T = tickets();
+    if (T) {
+      for (var i = T.length - 1; i >= 0; i--) while (tixTotal() > max && state.tix[T[i].key] > (i ? 0 : 1)) state.tix[T[i].key]--;
+      var n = state.people = tixTotal();
+      [].forEach.call($('party').children, function (row, i) {
+        var p = T[i], k = p.key, b = row.querySelectorAll('button'), spu = p.seats_per_unit || 1;
+        row.querySelector('output').textContent = state.tix[k];
+        b[0].disabled = state.tix[k] <= 0 || n - spu < 1;
+        b[1].disabled = n + spu > max || (p.units_max != null && state.tix[k] >= p.units_max);
+      });
+      return;
+    }
     state.people = Math.max(1, Math.min(state.people, max));
     if (C.party.mode === 'pair') {
       if (state.people < 2) state.pairPart = '';
@@ -235,6 +270,14 @@
       var f = priceOf('first'), e = priceOf('extra');
       return { units: { first: 1, extra: n - 1 }, total: f.price_cents + e.price_cents * (n - 1),
         lines: [[f.label, money(f.price_cents)]].concat(n > 1 ? [[e.label + ' × ' + (n - 1), money(e.price_cents * (n - 1))]] : []) };
+    }
+    if (x.pricing === 'tickets') {
+      var tu = {}, tl = [], tt = 0;
+      tickets().forEach(function (p) {
+        var c = state.tix[p.key] || 0; tu[p.key] = c;
+        if (c) { tt += p.price_cents * c; tl.push([p.label + (c > 1 ? ' × ' + c : ''), money(p.price_cents * c)]); }
+      });
+      return { units: tu, total: tt, lines: tl };
     }
     if (x.pricing === 'addons') {
       var bits = [];
@@ -277,7 +320,7 @@
     box.innerHTML = rows.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b></b><b></b></div>' + (qt.deposit ? '<div class="row later"></div>' : '');
     rows.forEach(function (r, i) { text(box.children[i].children[0], r[0]); text(box.children[i].children[1], r[1]); });
     var last = box.children[rows.length];
-    text(last.children[0], qt.deposit ? 'Deposit now (held, not charged)' : 'Total (held, not charged)');
+    text(last.children[0], NOCARD ? 'Total' : qt.deposit ? 'Deposit now (held, not charged)' : 'Total (held, not charged)');
     text(last.children[1], money(qt.deposit || qt.total));
     if (qt.deposit) text(box.lastChild, 'Balance ' + money(qt.balance) + ' due by ' + qt.due + '. We\'ll email you a link to pay it.');
   }
@@ -325,7 +368,7 @@
       var note = !open.length ? 'Full' : ss.length > 1 ? open.length + (open.length > 1 ? ' times' : ' time') + ' available' : clock(s0.time_local) + (s0.places_left <= 3 ? ', ' + s0.places_left + ' left' : '');
       var label = n > 1 ? range(s0.date_local, s0.end_date_local) : p.wd + ' ' + p.d + ' ' + p.mon;
       return '<button type="button" class="date-opt" data-d="' + d + '" aria-pressed="' + (state.date === d) + '" aria-label="' + label + ', ' + note + '"' + (open.length ? '' : ' disabled') + '>'
-        + '<span>' + label + '</span>' + (n > 1 ? '<small>' + n + ' days</small>' : '') + '<small>' + note + '</small></button>';
+        + '<span>' + label + '</span>' + (n > 1 ? '<small>' + span(s0) + '</small>' : '') + '<small>' + note + '</small></button>';
     }).join('');
     $('moreDates').hidden = byDate.length <= state.shown;
     state.byDate = seen;
@@ -342,13 +385,13 @@
   function pickSlot(s) {
     state.slot = s;
     var dur = s.date_local !== s.end_date_local && (state.meta.sessions_per_booking || 1) > 1
-      ? clock(s.time_local) + ' each day, ' + days(s.date_local, s.end_date_local) + ' days'
+      ? clock(s.time_local) + (/sessions/.test(span(s)) ? ' each session, ' : ' each day, ') + span(s)
       : clock(s.time_local) + ' to ' + clock(s.end_time_local);
     $('timesNote').textContent = range(s.date_local, s.end_date_local) + ', ' + dur + '.';
     showError($('err'), '');
     render();
   }
-  $('dates').addEventListener('click', function (e) {
+  if (!LINK) $('dates').addEventListener('click', function (e) {
     var b = e.target.closest('[data-d]'); if (!b || b.disabled) return;
     state.date = b.dataset.d; state.slot = null;
     [].forEach.call($('dates').children, function (x) { x.setAttribute('aria-pressed', x === b); });
@@ -356,16 +399,16 @@
     if (state.byDate[state.date].length === 1) { $('timesBlock').hidden = true; pickSlot(ss[0]); }
     else { $('timesNote').textContent = ''; renderTimes(); render(); }
   });
-  $('times').addEventListener('click', function (e) {
+  if (!LINK) $('times').addEventListener('click', function (e) {
     var b = e.target.closest('[data-i]'); if (!b || b.disabled) return;
     [].forEach.call($('times').children, function (x) { x.setAttribute('aria-pressed', x === b); });
     pickSlot(state.byDate[state.date][+b.dataset.i]);
   });
-  $('moreDates').onclick = function () { state.shown += 8; renderDates(); };
+  if (!LINK) $('moreDates').onclick = function () { state.shown += 8; renderDates(); };
 
   // ── Policy and how-it-works, from the business's own settings ──
   function cancelLine(policy) {
-    if (!policy || policy === 'ask the business') return 'Ask the business about cancellation before you book.';
+    if (!policy || policy === 'ask the business') return 'Ask the business about cancellation before you book. [TO CONFIRM: their cancellation policy]';
     if (policy.text) return policy.text;
     var tiers = policy.tiers.slice().sort(function (a, b) { return b.hours_before - a.hours_before; });
     var lines = tiers.map(function (t, i) {
@@ -377,7 +420,7 @@
   }
   function howSteps(m) {
     var steps = [
-      ['Choose, then add your details', 'Then add your card on a secure Stripe page. It\'s held, not charged.'],
+      ['Choose, then add your details', NOCARD ? 'In a live booking you then add your card on a secure Stripe page. It\'s held, not charged. This demo skips that step.' : 'Then add your card on a secure Stripe page. It\'s held, not charged.'],
       [BIZ + ' confirms within ' + m.response_hours + ' hours', 'Once they confirm, the payment is taken. If they can\'t, the hold is released and you\'re not charged.'],
       ['Turn up on the day', 'Everything you need to know is in your confirmation email.']
     ];
@@ -386,6 +429,26 @@
       text(li.querySelector('.n'), i + 1); text(li.querySelector('b'), steps[i][0]); text(li.querySelector('.prose'), steps[i][1]);
     });
   }
+
+  // ── Listing only: the Book button links out ──
+  function linkPanel() {
+    var x = X(), a = $('bookingCta'), o = C.options.filter(function (y) { return y.experience === state.key; })[0];
+    a.hidden = !x.book_url;
+    if (x.book_url) a.href = x.book_url;
+    rich($('linkNote'), x.book_url ? 'Opens their own booking page in a new tab.' : (x.book_note || 'Ask ' + BIZ + ' to book.') + (C.contact ? ' ' + C.contact : ''));
+    var sp = $('stickyPrice');
+    if (sp.dataset.fixed) sp.textContent = sp.dataset.fixed; else rich(sp, o && o.sub ? o.sub : '');
+    rich($('policy'), C.cancellation || cancelLine('ask the business'));
+    var steps = [
+      ['Choose an experience', 'See what\'s on, what\'s included and what to bring, here.'],
+      ['Book on their website', 'Dates, payment and any changes are handled there.'],
+      ['Turn up on the day', 'Their confirmation tells you where to go and what to bring.']
+    ];
+    list($('howSteps'), steps, '<li><span class="n"></span><span><b></b><span class="prose" style="display:block;"></span></span></li>').forEach(function (li, i) {
+      text(li.querySelector('.n'), i + 1); text(li.querySelector('b'), steps[i][0]); text(li.querySelector('.prose'), steps[i][1]);
+    });
+  }
+  if (LINK) $('bookingCta').addEventListener('click', function () { track('book_click'); });
 
   function loadDates() {
     var seq = ++state.loadSeq, key = state.key;
@@ -397,7 +460,7 @@
       if (seq !== state.loadSeq) return;
       if (r.status !== 200) { $('dates').innerHTML = ''; showError($('err'), r.body.message || 'Dates could not be loaded.'); return; }
       var m = state.meta = r.body; state.slots = m.slots;
-      $('stickyPrice').textContent = $('stickyPrice').dataset.fixed || ('From ' + money(m.price_cents));
+      $('stickyPrice').textContent = $('stickyPrice').dataset.fixed || ('From ' + money(X().pricing === 'tickets' && (m.prices || []).length ? Math.min.apply(null, m.prices.map(function (p) { return p.price_cents; })) : m.price_cents));
       rich($('policy'), cancelLine(m.cancellation_policy));
       $('policyHold').textContent = 'Your card is held, not charged, until ' + BIZ + ' confirms, within ' + m.response_hours + ' hours. If they can\'t confirm, the hold is released.';
       rich($('policyCancel'), cancelLine(m.cancellation_policy));
@@ -500,7 +563,7 @@
     if (needsConsent()) flag('consent', $('consent').checked ? '' : 'A parent or guardian needs to consent for anyone under 18');
     return first;
   }
-  FIELDS.forEach(function (f) {
+  if (!LINK) FIELDS.forEach(function (f) {
     $(f[0]).addEventListener('input', function () { if ($('f-' + f[0]).classList.contains('has-error') && !f[1]($(f[0]).value.trim())) setFieldError(f[0], ''); });
   });
   function composed() {
@@ -524,7 +587,7 @@
     showError($('err'), '');
     if (n === 2) $('name').focus(); else $('bookingCta').focus();
   }
-  $('bookingCta').onclick = function () {
+  if (!LINK) $('bookingCta').onclick = function () {
     if (!state.slot) return;
     // Chip questions (e.g. riding experience) are needed before step 2.
     var missing = null;
@@ -539,7 +602,7 @@
     renderStep2();
     step(2);
   };
-  $('change').onclick = function () { step(1); };
+  if (!LINK) $('change').onclick = function () { step(1); };
 
   function idem(body) {
     var f = JSON.stringify([body.experience, body.starts_at, body.party_size, body.units, body.customer, body.screening_answers]);
@@ -547,7 +610,7 @@
     return state.idemKey;
   }
   var sending = false;
-  $('step2').addEventListener('submit', function (e) {
+  if (!LINK) $('step2').addEventListener('submit', function (e) {
     e.preventDefault();
     if (sending) return;
     var first = checkFields();
@@ -560,7 +623,7 @@
     Object.keys(state.answers).forEach(function (k) { body.screening_answers[k] = state.answers[k]; });
     (state.questions || []).forEach(function (x, i) { body.screening_answers[x.key] = answer(i); });
     body.idempotency_key = idem(body);
-    sending = true; $('requestBtn').textContent = 'Taking you to payment...';
+    sending = true; $('requestBtn').textContent = NOCARD ? 'Sending...' : 'Taking you to payment...';
     showError($('err'), '');
     api('POST', '/requests', body).then(function (r) {
       if (r.body.checkout_url) {
@@ -573,10 +636,10 @@
         } catch (e2) {}
         location.href = r.body.checkout_url; return;
       }
-      sending = false; $('requestBtn').textContent = 'Continue to payment';
+      sending = false; $('requestBtn').textContent = NOCARD ? 'Send request' : 'Continue to payment';
       if (r.status === 409) { state.slot = null; step(1); loadDates(); }
       showError($('err'), r.body.message || 'Something went wrong. Please try again.');
-    }).catch(function () { sending = false; $('requestBtn').textContent = 'Continue to payment'; showError($('err'), 'The booking service is not reachable right now.'); });
+    }).catch(function () { sending = false; $('requestBtn').textContent = NOCARD ? 'Send request' : 'Continue to payment'; showError($('err'), 'The booking service is not reachable right now.'); });
   });
 
   // ── After Stripe, and the business's side ──
@@ -587,7 +650,7 @@
   }
   var result = q.get('result'), ref = q.get('ref');
   if (result === 'requested' && ref) {
-    done('Reference ' + ref, 'Request sent', 'Your card is held, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.');
+    done('Reference ' + ref, 'Request sent', NOCARD ? 'Demo booking, so no card was taken. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.' : 'Your card is held, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.');
     booked(ref);
     var once = 'th_done_' + ref, fresh = true;
     try { fresh = !sessionStorage.getItem(once); sessionStorage.setItem(once, '1'); } catch (e) {}
@@ -663,7 +726,7 @@
       $('reqBox').children[0].children[0].style.fontWeight = '600';
       if (b.status === 'requested') {
         $('respActions').hidden = false;
-        $('respNote').textContent = 'Their card is held. Accept to take the ' + (b.payment_plan === 'deposit' ? 'deposit' : 'payment') + ', or decline to release the hold. If nobody answers, it\'s released automatically.';
+        $('respNote').textContent = NOCARD ? 'Demo booking, so no card is held. Accept or decline: the customer is told either way. If nobody answers, it\'s released automatically.' : 'Their card is held. Accept to take the ' + (b.payment_plan === 'deposit' ? 'deposit' : 'payment') + ', or decline to release the hold. If nobody answers, it\'s released automatically.';
       } else respDone(b.status, b.payment_plan, balToken);
       document.querySelectorAll('#respActions [data-act]').forEach(function (btn) {
         btn.onclick = function () {
@@ -678,7 +741,9 @@
   }
   function respDone(status, plan, balToken) {
     var dep = plan === 'deposit';
-    $('respNote').textContent = status === 'confirmed' ? 'Accepted. The ' + (dep ? 'deposit' : 'payment') + ' has been taken (test mode) and the customer is told.'
+    $('respNote').textContent = NOCARD && status === 'confirmed' ? 'Accepted. The customer is told. (Demo: no card, so no payment is taken.)'
+      : NOCARD && status === 'declined' ? 'Declined. The customer is told. (Demo: no card was taken.)'
+      : status === 'confirmed' ? 'Accepted. The ' + (dep ? 'deposit' : 'payment') + ' has been taken (test mode) and the customer is told.'
       : status === 'declined' ? 'Declined. The hold on their card is released and they aren\'t charged.'
       : 'This request is ' + status.replace(/_/g, ' ') + '.';
     if (status === 'confirmed' && dep && balToken && $('bizDemoBox')) {
@@ -721,5 +786,5 @@
   if ($('stickyPrice').textContent.trim()) $('stickyPrice').dataset.fixed = $('stickyPrice').textContent.trim();
   renderChoices();
   staticContent();
-  loadDates();
+  if (LINK) linkPanel(); else loadDates();
 })();

@@ -175,7 +175,7 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 /* Filter group labels (Location / Experience) */
 .filter-group-label{display:block;margin:0 0 var(--s-2)}
 .filter-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--s-6)}
-.filter-row .filter-group{min-width:0}
+.filter-row .filter-group{min-width:0;max-width:100%}
 @media (max-width:820px){
   .filter-row{flex-direction:column;gap:var(--s-5)}
 }

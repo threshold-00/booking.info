@@ -23,7 +23,7 @@ const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').
 const tbc = (s) => esc(s).replace(/\[(TO CONFIRM|PERMISSION NEEDED)[^\]]*\]/g, (m) => `<span class="tbc">${m}</span>`);
 const imgUrl = (src, w) => `${src}?fm=jpg&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=${w}`;
 const utm = (u) => `${u}?utm_source=threshold&amp;utm_medium=referral`;
-const MODES = ['sandbox', 'live', 'off'];
+const MODES = ['sandbox', 'demo', 'link', 'live', 'off'];
 
 // {age_min:<experience>} in page copy comes from that experience's age_min, so the
 // number lives in one place in the data file.
@@ -150,11 +150,38 @@ const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28
 `;
 
 // The black demo banner (design system 6.18). Sandbox: names the business and
-// picks out the Stripe test card.
+// picks out the Stripe test card. Demo: the full flow with no card (the Worker skips
+// Checkout for a demo business with no Stripe test account).
 function bannerFor(b) {
-  return (b.booking_mode ?? 'off') === 'sandbox'
-    ? `<div class="demo-strip demo-strip--sandbox" role="note">Demo page for ${esc(b.name)}. Test booking: card <span class="demo-strip__card">4242 4242 4242 4242</span>, any future date, any CVC.</div>`
-    : '<div class="demo-strip" role="note">Demo. Not live yet. Bookings are not taken.</div>';
+  const mode = b.booking_mode ?? 'off';
+  if (mode === 'sandbox') return `<div class="demo-strip demo-strip--sandbox" role="note">Demo page for ${esc(b.name)}. Test booking: card <span class="demo-strip__card">4242 4242 4242 4242</span>, any future date, any CVC.</div>`;
+  if (mode === 'demo') return `<div class="demo-strip" role="note">Demo page for ${esc(b.name)}. Not live yet. Try a booking: no card needed, nothing is charged.</div>`;
+  if (mode === 'link') return `<div class="demo-strip" role="note">Demo page for ${esc(b.name)}. Not live yet. Book buttons go to the business's own website.</div>`;
+  return '<div class="demo-strip" role="note">Demo. Not live yet. Bookings are not taken.</div>';
+}
+
+// booking_mode "link" (listing only, briefs/demo-data-batch2-2026-10-21.md): the
+// panel lists the experiences and its Book button goes to the business's own
+// booking page (the experience's external_book_url, or page.book_url). No dates,
+// no payment, nothing held. The Worker is used only to count demo traffic.
+function linkPanel(b, p, askOnly) {
+  return `<div id="bpForm">
+        <div id="step1">
+          <div class="bp-block" style="margin-top:0;">
+            <p class="bp-label">${esc(p.choose_label)}</p>
+            <div class="opt-list" id="choices" role="group" aria-label="${esc(p.choose_label)}"></div>
+            <p class="bp-lead" id="panelLead" hidden></p>
+          </div>
+          <p class="bp-note" id="datesNote" style="margin-top:var(--s-3);"></p>
+          <ul class="bp-notes" id="notes"></ul>
+          <div class="bp-decision">
+            <a class="btn" id="bookingCta" href="#" target="_blank" rel="noopener">Book on their website</a>
+          </div>
+          <p class="bp-note" id="linkNote" style="margin-top:var(--s-2);"></p>
+        </div>
+        <p class="bp-error" id="err" hidden></p>
+        ${askOnly}
+      </div>`;
 }
 
 function page(d) {
@@ -169,7 +196,10 @@ function page(d) {
   const banner = bannerFor(b);
   // Good to know lives on the business layer's experience (the Worker emails it too).
   const experiences = Object.fromEntries(
-    Object.entries(p.experiences).map(([k, x]) => [k, { ...x, good_to_know: d.experiences.find((e) => e.key === k)?.good_to_know ?? [] }]),
+    Object.entries(p.experiences).map(([k, x]) => {
+      const e = d.experiences.find((y) => y.key === k);
+      return [k, { ...x, good_to_know: e?.good_to_know ?? [], ...(mode === 'link' ? { book_url: e?.external_book_url ?? p.book_url ?? null } : {}) }];
+    }),
   );
   const config = {
     slug,
@@ -184,7 +214,13 @@ function page(d) {
     riders: p.riders ?? null,
     pickup: p.pickup ?? null,
     price_basis: p.price_basis ?? null,
+    ...(mode === 'link' ? { cancellation: b.cancellation_policy?.text ?? null, contact: p.contact ?? null } : {}),
   };
+  if (mode === 'link') {
+    for (const [k, x] of Object.entries(experiences)) {
+      if (x.book_url && !/^https:\/\//.test(x.book_url)) throw new Error(`${slug}: ${k} book link must be https`);
+    }
+  }
   const json = JSON.stringify(config).replace(/</g, '\\u003c');
   const askOnly = (p.ask_only ?? []).length
     ? `<div class="bp-ask">
@@ -347,7 +383,7 @@ ${HEADER}<main id="main">
     </div>
 
     <aside class="booking-panel" id="book" aria-label="Book">
-      <div id="bpForm">
+      ${mode === 'link' ? linkPanel(b, p, askOnly) : `<div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
             <p class="bp-label">${esc(p.choose_label)}</p>
@@ -403,8 +439,8 @@ ${HEADER}<main id="main">
           <div id="riders"></div>
           <div id="questions"></div>
           <div class="bp-summary" id="summary" aria-live="polite"></div>
-          <button type="submit" class="btn" id="requestBtn">Continue to payment</button>
-          <p class="bp-under">Next, add your card. It's held, not charged.</p>
+          <button type="submit" class="btn" id="requestBtn">${mode === 'demo' ? 'Send request' : 'Continue to payment'}</button>
+          <p class="bp-under">${mode === 'demo' ? "Demo: the card step is skipped. In a live booking you'd add your card next, held, not charged." : "Next, add your card. It's held, not charged."}</p>
 
           <div class="bp-policy">
             <p id="policyHold"></p>
@@ -441,7 +477,7 @@ ${HEADER}<main id="main">
         <p class="bp-note" id="respNote" style="margin-top:var(--s-3);"></p>
         <p class="bp-error" id="respErr" hidden></p>
         <div class="demo-box" id="bizDemoBox" hidden></div>
-      </div>
+      </div>`}
     </aside>
 
     <div class="detail-content">
@@ -487,7 +523,7 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
   <span class="t-small" id="stickyPrice">${esc(p.sticky_price ?? '')}</span>
-  <a href="#book" class="btn">Choose a date</a>
+  <a href="#book" class="btn">${mode === 'link' ? 'Book' : 'Choose a date'}</a>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
 <script src="/assets/demo-booking.js"></script>
