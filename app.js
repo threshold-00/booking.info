@@ -337,6 +337,122 @@ var exploreMap = (function () {
   };
 })();
 
+// Site-styled dropdowns for the Experiences filters (Location, Duration). The real
+// <select> stays in the page, hidden, and still fires "change", so the filters and the
+// URL work as before; a button and a listbox in the site's style sit on top. Setting
+// select.value from code updates the button too. Phones (coarse pointers) keep the
+// built-in picker, which is easier to use there.
+(function () {
+  if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
+  var selects = [].slice.call(document.querySelectorAll('#browse select.location-select'));
+  var desc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+  var openOne = null;
+
+  selects.forEach(function (select, n) {
+    var wrap = document.createElement('div'), btn = document.createElement('button'), list = document.createElement('ul');
+    var label = document.querySelector('label[for="' + select.id + '"]');
+    var id = select.id + 'Menu', active = -1;
+    wrap.className = 'th-select';
+    btn.type = 'button';
+    btn.id = select.id + 'Button';
+    btn.className = select.className + ' th-select__button';
+    btn.setAttribute('aria-haspopup', 'listbox');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', id);
+    list.className = 'th-select__list';
+    list.id = id;
+    list.setAttribute('role', 'listbox');
+    list.tabIndex = -1;
+    list.hidden = true;
+    if (label) {
+      if (!label.id) label.id = select.id + 'Label';
+      label.htmlFor = btn.id;
+      btn.setAttribute('aria-labelledby', label.id + ' ' + btn.id);
+      list.setAttribute('aria-labelledby', label.id);
+    }
+    var opts = [].map.call(select.options, function (o, i) {
+      var li = document.createElement('li');
+      li.id = id + '-' + i;
+      li.setAttribute('role', 'option');
+      li.textContent = o.textContent;
+      li.addEventListener('mousedown', function (e) { e.preventDefault(); });
+      li.addEventListener('click', function () { choose(i); });
+      li.addEventListener('mousemove', function () { highlight(i); });
+      list.appendChild(li);
+      return li;
+    });
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(select);
+    wrap.appendChild(btn);
+    wrap.appendChild(list);
+    select.classList.add('th-select__native');
+    select.tabIndex = -1;
+    select.setAttribute('aria-hidden', 'true');
+
+    function sync() {
+      var i = select.selectedIndex;
+      btn.textContent = select.options[i] ? select.options[i].textContent : '';
+      opts.forEach(function (li, k) { li.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    }
+    // Keep the button in step when the filters set the value from code.
+    Object.defineProperty(select, 'value', {
+      get: function () { return desc.get.call(select); },
+      set: function (v) { desc.set.call(select, v); sync(); }
+    });
+    select.addEventListener('change', sync);
+
+    function highlight(i) {
+      active = i;
+      opts.forEach(function (li, k) { li.classList.toggle('is-active', k === i); });
+      if (i >= 0) { list.setAttribute('aria-activedescendant', opts[i].id); opts[i].scrollIntoView({ block: 'nearest' }); }
+    }
+    function open() {
+      if (openOne && openOne !== close) openOne();
+      list.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      highlight(select.selectedIndex);
+      list.focus();
+      openOne = close;
+    }
+    function close(refocus) {
+      if (list.hidden) return;
+      list.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      if (refocus) btn.focus();
+      if (openOne === close) openOne = null;
+    }
+    function choose(i) {
+      var changed = i !== select.selectedIndex;
+      desc.set.call(select, select.options[i].value);
+      sync();
+      close(true);
+      if (changed) select.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    btn.addEventListener('click', function () { if (list.hidden) open(); else close(true); });
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); }
+    });
+    var typed = '', typedAt = 0;
+    list.addEventListener('keydown', function (e) {
+      var last = opts.length - 1;
+      if (e.key === 'ArrowDown') { e.preventDefault(); highlight(Math.min(last, active + 1)); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(Math.max(0, active - 1)); }
+      else if (e.key === 'Home') { e.preventDefault(); highlight(0); }
+      else if (e.key === 'End') { e.preventDefault(); highlight(last); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (active >= 0) choose(active); }
+      else if (e.key === 'Escape') { e.preventDefault(); close(true); }
+      else if (e.key === 'Tab') { close(false); }
+      else if (e.key.length === 1) {
+        typed = (Date.now() - typedAt > 600 ? '' : typed) + e.key.toLowerCase(); typedAt = Date.now();
+        for (var k = 0; k < opts.length; k++) if (opts[k].textContent.toLowerCase().indexOf(typed) === 0) { highlight(k); break; }
+      }
+    });
+    list.addEventListener('blur', function () { setTimeout(function () { if (!wrap.contains(document.activeElement)) close(false); }, 0); });
+    document.addEventListener('mousedown', function (e) { if (!wrap.contains(e.target)) close(false); });
+    sync();
+  });
+})();
+
 // Homepage browse (#browse): Location and Duration dropdowns, category chips, horse
 // sub-chips and the Grid / Map tabs. Filters the experience cards in place with AND
 // logic (location AND duration AND category AND sub-type), never navigates, and keeps

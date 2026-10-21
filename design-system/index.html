@@ -241,6 +241,19 @@
 
       <p class="ds-section__intro">.filter-row (6.25): the Experiences filters sit on the card grid, four columns with the cards&#39; 20px gutter. Type runs across the top, with its sub-chips under it; under that, Location is column 1 and Duration column 2. From 821 to 1100px Location and Duration take half each; on phones everything stacks. Controls are 32px tall with a 1px --line-ui border, --paper fill, 12px side padding and 11px text, and sub-chips are 28px. On phones chips are 36px and selects 40px with 16px text, so iOS doesn&#39;t zoom. Labels sit 8px above. Spacing: title row to Type 32px, Type to Location 24px, filters to the count line 40px, count line to cards 16px. Duration buckets: 60 minutes or less; 61 to 300 minutes; over 300 on one day; two days or more. Each experience&#39;s durationMinutes (and durationDays) lives in its data file, and tools/card-durations.mjs copies it onto the homepage cards.</p>
 
+      <h3 class="t-title">Dropdown menu</h3>
+      <p class="ds-section__intro">.th-select (6.30): the Experiences filters on desktop. The button is the select pill; the menu is a paper panel with 14px corners and mono caps options, with a check on the chosen one and a light tint on the one under the pointer or keyboard. Arrow keys, Home and End, Enter, Escape and type-to-jump all work. The real select stays underneath, so the filters and the address work the same. Phones keep the built-in picker.</p>
+      <div style="position:relative;width:250px;height:190px;margin-bottom:var(--s-6);">
+        <div class="th-select">
+          <button type="button" class="select th-select__button" aria-haspopup="listbox" aria-expanded="true" style="width:100%;">All locations</button>
+          <ul class="th-select__list" role="listbox" aria-label="Location (example)">
+            <li role="option" aria-selected="true" class="is-active">All locations</li>
+            <li role="option" aria-selected="false">Victoria</li>
+            <li role="option" aria-selected="false">Bali</li>
+          </ul>
+        </div>
+      </div>
+
       <h3 class="t-title">Inputs</h3>
       <form id="lead" style="display:grid;gap:var(--s-4);max-width:480px;margin-bottom:var(--s-6);">
         <div class="field"><label for="ds-name">Name (required)</label><input id="ds-name" name="name" autocomplete="name" /></div>
