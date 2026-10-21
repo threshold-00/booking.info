@@ -80,4 +80,5 @@ Free to join. From Saturday 1 May 2027, businesses pay a 12% fee, including GST,
 1. Make the targeted edit.
 2. Preview at http://localhost:3000 and confirm at desktop and under 820px.
 3. Show Ro a summary of what changed.
-4. Commit and push only after Ro approves. Pushing is what publishes the change.
+4. If `styles.css`, `app.js` or any shared file in `assets/` (detail.js, demo-booking.js, tokens.css, components.css, booking/) changed, run `node tools/stamp-assets.mjs`. It adds `?v=<hash>` to every reference so browsers fetch the new file instead of a cached one.
+5. Commit and push only after Ro approves. Pushing is what publishes the change.

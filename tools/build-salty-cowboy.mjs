@@ -98,7 +98,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="${base}styles.css" />
+<link rel="stylesheet" href="${base}styles.css?v=9bb3b8a3" />
 <link rel="canonical" href="https://thresholdbooking.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -442,8 +442,8 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js"></script>
-<script src="${base}assets/detail.js" defer></script>
+<script src="${base}app.js?v=f2e3154c"></script>
+<script src="${base}assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
 `;
@@ -503,7 +503,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js"></script>
+<script src="${base}app.js?v=f2e3154c"></script>
 </body>
 </html>
 `;
