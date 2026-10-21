@@ -274,8 +274,8 @@ function page(d) {
   .bp-lead{margin:var(--s-3) 0 0;font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink)}
 
   /* Option, date and time buttons: square (Ro, 21 Oct 2026). The experience and date
-     lists are full-width rows, name on the left and details on the right, each on
-     one line. Short choices (times, chips, add-ons) stay two up, stacked and centred. */
+     lists are full-width rows, name on the left and details on the right, on one
+     line when they fit. Short choices (times, chips, add-ons) stay two up, stacked and centred. */
   .opt-list,.date-list,.time-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
   #choices,.date-list{grid-template-columns:1fr;gap:var(--s-3)}
   .opt-list > p,.date-list > p{grid-column:1 / -1}
@@ -283,6 +283,11 @@ function page(d) {
   #choices .opt,.date-list .date-opt{flex-direction:row;justify-content:space-between;gap:var(--s-2);padding:var(--s-3) var(--s-4) var(--s-3) var(--s-3);text-align:left}
   #choices .opt > *,.date-list .date-opt > *{white-space:nowrap}
   #choices .opt > small,.date-list .date-opt > small:first-of-type{margin-left:auto}
+  /* A row that still doesn't fit wraps instead of running out of the box. A date range
+     (a course or a multi-day booking) is always two lines: dates, then sessions and time. */
+  #choices .opt,.date-list .date-opt{flex-wrap:wrap;row-gap:4px}
+  .date-list .date-opt--range{flex-direction:column;align-items:flex-start;justify-content:center}
+  .date-opt__meta{display:flex;flex-wrap:wrap;gap:4px var(--s-3)}
   .opt small,.date-opt small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
   .opt small:empty{display:none}
   .opt--chip{min-height:44px}

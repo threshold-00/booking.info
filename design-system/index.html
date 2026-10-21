@@ -200,6 +200,15 @@
         </div>
       </div>
 
+      <h3 class="t-title">View tabs</h3>
+      <p class="ds-section__intro">.view-tabs (6.24): Grid and Map in the Experiences header, right-aligned on desktop and full width under the filters on phones. Selected is filled ink, unselected is outlined, 44px tall, with a 16px icon before the label. role=tablist, tab and tabpanel, aria-selected, arrow keys, Home and End. The view goes in the address as ?view=map.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Grid selected</span><div class="view-tabs" role="tablist" aria-label="View (example)"><button type="button" class="view-tab" role="tab" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button><button type="button" class="view-tab" role="tab" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button></div></div>
+        <div><span class="ds-state-label">Map selected</span><div class="view-tabs" role="tablist" aria-label="View (example 2)"><button type="button" class="view-tab" role="tab" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button><button type="button" class="view-tab" role="tab" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button></div></div>
+        <div><span class="ds-state-label">Hover</span><button type="button" class="view-tab is-hover" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button></div>
+        <div><span class="ds-state-label">Focus-visible</span><button type="button" class="view-tab" aria-hidden="true" tabindex="-1" style="outline:var(--bw-strong) solid var(--focus);outline-offset:var(--focus-offset);"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button></div>
+      </div>
+
       <h3 class="t-title">Selects</h3>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
         <div><span class="ds-state-label">Location</span>
@@ -208,6 +217,16 @@
             <option value="">All locations</option>
             <option value="mornington">Victoria</option>
             <option value="bali">Bali</option>
+          </select>
+        </div>
+        <div><span class="ds-state-label">Duration</span>
+          <label class="sr-only" for="ds-duration">Duration</label>
+          <select id="ds-duration" class="select">
+            <option value="">Any duration</option>
+            <option value="1h">1 hour or less</option>
+            <option value="1-5h">1 to 5 hours</option>
+            <option value="full-day">Full day</option>
+            <option value="multi-day">Multi-day</option>
           </select>
         </div>
         <div><span class="ds-state-label">Currency</span>
@@ -219,6 +238,8 @@
           </select>
         </div>
       </div>
+
+      <p class="ds-section__intro">.filter-pair (6.25): Location and Duration are the same .select. They sit next to each other on desktop. On phones they go side by side only if both fit at full size, otherwise they stack, 44px tall with 16px text. Duration buckets: 60 minutes or less; 61 to 300 minutes; over 300 on one day; two days or more. Each experience's durationMinutes (and durationDays) lives in its data file, and tools/card-durations.mjs copies it onto the homepage cards.</p>
 
       <h3 class="t-title">Inputs</h3>
       <form id="lead" style="display:grid;gap:var(--s-4);max-width:480px;margin-bottom:var(--s-6);">
@@ -407,6 +428,62 @@
       <div class="map-frame" style="max-width:480px;margin-bottom:var(--s-6);">
         <div class="map-frame__zoom"><button class="btn--icon" aria-label="Zoom in">+</button><button class="btn--icon" aria-label="Zoom out">&minus;</button></div>
       </div>
+
+      <h3 class="t-title">Map popup card</h3>
+      <p class="ds-section__intro">.map-card (6.26): one experience at a time, about 300px wide on desktop. Full-bleed 16:9 photo, title in Neue Haas sentence case, the place in grey mono caps, then the price row from the cards. The whole card is one link. A business with more than one matching experience gets arrows and a "1 / N" counter. The close button is a 44px target on a paper circle over the photo. The active pin turns green and scales up 1.3 times.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--s-6);align-items:flex-start;margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Several experiences</span>
+          <div class="map-card">
+            <a class="map-card__link" href="#"><div class="map-card__media"><img src="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.webp" alt="" /></div><div class="map-card__body"><p class="map-card__title">E-bike the O'Keefe Rail Trail from Heathcote</p><p class="map-card__place">Heathcote</p><p class="card__price">From $25 AUD</p></div></a>
+            <div class="map-card__nav"><button type="button" class="map-card__arrow" aria-label="Previous experience">&lsaquo;</button><span class="map-card__count">1 / 2</span><button type="button" class="map-card__arrow" aria-label="Next experience">&rsaquo;</button></div>
+            <button type="button" class="map-card__close" aria-label="Close"><span>&times;</span></button>
+          </div>
+        </div>
+        <div><span class="ds-state-label">One experience</span>
+          <div class="map-card">
+            <a class="map-card__link" href="#"><div class="map-card__media"><img src="/assets/img/demo/gordon-studio/hot-shop-800.webp" alt="" /></div><div class="map-card__body"><p class="map-card__title">Blow your own glass in a family hot shop</p><p class="map-card__place">Red Hill</p><p class="card__price">From $500 AUD</p></div></a>
+            <button type="button" class="map-card__close" aria-label="Close"><span>&times;</span></button>
+          </div>
+        </div>
+        <div><span class="ds-state-label">Pin, active</span>
+          <div style="display:flex;gap:var(--s-5);align-items:flex-end;padding:var(--s-4);">
+            <svg viewBox="0 0 28 36" width="28" height="36" aria-hidden="true" style="color:var(--ink);"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>
+            <svg class="map-pin--active" viewBox="0 0 28 36" width="28" height="36" aria-hidden="true"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="t-title">Bottom sheet</h3>
+      <p class="ds-section__intro">.bottom-sheet (6.27): the map card at 820px and under, fixed to the bottom of the screen (up to 480px wide) so the pins stay in view. The map moves so the chosen pin sits above it. It closes on the &times;, Escape, a tap on the map, or scrolling the map away. Shown here in place, not fixed.</p>
+      <div style="position:relative;max-width:390px;height:420px;margin-bottom:var(--s-6);border:var(--bw) solid var(--line);background:var(--panel);overflow:hidden;">
+        <div class="bottom-sheet" style="position:absolute;">
+          <div class="map-card">
+            <a class="map-card__link" href="#"><div class="map-card__media"><img src="/assets/img/demo/heathcote-bike-hire/vineyard-800.webp" alt="" /></div><div class="map-card__body"><p class="map-card__title">A full day on an e-bike in Heathcote wine country</p><p class="map-card__place">Heathcote</p><p class="card__price">From $200 AUD</p></div></a>
+            <div class="map-card__nav"><button type="button" class="map-card__arrow" aria-label="Previous experience">&lsaquo;</button><span class="map-card__count">2 / 2</span><button type="button" class="map-card__arrow" aria-label="Next experience">&rsaquo;</button></div>
+            <button type="button" class="map-card__close" aria-label="Close"><span>&times;</span></button>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="t-title">Empty state</h3>
+      <p class="ds-section__intro">.empty-state (6.28): when no experience matches, in Grid or Map. One line and a Clear filters link, which resets Location, Duration and Type.</p>
+      <div class="empty-state" style="max-width:640px;margin-bottom:var(--s-6);">
+        <p>No experiences match. Try another duration or location.</p>
+        <button type="button" class="link-btn">Clear filters</button>
+      </div>
+
+      <h3 class="t-title">Comparison table</h3>
+      <p class="ds-section__intro">.compare-table (6.29), on /for-business/ only. A real table with a caption and column and row headers. Threshold's row comes first, on --table-highlight, with its name and rate in 600, and nothing else coloured. .compare-note is the footnote. Under 768px each platform is a stacked card with mono caps labels, and nothing scrolls sideways (the phone frame below shows it).</p>
+      <table class="compare-table" role="table" style="margin-bottom:0;">
+        <caption class="sr-only">Commission compared (example)</caption>
+        <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader"><span class="sr-only">Platform</span></th><th scope="col" role="columnheader">Commission</th><th scope="col" role="columnheader">Card fees</th><th scope="col" role="columnheader">Monthly fee</th></tr></thead>
+        <tbody role="rowgroup">
+          <tr role="row" class="compare-table__ours"><th scope="row" role="rowheader">Threshold</th><td role="cell" data-label="Commission"><span><strong>12%</strong>, GST included. Only on bookings made through Threshold.</span></td><td role="cell" data-label="Card fees">Included</td><td role="cell" data-label="Monthly fee">None</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Another platform</th><td role="cell" data-label="Commission">Typically 20%</td><td role="cell" data-label="Card fees">Not stated</td><td role="cell" data-label="Monthly fee">None</td></tr>
+        </tbody>
+      </table>
+      <p class="compare-note" style="margin-bottom:var(--s-5);">Footnote: small grey body text, where the figures come from and when they were checked.</p>
+      <iframe src="/for-business/#pricing" title="Comparison table on a phone" width="375" height="760" loading="lazy" style="display:block;max-width:100%;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);"></iframe>
 
       <h3 class="t-title">Banner</h3>
       <div class="banner" style="margin-bottom:var(--s-2);" role="note">Salty Cowboy is approved, live and bookable.</div>

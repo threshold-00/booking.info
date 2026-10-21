@@ -184,11 +184,16 @@
   </section>
 
     <section id="browse" class="container" style="padding-top:72px;padding-bottom:88px;">
-    <div style="margin-bottom:24px;">
-      <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:0;margin:0;">Experiences</h2>
+    <div class="browse-head">
+    <h2 class="browse-title" style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:0;margin:0;">Experiences</h2>
+
+    <div class="view-tabs" role="tablist" aria-label="View">
+      <button type="button" class="opt view-tab" role="tab" id="tabGrid" aria-controls="panelGrid" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button>
+      <button type="button" class="opt view-tab" role="tab" id="tabMap" aria-controls="panelMap" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button>
     </div>
 
     <div class="filter-row">
+    <div class="filter-pair">
     <div class="filter-group">
       <label class="t-label filter-group-label" for="locationSelect" id="locationLabel">Location</label>
       <span class="select-wrap"><select id="locationSelect" class="location-select">
@@ -196,6 +201,18 @@
         <option value="mornington">Victoria</option>
         <option value="bali">Bali</option>
       </select></span>
+    </div>
+
+    <div class="filter-group">
+      <label class="t-label filter-group-label" for="durationSelect" id="durationLabel">Duration</label>
+      <span class="select-wrap"><select id="durationSelect" class="location-select">
+        <option value="">Any duration</option>
+        <option value="1h">1 hour or less</option>
+        <option value="1-5h">1 to 5 hours</option>
+        <option value="full-day">Full day</option>
+        <option value="multi-day">Multi-day</option>
+      </select></span>
+    </div>
     </div>
 
     <div class="filter-group">
@@ -219,14 +236,21 @@
       <button type="button" class="opt sub-chip" aria-pressed="false" data-type="photoshoots" style="font-size:11px;">Photoshoots (4)</button>
       <button type="button" class="opt sub-chip" aria-pressed="false" data-type="lessons" style="font-size:11px;">Lessons (5)</button>
     </div>
+    </div>
 
     <h2 id="browseCount" aria-live="polite" style="margin:var(--s-6) 0 var(--s-4);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400;"></h2>
 
+    <div id="browseEmpty" class="empty-state" hidden>
+      <p>No experiences match. Try another duration or location.</p>
+      <button type="button" id="clearFilters" class="link-btn">Clear filters</button>
+    </div>
+
+    <div id="panelGrid" role="tabpanel" aria-labelledby="tabGrid">
     <div id="browseDefault">
       <div class="browse-group">
         <div class="card-row" data-mobile-cap id="browseDefaultRow">
         <!-- Demo: Gordon Studio Glassblowers, Stripe test mode, unlisted page (Ro, 21 Oct 2026) -->
-        <a class="card demo-card" href="/demo/b/gordon-studio/?x=hands-on" aria-label="Demo: Blow your own glass in a family hot shop, Gordon Studio Glassblowers" data-title="Blow your own glass in a family hot shop" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing workshop hands-on red hill">
+        <a class="card demo-card" href="/demo/b/gordon-studio/?x=hands-on" aria-label="Demo: Blow your own glass in a family hot shop, Gordon Studio Glassblowers" data-title="Blow your own glass in a family hot shop" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing workshop hands-on red hill" data-duration="390">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/gordon-studio/hot-shop-800.avif" /><img src="/assets/img/demo/gordon-studio/hot-shop-800.webp" alt="Two glassblowers turning a glowing piece of glass on a blowpipe at the bench in the Gordon Studio hot shop" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -236,7 +260,7 @@
             <div class="card__meta card__row"><p class="card__price">From $500 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/gordon-studio/?x=watch" aria-label="Demo: Friday night with the glassblowers, Gordon Studio Glassblowers" data-title="Friday night with the glassblowers" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing friday night wine cheese red hill">
+        <a class="card demo-card" href="/demo/b/gordon-studio/?x=watch" aria-label="Demo: Friday night with the glassblowers, Gordon Studio Glassblowers" data-title="Friday night with the glassblowers" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing friday night wine cheese red hill" data-duration="180">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/gordon-studio/friday-night-800.avif" /><img src="/assets/img/demo/gordon-studio/friday-night-800.webp" alt="Visitors seated around the hot shop floor watching the glassblowers work on a Friday night" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -247,7 +271,7 @@
           </div>
         </a>
         <!-- Demo: Heathcote Bike Hire, Stripe test mode, stock and Wikimedia Commons photos (Ro, 21 Oct 2026) -->
-        <a class="card demo-card" href="/demo/b/heathcote-bike-hire/?x=hire-2h" aria-label="Demo: E-bike the O'Keefe Rail Trail from Heathcote, Heathcote Bike Hire" data-title="E-bike the O'Keefe Rail Trail from Heathcote" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail okeefe">
+        <a class="card demo-card" href="/demo/b/heathcote-bike-hire/?x=hire-2h" aria-label="Demo: E-bike the O'Keefe Rail Trail from Heathcote, Heathcote Bike Hire" data-title="E-bike the O'Keefe Rail Trail from Heathcote" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail okeefe" data-duration="480">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.avif" /><img src="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.webp" alt="Two riders on fat-tyre e-bikes on a dirt trail through the bush" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -257,7 +281,7 @@
             <div class="card__meta card__row"><p class="card__price">From $25 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/heathcote-bike-hire/?x=hire-full-day" aria-label="Demo: A full day on an e-bike in Heathcote wine country, Heathcote Bike Hire" data-title="A full day on an e-bike in Heathcote wine country" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail wine winery vineyard pink cliffs full day">
+        <a class="card demo-card" href="/demo/b/heathcote-bike-hire/?x=hire-full-day" aria-label="Demo: A full day on an e-bike in Heathcote wine country, Heathcote Bike Hire" data-title="A full day on an e-bike in Heathcote wine country" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail wine winery vineyard pink cliffs full day" data-duration="480">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/heathcote-bike-hire/vineyard-800.avif" /><img src="/assets/img/demo/heathcote-bike-hire/vineyard-800.webp" alt="Rows of vines in a central Victorian vineyard" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -268,7 +292,7 @@
           </div>
         </a>
         <!-- Demo: Salty Seas Surf School, Stripe test mode, their own photos, permission pending (Ro, 21 Oct 2026) -->
-        <a class="card demo-card" href="/demo/b/salty-seas/?x=womens-group" aria-label="Demo: Women's surf group at Inverloch, Salty Seas Surf School" data-title="Women's surf group at Inverloch" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast women womens group">
+        <a class="card demo-card" href="/demo/b/salty-seas/?x=womens-group" aria-label="Demo: Women's surf group at Inverloch, Salty Seas Surf School" data-title="Women's surf group at Inverloch" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast women womens group" data-duration="90">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-womens-group-800.avif" /><img src="/assets/img/demo/salty-seas/card-womens-group-800.webp" alt="A women's surf group in wetsuits and green rash vests standing on the beach with their boards" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -278,7 +302,7 @@
             <div class="card__meta card__row"><p class="card__price">From $60 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/salty-seas/?x=private-lesson" aria-label="Demo: Private surf lesson at Inverloch Surf Beach, Salty Seas Surf School" data-title="Private surf lesson at Inverloch Surf Beach" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast private beginner">
+        <a class="card demo-card" href="/demo/b/salty-seas/?x=private-lesson" aria-label="Demo: Private surf lesson at Inverloch Surf Beach, Salty Seas Surf School" data-title="Private surf lesson at Inverloch Surf Beach" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast private beginner" data-duration="90">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-standing-up-800.avif" /><img src="/assets/img/demo/salty-seas/card-standing-up-800.webp" alt="A surfer in a green rash vest standing up on a soft board in a small wave" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -289,7 +313,7 @@
           </div>
         </a>
         <!-- Demo: Tiger Moth World, Stripe test mode, their own photos, permission pending (Ro, 21 Oct 2026) -->
-        <a class="card demo-card" href="/demo/b/tiger-moth-world/?x=biggles-over-bells" aria-label="Demo: Fly over Bells Beach in an open-cockpit biplane, Tiger Moth World" data-title="Fly over Bells Beach in an open-cockpit biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road bells beach biggles">
+        <a class="card demo-card" href="/demo/b/tiger-moth-world/?x=biggles-over-bells" aria-label="Demo: Fly over Bells Beach in an open-cockpit biplane, Tiger Moth World" data-title="Fly over Bells Beach in an open-cockpit biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road bells beach biggles" data-duration="20">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/tiger-moth-world/card-beach-pass-800.avif" /><img src="/assets/img/demo/tiger-moth-world/card-beach-pass-800.webp" alt="A yellow open-cockpit biplane flying low over the surf and a sandy beach" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -299,7 +323,7 @@
             <div class="card__meta card__row"><p class="card__price">From $375 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/tiger-moth-world/?x=great-ocean-road" aria-label="Demo: Fly the Great Ocean Road in a vintage biplane, Tiger Moth World" data-title="Fly the Great Ocean Road in a vintage biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road historic">
+        <a class="card demo-card" href="/demo/b/tiger-moth-world/?x=great-ocean-road" aria-label="Demo: Fly the Great Ocean Road in a vintage biplane, Tiger Moth World" data-title="Fly the Great Ocean Road in a vintage biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road historic" data-duration="55">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/tiger-moth-world/card-cockpit-coast-800.avif" /><img src="/assets/img/demo/tiger-moth-world/card-cockpit-coast-800.webp" alt="The view from the open cockpit, past the pilot's head and the yellow wings to the coastline below" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -310,7 +334,7 @@
           </div>
         </a>
         <!-- Demo: Spring Creek Horse Rides, Stripe test mode, their own photos, permission pending (Ro, 21 Oct 2026) -->
-        <a class="card demo-card" href="/demo/b/spring-creek-horse-rides/?x=trail-1h" aria-label="Demo: A one-hour trail ride through the bush near Torquay, Spring Creek Horse Rides" data-title="A one-hour trail ride through the bush near Torquay" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways one hour beginner">
+        <a class="card demo-card" href="/demo/b/spring-creek-horse-rides/?x=trail-1h" aria-label="Demo: A one-hour trail ride through the bush near Torquay, Spring Creek Horse Rides" data-title="A one-hour trail ride through the bush near Torquay" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways one hour beginner" data-duration="60">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/spring-creek-horse-rides/card-one-hour-800.avif" /><img src="/assets/img/demo/spring-creek-horse-rides/card-one-hour-800.webp" alt="A line of riders on a bush trail through the gum trees" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -320,7 +344,7 @@
             <div class="card__meta card__row"><p class="card__price">From $120 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/spring-creek-horse-rides/?x=trail-2h" aria-label="Demo: Two hours on horseback towards the Otways, Spring Creek Horse Rides" data-title="Two hours on horseback towards the Otways" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways two hour great otway national park">
+        <a class="card demo-card" href="/demo/b/spring-creek-horse-rides/?x=trail-2h" aria-label="Demo: Two hours on horseback towards the Otways, Spring Creek Horse Rides" data-title="Two hours on horseback towards the Otways" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways two hour great otway national park" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/spring-creek-horse-rides/card-two-hour-800.avif" /><img src="/assets/img/demo/spring-creek-horse-rides/card-two-hour-800.webp" alt="A group of riders lined up on a green paddock under a blue sky, with bush behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -331,7 +355,7 @@
           </div>
         </a>
         <!-- Demo: Indigo Woodworks, Stripe test mode, their own photos, permission pending (Ro, 21 Oct 2026) -->
-        <a class="card demo-card" href="/demo/b/indigo-woodworks/?x=milking-stool" aria-label="Demo: Make a four-legged stool in a weekend, Indigo Woodworks" data-title="Make a four-legged stool in a weekend" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury milking stool beginner weekend">
+        <a class="card demo-card" href="/demo/b/indigo-woodworks/?x=milking-stool" aria-label="Demo: Make a four-legged stool in a weekend, Indigo Woodworks" data-title="Make a four-legged stool in a weekend" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury milking stool beginner weekend" data-duration="960" data-days="2">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/indigo-woodworks/card-class-800.avif" /><img src="/assets/img/demo/indigo-woodworks/card-class-800.webp" alt="Two people on a course sanding their stools at a workbench in the timber-lined workshop" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -341,7 +365,7 @@
             <div class="card__meta card__row"><p class="card__price">From $600 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/indigo-woodworks/?x=perch-stool" aria-label="Demo: Shape and turn a three-legged perch stool, Indigo Woodworks" data-title="Shape and turn a three-legged perch stool" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury perch stool turning intermediate">
+        <a class="card demo-card" href="/demo/b/indigo-woodworks/?x=perch-stool" aria-label="Demo: Shape and turn a three-legged perch stool, Indigo Woodworks" data-title="Shape and turn a three-legged perch stool" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury perch stool turning intermediate" data-duration="1440" data-days="3">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/indigo-woodworks/card-workshop-800.avif" /><img src="/assets/img/demo/indigo-woodworks/card-workshop-800.webp" alt="A woodworker at the drill press in the timber-lined workshop, with round stool seats stacked on the bench" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -351,7 +375,7 @@
             <div class="card__meta card__row"><p class="card__price">From $850 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/moonraker-dolphin-swims/?x=dolphin-seal-swim" aria-label="Demo: Swim with wild dolphins and seals off Sorrento, Moonraker Dolphin Swims" data-title="Swim with wild dolphins and seals off Sorrento" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay dolphin seal swim">
+        <a class="card demo-card" href="/demo/b/moonraker-dolphin-swims/?x=dolphin-seal-swim" aria-label="Demo: Swim with wild dolphins and seals off Sorrento, Moonraker Dolphin Swims" data-title="Swim with wild dolphins and seals off Sorrento" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay dolphin seal swim" data-duration="180">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/moonraker-dolphin-swims/card-dolphins-800.avif" /><img src="/assets/img/demo/moonraker-dolphin-swims/card-dolphins-800.webp" alt="Bottlenose dolphins swimming together underwater" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -361,7 +385,7 @@
             <div class="card__meta card__row"><p class="card__price">From $185 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/moonraker-dolphin-swims/?x=seal-seadragon-swim" aria-label="Demo: Swim with seals and weedy sea dragons, Moonraker Dolphin Swims" data-title="Swim with seals and weedy sea dragons" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay seal sea dragon swim">
+        <a class="card demo-card" href="/demo/b/moonraker-dolphin-swims/?x=seal-seadragon-swim" aria-label="Demo: Swim with seals and weedy sea dragons, Moonraker Dolphin Swims" data-title="Swim with seals and weedy sea dragons" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay seal sea dragon swim" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/moonraker-dolphin-swims/card-seal-swim-pier-800.avif" /><img src="/assets/img/demo/moonraker-dolphin-swims/card-seal-swim-pier-800.webp" alt="A snorkeller in clear water beside seals resting on a pier, with the Moonraker boat behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -371,7 +395,7 @@
             <div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/phoenix-pottery/?x=beginner-wheel" aria-label="Demo: Learn the pottery wheel over an eight-week term, Phoenix Pottery" data-title="Learn the pottery wheel over an eight-week term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy wheel throwing beginner">
+        <a class="card demo-card" href="/demo/b/phoenix-pottery/?x=beginner-wheel" aria-label="Demo: Learn the pottery wheel over an eight-week term, Phoenix Pottery" data-title="Learn the pottery wheel over an eight-week term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy wheel throwing beginner" data-duration="1440" data-days="8">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/phoenix-pottery/card-studio-800.avif" /><img src="/assets/img/demo/phoenix-pottery/card-studio-800.webp" alt="Potters at the wheels and benches in the long Phoenix Pottery studio" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -381,7 +405,7 @@
             <div class="card__meta card__row"><p class="card__price">8-week term</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/phoenix-pottery/?x=handbuilding" aria-label="Demo: Handbuilding with clay over a term, Phoenix Pottery" data-title="Handbuilding with clay over a term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy handbuilding">
+        <a class="card demo-card" href="/demo/b/phoenix-pottery/?x=handbuilding" aria-label="Demo: Handbuilding with clay over a term, Phoenix Pottery" data-title="Handbuilding with clay over a term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy handbuilding" data-duration="1440" data-days="8">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/phoenix-pottery/card-glazed-pieces-800.avif" /><img src="/assets/img/demo/phoenix-pottery/card-glazed-pieces-800.webp" alt="Glazed vases, cups and a lidded jar lined up against a white brick wall" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -391,7 +415,7 @@
             <div class="card__meta card__row"><p class="card__price">8-week term</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/lygon-street-pottery/?x=intro-wheel" aria-label="Demo: Your first go on the pottery wheel, Lygon Street Pottery" data-title="Your first go on the pottery wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick introductory workshop beginner">
+        <a class="card demo-card" href="/demo/b/lygon-street-pottery/?x=intro-wheel" aria-label="Demo: Your first go on the pottery wheel, Lygon Street Pottery" data-title="Your first go on the pottery wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick introductory workshop beginner" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/lygon-street-pottery/card-wheel-800.avif" /><img src="/assets/img/demo/lygon-street-pottery/card-wheel-800.webp" alt="Hands centring clay on a pottery wheel" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -401,7 +425,7 @@
             <div class="card__meta card__row"><p class="card__price">$125 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/lygon-street-pottery/?x=six-week-course" aria-label="Demo: Six weeks of throwing on the wheel, Lygon Street Pottery" data-title="Six weeks of throwing on the wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick six week course">
+        <a class="card demo-card" href="/demo/b/lygon-street-pottery/?x=six-week-course" aria-label="Demo: Six weeks of throwing on the wheel, Lygon Street Pottery" data-title="Six weeks of throwing on the wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick six week course" data-duration="900" data-days="6">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/lygon-street-pottery/card-shelves-800.avif" /><img src="/assets/img/demo/lygon-street-pottery/card-shelves-800.webp" alt="A potter among shelves of fired pots in the Lygon Street studio" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -411,7 +435,7 @@
             <div class="card__meta card__row"><p class="card__price">$470 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/simetrie/?x=ravjul-charm" aria-label="Demo: Hand-stitch a leather bag charm in an evening, simétrie" data-title="Hand-stitch a leather bag charm in an evening" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching bag charm ravjul beginner evening">
+        <a class="card demo-card" href="/demo/b/simetrie/?x=ravjul-charm" aria-label="Demo: Hand-stitch a leather bag charm in an evening, simétrie" data-title="Hand-stitch a leather bag charm in an evening" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching bag charm ravjul beginner evening" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/simetrie/card-ravjul-charms-800.avif" /><img src="/assets/img/demo/simetrie/card-ravjul-charms-800.webp" alt="Ravioli-shaped leather bag charms in soft colours" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -421,7 +445,7 @@
             <div class="card__meta card__row"><p class="card__price">$120 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/simetrie/?x=card-wallet" aria-label="Demo: Make a saddle-stitched leather card wallet, simétrie" data-title="Make a saddle-stitched leather card wallet" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching card wallet pisces">
+        <a class="card demo-card" href="/demo/b/simetrie/?x=card-wallet" aria-label="Demo: Make a saddle-stitched leather card wallet, simétrie" data-title="Make a saddle-stitched leather card wallet" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching card wallet pisces" data-duration="270">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/simetrie/card-card-wallet-800.avif" /><img src="/assets/img/demo/simetrie/card-card-wallet-800.webp" alt="A finished red card wallet, saddle-stitched and stamped with a name" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -431,7 +455,7 @@
             <div class="card__meta card__row"><p class="card__price">$185 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/suigeneris-atelier/?x=couple-pencil-case" aria-label="Demo: Make leather pencil cases together, Suigeneris Atelier" data-title="Make leather pencil cases together" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave couple pencil case date">
+        <a class="card demo-card" href="/demo/b/suigeneris-atelier/?x=couple-pencil-case" aria-label="Demo: Make leather pencil cases together, Suigeneris Atelier" data-title="Make leather pencil cases together" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave couple pencil case date" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/suigeneris-atelier/card-class-800.avif" /><img src="/assets/img/demo/suigeneris-atelier/card-class-800.webp" alt="Two people holding up the leather pencil cases they made in a class" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -441,7 +465,7 @@
             <div class="card__meta card__row"><p class="card__price">$120 AUD for two</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/suigeneris-atelier/?x=bakery-charm" aria-label="Demo: Stitch a leather croissant charm, Suigeneris Atelier" data-title="Stitch a leather croissant charm" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave croissant baguette charm">
+        <a class="card demo-card" href="/demo/b/suigeneris-atelier/?x=bakery-charm" aria-label="Demo: Stitch a leather croissant charm, Suigeneris Atelier" data-title="Stitch a leather croissant charm" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave croissant baguette charm" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/suigeneris-atelier/card-croissant-800.avif" /><img src="/assets/img/demo/suigeneris-atelier/card-croissant-800.webp" alt="A hand-stitched leather croissant charm" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -451,7 +475,7 @@
             <div class="card__meta card__row"><p class="card__price">From $98 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/peachy-keen-ceramics/?x=wall-vase" aria-label="Demo: Make a ceramic wall vase, Peachy Keen Ceramics" data-title="Make a ceramic wall vase" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza wall vase">
+        <a class="card demo-card" href="/demo/b/peachy-keen-ceramics/?x=wall-vase" aria-label="Demo: Make a ceramic wall vase, Peachy Keen Ceramics" data-title="Make a ceramic wall vase" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza wall vase" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/peachy-keen-ceramics/card-wall-vase-800.avif" /><img src="/assets/img/demo/peachy-keen-ceramics/card-wall-vase-800.webp" alt="A student shaping a slab of clay into a wall vase" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -461,7 +485,7 @@
             <div class="card__meta card__row"><p class="card__price">$140 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/peachy-keen-ceramics/?x=sunday-sessions" aria-label="Demo: Sunday afternoon in a ceramics studio, Peachy Keen Ceramics" data-title="Sunday afternoon in a ceramics studio" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza sunday session">
+        <a class="card demo-card" href="/demo/b/peachy-keen-ceramics/?x=sunday-sessions" aria-label="Demo: Sunday afternoon in a ceramics studio, Peachy Keen Ceramics" data-title="Sunday afternoon in a ceramics studio" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza sunday session" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/peachy-keen-ceramics/card-slab-800.avif" /><img src="/assets/img/demo/peachy-keen-ceramics/card-slab-800.webp" alt="Hands lifting a rolled slab of clay at the workbench" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -471,7 +495,7 @@
             <div class="card__meta card__row"><p class="card__price">$140 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/east-coast-kayaking/?x=city-day" aria-label="Demo: Kayak the Yarra through the middle of Melbourne, East Coast Kayaking" data-title="Kayak the Yarra through the middle of Melbourne" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne yarra city day">
+        <a class="card demo-card" href="/demo/b/east-coast-kayaking/?x=city-day" aria-label="Demo: Kayak the Yarra through the middle of Melbourne, East Coast Kayaking" data-title="Kayak the Yarra through the middle of Melbourne" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne yarra city day" data-duration="90">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/east-coast-kayaking/card-city-day-800.avif" /><img src="/assets/img/demo/east-coast-kayaking/card-city-day-800.webp" alt="A group in yellow double kayaks on the Yarra with the Melbourne skyline behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -481,7 +505,7 @@
             <div class="card__meta card__row"><p class="card__price">$85 AUD</p></div>
           </div>
         </a>
-        <a class="card demo-card" href="/demo/b/east-coast-kayaking/?x=bayside" aria-label="Demo: Paddle the Bayside coast from Sandringham, East Coast Kayaking" data-title="Paddle the Bayside coast from Sandringham" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne bayside sandringham port phillip bay">
+        <a class="card demo-card" href="/demo/b/east-coast-kayaking/?x=bayside" aria-label="Demo: Paddle the Bayside coast from Sandringham, East Coast Kayaking" data-title="Paddle the Bayside coast from Sandringham" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne bayside sandringham port phillip bay" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/east-coast-kayaking/card-bayside-800.avif" /><img src="/assets/img/demo/east-coast-kayaking/card-bayside-800.webp" alt="Paddlers in yellow kayaks on calm water off Sandringham, with yachts behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -491,7 +515,7 @@
             <div class="card__meta card__row"><p class="card__price">$145 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
+        <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides" data-duration="90">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
@@ -500,7 +524,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
+        <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides" data-duration="120">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/insta-ride.jpg" alt="Rider on a horse pausing for a photo on the way to the beach" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
@@ -509,7 +533,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots" data-duration="90">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-beach.jpg" alt="Groomed horse posed on the beach for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-1.jpg" alt="Horse and model on the beach at sunset" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-2.jpg" alt="Close up of a horse on the beach during a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-1.jpg" alt="Horse walking through rice fields on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-2.jpg" alt="Rider leading a horse through the rice terraces" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
@@ -518,7 +542,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-stable.jpg" alt="Western-style stable backdrop with horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse standing in the stable photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-2.jpg" alt="Model posed with a horse in the stable backdrop" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-3.jpg" alt="Close up of a horse in the stable photoshoot area" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-4.jpg" alt="Western saddle and tack on display in the stable photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
@@ -527,7 +551,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-paddock-card.jpg" alt="Green paddock with grazing horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-1.jpg" alt="Horses grazing in the green paddock" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-2.jpg" alt="Paddock photoshoot backdrop with horses in the distance" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-3.jpg" alt="Grazing horse in the paddock photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-4.jpg" alt="Green paddock with horses and a mountain view" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
@@ -536,7 +560,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
+        <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-cottages.jpg" alt="Rustic wooden cottage exterior used for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-1.jpg" alt="Interior of the rustic wooden cottage photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-2.jpg" alt="Wooden cottage photoshoot backdrop with natural light" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-3.jpg" alt="Detail of the cottage interior used for photoshoots" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-4.jpg" alt="Rustic cottage photoshoot corner with wooden furniture" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
           <div class="card__body">
             <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
@@ -545,7 +569,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons" data-duration="90">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/grooming.jpg" alt="Stable manager teaching a grooming class with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Horse grooming class with the stable manager</h3>
@@ -554,7 +578,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons" data-duration="90">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/join-up.jpg" alt="Trainer working with a horse in a Join Up natural horsemanship lesson" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
@@ -563,7 +587,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons" data-duration="50">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/dressage.jpg" alt="Rider and horse in a private dressage lesson in the arena" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Private dressage lesson</h3>
@@ -572,7 +596,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons" data-duration="90">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/group-clinic.jpg" alt="Group leadership and trust clinic with horses" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
@@ -581,7 +605,7 @@
             <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="From"></p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
+        <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons" data-duration="600" data-days="3">
           <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/horse-whisperer.jpg" alt="Horse Whisperer course participants working with a horse" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
           <div class="card__body">
             <h3 class="card__title">3-day Horse Whisperer course</h3>
@@ -597,7 +621,7 @@
     </div>
 
     <div class="x-card-grid" id="browseGrid" hidden>
-        <a class="card sc-card" href="/demo/b/gordon-studio/?x=hands-on" aria-label="Demo: Blow your own glass in a family hot shop, Gordon Studio Glassblowers" data-title="Blow your own glass in a family hot shop" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing workshop hands-on red hill">
+        <a class="card sc-card" href="/demo/b/gordon-studio/?x=hands-on" aria-label="Demo: Blow your own glass in a family hot shop, Gordon Studio Glassblowers" data-title="Blow your own glass in a family hot shop" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing workshop hands-on red hill" data-duration="390">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/gordon-studio/hot-shop-800.avif" /><img src="/assets/img/demo/gordon-studio/hot-shop-800.webp" alt="Two glassblowers turning a glowing piece of glass on a blowpipe at the bench in the Gordon Studio hot shop" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -607,7 +631,7 @@
             <div class="card__meta card__row"><p class="card__price">From $500 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/gordon-studio/?x=watch" aria-label="Demo: Friday night with the glassblowers, Gordon Studio Glassblowers" data-title="Friday night with the glassblowers" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing friday night wine cheese red hill">
+        <a class="card sc-card" href="/demo/b/gordon-studio/?x=watch" aria-label="Demo: Friday night with the glassblowers, Gordon Studio Glassblowers" data-title="Friday night with the glassblowers" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing friday night wine cheese red hill" data-duration="180">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/gordon-studio/friday-night-800.avif" /><img src="/assets/img/demo/gordon-studio/friday-night-800.webp" alt="Visitors seated around the hot shop floor watching the glassblowers work on a Friday night" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -617,7 +641,7 @@
             <div class="card__meta card__row"><p class="card__price">From $70 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-2h" aria-label="Demo: E-bike the O'Keefe Rail Trail from Heathcote, Heathcote Bike Hire" data-title="E-bike the O'Keefe Rail Trail from Heathcote" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail okeefe">
+        <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-2h" aria-label="Demo: E-bike the O'Keefe Rail Trail from Heathcote, Heathcote Bike Hire" data-title="E-bike the O'Keefe Rail Trail from Heathcote" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail okeefe" data-duration="480">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.avif" /><img src="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.webp" alt="Two riders on fat-tyre e-bikes on a dirt trail through the bush" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -627,7 +651,7 @@
             <div class="card__meta card__row"><p class="card__price">From $25 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-full-day" aria-label="Demo: A full day on an e-bike in Heathcote wine country, Heathcote Bike Hire" data-title="A full day on an e-bike in Heathcote wine country" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail wine winery vineyard pink cliffs full day">
+        <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-full-day" aria-label="Demo: A full day on an e-bike in Heathcote wine country, Heathcote Bike Hire" data-title="A full day on an e-bike in Heathcote wine country" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="cycling" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail wine winery vineyard pink cliffs full day" data-duration="480">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/heathcote-bike-hire/vineyard-800.avif" /><img src="/assets/img/demo/heathcote-bike-hire/vineyard-800.webp" alt="Rows of vines in a central Victorian vineyard" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -637,7 +661,7 @@
             <div class="card__meta card__row"><p class="card__price">From $200 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/salty-seas/?x=womens-group" aria-label="Demo: Women's surf group at Inverloch, Salty Seas Surf School" data-title="Women's surf group at Inverloch" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast women womens group">
+        <a class="card sc-card" href="/demo/b/salty-seas/?x=womens-group" aria-label="Demo: Women's surf group at Inverloch, Salty Seas Surf School" data-title="Women's surf group at Inverloch" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast women womens group" data-duration="90">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-womens-group-800.avif" /><img src="/assets/img/demo/salty-seas/card-womens-group-800.webp" alt="A women's surf group in wetsuits and green rash vests standing on the beach with their boards" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -647,7 +671,7 @@
             <div class="card__meta card__row"><p class="card__price">From $60 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/salty-seas/?x=private-lesson" aria-label="Demo: Private surf lesson at Inverloch Surf Beach, Salty Seas Surf School" data-title="Private surf lesson at Inverloch Surf Beach" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast private beginner">
+        <a class="card sc-card" href="/demo/b/salty-seas/?x=private-lesson" aria-label="Demo: Private surf lesson at Inverloch Surf Beach, Salty Seas Surf School" data-title="Private surf lesson at Inverloch Surf Beach" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast private beginner" data-duration="90">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-standing-up-800.avif" /><img src="/assets/img/demo/salty-seas/card-standing-up-800.webp" alt="A surfer in a green rash vest standing up on a soft board in a small wave" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -657,7 +681,7 @@
             <div class="card__meta card__row"><p class="card__price">From $180 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/tiger-moth-world/?x=biggles-over-bells" aria-label="Demo: Fly over Bells Beach in an open-cockpit biplane, Tiger Moth World" data-title="Fly over Bells Beach in an open-cockpit biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road bells beach biggles">
+        <a class="card sc-card" href="/demo/b/tiger-moth-world/?x=biggles-over-bells" aria-label="Demo: Fly over Bells Beach in an open-cockpit biplane, Tiger Moth World" data-title="Fly over Bells Beach in an open-cockpit biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road bells beach biggles" data-duration="20">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/tiger-moth-world/card-beach-pass-800.avif" /><img src="/assets/img/demo/tiger-moth-world/card-beach-pass-800.webp" alt="A yellow open-cockpit biplane flying low over the surf and a sandy beach" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -667,7 +691,7 @@
             <div class="card__meta card__row"><p class="card__price">From $375 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/tiger-moth-world/?x=great-ocean-road" aria-label="Demo: Fly the Great Ocean Road in a vintage biplane, Tiger Moth World" data-title="Fly the Great Ocean Road in a vintage biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road historic">
+        <a class="card sc-card" href="/demo/b/tiger-moth-world/?x=great-ocean-road" aria-label="Demo: Fly the Great Ocean Road in a vintage biplane, Tiger Moth World" data-title="Fly the Great Ocean Road in a vintage biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road historic" data-duration="55">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/tiger-moth-world/card-cockpit-coast-800.avif" /><img src="/assets/img/demo/tiger-moth-world/card-cockpit-coast-800.webp" alt="The view from the open cockpit, past the pilot's head and the yellow wings to the coastline below" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -677,7 +701,7 @@
             <div class="card__meta card__row"><p class="card__price">From $1,000 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-1h" aria-label="Demo: A one-hour trail ride through the bush near Torquay, Spring Creek Horse Rides" data-title="A one-hour trail ride through the bush near Torquay" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways one hour beginner">
+        <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-1h" aria-label="Demo: A one-hour trail ride through the bush near Torquay, Spring Creek Horse Rides" data-title="A one-hour trail ride through the bush near Torquay" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways one hour beginner" data-duration="60">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/spring-creek-horse-rides/card-one-hour-800.avif" /><img src="/assets/img/demo/spring-creek-horse-rides/card-one-hour-800.webp" alt="A line of riders on a bush trail through the gum trees" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -687,7 +711,7 @@
             <div class="card__meta card__row"><p class="card__price">From $120 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-2h" aria-label="Demo: Two hours on horseback towards the Otways, Spring Creek Horse Rides" data-title="Two hours on horseback towards the Otways" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways two hour great otway national park">
+        <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-2h" aria-label="Demo: Two hours on horseback towards the Otways, Spring Creek Horse Rides" data-title="Two hours on horseback towards the Otways" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways two hour great otway national park" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/spring-creek-horse-rides/card-two-hour-800.avif" /><img src="/assets/img/demo/spring-creek-horse-rides/card-two-hour-800.webp" alt="A group of riders lined up on a green paddock under a blue sky, with bush behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -697,7 +721,7 @@
             <div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/indigo-woodworks/?x=milking-stool" aria-label="Demo: Make a four-legged stool in a weekend, Indigo Woodworks" data-title="Make a four-legged stool in a weekend" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury milking stool beginner weekend">
+        <a class="card sc-card" href="/demo/b/indigo-woodworks/?x=milking-stool" aria-label="Demo: Make a four-legged stool in a weekend, Indigo Woodworks" data-title="Make a four-legged stool in a weekend" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury milking stool beginner weekend" data-duration="960" data-days="2">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/indigo-woodworks/card-class-800.avif" /><img src="/assets/img/demo/indigo-woodworks/card-class-800.webp" alt="Two people on a course sanding their stools at a workbench in the timber-lined workshop" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -707,7 +731,7 @@
             <div class="card__meta card__row"><p class="card__price">From $600 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/indigo-woodworks/?x=perch-stool" aria-label="Demo: Shape and turn a three-legged perch stool, Indigo Woodworks" data-title="Shape and turn a three-legged perch stool" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury perch stool turning intermediate">
+        <a class="card sc-card" href="/demo/b/indigo-woodworks/?x=perch-stool" aria-label="Demo: Shape and turn a three-legged perch stool, Indigo Woodworks" data-title="Shape and turn a three-legged perch stool" data-business="Indigo Woodworks" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo indigo woodworks woodworking course workshop stool furniture indigo valley yackandandah beechworth albury perch stool turning intermediate" data-duration="1440" data-days="3">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/indigo-woodworks/card-workshop-800.avif" /><img src="/assets/img/demo/indigo-woodworks/card-workshop-800.webp" alt="A woodworker at the drill press in the timber-lined workshop, with round stool seats stacked on the bench" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -717,7 +741,7 @@
             <div class="card__meta card__row"><p class="card__price">From $850 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/moonraker-dolphin-swims/?x=dolphin-seal-swim" aria-label="Demo: Swim with wild dolphins and seals off Sorrento, Moonraker Dolphin Swims" data-title="Swim with wild dolphins and seals off Sorrento" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay dolphin seal swim">
+        <a class="card sc-card" href="/demo/b/moonraker-dolphin-swims/?x=dolphin-seal-swim" aria-label="Demo: Swim with wild dolphins and seals off Sorrento, Moonraker Dolphin Swims" data-title="Swim with wild dolphins and seals off Sorrento" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay dolphin seal swim" data-duration="180">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/moonraker-dolphin-swims/card-dolphins-800.avif" /><img src="/assets/img/demo/moonraker-dolphin-swims/card-dolphins-800.webp" alt="Bottlenose dolphins swimming together underwater" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -727,7 +751,7 @@
             <div class="card__meta card__row"><p class="card__price">From $185 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/moonraker-dolphin-swims/?x=seal-seadragon-swim" aria-label="Demo: Swim with seals and weedy sea dragons, Moonraker Dolphin Swims" data-title="Swim with seals and weedy sea dragons" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay seal sea dragon swim">
+        <a class="card sc-card" href="/demo/b/moonraker-dolphin-swims/?x=seal-seadragon-swim" aria-label="Demo: Swim with seals and weedy sea dragons, Moonraker Dolphin Swims" data-title="Swim with seals and weedy sea dragons" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="dive" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay seal sea dragon swim" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/moonraker-dolphin-swims/card-seal-swim-pier-800.avif" /><img src="/assets/img/demo/moonraker-dolphin-swims/card-seal-swim-pier-800.webp" alt="A snorkeller in clear water beside seals resting on a pier, with the Moonraker boat behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -737,7 +761,7 @@
             <div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/phoenix-pottery/?x=beginner-wheel" aria-label="Demo: Learn the pottery wheel over an eight-week term, Phoenix Pottery" data-title="Learn the pottery wheel over an eight-week term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy wheel throwing beginner">
+        <a class="card sc-card" href="/demo/b/phoenix-pottery/?x=beginner-wheel" aria-label="Demo: Learn the pottery wheel over an eight-week term, Phoenix Pottery" data-title="Learn the pottery wheel over an eight-week term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy wheel throwing beginner" data-duration="1440" data-days="8">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/phoenix-pottery/card-studio-800.avif" /><img src="/assets/img/demo/phoenix-pottery/card-studio-800.webp" alt="Potters at the wheels and benches in the long Phoenix Pottery studio" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -747,7 +771,7 @@
             <div class="card__meta card__row"><p class="card__price">8-week term</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/phoenix-pottery/?x=handbuilding" aria-label="Demo: Handbuilding with clay over a term, Phoenix Pottery" data-title="Handbuilding with clay over a term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy handbuilding">
+        <a class="card sc-card" href="/demo/b/phoenix-pottery/?x=handbuilding" aria-label="Demo: Handbuilding with clay over a term, Phoenix Pottery" data-title="Handbuilding with clay over a term" data-business="Phoenix Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy handbuilding" data-duration="1440" data-days="8">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/phoenix-pottery/card-glazed-pieces-800.avif" /><img src="/assets/img/demo/phoenix-pottery/card-glazed-pieces-800.webp" alt="Glazed vases, cups and a lidded jar lined up against a white brick wall" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -757,7 +781,7 @@
             <div class="card__meta card__row"><p class="card__price">8-week term</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/lygon-street-pottery/?x=intro-wheel" aria-label="Demo: Your first go on the pottery wheel, Lygon Street Pottery" data-title="Your first go on the pottery wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick introductory workshop beginner">
+        <a class="card sc-card" href="/demo/b/lygon-street-pottery/?x=intro-wheel" aria-label="Demo: Your first go on the pottery wheel, Lygon Street Pottery" data-title="Your first go on the pottery wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick introductory workshop beginner" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/lygon-street-pottery/card-wheel-800.avif" /><img src="/assets/img/demo/lygon-street-pottery/card-wheel-800.webp" alt="Hands centring clay on a pottery wheel" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -767,7 +791,7 @@
             <div class="card__meta card__row"><p class="card__price">$125 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/lygon-street-pottery/?x=six-week-course" aria-label="Demo: Six weeks of throwing on the wheel, Lygon Street Pottery" data-title="Six weeks of throwing on the wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick six week course">
+        <a class="card sc-card" href="/demo/b/lygon-street-pottery/?x=six-week-course" aria-label="Demo: Six weeks of throwing on the wheel, Lygon Street Pottery" data-title="Six weeks of throwing on the wheel" data-business="Lygon Street Pottery" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo lygon street pottery ceramics clay wheel brunswick six week course" data-duration="900" data-days="6">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/lygon-street-pottery/card-shelves-800.avif" /><img src="/assets/img/demo/lygon-street-pottery/card-shelves-800.webp" alt="A potter among shelves of fired pots in the Lygon Street studio" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -777,7 +801,7 @@
             <div class="card__meta card__row"><p class="card__price">$470 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/simetrie/?x=ravjul-charm" aria-label="Demo: Hand-stitch a leather bag charm in an evening, simétrie" data-title="Hand-stitch a leather bag charm in an evening" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching bag charm ravjul beginner evening">
+        <a class="card sc-card" href="/demo/b/simetrie/?x=ravjul-charm" aria-label="Demo: Hand-stitch a leather bag charm in an evening, simétrie" data-title="Hand-stitch a leather bag charm in an evening" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching bag charm ravjul beginner evening" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/simetrie/card-ravjul-charms-800.avif" /><img src="/assets/img/demo/simetrie/card-ravjul-charms-800.webp" alt="Ravioli-shaped leather bag charms in soft colours" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -787,7 +811,7 @@
             <div class="card__meta card__row"><p class="card__price">$120 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/simetrie/?x=card-wallet" aria-label="Demo: Make a saddle-stitched leather card wallet, simétrie" data-title="Make a saddle-stitched leather card wallet" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching card wallet pisces">
+        <a class="card sc-card" href="/demo/b/simetrie/?x=card-wallet" aria-label="Demo: Make a saddle-stitched leather card wallet, simétrie" data-title="Make a saddle-stitched leather card wallet" data-business="simétrie" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching card wallet pisces" data-duration="270">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/simetrie/card-card-wallet-800.avif" /><img src="/assets/img/demo/simetrie/card-card-wallet-800.webp" alt="A finished red card wallet, saddle-stitched and stamped with a name" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -797,7 +821,7 @@
             <div class="card__meta card__row"><p class="card__price">$185 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=couple-pencil-case" aria-label="Demo: Make leather pencil cases together, Suigeneris Atelier" data-title="Make leather pencil cases together" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave couple pencil case date">
+        <a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=couple-pencil-case" aria-label="Demo: Make leather pencil cases together, Suigeneris Atelier" data-title="Make leather pencil cases together" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave couple pencil case date" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/suigeneris-atelier/card-class-800.avif" /><img src="/assets/img/demo/suigeneris-atelier/card-class-800.webp" alt="Two people holding up the leather pencil cases they made in a class" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -807,7 +831,7 @@
             <div class="card__meta card__row"><p class="card__price">$120 AUD for two</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=bakery-charm" aria-label="Demo: Stitch a leather croissant charm, Suigeneris Atelier" data-title="Stitch a leather croissant charm" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave croissant baguette charm">
+        <a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=bakery-charm" aria-label="Demo: Stitch a leather croissant charm, Suigeneris Atelier" data-title="Stitch a leather croissant charm" data-business="Suigeneris Atelier" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo suigeneris atelier sui workshop leather class mulgrave croissant baguette charm" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/suigeneris-atelier/card-croissant-800.avif" /><img src="/assets/img/demo/suigeneris-atelier/card-croissant-800.webp" alt="A hand-stitched leather croissant charm" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -817,7 +841,7 @@
             <div class="card__meta card__row"><p class="card__price">From $98 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/peachy-keen-ceramics/?x=wall-vase" aria-label="Demo: Make a ceramic wall vase, Peachy Keen Ceramics" data-title="Make a ceramic wall vase" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza wall vase">
+        <a class="card sc-card" href="/demo/b/peachy-keen-ceramics/?x=wall-vase" aria-label="Demo: Make a ceramic wall vase, Peachy Keen Ceramics" data-title="Make a ceramic wall vase" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza wall vase" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/peachy-keen-ceramics/card-wall-vase-800.avif" /><img src="/assets/img/demo/peachy-keen-ceramics/card-wall-vase-800.webp" alt="A student shaping a slab of clay into a wall vase" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -827,7 +851,7 @@
             <div class="card__meta card__row"><p class="card__price">$140 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/peachy-keen-ceramics/?x=sunday-sessions" aria-label="Demo: Sunday afternoon in a ceramics studio, Peachy Keen Ceramics" data-title="Sunday afternoon in a ceramics studio" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza sunday session">
+        <a class="card sc-card" href="/demo/b/peachy-keen-ceramics/?x=sunday-sessions" aria-label="Demo: Sunday afternoon in a ceramics studio, Peachy Keen Ceramics" data-title="Sunday afternoon in a ceramics studio" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="creative" data-type="" data-rank="0" data-keywords="demo peachy keen ceramics pottery clay workshop mount eliza sunday session" data-duration="120">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/peachy-keen-ceramics/card-slab-800.avif" /><img src="/assets/img/demo/peachy-keen-ceramics/card-slab-800.webp" alt="Hands lifting a rolled slab of clay at the workbench" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -837,7 +861,7 @@
             <div class="card__meta card__row"><p class="card__price">$140 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/east-coast-kayaking/?x=city-day" aria-label="Demo: Kayak the Yarra through the middle of Melbourne, East Coast Kayaking" data-title="Kayak the Yarra through the middle of Melbourne" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne yarra city day">
+        <a class="card sc-card" href="/demo/b/east-coast-kayaking/?x=city-day" aria-label="Demo: Kayak the Yarra through the middle of Melbourne, East Coast Kayaking" data-title="Kayak the Yarra through the middle of Melbourne" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne yarra city day" data-duration="90">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/east-coast-kayaking/card-city-day-800.avif" /><img src="/assets/img/demo/east-coast-kayaking/card-city-day-800.webp" alt="A group in yellow double kayaks on the Yarra with the Melbourne skyline behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -847,7 +871,7 @@
             <div class="card__meta card__row"><p class="card__price">$85 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/east-coast-kayaking/?x=bayside" aria-label="Demo: Paddle the Bayside coast from Sandringham, East Coast Kayaking" data-title="Paddle the Bayside coast from Sandringham" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne bayside sandringham port phillip bay">
+        <a class="card sc-card" href="/demo/b/east-coast-kayaking/?x=bayside" aria-label="Demo: Paddle the Bayside coast from Sandringham, East Coast Kayaking" data-title="Paddle the Bayside coast from Sandringham" data-business="East Coast Kayaking" data-region="mornington" data-cat="kayak" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne bayside sandringham port phillip bay" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/east-coast-kayaking/card-bayside-800.avif" /><img src="/assets/img/demo/east-coast-kayaking/card-bayside-800.webp" alt="Paddlers in yellow kayaks on calm water off Sandringham, with yachts behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <p style="margin:0 0 10px;"><span style="display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);">Demo</span></p>
@@ -857,7 +881,7 @@
             <div class="card__meta card__row"><p class="card__price">$145 AUD</p></div>
           </div>
         </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides">
+      <a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides" data-duration="90">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
@@ -866,7 +890,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides">
+      <a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides" data-duration="120">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/insta-ride.jpg" alt="Rider on a horse pausing for a photo on the way to the beach" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
@@ -875,7 +899,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots" data-duration="90">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-beach.jpg" alt="Groomed horse posed on the beach for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-1.jpg" alt="Horse and model on the beach at sunset" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-2.jpg" alt="Close up of a horse on the beach during a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-1.jpg" alt="Horse walking through rice fields on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-2.jpg" alt="Rider leading a horse through the rice terraces" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
@@ -884,7 +908,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons" data-duration="90">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/grooming.jpg" alt="Stable manager teaching a grooming class with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Horse grooming class with the stable manager</h3>
@@ -893,7 +917,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons" data-duration="90">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/join-up.jpg" alt="Trainer working with a horse in a Join Up natural horsemanship lesson" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
@@ -902,7 +926,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-stable.jpg" alt="Western-style stable backdrop with horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse standing in the stable photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-2.jpg" alt="Model posed with a horse in the stable backdrop" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-3.jpg" alt="Close up of a horse in the stable photoshoot area" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-4.jpg" alt="Western saddle and tack on display in the stable photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
@@ -911,7 +935,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-paddock-card.jpg" alt="Green paddock with grazing horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-1.jpg" alt="Horses grazing in the green paddock" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-2.jpg" alt="Paddock photoshoot backdrop with horses in the distance" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-3.jpg" alt="Grazing horse in the paddock photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-4.jpg" alt="Green paddock with horses and a mountain view" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
@@ -920,7 +944,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons" data-duration="50">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/dressage.jpg" alt="Rider and horse in a private dressage lesson in the arena" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Private dressage lesson</h3>
@@ -929,7 +953,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots">
+      <a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-cottages.jpg" alt="Rustic wooden cottage exterior used for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-1.jpg" alt="Interior of the rustic wooden cottage photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-2.jpg" alt="Wooden cottage photoshoot backdrop with natural light" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-3.jpg" alt="Detail of the cottage interior used for photoshoots" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-4.jpg" alt="Rustic cottage photoshoot corner with wooden furniture" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
         <div class="card__body">
           <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
@@ -938,7 +962,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons" data-duration="90">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/group-clinic.jpg" alt="Group leadership and trust clinic with horses" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
@@ -947,7 +971,7 @@
           <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="From"></p></div>
         </div>
       </a>
-      <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons">
+      <a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons" data-duration="600" data-days="3">
         <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/horse-whisperer.jpg" alt="Horse Whisperer course participants working with a horse" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
         <div class="card__body">
           <h3 class="card__title">3-day Horse Whisperer course</h3>
@@ -981,10 +1005,10 @@
         </div>
       </div>
     </div>
+    </div>
 
-    <div id="browseEmpty" hidden style="margin-top:20px;">
-      <p style="margin:0 0 16px;color:var(--ink-2);">Nothing matches yet. Try All regions, or clear your filters.</p>
-      <button type="button" id="clearFilters" class="btn-ghost">Clear filters</button>
+    <div id="panelMap" role="tabpanel" aria-labelledby="tabMap" hidden>
+      <div id="exploreMap"></div>
     </div>
   </section>
 
@@ -1028,16 +1052,6 @@
       </div>
   </section>
 
-  <section id="nearby" class="container" style="padding-bottom:var(--section-y);">
-    <div style="margin-bottom:24px;">
-      <h2 style="font-size:clamp(24px,3.2vw,36px);line-height:1.1;letter-spacing:0;margin:0 0 16px;">Explore on the map</h2>
-      <div role="group" aria-label="Map region" style="display:flex;gap:8px;">
-        <button type="button" class="opt" data-map-region="mornington" aria-pressed="true">Victoria</button>
-        <button type="button" class="opt" data-map-region="bali" aria-pressed="false">Bali</button>
-      </div>
-    </div>
-    <div id="exploreMap" style="width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);aspect-ratio:16/9;min-height:320px;background:var(--panel);"></div>
-  </section>
 
   <section id="faq" class="container" style="padding-bottom:var(--section-y);">
     <div style="border-top:1px solid var(--line);padding-top:28px;">

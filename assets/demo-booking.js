@@ -367,8 +367,9 @@
       var n = days(s0.date_local, s0.end_date_local);
       var note = !open.length ? 'Full' : ss.length > 1 ? open.length + (open.length > 1 ? ' times' : ' time') + ' available' : clock(s0.time_local) + (s0.places_left <= 3 ? ', ' + s0.places_left + ' left' : '');
       var label = n > 1 ? range(s0.date_local, s0.end_date_local) : p.wd + ' ' + p.d + ' ' + p.mon;
-      return '<button type="button" class="date-opt" data-d="' + d + '" aria-pressed="' + (state.date === d) + '" aria-label="' + label + ', ' + note + '"' + (open.length ? '' : ' disabled') + '>'
-        + '<span>' + label + '</span>' + (n > 1 ? '<small>' + span(s0) + '</small>' : '') + '<small>' + note + '</small></button>';
+      // A date range goes on two lines: the dates, then the sessions and time.
+      return '<button type="button" class="date-opt' + (n > 1 ? ' date-opt--range' : '') + '" data-d="' + d + '" aria-pressed="' + (state.date === d) + '" aria-label="' + label + ', ' + note + '"' + (open.length ? '' : ' disabled') + '>'
+        + '<span>' + label + '</span>' + (n > 1 ? '<span class="date-opt__meta"><small>' + span(s0) + '</small><small>' + note + '</small></span>' : '<small>' + note + '</small>') + '</button>';
     }).join('');
     $('moreDates').hidden = byDate.length <= state.shown;
     state.byDate = seen;

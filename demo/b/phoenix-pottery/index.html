@@ -34,8 +34,8 @@
   .bp-lead{margin:var(--s-3) 0 0;font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink)}
 
   /* Option, date and time buttons: square (Ro, 21 Oct 2026). The experience and date
-     lists are full-width rows, name on the left and details on the right, each on
-     one line. Short choices (times, chips, add-ons) stay two up, stacked and centred. */
+     lists are full-width rows, name on the left and details on the right, on one
+     line when they fit. Short choices (times, chips, add-ons) stay two up, stacked and centred. */
   .opt-list,.date-list,.time-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
   #choices,.date-list{grid-template-columns:1fr;gap:var(--s-3)}
   .opt-list > p,.date-list > p{grid-column:1 / -1}
@@ -43,6 +43,11 @@
   #choices .opt,.date-list .date-opt{flex-direction:row;justify-content:space-between;gap:var(--s-2);padding:var(--s-3) var(--s-4) var(--s-3) var(--s-3);text-align:left}
   #choices .opt > *,.date-list .date-opt > *{white-space:nowrap}
   #choices .opt > small,.date-list .date-opt > small:first-of-type{margin-left:auto}
+  /* A row that still doesn't fit wraps instead of running out of the box. A date range
+     (a course or a multi-day booking) is always two lines: dates, then sessions and time. */
+  #choices .opt,.date-list .date-opt{flex-wrap:wrap;row-gap:4px}
+  .date-list .date-opt--range{flex-direction:column;align-items:flex-start;justify-content:center}
+  .date-opt__meta{display:flex;flex-wrap:wrap;gap:4px var(--s-3)}
   .opt small,.date-opt small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
   .opt small:empty{display:none}
   .opt--chip{min-height:44px}
@@ -365,7 +370,7 @@
   <span class="t-small" id="stickyPrice"></span>
   <a href="#book" class="btn">Choose a date</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"phoenix-pottery","business":"Phoenix Pottery","booking_mode":"demo","timezone":"Australia/Melbourne","phone":"0435 283 270","party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"beginner-wheel","label":"Beginner wheel","sub":"$480 [TO CONFIRM]"},{"experience":"open-studio","label":"Open Studio","sub":"$480 [TO CONFIRM]"},{"experience":"handbuilding","label":"Handbuilding","sub":"$480 [TO CONFIRM]"}],"experiences":{"beginner-wheel":{"facts":["8 weeks, 3 hours a week","For beginners","Example price $480 [TO CONFIRM]","Fitzroy"],"included":["[TO CONFIRM: clay and firing]"],"notes":[],"dates_note":"Example Term 1 2027 dates for the demo [TO CONFIRM]","good_to_know":[]},"open-studio":{"facts":["8 weeks","Intermediate to advanced","Example price $480 [TO CONFIRM]","Fitzroy"],"included":["Supervised wheel time","[TO CONFIRM: clay and firing]"],"notes":[],"dates_note":"Example Term 1 2027 dates for the demo [TO CONFIRM]","good_to_know":[]},"handbuilding":{"facts":["8 weeks, 3 hours a week","Level [TO CONFIRM]","Example price $480 [TO CONFIRM]","Fitzroy"],"included":["[TO CONFIRM: clay and firing]"],"notes":[],"dates_note":"Example Term 1 2027 dates for the demo [TO CONFIRM]","good_to_know":[]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
+<script type="application/json" id="demo-config">{"slug":"phoenix-pottery","business":"Phoenix Pottery","booking_mode":"demo","timezone":"Australia/Melbourne","phone":"0435 283 270","party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"beginner-wheel","label":"Beginner wheel","sub":"$480 [TO CONFIRM]"},{"experience":"open-studio","label":"Open Studio","sub":"$480 [TO CONFIRM]"},{"experience":"handbuilding","label":"Handbuilding","sub":"$480 [TO CONFIRM]"}],"experiences":{"beginner-wheel":{"durationMinutes":1440,"durationDays":8,"facts":["8 weeks, 3 hours a week","For beginners","Example price $480 [TO CONFIRM]","Fitzroy"],"included":["[TO CONFIRM: clay and firing]"],"notes":[],"dates_note":"Example Term 1 2027 dates for the demo [TO CONFIRM]","good_to_know":[]},"open-studio":{"durationMinutes":1440,"durationDays":8,"facts":["8 weeks","Intermediate to advanced","Example price $480 [TO CONFIRM]","Fitzroy"],"included":["Supervised wheel time","[TO CONFIRM: clay and firing]"],"notes":[],"dates_note":"Example Term 1 2027 dates for the demo [TO CONFIRM]","good_to_know":[]},"handbuilding":{"durationMinutes":1440,"durationDays":8,"facts":["8 weeks, 3 hours a week","Level [TO CONFIRM]","Example price $480 [TO CONFIRM]","Fitzroy"],"included":["[TO CONFIRM: clay and firing]"],"notes":[],"dates_note":"Example Term 1 2027 dates for the demo [TO CONFIRM]","good_to_know":[]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
 <script src="/assets/demo-booking.js"></script>
 <script src="/app.js"></script>
 <script src="/assets/detail.js" defer></script>

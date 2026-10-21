@@ -16,6 +16,7 @@
       "sourceName": "Beach & Rice Field Ride",
       "cat": "horse",
       "type": "rides",
+      "durationMinutes": 90,
       "durations": [
         {
           "id": "1hr",
@@ -77,6 +78,7 @@
       "sourceName": "Insta Ride",
       "cat": "horse",
       "type": "rides",
+      "durationMinutes": 120,
       "durations": [
         {
           "id": "2hr",
@@ -129,6 +131,7 @@
       "sourceName": "Beach Photoshoot",
       "cat": "horse",
       "type": "photoshoots",
+      "durationMinutes": 90,
       "durations": [
         {
           "id": "1hr",
@@ -232,6 +235,7 @@
       "sourceName": "Horse grooming (wet or dry)",
       "cat": "horse",
       "type": "lessons",
+      "durationMinutes": 90,
       "durations": [
         {
           "id": "1hr",
@@ -282,6 +286,7 @@
       "sourceName": "Join Up Lesson",
       "cat": "horse",
       "type": "lessons",
+      "durationMinutes": 90,
       "durations": [
         {
           "id": "1hr",
@@ -337,6 +342,7 @@
       "sourceName": "Stable Photoshoot",
       "cat": "horse",
       "type": "photoshoots",
+      "durationMinutes": 180,
       "durations": [
         {
           "id": "1hr",
@@ -438,6 +444,7 @@
       "sourceName": "Paddock Photoshoot",
       "cat": "horse",
       "type": "photoshoots",
+      "durationMinutes": 180,
       "durations": [
         {
           "id": "1hr",
@@ -538,6 +545,7 @@
       "sourceName": "Dressage Masterclass (Private lesson)",
       "cat": "horse",
       "type": "lessons",
+      "durationMinutes": 50,
       "durations": [
         {
           "id": "50min",
@@ -586,6 +594,7 @@
       "sourceName": "Cottages Photoshoot",
       "cat": "horse",
       "type": "photoshoots",
+      "durationMinutes": 180,
       "durations": [
         {
           "id": "3hr",
@@ -658,6 +667,7 @@
       "sourceName": "Group Clinic (Leadership/horsemanship class)",
       "cat": "horse",
       "type": "lessons",
+      "durationMinutes": 90,
       "durations": [
         {
           "id": "1.5hr",
@@ -703,6 +713,8 @@
       "sourceName": "Horse Whisperer Intensive Course",
       "cat": "horse",
       "type": "lessons",
+      "durationMinutes": 600,
+      "durationDays": 3,
       "durations": [
         {
           "id": "course",

@@ -34,8 +34,8 @@
   .bp-lead{margin:var(--s-3) 0 0;font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink)}
 
   /* Option, date and time buttons: square (Ro, 21 Oct 2026). The experience and date
-     lists are full-width rows, name on the left and details on the right, each on
-     one line. Short choices (times, chips, add-ons) stay two up, stacked and centred. */
+     lists are full-width rows, name on the left and details on the right, on one
+     line when they fit. Short choices (times, chips, add-ons) stay two up, stacked and centred. */
   .opt-list,.date-list,.time-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
   #choices,.date-list{grid-template-columns:1fr;gap:var(--s-3)}
   .opt-list > p,.date-list > p{grid-column:1 / -1}
@@ -43,6 +43,11 @@
   #choices .opt,.date-list .date-opt{flex-direction:row;justify-content:space-between;gap:var(--s-2);padding:var(--s-3) var(--s-4) var(--s-3) var(--s-3);text-align:left}
   #choices .opt > *,.date-list .date-opt > *{white-space:nowrap}
   #choices .opt > small,.date-list .date-opt > small:first-of-type{margin-left:auto}
+  /* A row that still doesn't fit wraps instead of running out of the box. A date range
+     (a course or a multi-day booking) is always two lines: dates, then sessions and time. */
+  #choices .opt,.date-list .date-opt{flex-wrap:wrap;row-gap:4px}
+  .date-list .date-opt--range{flex-direction:column;align-items:flex-start;justify-content:center}
+  .date-opt__meta{display:flex;flex-wrap:wrap;gap:4px var(--s-3)}
   .opt small,.date-opt small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
   .opt small:empty{display:none}
   .opt--chip{min-height:44px}
@@ -366,7 +371,7 @@
   <span class="t-small" id="stickyPrice"></span>
   <a href="#book" class="btn">Choose a date</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"salty-seas","business":"Salty Seas Surf School","booking_mode":"sandbox","timezone":"Australia/Melbourne","phone":"0432 889 768","party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"womens-group","label":"Women's surf group","sub":"$60 [TO CONFIRM]"},{"experience":"private-lesson","label":"Private lesson","sub":"$180, +$80 a person"},{"experience":"kids-program","label":"Kids' program","sub":"$295, 4 days"}],"experiences":{"womens-group":{"lead":"Women-only sessions","facts":["Tue, Fri, Sat and Sun","Times follow the tides","All levels","Inverloch Surf Beach"],"included":["Coaching from Allison or Lily","Board and wetsuit [TO CONFIRM]"],"notes":["Minimum age: [TO CONFIRM]"],"filter":{"question":"skill","hide_weekdays":{"Never surfed":[2]},"hint":{"Never surfed":"Tuesday is for intermediate and advanced surfers, so it's hidden."}},"good_to_know":["Board and wetsuit included [TO CONFIRM]","Times follow the tides. Allison confirms your exact time.","If conditions are unsafe, you're offered a new date first, then a full refund."]},"private-lesson":{"pricing":"first_extra","facts":["90 minutes","$180, plus $80 per extra person","Beginner and intermediate","Inverloch Surf Beach"],"included":["A coach just for you","Board and wetsuit [TO CONFIRM]"],"notes":["Minimum age: [TO CONFIRM]"],"good_to_know":["Board and wetsuit included [TO CONFIRM]","Times follow the tides. Allison confirms your exact time.","If conditions are unsafe, you're offered a new date first, then a full refund."]},"kids-program":{"facts":["4 days, 90 minutes a day","$295","School holidays [TO CONFIRM]","Inverloch Surf Beach"],"included":["Four 90-minute sessions","Board and wetsuit [TO CONFIRM]"],"notes":["Ages: [TO CONFIRM]"],"good_to_know":["Board and wetsuit included [TO CONFIRM]","Times follow the tides. Allison confirms your exact time.","If conditions are unsafe, you're offered a new date first, then a full refund."]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
+<script type="application/json" id="demo-config">{"slug":"salty-seas","business":"Salty Seas Surf School","booking_mode":"sandbox","timezone":"Australia/Melbourne","phone":"0432 889 768","party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"womens-group","label":"Women's surf group","sub":"$60 [TO CONFIRM]"},{"experience":"private-lesson","label":"Private lesson","sub":"$180, +$80 a person"},{"experience":"kids-program","label":"Kids' program","sub":"$295, 4 days"}],"experiences":{"womens-group":{"durationMinutes":90,"lead":"Women-only sessions","facts":["Tue, Fri, Sat and Sun","Times follow the tides","All levels","Inverloch Surf Beach"],"included":["Coaching from Allison or Lily","Board and wetsuit [TO CONFIRM]"],"notes":["Minimum age: [TO CONFIRM]"],"filter":{"question":"skill","hide_weekdays":{"Never surfed":[2]},"hint":{"Never surfed":"Tuesday is for intermediate and advanced surfers, so it's hidden."}},"good_to_know":["Board and wetsuit included [TO CONFIRM]","Times follow the tides. Allison confirms your exact time.","If conditions are unsafe, you're offered a new date first, then a full refund."]},"private-lesson":{"durationMinutes":90,"pricing":"first_extra","facts":["90 minutes","$180, plus $80 per extra person","Beginner and intermediate","Inverloch Surf Beach"],"included":["A coach just for you","Board and wetsuit [TO CONFIRM]"],"notes":["Minimum age: [TO CONFIRM]"],"good_to_know":["Board and wetsuit included [TO CONFIRM]","Times follow the tides. Allison confirms your exact time.","If conditions are unsafe, you're offered a new date first, then a full refund."]},"kids-program":{"durationMinutes":360,"durationDays":4,"facts":["4 days, 90 minutes a day","$295","School holidays [TO CONFIRM]","Inverloch Surf Beach"],"included":["Four 90-minute sessions","Board and wetsuit [TO CONFIRM]"],"notes":["Ages: [TO CONFIRM]"],"good_to_know":["Board and wetsuit included [TO CONFIRM]","Times follow the tides. Allison confirms your exact time.","If conditions are unsafe, you're offered a new date first, then a full refund."]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
 <script src="/assets/demo-booking.js"></script>
 <script src="/app.js"></script>
 <script src="/assets/detail.js" defer></script>

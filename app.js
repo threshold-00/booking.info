@@ -104,15 +104,16 @@ window.ThCurrency = (function () {
 })();
 
 
-// Explore map (Leaflet, vendored in assets/leaflet/). One pin per business location,
-// and each pin's popup lists that business's activities, read from the homepage cards
-// (#browseGrid), so a new card shows up on the map without touching this list. Two
-// region buttons: Victoria (the default, fitted to every Victorian pin) and Bali.
-// Pins sit on the business's address, or the suburb when the address is private or
-// not confirmed.
-(function () {
+// Explore map (Leaflet, vendored in assets/leaflet/), the Map tab of the Experiences
+// section. One pin per business location; each pin shows that business's activities one
+// at a time, read from the homepage cards (#browseGrid), so a new card shows up on the
+// map without touching this list. The map follows the browse filters (only pins with a
+// matching card, and only the matching cards in each pin). It is built the first time
+// the Map tab opens, so Leaflet measures a visible box. Pins sit on the business's
+// address, or the suburb when the address is private or not confirmed.
+var exploreMap = (function () {
   var mapEl = document.getElementById('exploreMap');
-  if (!mapEl || typeof L === 'undefined') return;
+  if (!mapEl || typeof L === 'undefined') return null;
 
   // business: the cards' data-business. only: card ?x= keys, when one business has
   // activities in two places.
@@ -136,15 +137,17 @@ window.ThCurrency = (function () {
 
   // Activities per pin, from the cards in the results grid (each card is there once).
   var cards = [].slice.call(document.querySelectorAll('#browseGrid .card[data-business]'));
+  var match = function () { return true; }, region = '';
   function activities(pin) {
     return cards.filter(function (c) {
       if (c.getAttribute('data-business') !== pin.business) return false;
-      if (!pin.only) return true;
-      var x = (c.getAttribute('href') || '').match(/[?&]x=([a-z0-9-]+)/);
-      return !!x && pin.only.indexOf(x[1]) >= 0;
+      if (pin.only) {
+        var x = (c.getAttribute('href') || '').match(/[?&]x=([a-z0-9-]+)/);
+        if (!x || pin.only.indexOf(x[1]) < 0) return false;
+      }
+      return match(c);
     });
   }
-  pins = pins.filter(function (p) { return activities(p).length; });
 
   function pinIcon(active) {
     return L.divIcon({
@@ -158,27 +161,24 @@ window.ThCurrency = (function () {
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
 
-  // One activity at a time: photo, title and price, all one link, with arrows and
+  // One activity at a time: photo, title, place and price, all one link, with arrows and
   // "1 / 2" when the business has more. Built when opened, so prices filled in by the
   // currency switcher are current. Used for the desktop popup and the phone sheet.
   function slides(pin) {
     var list = activities(pin), i = 0;
     var box = el('div', 'pop'), card = el('a', 'pop-card');
     var media = el('div', 'pop-media'), body = el('div', 'pop-body');
-    var meta = el('p', 'pop-meta'), title = el('p', 'pop-title'), price = el('p', 'card__price pop-amount');
+    var title = el('p', 'pop-title'), meta = el('p', 'pop-meta', pin.place), price = el('p', 'card__price pop-amount');
     card.appendChild(media); card.appendChild(body);
-    body.appendChild(meta); body.appendChild(title); body.appendChild(price);
+    body.appendChild(title); body.appendChild(meta); body.appendChild(price);
     box.appendChild(card);
-    var demo = list.some(function (c) { return /^\/demo\/b\//.test(c.getAttribute('href') || ''); });
-    if (demo) meta.appendChild(el('span', 'pop-pill', 'Demo'));
-    meta.appendChild(document.createTextNode(pin.place));
 
-    var nav, count;
+    var count;
     function go(n) {
       i = (n + list.length) % list.length;
       var c = list[i], src = c.querySelector('.card__media picture') || c.querySelector('.card__media img');
       card.href = c.getAttribute('href');
-      card.setAttribute('aria-label', (c.getAttribute('data-title') || '') + ', ' + pin.business);
+      card.setAttribute('aria-label', (c.getAttribute('data-title') || '') + ', ' + pin.business + ', ' + pin.place);
       title.textContent = c.getAttribute('data-title') || '';
       var p = c.querySelector('.card__price');
       price.textContent = p ? p.textContent.trim() : '';
@@ -192,11 +192,11 @@ window.ThCurrency = (function () {
       if (count) count.textContent = (i + 1) + ' / ' + list.length;
     }
     if (list.length > 1) {
-      nav = el('div', 'pop-nav');
+      var nav = el('div', 'pop-nav');
       var prev = el('button', 'pop-arrow', '\u2039'), next = el('button', 'pop-arrow', '\u203A');
       prev.type = next.type = 'button';
-      prev.setAttribute('aria-label', 'Previous activity');
-      next.setAttribute('aria-label', 'Next activity');
+      prev.setAttribute('aria-label', 'Previous experience');
+      next.setAttribute('aria-label', 'Next experience');
       count = el('span', 'pop-count');
       count.setAttribute('aria-live', 'polite');
       prev.addEventListener('click', function () { go(i - 1); });
@@ -208,25 +208,9 @@ window.ThCurrency = (function () {
     return box;
   }
 
-  var isMobile = window.matchMedia('(max-width:640px)').matches;
+  var map = null, markers = [], active = null, pop, sheet, sheetBody, sheetClose;
+  var isMobile = function () { return window.matchMedia('(max-width:640px)').matches; };
   var useSheet = window.matchMedia('(max-width:820px)');
-  var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile, tap: !isMobile, zoomSnap: 0.25 });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  // Phones and tablets: a sheet along the bottom of the screen instead of a popup, so
-  // the other pins stay in view.
-  var sheet = el('div', 'map-sheet'), sheetBody = el('div'), sheetClose = el('button', 'map-sheet__close');
-  sheet.setAttribute('role', 'dialog');
-  sheet.hidden = true;
-  sheetClose.type = 'button';
-  sheetClose.setAttribute('aria-label', 'Close');
-  sheetClose.appendChild(el('span', '', '\u00D7'));
-  sheet.appendChild(sheetBody); sheet.appendChild(sheetClose);
-  document.body.appendChild(sheet);
-  var active = null;
 
   function setActive(m) {
     if (active && active !== m) { active.setIcon(pinIcon(false)); active.setZIndexOffset(0); }
@@ -234,7 +218,7 @@ window.ThCurrency = (function () {
     if (m) { m.setIcon(pinIcon(true)); m.setZIndexOffset(1000); }
   }
   function closeSheet() {
-    if (sheet.hidden) return;
+    if (!sheet || sheet.hidden) return;
     sheet.hidden = true;
     setActive(null);
   }
@@ -244,64 +228,103 @@ window.ThCurrency = (function () {
     sheetBody.appendChild(slides(p));
     sheet.setAttribute('aria-label', p.business);
     sheet.hidden = false;
-    // Keep the pin above the sheet.
-    var rect = mapEl.getBoundingClientRect(), cover = rect.bottom - sheet.getBoundingClientRect().top;
-    if (cover > 0) map.panInside(m.getLatLng(), { paddingTopLeft: [40, 50], paddingBottomRight: [40, cover + 20] });
+    // Bring the map up under the header so it shows above the sheet, then keep the pin
+    // above the sheet.
+    var header = document.querySelector('.site-header');
+    var top = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+    var gap = mapEl.getBoundingClientRect().top - top;
+    if (Math.abs(gap) > 8) window.scrollBy(0, gap);
+    var rect = mapEl.getBoundingClientRect(), pt = map.latLngToContainerPoint(m.getLatLng());
+    var from = Math.max(0, top - rect.top), to = Math.min(rect.height, sheet.getBoundingClientRect().top - rect.top);
+    map.panBy([pt.x - rect.width / 2, pt.y - (from + to) / 2]);
     sheetClose.focus({ preventScroll: true });
   }
-  sheetClose.addEventListener('click', closeSheet);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
-  map.on('click', closeSheet);
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) { if (!es[0].isIntersecting) closeSheet(); }).observe(mapEl);
+  function close() { if (map) map.closePopup(); closeSheet(); }
+
+  function build() {
+    map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile(), tap: !isMobile(), zoomSnap: 0.25 });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Phones and tablets: a sheet along the bottom of the screen instead of a popup, so
+    // the other pins stay in view.
+    sheet = el('div', 'map-sheet'); sheetBody = el('div'); sheetClose = el('button', 'map-sheet__close');
+    sheet.setAttribute('role', 'dialog');
+    sheet.hidden = true;
+    sheetClose.type = 'button';
+    sheetClose.setAttribute('aria-label', 'Close');
+    sheetClose.appendChild(el('span', '', '\u00D7'));
+    sheet.appendChild(sheetBody); sheet.appendChild(sheetClose);
+    document.body.appendChild(sheet);
+    sheetClose.addEventListener('click', closeSheet);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+    map.on('click', closeSheet);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { if (!es[0].isIntersecting) closeSheet(); }).observe(mapEl);
+    }
+
+    // Desktop: one popup, about 300px wide, opened on the clicked pin.
+    pop = L.popup({ className: 'th-pop', closeButton: true, minWidth: 300, maxWidth: 300, offset: [0, -23], autoPanPadding: [20, 20] });
+    map.on('popupclose', function (e) { if (e.popup === pop) setActive(null); });
+
+    markers = pins.map(function (p) {
+      var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.business + ', ' + p.place, keyboard: true });
+      m.on('click', function () {
+        if (useSheet.matches) { map.closePopup(); openSheet(m, p); return; }
+        closeSheet();
+        pop.setLatLng(m.getLatLng()).setContent(slides(p));
+        map.openPopup(pop);
+        setActive(m);
+      });
+      return { pin: p, marker: m };
+    });
+
+    window.addEventListener('resize', function () {
+      map.invalidateSize();
+      if (isMobile()) map.dragging.disable(); else map.dragging.enable();
+    });
   }
 
-  // Desktop: one popup, about 300px wide, opened on the clicked pin.
-  var pop = L.popup({ className: 'th-pop', closeButton: true, minWidth: 300, maxWidth: 300, offset: [0, -23], autoPanPadding: [20, 20] });
-  map.on('popupclose', function (e) { if (e.popup === pop) setActive(null); });
-
-  pins.forEach(function (p) {
-    var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.business + ', ' + p.place, keyboard: true });
-    m.addTo(map);
-    m.on('click', function () {
-      if (useSheet.matches) { map.closePopup(); openSheet(m, p); return; }
-      closeSheet();
-      pop.setLatLng(m.getLatLng()).setContent(slides(p));
-      map.openPopup(pop);
-      setActive(m);
+  // Only pins with a matching card. The view fits the chosen location's pins; with All
+  // locations it fits Victoria (where most businesses are), or Bali when nothing in
+  // Victoria matches.
+  function draw() {
+    if (!map || !mapEl.offsetWidth) return;
+    close();
+    var shown = [];
+    markers.forEach(function (o) {
+      var on = activities(o.pin).length > 0;
+      if (on) { o.marker.addTo(map); shown.push(o.pin); } else o.marker.remove();
     });
-  });
-
-  var region = 'mornington';
-  function show(r) {
-    region = r;
-    map.closePopup();
-    closeSheet();
-    var points = pins.filter(function (p) { return p.region === r; }).map(function (p) { return [p.lat, p.lng]; });
+    var r = region || (shown.some(function (p) { return p.region === 'mornington'; }) ? 'mornington' : 'bali');
+    var points = shown.filter(function (p) { return p.region === r; }).map(function (p) { return [p.lat, p.lng]; });
     if (points.length === 1) map.setView(points[0], 10);
     else if (points.length) map.fitBounds(L.latLngBounds(points), { padding: [30, 30], maxZoom: 10 });
-    [].forEach.call(document.querySelectorAll('[data-map-region]'), function (b) {
-      b.setAttribute('aria-pressed', b.getAttribute('data-map-region') === r ? 'true' : 'false');
-    });
+    else map.setView(r === 'bali' ? [-8.65, 115.2167] : [-37.8, 145.0], 8);
   }
-  [].forEach.call(document.querySelectorAll('[data-map-region]'), function (b) {
-    b.addEventListener('click', function () { show(b.getAttribute('data-map-region')); });
-  });
-  show(region);
 
-  setTimeout(function () { map.invalidateSize(); show(region); }, 0);
-  window.addEventListener('resize', function () {
-    map.invalidateSize();
-    var mobileNow = window.matchMedia('(max-width:640px)').matches;
-    if (mobileNow) map.dragging.disable(); else map.dragging.enable();
-  });
+  return {
+    // Called by the browse filters: which cards match, and the chosen location.
+    filter: function (fn, r) { match = fn; region = r || ''; draw(); },
+    // Called when the Map tab opens.
+    open: function () {
+      if (!map) build();
+      map.invalidateSize();
+      draw();
+    },
+    close: close
+  };
 })();
 
-// Homepage search, category chips, horse sub-chips and region toggle (#browse). Filters
-// the experience cards in place with AND logic (search text AND category AND sub-type
-// AND region), never navigates, and syncs state to the URL so a link like
-// /?region=bali#browse opens pre-filtered. With no filters active, the grouped default
-// view (#browseDefault) shows; any filter switches to the flat results grid (#browseGrid).
+// Homepage browse (#browse): Location and Duration dropdowns, category chips, horse
+// sub-chips and the Grid / Map tabs. Filters the experience cards in place with AND
+// logic (location AND duration AND category AND sub-type), never navigates, and keeps
+// the state in the URL (?location=&duration=&cat=&sub=&view=map) so it survives a
+// refresh and the back button. With no filters active, the grouped default view
+// (#browseDefault) shows; any filter switches to the flat results grid (#browseGrid).
+// The map (exploreMap) follows the same filters.
 (function () {
   var grid = document.getElementById('browseGrid');
   var defaultView = document.getElementById('browseDefault');
@@ -310,6 +333,8 @@ window.ThCurrency = (function () {
   var chipRow = document.getElementById('chipRow');
   var horseSub = document.getElementById('horseSub');
   var locationSelect = document.getElementById('locationSelect');
+  var durationSelect = document.getElementById('durationSelect');
+  var tabs = [].slice.call(document.querySelectorAll('#browse [role=tab]'));
   var countEl = document.getElementById('browseCount');
   var emptyEl = document.getElementById('browseEmpty');
   var clearBtn = document.getElementById('clearFilters');
@@ -337,26 +362,49 @@ window.ThCurrency = (function () {
 
   // state.cat is a list of selected category chips (OR'd together); an empty list means
   // "All" and shows every experience.
-  var state = { cat: [], sub: '', region: '' };
+  var state = { cat: [], sub: '', region: '', duration: '', view: 'grid' };
+
+  // Locations in the address read as words; the cards use their region keys.
+  var LOCATIONS = { victoria: 'mornington', bali: 'bali' };
+  var DURATIONS = ['1h', '1-5h', 'full-day', 'multi-day'];
 
   function readURL() {
     var params = new URLSearchParams(window.location.search);
     var cat = params.get('cat') || '';
     state.cat = cat ? cat.split(',').filter(Boolean) : [];
     state.sub = params.get('sub') || '';
-    state.region = params.get('region') || '';
+    var loc = params.get('location') || '';
+    state.region = LOCATIONS[loc] || params.get('region') || '';
+    state.duration = DURATIONS.indexOf(params.get('duration')) >= 0 ? params.get('duration') : '';
+    state.view = params.get('view') === 'map' ? 'map' : 'grid';
   }
 
-  function writeURL() {
+  // push: a new history entry (location, duration and view changes), so the back
+  // button steps back through them. Chip changes replace the current entry.
+  function writeURL(push) {
     var params = new URLSearchParams(window.location.search);
     if (state.cat.length) params.set('cat', state.cat.join(',')); else params.delete('cat');
     if (state.sub) params.set('sub', state.sub); else params.delete('sub');
-    // The location isn't kept in the address, so a reload or return visit starts on
-    // All locations (Ro, 20 Oct 2026). A link with ?region= still opens filtered.
     params.delete('region');
+    var loc = Object.keys(LOCATIONS).filter(function (k) { return LOCATIONS[k] === state.region; })[0];
+    if (loc) params.set('location', loc); else params.delete('location');
+    if (state.duration) params.set('duration', state.duration); else params.delete('duration');
+    if (state.view === 'map') params.set('view', 'map'); else params.delete('view');
     var qs = params.toString();
     var url = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
-    history.replaceState(null, '', url);
+    if (url === window.location.pathname + window.location.search + window.location.hash) return;
+    if (push) history.pushState(null, '', url); else history.replaceState(null, '', url);
+  }
+
+  // Buckets: 60 minutes or less; 61 to 300; over 300 on a single day; two days or more.
+  function durationBucket(card) {
+    var days = parseInt(card.getAttribute('data-days'), 10) || 1;
+    var mins = parseInt(card.getAttribute('data-duration'), 10);
+    if (days >= 2) return 'multi-day';
+    if (!mins) return '';
+    if (mins <= 60) return '1h';
+    if (mins <= 300) return '1-5h';
+    return 'full-day';
   }
 
   function cardMatches(card, opts) {
@@ -372,11 +420,12 @@ window.ThCurrency = (function () {
     if (state.region) {
       if (card.getAttribute('data-region') !== state.region) return false;
     }
+    if (state.duration && durationBucket(card) !== state.duration) return false;
     return true;
   }
 
   function hasActiveFilters() {
-    return !!(state.cat.length || state.sub || state.region);
+    return !!(state.cat.length || state.sub || state.region || state.duration);
   }
 
   // Sub-chip counts reflect the currently visible horse cards, respecting region and
@@ -420,17 +469,7 @@ window.ThCurrency = (function () {
       var label = count === 1 ? '1 experience' : count + ' experiences';
       if (state.region === 'bali') label += ' in Bali';
       else if (state.region === 'mornington') label += ' in Victoria, Australia';
-      countEl.textContent = '';
-      countEl.appendChild(document.createTextNode(label));
-      if (count === 0) {
-        countEl.appendChild(document.createTextNode(' · '));
-        var seeAllLink = document.createElement('button');
-        seeAllLink.type = 'button';
-        seeAllLink.className = 'see-all';
-        seeAllLink.textContent = 'See all experiences';
-        seeAllLink.addEventListener('click', clearFilters);
-        countEl.appendChild(seeAllLink);
-      }
+      countEl.textContent = label;
     }
 
     if (emptyEl) {
@@ -439,6 +478,7 @@ window.ThCurrency = (function () {
     }
 
     updateSubCounts();
+    if (exploreMap) exploreMap.filter(cardMatches, state.region);
   }
 
   function setSub(sub) {
@@ -488,9 +528,44 @@ window.ThCurrency = (function () {
   function setRegion(region) {
     state.region = region || '';
     if (locationSelect) locationSelect.value = state.region;
-    writeURL();
+    writeURL(true);
     render();
   }
+
+  function setDuration(d) {
+    state.duration = d || '';
+    if (durationSelect) durationSelect.value = state.duration;
+    writeURL(true);
+    render();
+  }
+
+  // Grid / Map tabs: automatic activation, arrow keys, Home and End.
+  function showView(view, focus) {
+    state.view = view === 'map' ? 'map' : 'grid';
+    tabs.forEach(function (t) {
+      var on = (t.id === 'tabMap') === (state.view === 'map');
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+      if (on && focus) t.focus();
+    });
+    if (exploreMap) { if (state.view === 'map') exploreMap.open(); else exploreMap.close(); }
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () {
+      showView(t.id === 'tabMap' ? 'map' : 'grid');
+      writeURL(true);
+    });
+    t.addEventListener('keydown', function (e) {
+      var to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (to === undefined) return;
+      e.preventDefault();
+      var next = tabs[(to + tabs.length) % tabs.length];
+      showView(next.id === 'tabMap' ? 'map' : 'grid', true);
+      writeURL(true);
+    });
+  });
 
   catChips.forEach(function (chip) {
     chip.addEventListener('click', function () {
@@ -508,6 +583,11 @@ window.ThCurrency = (function () {
   if (locationSelect) {
     locationSelect.addEventListener('change', function () {
       setRegion(locationSelect.value);
+    });
+  }
+  if (durationSelect) {
+    durationSelect.addEventListener('change', function () {
+      setDuration(durationSelect.value);
     });
   }
 
@@ -535,28 +615,36 @@ window.ThCurrency = (function () {
   });
 
   function clearFilters() {
-    state = { cat: [], sub: '', region: '' };
+    state = { cat: [], sub: '', region: '', duration: '', view: state.view };
     if (locationSelect) locationSelect.value = '';
+    if (durationSelect) durationSelect.value = '';
     catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
     showHorseSub(false);
-    writeURL();
+    writeURL(true);
     render();
   }
 
   if (clearBtn) clearBtn.addEventListener('click', clearFilters);
 
-  readURL();
-  catChips.forEach(function (chip) {
-    var c = chip.getAttribute('data-cat');
-    chip.setAttribute('aria-pressed', c ? state.cat.indexOf(c) !== -1 : state.cat.length === 0);
-  });
-  showHorseSub(state.cat.indexOf('horse') !== -1);
-  subChips.forEach(function (chip) {
-    chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
-  });
-  if (locationSelect) locationSelect.value = state.region;
+  // Everything from the address: on load, and on back / forward.
+  function fromURL() {
+    readURL();
+    catChips.forEach(function (chip) {
+      var c = chip.getAttribute('data-cat');
+      chip.setAttribute('aria-pressed', c ? state.cat.indexOf(c) !== -1 : state.cat.length === 0);
+    });
+    showHorseSub(state.cat.indexOf('horse') !== -1);
+    subChips.forEach(function (chip) {
+      chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
+    });
+    if (locationSelect) locationSelect.value = state.region;
+    if (durationSelect) durationSelect.value = state.duration;
+    render();
+    showView(state.view);
+  }
   if (countEl) countEl.setAttribute('tabindex', '-1');
-  render();
+  fromURL();
+  window.addEventListener('popstate', fromURL);
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes

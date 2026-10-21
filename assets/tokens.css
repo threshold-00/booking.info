@@ -72,6 +72,16 @@
   --gallery-ratio-mobile:4/3;  /* each slide of the mobile carousel */
   --r-gallery:var(--r-card);
   --text-info:var(--ink);      /* session details under a demo page's title */
+
+  /* 4.13 browse: Grid / Map view, map card, bottom sheet, comparison table */
+  --hit:44px;                  /* minimum tap target */
+  --icon-s:16px;               /* icons inside tabs and buttons */
+  --map-view-h:70vh;           /* the Map tab on desktop */
+  --map-view-h-mobile:65vh;    /* the Map tab on phones */
+  --popup-w:300px;             /* map popup card on desktop */
+  --sheet-max:480px;           /* bottom sheet's widest */
+  --z-sheet:60;                /* bottom sheet, above the floating CTA */
+  --table-highlight:var(--panel); /* Threshold's row in the comparison table */
 }
 
 @media (max-width:820px){
