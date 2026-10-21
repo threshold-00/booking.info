@@ -197,6 +197,10 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .hero-credit a{position:relative;color:inherit;border-bottom:1px solid rgba(243,242,238,.4)}
 .hero-credit a::before{content:"";position:absolute;inset:-16px -4px}
 @media (min-width:821px){.hero-photo{min-height:clamp(480px,62svh,640px);display:flex;align-items:center;justify-content:center}}
+/* Homepage hero: 30% taller than the shared hero at every width (Ro, 22 Oct 2026). */
+/* Desktop: 720px is 1.3x the content's own height (554px), for screens where that set the height. */
+@media (min-width:821px){#top{min-height:max(720px,clamp(624px,80.6svh,832px))}}
+@media (min-width:641px) and (max-width:820px){#top{min-height:540px;display:flex;align-items:center}#top>div{margin:0 auto}}
 #top img{object-position:center 55%}
 
 /* Full-bleed band (the "made by a person" strip): background spans the
@@ -378,7 +382,7 @@ footer nav a::before{content:"";position:absolute;inset:0 -10px}
   .menu-currency .select-wrap{display:block;width:100%;margin:0;padding:0}
   .site-header .menu-currency .currency-select{display:block;width:100%;min-width:0;min-height:44px;padding:0 36px 0 var(--s-4);background-position:right var(--s-4) center}
   /* 64px at the bottom keeps the photo credit clear of the button, with room for its 44px tap area. */
-  #top{min-height:clamp(420px,60svh,560px);display:flex;align-items:center;padding:24px 20px 64px!important}
+  #top{min-height:clamp(546px,78svh,728px);display:flex;align-items:center;padding:24px 20px 64px!important}
   #intro{min-height:clamp(420px,60svh,560px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 20px 64px!important}
   .hero-credit{bottom:16px}
   #top>div{margin:0 auto}
