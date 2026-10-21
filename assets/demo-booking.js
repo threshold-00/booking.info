@@ -251,21 +251,48 @@
       lines: [[money(m.price_cents) + ' × ' + party(n), money(m.price_cents * n)]] };
   }
 
+  // Deposit now, balance later, as the Worker decides it (planPayment in hold.ts):
+  // only while the balance isn't due yet, otherwise the full price.
+  function withDeposit(qt) {
+    var m = state.meta, s = state.slot;
+    if (!qt || !s || !m.deposit_pct || m.balance_due_hours_before_start == null) return qt;
+    var dueMs = Date.parse(s.starts_at) - m.balance_due_hours_before_start * 3600e3;
+    if (Date.now() >= dueMs) return qt;
+    qt.deposit = Math.round(qt.total * m.deposit_pct / 100);
+    qt.balance = qt.total - qt.deposit;
+    qt.due = whenLocal(new Date(dueMs).toISOString());
+    return qt;
+  }
+  function whenLocal(iso) {
+    try {
+      var f = {};
+      new Intl.DateTimeFormat('en-AU', { timeZone: (state.meta && state.meta.timezone) || 'Australia/Melbourne', weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true })
+        .formatToParts(new Date(iso)).forEach(function (x) { f[x.type] = x.value; });
+      return f.weekday + ' ' + f.day + ' ' + f.month + ', ' + f.hour + (f.minute === '00' ? '' : ':' + f.minute) + String(f.dayPeriod || '').toLowerCase().replace(/\W/g, '');
+    } catch (e) { return iso.slice(0, 10); }
+  }
+  function summaryRows(box, lines, qt) {
+    var rows = lines.slice();
+    if (qt.deposit) rows.push(['Total', money(qt.total)]);
+    box.innerHTML = rows.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b></b><b></b></div>' + (qt.deposit ? '<div class="row later"></div>' : '');
+    rows.forEach(function (r, i) { text(box.children[i].children[0], r[0]); text(box.children[i].children[1], r[1]); });
+    var last = box.children[rows.length];
+    text(last.children[0], qt.deposit ? 'Deposit now (held, not charged)' : 'Total (held, not charged)');
+    text(last.children[1], money(qt.deposit || qt.total));
+    if (qt.deposit) text(box.lastChild, 'Balance ' + money(qt.balance) + ' due by ' + qt.due + '. We\'ll email you a link to pay it.');
+  }
+
   function render() {
     if (!state.meta) return;
     syncParty();
-    var qt = state.slot ? quote() : null;
+    var qt = state.slot ? withDeposit(quote()) : null;
     $('total').hidden = !qt;
     if (qt) $('totalValue').textContent = money(qt.total);
     $('bookingCta').disabled = !qt || OFF;
     if (!qt) return;
     var s = state.slot;
     $('chosen').textContent = (labelFor(state.key) + ' · ' + range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local) + ' · ' + party(state.people));
-    $('summary').innerHTML = qt.lines.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b></b><b></b></div>';
-    var rows = $('summary').children;
-    qt.lines.forEach(function (l, i) { text(rows[i].children[0], l[0]); text(rows[i].children[1], l[1]); });
-    text(rows[qt.lines.length].children[0], 'Total (held, not charged)');
-    text(rows[qt.lines.length].children[1], money(qt.total));
+    summaryRows($('summary'), qt.lines, qt);
   }
   function labelFor(key) { var o = C.options.filter(function (x) { return x.experience === key; })[0]; return (state.meta && state.meta.experience_name) || (o ? o.label : key); }
 
@@ -354,6 +381,7 @@
       [BIZ + ' confirms within ' + m.response_hours + ' hours', 'Once they confirm, the payment is taken. If they can\'t, the hold is released and you\'re not charged.'],
       ['Turn up on the day', 'Everything you need to know is in your confirmation email.']
     ];
+    if (m.deposit_pct) steps.splice(2, 0, ['Booking more than ' + m.balance_due_hours_before_start + ' hours ahead? It\'s a ' + m.deposit_pct + '% deposit', 'The balance is due ' + m.balance_due_hours_before_start + ' hours before the start. We email you a link to pay it a few days before.']);
     list($('howSteps'), steps, '<li><span class="n"></span><span><b></b><span class="prose" style="display:block;"></span></span></li>').forEach(function (li, i) {
       text(li.querySelector('.n'), i + 1); text(li.querySelector('b'), steps[i][0]); text(li.querySelector('.prose'), steps[i][1]);
     });
@@ -524,7 +552,7 @@
     if (sending) return;
     var first = checkFields();
     if (first) { $(first).focus(); return; }
-    var qt = quote();
+    var qt = withDeposit(quote());
     var body = { business: SLUG, experience: state.key, starts_at: state.slot.starts_at,
       customer: { name: $('name').value.trim(), email: $('email').value.trim(), phone: $('phone').value.trim() },
       screening_answers: composed(), attribution: { landing_path: location.pathname, utm_source: q.get('utm_source') || null } };
@@ -541,7 +569,7 @@
         try {
           var s = state.slot;
           sessionStorage.setItem('th_bk_' + r.body.booking.ref, JSON.stringify({ key: state.key, title: labelFor(state.key),
-            when: range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local), party: party(state.people), lines: qt.lines, total: money(qt.total) }));
+            when: range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '' }));
         } catch (e2) {}
         location.href = r.body.checkout_url; return;
       }
@@ -572,14 +600,18 @@
     a.onclick = function (ev) {
       ev.preventDefault();
       api('GET', '/demo/links?ref=' + encodeURIComponent(ref)).then(function (r) {
-        if (r.status === 200) location.href = '?x=' + state.key + '&respond=' + encodeURIComponent(r.body.respond_token);
+        if (r.status === 200) location.href = '?x=' + state.key + '&respond=' + encodeURIComponent(r.body.respond_token) + (r.body.balance_token ? '&bal=' + encodeURIComponent(r.body.balance_token) : '');
         else { text(box.querySelector('p'), 'That demo link has expired. Make a new test booking to try again.'); a.remove(); }
       });
     };
   } else if (result === 'cancelled') {
     done('Not booked yet', 'Payment not finished', 'You left the payment page before finishing, so nothing was charged. Your places are held for a few more minutes if you want to try again.');
+  } else if (result === 'balance_paid' && ref) {
+    done('Reference ' + ref, 'You\'re all paid', 'Thanks. Your balance is paid and your place is confirmed.');
   } else if (q.get('respond')) {
-    bizView(q.get('respond'));
+    bizView(q.get('respond'), q.get('bal'));
+  } else if (q.get('balance')) {
+    balanceView(q.get('balance'));
   } else {
     track('page_view');
   }
@@ -592,10 +624,11 @@
     state.key = b.key; $('doneBack').href = '?x=' + b.key;
     var rows = [[b.title, ''], [b.when, ''], [b.party, '']].concat(b.lines || []);
     var box = $('doneSummary');
-    box.innerHTML = rows.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b></b><b></b></div>';
-    rows.forEach(function (r, i) { text(box.children[i].children[0], r[0]); text(box.children[i].children[1], r[1]); });
+    // Older entries stored the total as text.
+    var total = typeof b.total === 'number' ? b.total : Math.round(parseFloat(String(b.total).replace(/[^0-9.]/g, '')) * 100);
+    summaryRows(box, rows, { total: total, deposit: b.deposit, balance: b.balance, due: b.due });
     box.children[0].children[0].style.fontWeight = '600';
-    text(box.lastChild.children[0], 'Total (held, not charged)'); text(box.lastChild.children[1], b.total);
+    if (b.deposit) $('doneText').textContent = 'Your card is held for the ' + money(b.deposit) + ' deposit, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.';
     box.hidden = false;
     $('doneKnow').hidden = !knowList($('doneKnowList'), C.experiences[b.key].good_to_know);
   }
@@ -615,12 +648,13 @@
     }, { passive: true });
   })();
 
-  function bizView(token) {
+  function bizView(token, balToken) {
     $('bpForm').hidden = true; $('bpBiz').hidden = false; $('mobileStickyBar').hidden = true;
     api('GET', '/respond?token=' + encodeURIComponent(token)).then(function (r) {
       if (r.status !== 200) { showError($('respErr'), r.body.message || 'This link has expired.'); return; }
       var b = r.body;
       var rows = [[b.experience, ''], [b.when, ''], [b.party_size + (b.party_size > 1 ? ' people' : ' person'), b.customer.name], ['Price', money(b.price_cents)]];
+      if (b.payment_plan === 'deposit') rows.push(['Deposit', money(b.deposit_cents)]);
       if (b.customer.phone) rows.push(['Phone', b.customer.phone]);
       (b.details || []).forEach(function (d) { rows.push([d.label, d.answer === true ? 'Yes' : d.answer === false ? 'No' : String(d.answer)]); });
       list($('reqBox'), rows, '<div class="row"><span></span><span></span></div>').forEach(function (row, i) {
@@ -629,23 +663,58 @@
       $('reqBox').children[0].children[0].style.fontWeight = '600';
       if (b.status === 'requested') {
         $('respActions').hidden = false;
-        $('respNote').textContent = 'Their card is held. Accept to take the payment, or decline to release the hold. If nobody answers, it\'s released automatically.';
-      } else respDone(b.status);
+        $('respNote').textContent = 'Their card is held. Accept to take the ' + (b.payment_plan === 'deposit' ? 'deposit' : 'payment') + ', or decline to release the hold. If nobody answers, it\'s released automatically.';
+      } else respDone(b.status, b.payment_plan, balToken);
       document.querySelectorAll('#respActions [data-act]').forEach(function (btn) {
         btn.onclick = function () {
           $('respActions').hidden = true;
           api('POST', '/respond', { token: token, action: btn.dataset.act }).then(function (p) {
             if (p.status !== 200) { showError($('respErr'), p.body.message); $('respActions').hidden = false; return; }
-            respDone(p.body.status);
+            respDone(p.body.status, b.payment_plan, balToken);
           });
         };
       });
     });
   }
-  function respDone(status) {
-    $('respNote').textContent = status === 'confirmed' ? 'Accepted. The payment has been taken (test mode) and the customer is told.'
+  function respDone(status, plan, balToken) {
+    var dep = plan === 'deposit';
+    $('respNote').textContent = status === 'confirmed' ? 'Accepted. The ' + (dep ? 'deposit' : 'payment') + ' has been taken (test mode) and the customer is told.'
       : status === 'declined' ? 'Declined. The hold on their card is released and they aren\'t charged.'
       : 'This request is ' + status.replace(/_/g, ' ') + '.';
+    if (status === 'confirmed' && dep && balToken && $('bizDemoBox')) {
+      var box = $('bizDemoBox');
+      box.hidden = false;
+      box.innerHTML = '<p></p><a class="btn-ghost"></a>';
+      text(box.querySelector('p'), 'Demo: the customer gets a link to pay the balance a few days before. Try it as the customer.');
+      var a = box.querySelector('a'); text(a, 'Pay the balance as the customer');
+      a.href = '?x=' + state.key + '&balance=' + encodeURIComponent(balToken);
+    }
+  }
+
+  // The customer's balance link, from their email.
+  function balanceView(token) {
+    done('Your booking', 'Pay your balance', '');
+    $('doneBack').hidden = true;
+    api('GET', '/balance?token=' + encodeURIComponent(token)).then(function (r) {
+      if (r.status !== 200) { $('doneText').textContent = r.body.message || 'This link has expired.'; return; }
+      var b = r.body, box = $('doneSummary');
+      $('doneLabel').textContent = 'Reference ' + b.ref;
+      $('doneText').textContent = b.experience + ', ' + b.when + '.';
+      box.hidden = false;
+      box.innerHTML = '<div class="row"><b>Balance</b><b></b></div><div class="row later"></div>';
+      text(box.firstChild.children[1], money(b.balance_cents));
+      text(box.lastChild, b.balance_status === 'paid' ? 'Already paid. Nothing more to do.' : 'Due by ' + whenLocal(b.balance_due_at) + '.');
+      if (b.balance_status === 'paid') return;
+      var btn = $('doneBtn');
+      btn.hidden = false; btn.textContent = 'Pay ' + money(b.balance_cents);
+      btn.onclick = function () {
+        btn.disabled = true; btn.textContent = 'Taking you to payment...';
+        api('POST', '/balance', { token: token }).then(function (p) {
+          if (p.body.checkout_url) location.href = p.body.checkout_url;
+          else { showError($('doneErr'), p.body.message || 'Something went wrong.'); btn.hidden = true; }
+        });
+      };
+    });
   }
 
   // ── Start ──

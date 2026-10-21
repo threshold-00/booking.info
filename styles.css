@@ -307,12 +307,12 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 .browse-sub{margin:28px 0 0}
 .browse-group__head,.browse-sub__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 16px;flex-wrap:wrap}
 /* One card per row on mobile, full width inside the gutter, on every page.
-   Homepage rows marked data-mobile-cap show 10 cards, then a "See all" button
+   Homepage rows marked data-mobile-cap show 12 cards, then a "See all" button
    (app.js adds .is-expanded) shows the rest. */
 .card-cap-more{display:none}
 @media (max-width:820px){
   .card-row,.card-grid,.x-card-grid{grid-template-columns:minmax(0,1fr);gap:16px}
-  .card-row[data-mobile-cap]:not(.is-expanded)>:nth-child(n+11){display:none}
+  .card-row[data-mobile-cap]:not(.is-expanded)>:nth-child(n+13){display:none}
   .card-cap-more{display:inline-flex;margin-top:var(--s-3)}
   .card-cap-more[hidden]{display:none}
 }
