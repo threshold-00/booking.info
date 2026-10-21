@@ -157,43 +157,126 @@ window.ThCurrency = (function () {
   }
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
-  // Built when opened, so prices filled in by the currency switcher are current.
-  function popup(pin) {
-    var box = el('div'), list = activities(pin);
-    box.appendChild(el('p', 'pop-title', pin.business));
+
+  // One activity at a time: photo, title and price, all one link, with arrows and
+  // "1 / 2" when the business has more. Built when opened, so prices filled in by the
+  // currency switcher are current. Used for the desktop popup and the phone sheet.
+  function slides(pin) {
+    var list = activities(pin), i = 0;
+    var box = el('div', 'pop'), card = el('a', 'pop-card');
+    var media = el('div', 'pop-media'), body = el('div', 'pop-body');
+    var meta = el('p', 'pop-meta'), title = el('p', 'pop-title'), price = el('p', 'card__price pop-amount');
+    card.appendChild(media); card.appendChild(body);
+    body.appendChild(meta); body.appendChild(title); body.appendChild(price);
+    box.appendChild(card);
     var demo = list.some(function (c) { return /^\/demo\/b\//.test(c.getAttribute('href') || ''); });
-    box.appendChild(el('p', 'pop-desc', (demo ? 'Demo · ' : '') + pin.place));
-    list.forEach(function (c) {
-      var a = el('a', 'pop-link', (c.getAttribute('data-title') || '') + ' →');
-      a.href = c.getAttribute('href');
-      a.style.display = 'block';
-      a.style.marginTop = '8px';
-      box.appendChild(a);
-      var price = c.querySelector('.card__price');
-      if (price && price.textContent.trim()) box.appendChild(el('p', 'pop-price', price.textContent.trim()));
-    });
+    if (demo) meta.appendChild(el('span', 'pop-pill', 'Demo'));
+    meta.appendChild(document.createTextNode(pin.place));
+
+    var nav, count;
+    function go(n) {
+      i = (n + list.length) % list.length;
+      var c = list[i], src = c.querySelector('.card__media picture') || c.querySelector('.card__media img');
+      card.href = c.getAttribute('href');
+      card.setAttribute('aria-label', (c.getAttribute('data-title') || '') + ', ' + pin.business);
+      title.textContent = c.getAttribute('data-title') || '';
+      var p = c.querySelector('.card__price');
+      price.textContent = p ? p.textContent.trim() : '';
+      media.textContent = '';
+      if (src) {
+        var img = src.cloneNode(true), tag = img.tagName === 'IMG' ? img : img.querySelector('img');
+        if (tag) { tag.removeAttribute('loading'); tag.removeAttribute('style'); }
+        if (img.tagName !== 'IMG') img.removeAttribute('style');
+        media.appendChild(img);
+      }
+      if (count) count.textContent = (i + 1) + ' / ' + list.length;
+    }
+    if (list.length > 1) {
+      nav = el('div', 'pop-nav');
+      var prev = el('button', 'pop-arrow', '\u2039'), next = el('button', 'pop-arrow', '\u203A');
+      prev.type = next.type = 'button';
+      prev.setAttribute('aria-label', 'Previous activity');
+      next.setAttribute('aria-label', 'Next activity');
+      count = el('span', 'pop-count');
+      count.setAttribute('aria-live', 'polite');
+      prev.addEventListener('click', function () { go(i - 1); });
+      next.addEventListener('click', function () { go(i + 1); });
+      nav.appendChild(prev); nav.appendChild(count); nav.appendChild(next);
+      box.appendChild(nav);
+    }
+    go(0);
     return box;
   }
 
   var isMobile = window.matchMedia('(max-width:640px)').matches;
+  var useSheet = window.matchMedia('(max-width:820px)');
   var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile, tap: !isMobile, zoomSnap: 0.25 });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
+  // Phones and tablets: a sheet along the bottom of the screen instead of a popup, so
+  // the other pins stay in view.
+  var sheet = el('div', 'map-sheet'), sheetBody = el('div'), sheetClose = el('button', 'map-sheet__close');
+  sheet.setAttribute('role', 'dialog');
+  sheet.hidden = true;
+  sheetClose.type = 'button';
+  sheetClose.setAttribute('aria-label', 'Close');
+  sheetClose.appendChild(el('span', '', '\u00D7'));
+  sheet.appendChild(sheetBody); sheet.appendChild(sheetClose);
+  document.body.appendChild(sheet);
+  var active = null;
+
+  function setActive(m) {
+    if (active && active !== m) { active.setIcon(pinIcon(false)); active.setZIndexOffset(0); }
+    active = m;
+    if (m) { m.setIcon(pinIcon(true)); m.setZIndexOffset(1000); }
+  }
+  function closeSheet() {
+    if (sheet.hidden) return;
+    sheet.hidden = true;
+    setActive(null);
+  }
+  function openSheet(m, p) {
+    setActive(m);
+    sheetBody.textContent = '';
+    sheetBody.appendChild(slides(p));
+    sheet.setAttribute('aria-label', p.business);
+    sheet.hidden = false;
+    // Keep the pin above the sheet.
+    var rect = mapEl.getBoundingClientRect(), cover = rect.bottom - sheet.getBoundingClientRect().top;
+    if (cover > 0) map.panInside(m.getLatLng(), { paddingTopLeft: [40, 50], paddingBottomRight: [40, cover + 20] });
+    sheetClose.focus({ preventScroll: true });
+  }
+  sheetClose.addEventListener('click', closeSheet);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+  map.on('click', closeSheet);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { if (!es[0].isIntersecting) closeSheet(); }).observe(mapEl);
+  }
+
+  // Desktop: one popup, about 300px wide, opened on the clicked pin.
+  var pop = L.popup({ className: 'th-pop', closeButton: true, minWidth: 300, maxWidth: 300, offset: [0, -23], autoPanPadding: [20, 20] });
+  map.on('popupclose', function (e) { if (e.popup === pop) setActive(null); });
+
   pins.forEach(function (p) {
     var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.business + ', ' + p.place, keyboard: true });
     m.addTo(map);
-    m.bindPopup(function () { return popup(p); }, { closeButton: true, maxWidth: 280, maxHeight: 300 });
-    m.on('popupopen', function () { m.setIcon(pinIcon(true)); });
-    m.on('popupclose', function () { m.setIcon(pinIcon(false)); });
+    m.on('click', function () {
+      if (useSheet.matches) { map.closePopup(); openSheet(m, p); return; }
+      closeSheet();
+      pop.setLatLng(m.getLatLng()).setContent(slides(p));
+      map.openPopup(pop);
+      setActive(m);
+    });
   });
 
   var region = 'mornington';
   function show(r) {
     region = r;
     map.closePopup();
+    closeSheet();
     var points = pins.filter(function (p) { return p.region === r; }).map(function (p) { return [p.lat, p.lng]; });
     if (points.length === 1) map.setView(points[0], 10);
     else if (points.length) map.fitBounds(L.latLngBounds(points), { padding: [30, 30], maxZoom: 10 });

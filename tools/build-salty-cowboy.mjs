@@ -492,7 +492,7 @@ ${header(base)}
   </nav>
 
   <section style="padding:24px 40px 0;max-width:1100px;">
-    <h1 style="font-size:clamp(32px,5vw,56px);line-height:1.02;letter-spacing:-.03em;margin:0 0 20px;">Salty Cowboy</h1>
+    <h1 style="font-size:clamp(32px,5vw,56px);line-height:1.02;letter-spacing:0;margin:0 0 20px;">Salty Cowboy</h1>
     <p style="margin:0 0 40px;max-width:62ch;color:var(--ink-2);">An owner-run horse rescue and riding centre in Bali, run by Simone. Every horse here has a story, some retired from work, others rescued from neglect. All 11 experiences below.</p>
   </section>
 
