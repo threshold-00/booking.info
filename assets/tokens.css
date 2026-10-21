@@ -65,6 +65,13 @@
 
   /* 4.11 header height */
   --header-h:64px;
+
+  /* 4.12 demo pages v2: gallery header, info text */
+  --gallery-gap:var(--s-2);
+  --gallery-ratio:16/8;        /* desktop: 1 large + up to 4 smaller */
+  --gallery-ratio-mobile:4/3;  /* each slide of the mobile carousel */
+  --r-gallery:var(--r-card);
+  --text-info:var(--ink);      /* session details under a demo page's title */
 }
 
 @media (max-width:820px){

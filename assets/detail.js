@@ -26,6 +26,9 @@
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
       lightboxCount.textContent = (current + 1) + ' of ' + images.length;
+      // Demo pages: an Unsplash photo's credit ("Photo: Name / Unsplash").
+      var credit = document.getElementById('lightboxCredit');
+      if (credit) { credit.textContent = img.dataset.credit || ''; credit.hidden = !img.dataset.credit; }
     }
     function open(i) {
       lastFocused = document.activeElement;

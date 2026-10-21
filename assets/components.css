@@ -270,3 +270,61 @@
 /* 6.16 banner */
 .banner{background:var(--ink);color:var(--paper);font-family:var(--display);font-size:var(--t-small);padding:var(--s-3) var(--gutter)}
 .banner--light{background:var(--panel);color:var(--ink);border-bottom:var(--bw) solid var(--line)}
+
+/* 6.18 demo banner: full width, above the site header, non-dismissible.
+   Hidden /demo/b/ pages only. Copy comes from the data file: in sandbox
+   booking mode it names the business and gives the Stripe test card. */
+.demo-strip{display:block;width:100%;margin:0;padding:9px var(--gutter);background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:var(--ls-mono);text-transform:uppercase;text-align:center}
+
+/* 6.19 photo placeholder: same box and aspect ratio as the photo slot, until
+   the business gives written permission for its own photos. Keeps the Demo pill. */
+.photo-placeholder{aspect-ratio:16/7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s-2);padding:var(--s-5);background:var(--panel);border:var(--bw) solid var(--line-ui);text-align:center}
+.photo-placeholder__name{font-family:var(--display);font-weight:var(--w-strong);font-size:var(--t-subhead);line-height:1.15;letter-spacing:var(--ls-subhead);color:var(--ink)}
+.photo-placeholder__label{font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-3)}
+
+/* 6.20 gallery header: 1 large photo and up to 4 smaller on desktop; a full-width
+   swipeable carousel with a "1 / N" mono counter on mobile (scroll-snap). Photos
+   open the lightbox. 1 or 2 photos: a single hero (--1). */
+.gallery-header{position:relative}
+.gallery-header__track{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:var(--gallery-gap);aspect-ratio:var(--gallery-ratio)}
+.gallery-header__track:focus-visible{outline:2px solid var(--focus);outline-offset:var(--focus-offset)}
+.gallery-header__item{position:relative;margin:0;min-width:0;min-height:0;overflow:hidden;border-radius:var(--r-gallery);background:var(--panel)}
+.gallery-header__item:first-child{grid-row:1 / 3}
+.gallery-header__item picture{display:block;width:100%;height:100%}
+.gallery-header__item img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;cursor:zoom-in}
+.gallery-header--1 .gallery-header__track{grid-template-columns:1fr;grid-template-rows:1fr;aspect-ratio:16/7}
+.gallery-header--3 .gallery-header__track{grid-template-columns:2fr 1fr}
+.gallery-header--4 .gallery-header__item:last-child{grid-column:2 / 4}
+.gallery-header__count{display:none;margin:0}
+/* A closed lightbox never shows. */
+#lightbox:not([open]){display:none}
+@media (max-width:820px){
+  .gallery-header{margin-inline:calc(-1 * var(--gutter))}
+  .gallery-header__all{display:none}
+  .gallery-header__track{display:flex;gap:0;aspect-ratio:auto;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none}
+  .gallery-header__track::-webkit-scrollbar{display:none}
+  .gallery-header__item{flex:0 0 100%;aspect-ratio:var(--gallery-ratio-mobile);border-radius:var(--r-0);scroll-snap-align:start}
+  .gallery-header__count{display:block;position:absolute;right:var(--s-3);bottom:var(--s-3);padding:4px 10px;border-radius:var(--r-pill);background:var(--scrim-strong);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-mono);pointer-events:none}
+}
+
+/* 6.21 Good to know list: the same list on the page, on the screen after booking
+   (under the booking summary, with a "Good to know" title) and in the email. */
+.know-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-2);max-width:35em}
+.know-list li{position:relative;padding-left:calc(var(--bullet) + var(--s-3));font-family:var(--display);font-size:var(--t-body);line-height:1.5;color:var(--ink)}
+.know-list li::before{content:"";position:absolute;left:0;top:.5em;width:var(--bullet);height:var(--bullet);background:var(--ink)}
+.know-list__title{margin:0 0 var(--s-3);font-family:var(--display);font-weight:var(--w-strong);font-size:var(--t-title);line-height:1.3;color:var(--ink)}
+
+/* 6.22 info text: the session details under a demo page's title (the fact row)
+   are body ink, not grey. */
+.fact-row--ink{color:var(--text-info)}
+/* 6.18 demo banner, sandbox: louder. Bigger type and padding, the test card
+   number picked out in paper on ink. Regular weight. */
+.demo-strip--sandbox{padding:14px var(--gutter);font-size:13px;line-height:1.7}
+.demo-strip__card{display:inline-block;padding:0 8px;background:var(--paper);color:var(--ink);border-radius:4px;white-space:nowrap}
+/* 6.23 demo flag: above a demo page's heading. Ink "Demo" tag joined to an
+   outlined "No real booking is made", mono caps. */
+.demo-flag{display:inline-flex;align-items:stretch;margin:var(--s-3) 0 var(--s-4);border:var(--bw-strong) solid var(--ink);border-radius:var(--r-pill);overflow:hidden;font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase}
+.demo-flag__tag{display:flex;align-items:center;padding:6px 12px;background:var(--ink);color:var(--paper)}
+.demo-flag__text{display:flex;align-items:center;padding:6px 12px;color:var(--ink)}
+/* 6.22 info text, also the Good to know details and functional lines (hours, address). */
+.know-details dd,.prose.prose--info{color:var(--text-info)}
