@@ -329,9 +329,6 @@
 /* 6.22 info text, also the Good to know details and functional lines (hours, address). */
 .know-details dd,.prose.prose--info{color:var(--text-info)}
 /* Demo flag row: the flag, plus a link to the card preview when there is one. */
-.demo-flag-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2) var(--s-4);margin:var(--s-3) 0 var(--s-4)}
-.demo-flag-row .demo-flag{margin:0}
-.demo-flag-row__link{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
 /* 6.24 card preview: "Your card on Threshold", the business's listing cards as
    they show when people browse. Each card opens the demo page. */
 .card-preview{padding-bottom:var(--section-y)}

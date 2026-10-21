@@ -324,10 +324,7 @@ ${HEADER}<main id="main">
 
   <div class="container detail-layout">
     <div class="detail-head">
-      <div class="demo-flag-row">
-        <p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
-        ${p.cards?.length ? `<a class="demo-flag-row__link navlink" href="card/">See your card on Threshold</a>` : ''}
-      </div>
+      <p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
       <h1>${esc(p.headline)}</h1>
       <p class="detail-lead" id="lead" hidden></p>
       <a href="#business" class="owner-strip navlink">
