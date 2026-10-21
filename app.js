@@ -104,31 +104,48 @@ window.ThCurrency = (function () {
 })();
 
 
-// Explore nearby map (Leaflet, vendored in assets/leaflet/). Real listings only, no
-// placeholder pins. Centres on the user's location when granted, falls back to the
-// Mornington Peninsula, then fits bounds to whatever pins exist. Filter chips reuse the
-// same category set and .opt styling as the Experiences section above, wired here to
-// actually show/hide pins since this is the section the brief asked for real filtering on.
+// Explore map (Leaflet, vendored in assets/leaflet/). One pin per business location,
+// and each pin's popup lists that business's activities, read from the homepage cards
+// (#browseGrid), so a new card shows up on the map without touching this list. Two
+// region buttons: Victoria (the default, fitted to every Victorian pin) and Bali.
+// Pins sit on the business's address, or the suburb when the address is private or
+// not confirmed.
 (function () {
   var mapEl = document.getElementById('exploreMap');
   if (!mapEl || typeof L === 'undefined') return;
 
-  var FALLBACK_CENTER = [-38.373, 144.952]; // Mornington Peninsula
-
-  // Real listings only. Add a pin here once a business goes live with a bookable page.
+  // business: the cards' data-business. only: card ?x= keys, when one business has
+  // activities in two places.
   var pins = [
-    {
-      cat: 'horse',
-      name: 'Salty Cowboy, Bali',
-      lat: -8.6500,
-      lng: 115.2167,
-      description: 'Horse riding on rescued horses. Beach rides, sunset rides and lessons for all levels.',
-      priceIdr: 1250000,
-      link: 'bali/salty-cowboy/'
-    }
+    { business: 'Gordon Studio Glassblowers', place: 'Red Hill', region: 'mornington', lat: -38.3726, lng: 145.0218 },
+    { business: 'Heathcote Bike Hire', place: 'Heathcote', region: 'mornington', lat: -36.9220, lng: 144.7080 },
+    { business: 'Salty Seas Surf School', place: 'Inverloch', region: 'mornington', lat: -38.6475, lng: 145.7390 },
+    { business: 'Tiger Moth World', place: 'Torquay Airport', region: 'mornington', lat: -38.2977, lng: 144.3653 },
+    { business: 'Spring Creek Horse Rides', place: 'Bellbrae, near Torquay', region: 'mornington', lat: -38.3375, lng: 144.2533 },
+    { business: 'Indigo Woodworks', place: 'Indigo Valley', region: 'mornington', lat: -36.0860, lng: 146.8480 },
+    { business: 'Moonraker Dolphin Swims', place: 'Sorrento Pier', region: 'mornington', lat: -38.3390, lng: 144.7430 },
+    { business: 'Phoenix Pottery', place: 'Fitzroy', region: 'mornington', lat: -37.7985, lng: 144.9772 },
+    { business: 'Lygon Street Pottery', place: 'Brunswick East', region: 'mornington', lat: -37.7705, lng: 144.9715 },
+    { business: 'simétrie', place: 'Brunswick', region: 'mornington', lat: -37.7667, lng: 144.9600 },
+    { business: 'Suigeneris Atelier', place: 'Mulgrave', region: 'mornington', lat: -37.9265, lng: 145.1660 },
+    { business: 'Peachy Keen Ceramics', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
+    { business: 'East Coast Kayaking', place: 'Melbourne city, on the Yarra', region: 'mornington', lat: -37.8210, lng: 144.9640, only: ['city-day', 'city-twilight'] },
+    { business: 'East Coast Kayaking', place: 'Sandringham', region: 'mornington', lat: -37.9510, lng: 145.0010, only: ['bayside', 'point-nepean', 'phillip-island'] },
+    { business: 'Salty Cowboy', place: 'Bali', region: 'bali', lat: -8.6500, lng: 115.2167 }
   ];
 
-  // Custom ink SVG pin icon with --cleared active state
+  // Activities per pin, from the cards in the results grid (each card is there once).
+  var cards = [].slice.call(document.querySelectorAll('#browseGrid .card[data-business]'));
+  function activities(pin) {
+    return cards.filter(function (c) {
+      if (c.getAttribute('data-business') !== pin.business) return false;
+      if (!pin.only) return true;
+      var x = (c.getAttribute('href') || '').match(/[?&]x=([a-z0-9-]+)/);
+      return !!x && pin.only.indexOf(x[1]) >= 0;
+    });
+  }
+  pins = pins.filter(function (p) { return activities(p).length; });
+
   function pinIcon(active) {
     return L.divIcon({
       className: 'th-pin' + (active ? ' is-active' : ''),
@@ -139,67 +156,62 @@ window.ThCurrency = (function () {
     });
   }
 
-  // User location pin
-  function userIcon() {
-    return L.divIcon({ className: 'th-you', iconSize: [14, 14] });
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+  // Built when opened, so prices filled in by the currency switcher are current.
+  function popup(pin) {
+    var box = el('div'), list = activities(pin);
+    box.appendChild(el('p', 'pop-title', pin.business));
+    var demo = list.some(function (c) { return /^\/demo\/b\//.test(c.getAttribute('href') || ''); });
+    box.appendChild(el('p', 'pop-desc', (demo ? 'Demo · ' : '') + pin.place));
+    list.forEach(function (c) {
+      var a = el('a', 'pop-link', (c.getAttribute('data-title') || '') + ' →');
+      a.href = c.getAttribute('href');
+      a.style.display = 'block';
+      a.style.marginTop = '8px';
+      box.appendChild(a);
+      var price = c.querySelector('.card__price');
+      if (price && price.textContent.trim()) box.appendChild(el('p', 'pop-price', price.textContent.trim()));
+    });
+    return box;
   }
 
   var isMobile = window.matchMedia('(max-width:640px)').matches;
-  var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile, tap: !isMobile }).setView(FALLBACK_CENTER, 7);
+  var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile, tap: !isMobile, zoomSnap: 0.25 });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  var markers = pins.map(function (p) {
-    var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.name, keyboard: true });
-    m.threshCat = p.cat;
+  pins.forEach(function (p) {
+    var m = L.marker([p.lat, p.lng], { icon: pinIcon(false), title: p.business + ', ' + p.place, keyboard: true });
     m.addTo(map);
-    m.bindPopup(
-      function () {
-        return '<p class="pop-title">' + p.name + '</p>' +
-          '<p class="pop-desc">' + p.description + '</p>' +
-          '<p class="pop-price">' + window.ThCurrency.format(p.priceIdr, { prefix: 'from' }) + '</p>' +
-          '<a class="pop-link" href="' + p.link + '">View listing &rarr;</a>';
-      },
-      { closeButton: true, maxWidth: 260 }
-    );
+    m.bindPopup(function () { return popup(p); }, { closeButton: true, maxWidth: 280, maxHeight: 300 });
     m.on('popupopen', function () { m.setIcon(pinIcon(true)); });
     m.on('popupclose', function () { m.setIcon(pinIcon(false)); });
-    return m;
   });
 
-  function fitToPins(extra) {
-    var points = pins.map(function (p) { return [p.lat, p.lng]; });
-    if (extra) points = points.concat([extra]);
-    if (!points.length) return;
-    map.fitBounds(L.latLngBounds(points), { padding: [40, 40], maxZoom: 10 });
+  var region = 'mornington';
+  function show(r) {
+    region = r;
+    map.closePopup();
+    var points = pins.filter(function (p) { return p.region === r; }).map(function (p) { return [p.lat, p.lng]; });
+    if (points.length === 1) map.setView(points[0], 10);
+    else if (points.length) map.fitBounds(L.latLngBounds(points), { padding: [30, 30], maxZoom: 10 });
+    [].forEach.call(document.querySelectorAll('[data-map-region]'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-map-region') === r ? 'true' : 'false');
+    });
   }
-  fitToPins();
+  [].forEach.call(document.querySelectorAll('[data-map-region]'), function (b) {
+    b.addEventListener('click', function () { show(b.getAttribute('data-map-region')); });
+  });
+  show(region);
 
-  setTimeout(function () { map.invalidateSize(); }, 0);
+  setTimeout(function () { map.invalidateSize(); show(region); }, 0);
   window.addEventListener('resize', function () {
     map.invalidateSize();
     var mobileNow = window.matchMedia('(max-width:640px)').matches;
     if (mobileNow) map.dragging.disable(); else map.dragging.enable();
   });
-
-  var statusEl = document.getElementById('nearbyStatus');
-  function setStatus(text) { if (statusEl) statusEl.textContent = text; }
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      var userLatLng = [pos.coords.latitude, pos.coords.longitude];
-      L.marker(userLatLng, { icon: userIcon() }).addTo(map).bindPopup('You are here');
-      fitToPins(userLatLng);
-      setStatus('Showing experiences near you');
-    }, function () {
-      setStatus('Showing all experiences. Enable location to see what is nearest.');
-    }, { timeout: 6000 });
-  } else {
-    setStatus('Showing all experiences');
-  }
-
 })();
 
 // Homepage search, category chips, horse sub-chips and region toggle (#browse). Filters

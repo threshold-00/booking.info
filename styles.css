@@ -191,6 +191,7 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 /* Benefits section (moved below the experiences on the homepage): plain rows, no boxes */
 .benefit-row{display:flex;align-items:flex-start;gap:18px}
 .benefit-row svg{flex:none;width:28px;height:28px;color:var(--ink)}
+.benefit-emoji{flex:none;width:28px;font-size:24px;line-height:28px;text-align:center;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 /* Dark footer on every page, overriding the per-page inline colours */
 footer{background:var(--ink)!important;border-top-color:rgba(243,242,238,.18)!important;color:rgba(243,242,238,.68)!important}
 footer span{color:rgba(243,242,238,.68)!important}

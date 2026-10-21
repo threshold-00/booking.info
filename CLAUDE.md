@@ -66,7 +66,7 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 
 - **Contact form** posts to Formspree when `FORM_ENDPOINT` at the top of `app.js` is set. Falls back to a mail draft to `CONTACT_EMAIL`. The hidden `_gotcha` input is Formspree's spam trap.
 - **Contact address** is `CONTACT_EMAIL` in `app.js`, currently `rowenabaulch@outlook.com`. Hardcoded `mailto:hello@example.com` links are rewritten by `app.js` on load.
-- **Map** (`#exploreMap`) uses vendored Leaflet. Real listings only, no placeholder pins. Salty Cowboy pin shows "From $50 AUD".
+- **Map** (`#exploreMap`, "Explore on the map") uses vendored Leaflet. Victoria / Bali buttons, Victoria first, fitted to every Victorian pin. One pin per business location (the `pins` list in `app.js`, suburb-level when an address is private or unconfirmed); each popup lists that business's activities read from the homepage cards in `#browseGrid`, so new cards appear on the map automatically. A new business needs one line in `pins`. No placeholder pins.
 - **Floating CTA** (`#floatCta`) shows once the hero is off screen.
 - **Salty Cowboy** is approved, live and bookable, "From $50 AUD" on card, pin and schema.
 
