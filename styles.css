@@ -191,6 +191,10 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto}
 .hero-h1{font-size:clamp(36px,6vw,64px);line-height:1.1;letter-spacing:0;margin:0 0 36px;text-wrap:balance;color:var(--paper)}
 .hero-h1--lg{font-size:clamp(47px,7.8vw,83px)}
+/* One sentence per line (the /for-business/ hero). A sentence still wraps inside itself on a phone.
+   The box is 1000px there so "Run your own experience?" (951px at 83px) fits on one line. */
+.hero-line{display:block}
+#intro .hero-inner{max-width:1000px}
 .hero-sub{margin:0 auto 36px;max-width:44ch;font-family:var(--mono);text-transform:uppercase;font-size:14px;letter-spacing:.06em;line-height:1.5;color:var(--paper-2)}
 .hero-credit{position:absolute;right:20px;bottom:14px;margin:0;z-index:2;color:rgba(243,242,238,.65)}
 .hero-credit{font-size:12px}
