@@ -242,7 +242,8 @@ var exploreMap = (function () {
   function close() { if (map) map.closePopup(); closeSheet(); }
 
   function build() {
-    map = L.map(mapEl, { scrollWheelZoom: false, dragging: !isMobile(), tap: !isMobile(), zoomSnap: 0.25 });
+    map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: false, dragging: !isMobile(), tap: !isMobile(), zoomSnap: 0.25, wheelPxPerZoomLevel: 90 });
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -261,6 +262,24 @@ var exploreMap = (function () {
     sheetClose.addEventListener('click', closeSheet);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
     map.on('click', closeSheet);
+
+    // Zooming with the mouse wheel. It only switches on once the map has been clicked,
+    // and off again when the pointer leaves, so scrolling down the page never gets
+    // stuck on the map. Trackpad pinch and Ctrl or Cmd + scroll always zoom (and never
+    // zoom the whole page). Scrolling over the map before that shows a short hint.
+    var hint = el('div', 'map-hint', 'Click the map, then scroll to zoom'), hintTimer;
+    hint.setAttribute('aria-hidden', 'true');
+    mapEl.appendChild(hint);
+    function wheelOn() { if (!map.scrollWheelZoom.enabled()) map.scrollWheelZoom.enable(); hint.classList.remove('is-on'); }
+    map.on('click focus', wheelOn);
+    mapEl.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
+    mapEl.addEventListener('wheel', function (e) {
+      if (map.scrollWheelZoom.enabled()) return;
+      if (e.ctrlKey || e.metaKey) { e.preventDefault(); wheelOn(); return; }
+      hint.classList.add('is-on');
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function () { hint.classList.remove('is-on'); }, 1600);
+    }, { passive: false });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { if (!es[0].isIntersecting) closeSheet(); }).observe(mapEl);
     }

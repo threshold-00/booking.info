@@ -208,21 +208,19 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
   .filter-pair .location-select{width:100%;min-width:0;min-height:44px;font-size:16px;padding:0 36px 0 var(--s-4);background-position:right var(--s-4) center}
 }
 
-/* Experiences header: title and Grid / Map tabs on one row, filters under them. On
-   phones the tabs go full width under the filters. */
-.browse-head{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"title tabs" "filters filters" "sub sub";align-items:center;row-gap:var(--s-5)}
+/* Experiences header: title, then the filters. */
+.browse-head{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"title" "filters" "sub";row-gap:var(--s-5)}
 .browse-title{grid-area:title}
-.view-tabs{grid-area:tabs;display:flex;gap:var(--s-2)}
 .browse-head .filter-row{grid-area:filters}
 .browse-head #horseSub{grid-area:sub;margin:0!important}
-.view-tab{gap:var(--s-2);justify-content:center}
+/* The count line: "37 experiences" on the left, Grid / Map tabs on the right. The tabs
+   are text with an icon, the selected one underlined, each a 44px tap target. */
+.browse-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin:var(--s-4) 0 var(--s-2)}
+.view-tabs{display:flex;gap:var(--s-5)}
+.view-tab{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);cursor:pointer}
 .view-tab svg{flex:none;display:block}
-.opt[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-@media (max-width:820px){
-  .browse-head{grid-template-columns:minmax(0,1fr);grid-template-areas:"title" "filters" "sub" "tabs"}
-  .view-tabs{display:grid;grid-template-columns:1fr 1fr}
-  .view-tab{min-height:44px}
-}
+.view-tab:hover{color:var(--ink)}
+.view-tab[aria-selected=true]{color:var(--ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
 /* No results, in either view */
 .empty-state{margin:var(--s-5) 0;padding:var(--s-5);border:1px dashed var(--line-ui);text-transform:none;font-family:var(--display);font-size:15px;color:var(--ink-2)}
 .empty-state p{margin:0 0 var(--s-2)}
@@ -233,6 +231,14 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 /* Map view: about 70% of the screen tall, 65% on phones */
 #panelMap[hidden]{display:none}
 #exploreMap{height:70vh;min-height:360px;border:1px solid var(--line)}
+/* Map zoom: round paper buttons, bottom right, 44px. */
+#exploreMap .leaflet-bar{display:flex;flex-direction:column;gap:var(--s-2);border:0}
+#exploreMap .leaflet-bar a,#exploreMap .leaflet-bar a:first-child,#exploreMap .leaflet-bar a:last-child{width:44px;height:44px;line-height:42px;border:1px solid var(--line-ui);border-radius:50%;background:var(--paper);color:var(--ink);font:400 22px/42px var(--display);box-shadow:0 1px 4px rgba(23,23,26,.18)}
+#exploreMap .leaflet-bar a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#exploreMap .leaflet-bar a.leaflet-disabled{background:var(--paper);color:var(--ink-disabled);border-color:var(--line);cursor:default}
+#exploreMap .leaflet-bottom.leaflet-right .leaflet-control-zoom{margin:0 var(--s-3) var(--s-6) 0}
+.map-hint{position:absolute;left:50%;top:50%;z-index:1000;transform:translate(-50%,-50%);padding:10px 16px;border-radius:var(--r-pill);background:var(--scrim-strong);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+.map-hint.is-on{opacity:1}
 /* Mobile hamburger nav: button is hidden above 640px, the menu panel is always in the
    DOM but only shown (as a full-width overlay) once JS adds .is-open at narrow widths */
 .nav{display:flex}
