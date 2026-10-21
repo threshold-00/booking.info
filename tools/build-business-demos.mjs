@@ -424,6 +424,8 @@ ${HEADER}<main id="main">
           <h3 class="know-list__title">Good to know</h3>
           <ul class="know-list" id="doneKnowList"></ul>
         </div>
+        <button type="button" class="btn" id="doneBtn" hidden style="width:100%;margin-bottom:var(--s-3);"></button>
+        <p class="bp-error" id="doneErr" hidden></p>
         <a class="btn-ghost" id="doneBack" href="./">Back to ${esc(b.name)}</a>
         <div class="demo-box" id="demoBox" hidden></div>
       </div>
@@ -438,6 +440,7 @@ ${HEADER}<main id="main">
         </div>
         <p class="bp-note" id="respNote" style="margin-top:var(--s-3);"></p>
         <p class="bp-error" id="respErr" hidden></p>
+        <div class="demo-box" id="bizDemoBox" hidden></div>
       </div>
     </aside>
 
