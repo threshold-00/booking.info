@@ -43,13 +43,13 @@ function fillTokens(v, d) {
 // Gallery header (design system 6.20). 3 or more photos: one large photo and a grid
 // of up to 4 on desktop, a swipeable carousel with a "1 / N" counter on mobile.
 // 1 or 2: a single hero. Every photo opens the lightbox. Only Unsplash photos carry
-// a credit, in the lightbox caption (Unsplash licence).
+// a credit, "Stock photo: Name / Unsplash", in the lightbox caption (Unsplash licence).
 function galleryImg(it, dir, i, main) {
   const sizes = main ? '(max-width:820px) 100vw, 420px' : '(max-width:820px) 100vw, 220px';
   const load = i === 0 ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"';
   const pos = it.position ? ` style="object-position:${esc(it.position)};"` : '';
   if (it.unsplash) {
-    const credit = `Photo: ${it.unsplash.name} / Unsplash`;
+    const credit = `Stock photo: ${it.unsplash.name} / Unsplash`;
     return `<img src="${imgUrl(it.src, 1600)}" srcset="${imgUrl(it.src, 800)} 800w, ${imgUrl(it.src, 1600)} 1600w" sizes="${sizes}" alt="${esc(it.alt)}" ${load} decoding="async" data-lightbox-index="${i}" data-credit="${esc(credit)}"${pos} />`;
   }
   const small = Math.round((it.w * 800) / Math.max(it.w, it.h));
@@ -76,7 +76,7 @@ function galleryHeader(d) {
   // Photos past the ones shown still open in the lightbox.
   const extra = items
     .slice(n)
-    .map((it, j) => `<img hidden src="${it.unsplash ? imgUrl(it.src, 1600) : `${p.dir ?? ''}${it.file}-1600.webp`}" alt="${esc(it.alt)}" data-lightbox-index="${n + j}"${it.unsplash ? ` data-credit="Photo: ${esc(it.unsplash.name)} / Unsplash"` : ''} />`)
+    .map((it, j) => `<img hidden src="${it.unsplash ? imgUrl(it.src, 1600) : `${p.dir ?? ''}${it.file}-1600.webp`}" alt="${esc(it.alt)}" data-lightbox-index="${n + j}"${it.unsplash ? ` data-credit="Stock photo: ${esc(it.unsplash.name)} / Unsplash"` : ''} />`)
     .join('');
   return `<div class="gallery-header gallery-header--${n}" data-count="${n}">
         <div class="gallery-header__track" role="region" tabindex="0" aria-label="Photos of ${esc(d.business.name)}">
@@ -121,6 +121,41 @@ function gallery(d) {
         </figure>`;
 }
 
+// Site header and footer, shared by the demo page and the card preview.
+const HEADER = `  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
+    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
+      <a href="/index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
+      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+        <a href="/#browse" class="navlink">Browse experiences</a>
+        <a href="/for-business/" class="btn-ghost">For businesses</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
+    </div>
+  </header>
+`;
+const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
+    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <span style="color:var(--ink);">&copy; 2026 Threshold</span>
+      <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
+        <a href="/mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
+        <a href="/bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
+        <a href="/for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
+      </nav>
+    </div>
+  </footer>
+`;
+
+// The black demo banner (design system 6.18). Sandbox: names the business and
+// picks out the Stripe test card.
+function bannerFor(b) {
+  return (b.booking_mode ?? 'off') === 'sandbox'
+    ? `<div class="demo-strip demo-strip--sandbox" role="note">Demo page for ${esc(b.name)}. Test booking: card <span class="demo-strip__card">4242 4242 4242 4242</span>, any future date, any CVC.</div>`
+    : '<div class="demo-strip" role="note">Demo. Not live yet. Bookings are not taken.</div>';
+}
+
 function page(d) {
   const b = d.business;
   const p = fillTokens(d.page, d);
@@ -130,10 +165,7 @@ function page(d) {
   const mode = b.booking_mode ?? 'off';
   if (!MODES.includes(mode)) throw new Error(`${slug}: booking_mode must be one of ${MODES.join(', ')}`);
   if (mode === 'live') throw new Error(`${slug}: booking_mode "live" isn't built yet. The booking service is test-only.`);
-  // Sandbox: the louder banner (design system 6.18), the test card picked out.
-  const banner = mode === 'sandbox'
-    ? `<div class="demo-strip demo-strip--sandbox" role="note">Demo page for ${esc(b.name)}. Test booking: card <span class="demo-strip__card">4242 4242 4242 4242</span>, any future date, any CVC.</div>`
-    : '<div class="demo-strip" role="note">Demo. Not live yet. Bookings are not taken.</div>';
+  const banner = bannerFor(b);
   // Good to know lives on the business layer's experience (the Worker emails it too).
   const experiences = Object.fromEntries(
     Object.entries(p.experiences).map(([k, x]) => [k, { ...x, good_to_know: d.experiences.find((e) => e.key === k)?.good_to_know ?? [] }]),
@@ -282,20 +314,7 @@ function page(d) {
 <body class="has-sticky-bar">
 ${banner}
 <div>
-  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
-    <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
-      <a href="/index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
-      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-        <a href="/#browse" class="navlink">Browse experiences</a>
-        <a href="/for-business/" class="btn-ghost">For businesses</a>
-      </nav>
-      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
-        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
-      </button>
-    </div>
-  </header>
-<main id="main">
+${HEADER}<main id="main">
 
   <nav class="container detail-crumbs" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
     <a href="/index.html#top" class="navlink breadcrumb-link">Home</a> /
@@ -305,7 +324,10 @@ ${banner}
 
   <div class="container detail-layout">
     <div class="detail-head">
-      <p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
+      <div class="demo-flag-row">
+        <p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
+        ${p.cards?.length ? `<a class="demo-flag-row__link navlink" href="card/">See your card on Threshold</a>` : ''}
+      </div>
       <h1>${esc(p.headline)}</h1>
       <p class="detail-lead" id="lead" hidden></p>
       <a href="#business" class="owner-strip navlink">
@@ -454,17 +476,7 @@ ${banner}
   </div>
 
 </main>
-  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
-    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
-      <span style="color:var(--ink);">&copy; 2026 Threshold</span>
-      <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
-        <a href="/mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
-        <a href="/bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
-        <a href="/for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
-      </nav>
-    </div>
-  </footer>
-</div>
+${FOOTER}</div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
   <span class="t-small" id="stickyPrice">${esc(p.sticky_price ?? '')}</span>
   <a href="#book" class="btn">Choose a date</a>
@@ -473,6 +485,95 @@ ${banner}
 <script src="/assets/demo-booking.js"></script>
 <script src="/app.js"></script>
 <script src="/assets/detail.js" defer></script>
+</body>
+</html>
+`;
+}
+
+// "Your card on Threshold" (design system 6.24): the business's listing cards as
+// they show when people browse, at /demo/b/<slug>/card/. Each card opens the demo
+// page on that experience. Built only when the data file has page.cards.
+const money = (c) => '$' + (c / 100).toLocaleString('en-AU', { minimumFractionDigits: c % 100 ? 2 : 0, maximumFractionDigits: 2 });
+
+function cardHtml(d, c) {
+  const p = d.page;
+  const e = d.experiences.find((x) => x.key === c.experience);
+  if (!e) throw new Error(`${d.business.slug}: card for unknown experience ${c.experience}`);
+  const photo = p.photos?.items?.find((it) => it.file === c.photo || it.src === c.photo);
+  if (!photo) throw new Error(`${d.business.slug}: card photo ${c.photo} isn't in page.photos`);
+  const img = photo.unsplash
+    ? `<img src="${imgUrl(photo.src, 800)}" alt="${esc(photo.alt)}" width="800" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" />`
+    : `<picture style="display:block;height:100%;">
+              <source type="image/avif" srcset="${p.photos.dir}${photo.file}-800.avif" />
+              <img src="${p.photos.dir}${photo.file}-800.webp" alt="${esc(photo.alt)}" width="800" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;${photo.position ? `object-position:${esc(photo.position)};` : ''}" />
+            </picture>`;
+  const price = c.price ?? (e.price_cents != null ? `From ${money(e.price_cents)} AUD` : '');
+  return `<a class="card" href="../?x=${esc(e.key)}" aria-label="${esc(c.title)}, ${esc(d.business.name)}">
+          <div class="card__media">${img}</div>
+          <div class="card__body">
+            <h3 class="card__title">${esc(c.title)}</h3>
+            <p class="card__loc">${esc(c.length)} &middot; ${esc(d.business.name)} &middot; ${esc(p.hub.label)}</p>
+            <p class="card__desc">${esc(c.desc ?? e.description)}</p>
+            <div class="card__meta card__row"><p class="card__price">${esc(price)}</p></div>
+          </div>
+        </a>`;
+}
+
+function cardPage(d) {
+  const b = d.business;
+  const p = fillTokens(d.page, d);
+  const cards = p.cards.map((c) => cardHtml({ ...d, page: p }, c)).join('\n        ');
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Demo: ${esc(b.name)} card | Threshold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<!-- Generated by tools/build-business-demos.mjs from data/business-layer/${b.slug}.json. Do not edit by hand. -->
+</head>
+<body>
+${bannerFor(b)}
+<div>
+${HEADER}<main id="main">
+
+  <nav class="container detail-crumbs" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
+    <a href="/index.html#top" class="navlink breadcrumb-link">Home</a> /
+    <a href="${esc(p.hub.href)}" class="navlink breadcrumb-link">${esc(p.hub.label)}</a> /
+    <a href="../" class="navlink breadcrumb-link">${esc(b.name)}</a> /
+    <span>Your card</span>
+  </nav>
+
+  <section class="container card-preview">
+    <p class="demo-flag"><span class="demo-flag__tag">Preview</span><span class="demo-flag__text">How your card shows on Threshold</span></p>
+    <h1 class="card-preview__title">Your card on Threshold</h1>
+    <p class="prose card-preview__lead">This is how ${esc(b.name)} shows when people browse experiences in ${esc(p.hub.label)}, on the homepage and the ${esc(p.hub.label)} page. Tap a card to open your page.</p>
+    <div class="card-row card-preview__row">
+        ${cards}
+    </div>
+    <p class="card-preview__note">Your photo, what you offer, how long it takes and your starting price. Nothing is listed publicly until you approve it.</p>
+  </section>
+
+</main>
+${FOOTER}</div>
+<script>
+  // Keep ?utm_source and ?team on the way into the demo page, so demo traffic
+  // still knows where the visit came from (and team visits stay untracked).
+  (function () {
+    var q = new URLSearchParams(location.search), keep = [];
+    ['utm_source', 'team'].forEach(function (k) { if (q.get(k)) keep.push(k + '=' + encodeURIComponent(q.get(k))); });
+    if (!keep.length) return;
+    document.querySelectorAll('.card-preview__row a.card').forEach(function (a) { a.href += '&' + keep.join('&'); });
+  })();
+</script>
+<script src="/app.js"></script>
 </body>
 </html>
 `;
@@ -495,6 +596,12 @@ for (const f of files) {
   if (!existsSync(dirname(out))) mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, page(d));
   console.log(`Built /demo/b/${slug}/`);
+  if (d.page.cards?.length) {
+    const cardOut = join(repo, 'demo/b', slug, 'card', 'index.html');
+    if (!existsSync(dirname(cardOut))) mkdirSync(dirname(cardOut), { recursive: true });
+    writeFileSync(cardOut, cardPage(d));
+    console.log(`Built /demo/b/${slug}/card/`);
+  }
   built++;
 }
 if (!built) console.log('Nothing built: no data file with a "page" section matched.');

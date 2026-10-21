@@ -413,6 +413,13 @@
       <p class="ds-section__intro">.demo-flag (6.23): above a demo page's heading, in place of the small Demo pill. An ink "Demo" tag joined to an outlined "No real booking is made", mono caps, 2px ink border.</p>
       <p class="demo-flag" style="margin:0 0 var(--s-6);"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
 
+      <h3 class="t-title">Card preview</h3>
+      <p class="ds-section__intro">.card-preview (6.24): a hidden page at /demo/b/&lt;slug&gt;/card/ showing a business its listing cards exactly as they show when people browse (the standard .card), with a "Preview" demo flag. Each card opens the demo page on that experience. The demo page links to it from the flag row ("See your card on Threshold"). Cards come from page.cards in the data file.</p>
+      <div class="demo-flag-row" style="margin:0 0 var(--s-6);">
+        <p class="demo-flag"><span class="demo-flag__tag">Preview</span><span class="demo-flag__text">How your card shows on Threshold</span></p>
+        <a class="demo-flag-row__link navlink" href="#">See your card on Threshold</a>
+      </div>
+
       <h3 class="t-title">Gallery header</h3>
       <p class="ds-section__intro">.gallery-header (6.20), for 3 or more photos: one large photo and up to 4 smaller on desktop, rounded to --r-gallery (--r-card). Under 820px it becomes a full-width swipeable carousel (scroll-snap) with a "1 / N" mono counter. Tapping a photo opens the lightbox; only Unsplash photos carry a credit, in the lightbox caption ("Photo: Name / Unsplash"). 1 or 2 photos: a single hero (.gallery-header--1). Photos are AVIF and WebP, 800 and 1600px.</p>
       <p class="t-label" style="margin:0 0 var(--s-2);">Desktop</p>
