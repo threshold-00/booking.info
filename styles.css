@@ -208,9 +208,11 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .filter-row>.filter-group--type{grid-column:1 / -1}
 .filter-row .select-wrap{display:block;padding:0;margin:0}
 .filter-row .location-select{width:100%;min-width:0;height:32px;min-height:32px;padding:0 32px 0 12px;background-position:right 12px center;font-size:11px}
-.filter-row .cat-chip{min-height:32px;height:32px;padding:0 12px;background:var(--paper);font-size:11px}
+.filter-row .cat-chip{min-height:32px;height:32px;padding:2px 11px 0 13px;background:var(--paper);font-size:11px}
+/* The padding is uneven on purpose: letter spacing leaves a gap after the last letter,
+   and the mono caps sit high in their line, so this puts the letters in the middle. */
 .filter-row .cat-chip[aria-pressed=true]{background:var(--ink)}
-.filter-row .sub-chip{flex:none;white-space:nowrap;min-height:28px;height:28px;padding:0 10px;background:var(--paper);font-size:10px!important}
+.filter-row .sub-chip{flex:none;white-space:nowrap;min-height:28px;height:28px;padding:0 9px 0 11px;background:var(--paper);font-size:10px!important}
 .filter-row .sub-chip[aria-pressed=true]{background:var(--ink)}
 .filter-row #horseSub{margin-top:var(--s-3)}
 @media (min-width:821px){
@@ -220,7 +222,7 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
    pill as the chips, and a paper menu in mono caps with a check on the chosen option. */
 .th-select{position:relative}
 .th-select__native{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}
-.th-select__button{display:block;text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.th-select__button{display:block;text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-top:3px!important}
 .th-select__button[aria-expanded=true]{border-color:var(--ink)}
 .th-select__list{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;margin:0;padding:6px;list-style:none;background:var(--paper);border:1px solid var(--line-ui);border-radius:14px;box-shadow:var(--shadow-float);outline:none;max-height:320px;overflow:auto}
 .th-select__list[hidden]{display:none}
