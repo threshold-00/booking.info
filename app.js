@@ -524,17 +524,17 @@ document.querySelectorAll('a[href^="mailto:hello@example.com"]').forEach(functio
   a.href = a.href.replace('hello@example.com', CONTACT_EMAIL);
 });
 
-// Homepage rows capped at 4 cards on mobile (styles.css): "See all" shows the rest.
+// Homepage rows capped at 6 cards on mobile (styles.css): "See all" shows the rest.
 document.querySelectorAll('.card-cap-more').forEach(function (btn) {
   var row = document.getElementById(btn.getAttribute('aria-controls'));
-  if (!row || row.children.length <= 4) { btn.hidden = true; return; }
+  if (!row || row.children.length <= 6) { btn.hidden = true; return; }
   btn.textContent = 'See all ' + row.children.length + ' experiences';
   btn.addEventListener('click', function () {
     row.classList.add('is-expanded');
     btn.setAttribute('aria-expanded', 'true');
     btn.hidden = true;
-    var fifth = row.children[4] && row.children[4].querySelector('a') || row.children[4];
-    if (fifth && fifth.focus) fifth.focus();
+    var next = row.children[6] && row.children[6].querySelector('a') || row.children[6];
+    if (next && next.focus) next.focus();
   });
 });
 
