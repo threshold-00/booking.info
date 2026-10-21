@@ -231,6 +231,11 @@ section[id]{scroll-margin-top:calc(var(--header-h, 116px) + 12px)}
 .th-select__list [role=option][aria-selected=true]{color:var(--ink)}
 .th-select__list [role=option][aria-selected=true]::before{content:"";position:absolute;left:12px;top:50%;width:8px;height:5px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-70%) rotate(-45deg)}
 .th-select__list:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* Header currency picker: as wide as its label, menu opening under its right edge. */
+.site-header .currency-select{min-width:0;width:auto;padding:0 32px 0 14px;background-position:right 12px center}
+.site-header .th-select__button.currency-select{width:auto;min-width:88px;padding-top:2px}
+.site-header .th-select__list{left:auto;right:0;min-width:132px}
+.site-header .select-wrap{align-self:center}
 /* Desktop: Type, Location and Duration on one line, the two dropdowns (180px each)
    right-aligned, flush with the right edge of the cards. If they don't fit, the pair drops to the next line. */
 @media (min-width:1101px){

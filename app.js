@@ -337,14 +337,15 @@ var exploreMap = (function () {
   };
 })();
 
-// Site-styled dropdowns for the Experiences filters (Location, Duration). The real
+// Site-styled dropdowns: the Experiences filters (Location, Duration) and the header's
+// currency picker. The real
 // <select> stays in the page, hidden, and still fires "change", so the filters and the
 // URL work as before; a button and a listbox in the site's style sit on top. Setting
 // select.value from code updates the button too. Phones (coarse pointers) keep the
 // built-in picker, which is easier to use there.
 (function () {
   if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
-  var selects = [].slice.call(document.querySelectorAll('#browse select.location-select'));
+  var selects = [].slice.call(document.querySelectorAll('#browse select.location-select, .site-header select.currency-select'));
   var desc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
   var openOne = null;
 
