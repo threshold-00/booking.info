@@ -569,8 +569,19 @@ var exploreMap = (function () {
       if (panel) panel.hidden = !on;
       if (on && focus) t.focus();
     });
+    placeLine();
     if (exploreMap) { if (state.view === 'map') exploreMap.open(); else exploreMap.close(); }
   }
+  // The 2px line under the selected tab, slid into place.
+  var tabLine = document.querySelector('#browse .view-tabs__line');
+  function placeLine() {
+    var on = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+    if (!tabLine || !on) return;
+    tabLine.style.left = on.offsetLeft + 'px';
+    tabLine.style.width = on.offsetWidth + 'px';
+  }
+  window.addEventListener('resize', placeLine);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeLine);
   tabs.forEach(function (t, i) {
     t.addEventListener('click', function () {
       showView(t.id === 'tabMap' ? 'map' : 'grid');
