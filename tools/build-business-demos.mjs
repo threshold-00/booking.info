@@ -237,11 +237,18 @@ function page(d) {
   .bp-block > .bp-label{margin:0 0 var(--s-2)}
   .bp-lead{margin:var(--s-3) 0 0;font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink)}
 
-  /* Option, date and time pills */
+  /* Option, date and time buttons: square, full width rows for the experience and
+     date lists (name on the left, details on the right, each on one line), two up
+     for short times and chips (Ro, 21 Oct 2026). */
   .opt-list,.date-list,.time-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
+  #choices,.date-list{grid-template-columns:1fr;gap:var(--s-3)}
   .opt-list > p,.date-list > p{grid-column:1 / -1}
-  .opt,.date-opt{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:100%;min-height:56px;padding:9px 12px;text-align:center;font-family:var(--display);font-size:14px;line-height:1.2;text-transform:none;color:var(--ink);background:none;border:1px solid var(--line-ui);border-radius:var(--r-pill);cursor:pointer}
+  .opt,.date-opt{display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:4px var(--s-3);width:100%;min-height:56px;padding:var(--s-3) var(--s-4);text-align:left;font-family:var(--display);font-size:14px;line-height:1.2;text-transform:none;color:var(--ink);background:none;border:1px solid var(--line-ui);border-radius:var(--r-0);cursor:pointer}
+  .opt > small:first-of-type,.date-opt > small:first-of-type{margin-left:auto}
   .opt small,.date-opt small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .opt small:empty{display:none}
+  .opt--chip,.time-list .date-opt{justify-content:center;text-align:center}
+  .opt--chip > small,.time-list .date-opt > small{margin-left:0}
   .opt--chip{min-height:44px}
   .opt:hover,.date-opt:hover{border-color:var(--ink);background:var(--tint-hover)}
   .opt[aria-pressed=true],.date-opt[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}

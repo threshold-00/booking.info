@@ -295,7 +295,7 @@
     $('dates').innerHTML = show.map(function (d, i) {
       var ss = seen[d], open = ss.filter(function (s) { return s.places_left > 0; }), s0 = ss[0], p = parts(d);
       var n = days(s0.date_local, s0.end_date_local);
-      var note = !open.length ? 'Full' : ss.length > 1 ? ss.length + ' times' : clock(s0.time_local) + (s0.places_left <= 3 ? ', ' + s0.places_left + ' left' : '');
+      var note = !open.length ? 'Full' : ss.length > 1 ? open.length + (open.length > 1 ? ' times' : ' time') + ' available' : clock(s0.time_local) + (s0.places_left <= 3 ? ', ' + s0.places_left + ' left' : '');
       var label = n > 1 ? range(s0.date_local, s0.end_date_local) : p.wd + ' ' + p.d + ' ' + p.mon;
       return '<button type="button" class="date-opt" data-d="' + d + '" aria-pressed="' + (state.date === d) + '" aria-label="' + label + ', ' + note + '"' + (open.length ? '' : ' disabled') + '>'
         + '<span>' + label + '</span>' + (n > 1 ? '<small>' + n + ' days</small>' : '') + '<small>' + note + '</small></button>';
