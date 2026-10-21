@@ -55,7 +55,7 @@ function header(base) {
   return `  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
       <a href="${base}index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
-      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/for-business/" class="btn-ghost">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
@@ -75,7 +75,7 @@ function header(base) {
 
 function footer(base) {
   return `  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
-    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
       <span style="color:var(--ink);">&copy; 2026 Threshold</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="${base}mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
@@ -140,7 +140,7 @@ function includedList(a) {
   const includedCol = `<div>
         <p class="bp-label" style="margin:0 0 10px;">Included</p>
         <ul class="prose" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;max-width:none;">
-${a.included.map(i => `          <li style="display:flex;gap:8px;"><span aria-hidden="true" style="color:var(--cleared);">&check;</span><span>${esc(i)}</span></li>`).join('\n')}
+${a.included.map(i => `          <li style="display:flex;gap:8px;"><span aria-hidden="true" style="color:var(--ink);">&check;</span><span>${esc(i)}</span></li>`).join('\n')}
         </ul>
       </div>`;
   if (!a.notIncluded.length) {
@@ -211,7 +211,7 @@ function galleryMarkup(a, base) {
   const heroImg = `<img src="${base}assets/salty-cowboy/${hero.file}" alt="${esc(hero.alt)}" width="${heroDims.width}" height="${heroDims.height}" fetchpriority="high" loading="eager" decoding="async"${imgs.length > 1 ? ' data-lightbox-index="0"' : ''} style="display:block;width:100%;height:100%;object-fit:cover;object-position:${heroPos};cursor:${imgs.length > 1 ? 'pointer' : 'default'};" />`;
   if (imgs.length === 1) {
     return `<div class="detail-gallery" id="detailGallery">
-      <div style="aspect-ratio:16/6;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
+      <div class="detail-hero" style="aspect-ratio:16/6;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
     </div>`;
   }
   const thumbs = imgs.slice(1, 5).map((img, i) => {
@@ -220,7 +220,7 @@ function galleryMarkup(a, base) {
   }).join('\n        ');
   return `<div class="detail-gallery" id="detailGallery">
       <div class="gallery-grid">
-        <div style="aspect-ratio:16/6;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
+        <div class="detail-hero" style="aspect-ratio:16/6;overflow:hidden;border:1px solid var(--line);">${heroImg}</div>
         <div class="gallery-grid__thumbs">
         ${thumbs}
         </div>
@@ -232,7 +232,7 @@ function galleryMarkup(a, base) {
           <img id="lightboxImg" src="" alt="" style="display:block;width:100%;height:auto;max-height:80vh;object-fit:contain;" />
           <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&lsaquo;</button>
           <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&rsaquo;</button>
-          <p id="lightboxCount" style="text-align:center;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(243,242,238,.8);"></p>
+          <p id="lightboxCount" style="text-align:center;margin:10px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:rgba(243,242,238,.8);"></p>
         </div>
       </dialog>
     </div>`;
@@ -250,7 +250,6 @@ function priceLineAttrs(a) {
 
 const BOOKING_LINK_ICON = `<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span class="sr-only"> (opens Salty Cowboy's booking site)</span>`;
 const BOOKING_CTA_LABEL = `Check dates with Salty Cowboy${BOOKING_LINK_ICON}`;
-const BOOKING_CTA_LABEL_SHORT = `Check dates${BOOKING_LINK_ICON}`;
 
 function bookingPanel(a) {
   const weight = a.goodToKnow.find(g => g.label === 'Weight');
@@ -267,7 +266,7 @@ ${weight ? `        <p class="bp-note">Before you book: ${esc(weight.value)}</p>
 function mobileStickyBar(a) {
   return `<aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
     <span class="t-small" ${priceLineAttrs(a)}></span>
-    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" target="_blank" rel="noopener" class="btn">${BOOKING_CTA_LABEL_SHORT}</a>
+    <a href="https://book.saltycowboybali.com/${a.slug}?ref=threshold" target="_blank" rel="noopener" class="btn">${BOOKING_CTA_LABEL}</a>
   </aside>`;
 }
 
@@ -354,7 +353,7 @@ ${jsonLd(a, canonicalPath)}
 ${header(base)}
 <main id="main">
 
-  <nav class="container detail-crumbs" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
+  <nav class="container detail-crumbs" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
     <a href="${base}index.html#top" class="navlink breadcrumb-link">Home</a> /
     <a href="/?region=bali#browse" class="navlink breadcrumb-link">Bali</a> /
     <a href="${base}bali/salty-cowboy/" class="navlink breadcrumb-link">Salty Cowboy</a>
@@ -485,9 +484,9 @@ ${JSON.stringify({
 <div>
 ${header(base)}
 
-  <nav aria-label="Breadcrumb" style="padding:20px 40px 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
-    <a href="${base}index.html#top" class="navlink">Home</a> /
-    <a href="/?region=bali#browse" class="navlink">Bali</a> /
+  <nav class="container" aria-label="Breadcrumb" style="padding-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
+    <a href="${base}index.html#top" class="navlink breadcrumb-link">Home</a> /
+    <a href="/?region=bali#browse" class="navlink breadcrumb-link">Bali</a> /
     <span>Salty Cowboy</span>
   </nav>
 

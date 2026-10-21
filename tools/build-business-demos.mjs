@@ -46,7 +46,14 @@ function fillTokens(v, d) {
 // credit, "Stock photo: Name / Unsplash", in the lightbox caption (Unsplash licence).
 // A self-hosted photo with a "credit" (e.g. Wikimedia Commons, CC BY-SA) shows that.
 function galleryImg(it, dir, i, main) {
-  const sizes = main ? '(max-width:820px) 100vw, 420px' : '(max-width:820px) 100vw, 220px';
+  // A photo fills its slot (object-fit: cover), so one wider than the slot is drawn
+  // wider than the slot, and the browser needs that width to pick a sharp enough file.
+  // Phones: a full-width 4:3 carousel. Desktop: the main slot is about 370px square,
+  // the small ones about 180px.
+  const r = it.w && it.h ? it.w / it.h : 1.5;
+  const phone = Math.max(100, Math.round(75 * r));
+  const desk = Math.round((main ? 370 : 180) * Math.max(1, r));
+  const sizes = `(max-width:820px) ${phone}vw, ${desk}px`;
   const load = i === 0 ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"';
   const pos = it.position ? ` style="object-position:${esc(it.position)};"` : '';
   if (it.unsplash) {
@@ -92,8 +99,8 @@ function galleryHeader(d) {
           <img id="lightboxImg" src="" alt="" style="display:block;width:100%;height:auto;max-height:80vh;object-fit:contain;" />
           <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&lsaquo;</button>
           <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&rsaquo;</button>
-          <p id="lightboxCount" style="text-align:center;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(243,242,238,.8);"></p>
-          <p id="lightboxCredit" hidden style="text-align:center;margin:4px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(243,242,238,.8);"></p>
+          <p id="lightboxCount" style="text-align:center;margin:10px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:rgba(243,242,238,.8);"></p>
+          <p id="lightboxCredit" hidden style="text-align:center;margin:4px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:rgba(243,242,238,.8);"></p>
         </div>
       </dialog>`;
 }
@@ -126,7 +133,7 @@ function gallery(d) {
 const HEADER = `  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
       <a href="/index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
-      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/for-business/" class="btn-ghost">For businesses</a>
       </nav>
@@ -138,7 +145,7 @@ const HEADER = `  <header class="site-header" style="position:sticky;top:0;backg
   </header>
 `;
 const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
-    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+    <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
       <span style="color:var(--ink);">&copy; 2026 Threshold</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="/mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
@@ -149,15 +156,15 @@ const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28
   </footer>
 `;
 
-// The black demo banner (design system 6.18). Sandbox: names the business and
+// The black demo banner (design system 6.18), one line in every mode. Sandbox:
 // picks out the Stripe test card. Demo: the full flow with no card (the Worker skips
 // Checkout for a demo business with no Stripe test account).
 function bannerFor(b) {
   const mode = b.booking_mode ?? 'off';
-  if (mode === 'sandbox') return `<div class="demo-strip demo-strip--sandbox" role="note">Demo page for ${esc(b.name)}. Test booking: card <span class="demo-strip__card">4242 4242 4242 4242</span>, any future date, any CVC.</div>`;
-  if (mode === 'demo') return `<div class="demo-strip" role="note">Demo page for ${esc(b.name)}. Not live yet. Try a booking: no card needed, nothing is charged.</div>`;
-  if (mode === 'link') return `<div class="demo-strip" role="note">Demo page for ${esc(b.name)}. Not live yet. Book buttons go to the business's own website.</div>`;
-  return '<div class="demo-strip" role="note">Demo. Not live yet. Bookings are not taken.</div>';
+  if (mode === 'sandbox') return '<div class="demo-strip demo-strip--sandbox" role="note">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>';
+  if (mode === 'demo') return '<div class="demo-strip" role="note">Demo. Try a booking, no card needed</div>';
+  if (mode === 'link') return '<div class="demo-strip" role="note">Demo. Book buttons go to their own site</div>';
+  return '<div class="demo-strip" role="note">Demo. Bookings are not taken</div>';
 }
 
 // booking_mode "link" (listing only, briefs/demo-data-batch2-2026-10-21.md): the
@@ -258,7 +265,7 @@ function page(d) {
      panel: /assets/demo-booking.js, talking to api-test.thresholdbooking.com. */
   [hidden]{display:none!important}
   .tbc{font-family:var(--mono);font-size:.85em;letter-spacing:.02em;color:var(--ink-2);background:var(--panel);border:1px dashed var(--line-ui);border-radius:4px;padding:0 4px;white-space:normal}
-  .example-tag{display:inline-flex;align-items:center;min-height:24px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);vertical-align:middle}
+  .example-tag{display:inline-flex;align-items:center;min-height:24px;padding:2px 10px;border:1px solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);vertical-align:middle}
   .detail-lead{margin:0 0 var(--s-2);font-family:var(--display);font-size:16px;color:var(--ink)}
   .demo-photos{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
   .gallery-header__all{margin-top:var(--s-3)}
@@ -268,7 +275,7 @@ function page(d) {
   .demo-photos .demo-photo--main{grid-column:1 / -1}
 
   .booking-panel{border:1px solid var(--line);padding:var(--s-4) var(--s-5) var(--s-5);background:var(--paper)}
-  .bp-steplabel{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 var(--s-2)}
+  .bp-steplabel{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 var(--s-2)}
   .bp-block{margin-top:var(--s-4)}
   .bp-block > .bp-label{margin:0 0 var(--s-2)}
   .bp-lead{margin:var(--s-3) 0 0;font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink)}
@@ -288,14 +295,14 @@ function page(d) {
   #choices .opt,.date-list .date-opt{flex-wrap:wrap;row-gap:4px}
   .date-list .date-opt--range{flex-direction:column;align-items:flex-start;justify-content:center}
   .date-opt__meta{display:flex;flex-wrap:wrap;gap:4px var(--s-3)}
-  .opt small,.date-opt small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .opt small,.date-opt small{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
   .opt small:empty{display:none}
   .opt--chip{min-height:44px}
   .opt:hover,.date-opt:hover{border-color:var(--ink);background:var(--tint-hover)}
   .opt[aria-pressed=true],.date-opt[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
   .opt[aria-pressed=true] small,.date-opt[aria-pressed=true] small{color:var(--paper-2)}
   .opt[disabled],.date-opt[disabled]{opacity:.5;cursor:default;background:none}
-  .bp-more{margin-top:var(--s-2);background:none;border:0;padding:6px 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+  .bp-more{margin-top:var(--s-2);background:none;border:0;padding:6px 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
 
   /* People stepper */
   .bp-row{display:flex;justify-content:space-between;align-items:center;gap:var(--s-3);margin-top:var(--s-4)}
@@ -313,10 +320,10 @@ function page(d) {
 
   /* Step 2 */
   .bp-chosen{display:flex;justify-content:space-between;align-items:center;gap:var(--s-3);font-family:var(--display);font-size:15px;line-height:1.35;padding:var(--s-2) 0 var(--s-3);margin-bottom:var(--s-4);border-bottom:1px solid var(--line)}
-  .bp-change{position:relative;background:none;border:0;padding:0;font-family:var(--mono);font-size:11px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}
+  .bp-change{position:relative;background:none;border:0;padding:0;font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}
   .bp-change::before{content:"";position:absolute;inset:-14px -8px}
   .bp-field{margin:0 0 var(--s-4)}
-  .bp-field label{display:block;margin:0 0 var(--s-2);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+  .bp-field label{display:block;margin:0 0 var(--s-2);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
   .bp-field input{display:block;width:100%;font-size:16px;padding:6px 0 11px;min-height:40px}
   .bp-field input:focus,.bp-field input:focus-visible{outline:none;border-bottom:2px solid var(--ink);padding-bottom:10px}
   .bp-field.has-error input{border-bottom:2px solid var(--ink);padding-bottom:10px}
@@ -365,10 +372,10 @@ ${banner}
 <div>
 ${HEADER}<main id="main">
 
-  <nav class="container detail-crumbs" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
+  <nav class="container detail-crumbs detail-crumbs--one-line" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
     <a href="/index.html#top" class="navlink breadcrumb-link">Home</a> /
     <a href="${esc(p.hub.href)}" class="navlink breadcrumb-link">${esc(p.hub.label)}</a> /
-    <span>${esc(b.name)}</span>
+    <span class="breadcrumb-tail">${esc(b.name)}</span>
   </nav>
 
   <div class="container detail-layout">
@@ -377,7 +384,7 @@ ${HEADER}<main id="main">
       <h1>${esc(p.headline)}</h1>
       <p class="detail-lead" id="lead" hidden></p>
       <a href="#business" class="owner-strip navlink">
-        <span aria-hidden="true" style="width:40px;height:40px;flex:none;border:1px solid var(--line);background:var(--panel);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;">${esc(p.initials)}</span>
+        <span aria-hidden="true" style="width:40px;height:40px;flex:none;border:1px solid var(--line);background:var(--panel);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">${esc(p.initials)}</span>
         <span>${esc(p.owner_line)} &middot; ${esc(b.name)}</span>
       </a>
       <ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"></ul>

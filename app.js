@@ -9,6 +9,7 @@ var FORM_ENDPOINT = '';
 // with a fixed fallback rate if the fetch fails or hasn't run yet. The chosen currency
 // and any element marked data-price-idr are kept in sync across every page via
 // localStorage, since this is a static multi-page site with no shared app state.
+// Prices set in AUD (the business demos) use data-price-aud and convert the same way.
 window.ThCurrency = (function () {
   var CURRENCY_KEY = 'th_currency';
   var RATE_KEYS = { AUD: 'th_idr_aud_rate', USD: 'th_idr_usd_rate' };
@@ -76,6 +77,14 @@ window.ThCurrency = (function () {
     var text = currency === 'IDR' ? formatIDR(idrAmount) : formatConverted(idrAmount * rates[currency], currency);
     return (opts.prefix ? opts.prefix + ' ' : '') + text + (opts.suffix || '');
   }
+  function formatAUD(audAmount, opts) {
+    opts = opts || {};
+    var currency = getCurrency();
+    var text = currency === 'AUD' ? formatConverted(audAmount, 'AUD')
+      : currency === 'IDR' ? formatIDR(audAmount / rates.AUD)
+      : formatConverted(audAmount * rates[currency] / rates.AUD, currency);
+    return (opts.prefix ? opts.prefix + ' ' : '') + text + (opts.suffix || '');
+  }
 
   function render() {
     var currency = getCurrency();
@@ -83,6 +92,14 @@ window.ThCurrency = (function () {
       var idr = Number(el.getAttribute('data-price-idr'));
       if (!idr) return;
       el.textContent = format(idr, {
+        prefix: el.getAttribute('data-price-prefix') || '',
+        suffix: el.getAttribute('data-price-suffix') || ''
+      });
+    });
+    document.querySelectorAll('[data-price-aud]').forEach(function (el) {
+      var aud = Number(el.getAttribute('data-price-aud'));
+      if (!aud) return;
+      el.textContent = formatAUD(aud, {
         prefix: el.getAttribute('data-price-prefix') || '',
         suffix: el.getAttribute('data-price-suffix') || ''
       });
@@ -100,7 +117,7 @@ window.ThCurrency = (function () {
     fetchRate();
   });
 
-  return { format: format, getCurrency: getCurrency, setCurrency: setCurrency, render: render };
+  return { format: format, formatAUD: formatAUD, getCurrency: getCurrency, setCurrency: setCurrency, render: render };
 })();
 
 
@@ -338,6 +355,49 @@ var exploreMap = (function () {
   };
 })();
 
+// Mobile menu (640px and under): the same full-screen panel on every page, built here
+// so generated pages get it too. Two groups styled alike, Explore and For businesses,
+// then the currency picker. It goes inside #siteNav, which the hamburger opens as the
+// overlay; the desktop links in #siteNav are hidden while it's open (styles.css).
+// Runs before the currency code binds its pickers on DOMContentLoaded.
+(function () {
+  var nav = document.getElementById('siteNav');
+  if (!nav || nav.querySelector('.menu-panel')) return;
+  var groups = [
+    ['Explore', [['Browse experiences', '/#browse'], ['Victoria', '/mornington-peninsula/'], ['Bali', '/bali/'], ['FAQ', '/#faq']]],
+    ['For businesses', [['List your business', '/for-business/'], ['Talk to us', '/for-business/#interested']]]
+  ];
+  var here = location.pathname.replace(/index\.html$/, '');
+  var panel = document.createElement('div');
+  panel.className = 'menu-panel';
+  groups.forEach(function (g, n) {
+    var box = document.createElement('div'), label = document.createElement('p'), ul = document.createElement('ul');
+    box.className = 'menu-group';
+    label.className = 'menu-group__label';
+    label.id = 'menuGroup' + n;
+    label.textContent = g[0];
+    ul.setAttribute('aria-labelledby', label.id);
+    g[1].forEach(function (l) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = l[1];
+      a.textContent = l[0];
+      if (l[1].indexOf('#') < 0 && l[1] === here) a.setAttribute('aria-current', 'page');
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    box.appendChild(label);
+    box.appendChild(ul);
+    panel.appendChild(box);
+  });
+  var cur = document.createElement('div');
+  cur.className = 'menu-currency';
+  cur.innerHTML = '<label class="menu-group__label" for="currencySelectNav">Currency</label>' +
+    '<span class="select-wrap"><select id="currencySelectNav" class="currency-select">' +
+    '<option value="AUD">AUD</option><option value="USD">USD</option><option value="IDR">IDR</option></select></span>';
+  panel.appendChild(cur);
+  nav.appendChild(panel);
+})();
+
 // Site-styled dropdowns: the Experiences filters (Location, Duration) and the header's
 // currency picker. The real
 // <select> stays in the page, hidden, and still fires "change", so the filters and the
@@ -451,6 +511,32 @@ var exploreMap = (function () {
     });
     list.addEventListener('blur', function () { setTimeout(function () { if (!wrap.contains(document.activeElement)) close(false); }, 0); });
     document.addEventListener('mousedown', function (e) { if (!wrap.contains(e.target)) close(false); });
+    sync();
+  });
+})();
+
+// Touch screens keep the built-in picker for the Experiences filters, but a select needs
+// 16px text or iOS zooms in when it opens. So the select, at 16px, is laid invisibly over
+// a copy of its value set at the pills' size; tapping still opens the native picker.
+(function () {
+  if (!window.matchMedia || window.matchMedia('(pointer:fine)').matches) return;
+  var desc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+  [].forEach.call(document.querySelectorAll('#browse select.location-select'), function (select) {
+    var wrap = document.createElement('span'), value = document.createElement('span');
+    wrap.className = 'th-native';
+    value.className = select.className + ' th-native__value';
+    value.setAttribute('aria-hidden', 'true');
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(value);
+    wrap.appendChild(select);
+    select.classList.add('th-native__select');
+    function sync() { var o = select.options[select.selectedIndex]; value.textContent = o ? o.textContent : ''; }
+    // Keep the copy in step when the filters set the value from code.
+    Object.defineProperty(select, 'value', {
+      get: function () { return desc.get.call(select); },
+      set: function (v) { desc.set.call(select, v); sync(); }
+    });
+    select.addEventListener('change', sync);
     sync();
   });
 })();
@@ -893,7 +979,7 @@ document.querySelectorAll('.card-cap-more').forEach(function (btn) {
     document.documentElement.classList.add('is-menu-open');
     if (main) main.setAttribute('inert', '');
     if (footerEl) footerEl.setAttribute('inert', '');
-    var firstLink = nav.querySelector('a');
+    var firstLink = nav.querySelector('.menu-panel a') || nav.querySelector('a');
     if (firstLink) firstLink.focus();
   }
   toggle.addEventListener('click', function () {
@@ -1058,7 +1144,7 @@ window.addEventListener('resize', setHeaderOffset);
     var box = rr(0, 0, 64, 38, 8);
     swap(q('.ha-slot-bg', slot), [
       draw(box, Object.assign({}, hatch, { hachureGap: 5, fillWeight: 1 }), null, 'ha-r-closed'),
-      draw(box, Object.assign({}, solid, { roughness: 1.4 }), 'var(--cleared)', 'ha-r-booked'),
+      draw(box, Object.assign({}, solid, { roughness: 1.4 }), 'var(--ink)', 'ha-r-booked'),
       draw(box, { strokeWidth: 1.6, roughness: 1 }, null, 'ha-r-line')
     ]);
   });

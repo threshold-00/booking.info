@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400&family=IBM+Plex+Mono:wght@400;500&family=Neue+Haas+Grotesk+Display+Pro&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;--line:rgba(23,23,26,0.14);--mono:'IBM Plex Mono',monospace;--display:'Neue Haas Grotesk Display Pro','Helvetica Neue',Helvetica,sans-serif}
+:root{--ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--line:rgba(23,23,26,0.14);--mono:'IBM Plex Mono',monospace;--display:'Neue Haas Grotesk Display Pro','Helvetica Neue',Helvetica,sans-serif}
 *{box-sizing:border-box}
 .ig,.wa,.thread{overflow-x:hidden !important}
 html,body{margin:0;background:var(--paper);color:var(--ink);font-family:'Chivo Mono',monospace;text-transform:uppercase;}
@@ -49,12 +49,12 @@ button.ctl:disabled{opacity:.4;cursor:default;}
 .notif .top{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600;opacity:.95;margin-bottom:7px;}
 .notif .top .now{margin-left:auto;font-weight:400;opacity:.7;font-size:13px;}
 .notif .appicon{width:22px;height:22px;border-radius:7px;background:var(--ink);display:flex;align-items:center;justify-content:center;flex:none;}
-.notif .appicon .d{width:8px;height:8px;border-radius:50%;background:var(--cleared);}
+.notif .appicon .d{width:8px;height:8px;border-radius:50%;background:var(--ink);}
 .notif .body{font-size:15px;line-height:1.4;font-weight:400;}
 .notif .actions{display:flex;gap:8px;margin-top:14px;}
 .notif .actions span{flex:1;text-align:center;font-size:13px;font-weight:600;padding:10px 0;border-radius:10px;background:#4a4a4d;}
 .notif .actions span.tapped{filter:brightness(1.3);}
-.notif .actions .confirm{background:var(--cleared);}
+.notif .actions .confirm{background:var(--ink);}
 .lock .swipeup{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:500;opacity:.8;}
 .lock .homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:120px;height:4px;border-radius:2px;background:#fff;opacity:.8;}
 
@@ -62,7 +62,7 @@ button.ctl:disabled{opacity:.4;cursor:default;}
 .record{position:absolute;inset:0;background:#f7f6f3;color:#17171a;font-family:-apple-system,Helvetica,Arial,sans-serif;opacity:0;transition:opacity .3s;overflow-y:auto;padding:18px 16px 30px;}
 .record.on{opacity:1;}
 .record .rtitle{font-size:17px;font-weight:700;margin-bottom:2px;}
-.record .rstatus{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#1f6f4522;color:#1f6f45;padding:3px 8px;border-radius:999px;margin:6px 0 16px;}
+.record .rstatus{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#e6e4df;color:#17171a;padding:3px 8px;border-radius:999px;margin:6px 0 16px;}
 .record .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
 .record .rblk{background:#fff;border:1px solid #e3e1da;border-radius:8px;padding:10px 11px;}
 .record .rblk .rk{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#78766d;margin-bottom:3px;}
@@ -178,7 +178,7 @@ button.ctl:disabled{opacity:.4;cursor:default;}
         <iframe class="phone-frame" id="engineFrame" src="app/index.html" title="Saltgrass booking page"></iframe>
       </div></div>
       <figcaption>2. Customer, the engine (tap through)</figcaption>
-      <a href="app/index.html" target="_blank" rel="noopener" style="display:block;margin-top:4px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--cleared);text-decoration:none;">Open in a new tab &#8599;</a>
+      <a href="app/index.html" target="_blank" rel="noopener" style="display:block;margin-top:4px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--ink);text-decoration:underline;">Open in a new tab &#8599;</a>
     </figure>
 
     <figure>

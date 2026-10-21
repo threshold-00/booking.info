@@ -451,6 +451,16 @@
   }
   if (LINK) $('bookingCta').addEventListener('click', function () { track('book_click'); });
 
+  // Sticky bar price, "From $500 AUD". It follows the site's currency picker
+  // (app.js converts data-price-aud) unless the data file fixes the wording.
+  function stickyFrom(cents) {
+    var sp = $('stickyPrice');
+    if (sp.dataset.fixed) { sp.textContent = sp.dataset.fixed; return; }
+    sp.setAttribute('data-price-aud', cents / 100);
+    sp.setAttribute('data-price-prefix', 'From');
+    if (window.ThCurrency) window.ThCurrency.render(); else sp.textContent = 'From ' + money(cents) + ' AUD';
+  }
+
   function loadDates() {
     var seq = ++state.loadSeq, key = state.key;
     $('dates').innerHTML = '<p class="bp-note">Loading dates...</p>';
@@ -461,7 +471,7 @@
       if (seq !== state.loadSeq) return;
       if (r.status !== 200) { $('dates').innerHTML = ''; showError($('err'), r.body.message || 'Dates could not be loaded.'); return; }
       var m = state.meta = r.body; state.slots = m.slots;
-      $('stickyPrice').textContent = $('stickyPrice').dataset.fixed || ('From ' + money(X().pricing === 'tickets' && (m.prices || []).length ? Math.min.apply(null, m.prices.map(function (p) { return p.price_cents; })) : m.price_cents));
+      stickyFrom(X().pricing === 'tickets' && (m.prices || []).length ? Math.min.apply(null, m.prices.map(function (p) { return p.price_cents; })) : m.price_cents);
       rich($('policy'), cancelLine(m.cancellation_policy));
       $('policyHold').textContent = 'Your card is held, not charged, until ' + BIZ + ' confirms, within ' + m.response_hours + ' hours. If they can\'t confirm, the hold is released.';
       rich($('policyCancel'), cancelLine(m.cancellation_policy));

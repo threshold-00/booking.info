@@ -116,14 +116,17 @@
     if (initialTab) selectTab(initialTab, { moveFocus: false });
   }
 
-  // Mobile sticky bar: hidden while the inline booking button is on screen,
-  // or while a field is focused (keyboard open). Body gets padding-bottom
-  // equal to the bar's measured height so it never covers the footer, and
-  // no dead space is reserved while the bar is hidden.
+  // Mobile sticky bar: shown once the hero photos have scrolled past, and hidden
+  // while the inline booking button or the footer is on screen, or while a field
+  // is focused (keyboard open). Body gets padding-bottom equal to the bar's
+  // measured height so it never covers the page, and no dead space is reserved
+  // while the bar is hidden.
   var stickyBar = document.getElementById('mobileStickyBar');
   var inlineCta = document.getElementById('bookingCta');
+  var hero = document.getElementById('detailGallery');
+  var pageFooter = document.querySelector('footer');
   if (stickyBar && inlineCta) {
-    var ctaVisible = false, fieldFocused = false;
+    var ctaVisible = false, fieldFocused = false, heroAhead = !!hero, footerVisible = false;
 
     function syncPadding() {
       var hidden = stickyBar.classList.contains('is-hidden');
@@ -131,7 +134,7 @@
     }
 
     function render() {
-      stickyBar.classList.toggle('is-hidden', ctaVisible || fieldFocused);
+      stickyBar.classList.toggle('is-hidden', heroAhead || ctaVisible || footerVisible || fieldFocused);
       syncPadding();
     }
 
@@ -141,6 +144,23 @@
         render();
       }, { threshold: 0.01 });
       obs.observe(inlineCta);
+      // The hero counts as passed once its bottom edge is above the viewport.
+      if (hero) {
+        new IntersectionObserver(function (entries) {
+          var e = entries[0];
+          heroAhead = e.isIntersecting || e.boundingClientRect.top > 0;
+          render();
+        }).observe(hero);
+      }
+      // Hidden a little before the footer comes into view.
+      if (pageFooter) {
+        new IntersectionObserver(function (entries) {
+          footerVisible = entries[0].isIntersecting;
+          render();
+        }, { rootMargin: '0px 0px 120px 0px' }).observe(pageFooter);
+      }
+    } else {
+      heroAhead = false;
     }
 
     document.addEventListener('focusin', function (e) {

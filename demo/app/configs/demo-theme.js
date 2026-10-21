@@ -2,7 +2,7 @@
 // (site/styles.css). A designer restyles all three demos by editing this one object.
 // Plain data. A demo config loads AFTER this file and reads DEMO_THEME as a top-level const, so
 // Phase 3's Apps Script can concatenate the two files and never needs the browser.
-// Site tokens: --ink #17171a, --paper #f3f2ee, --panel #f7f6f3, --cleared #1f6f45, --line rgba(23,23,26,0.14).
+// Site tokens: --ink #17171a, --paper #f3f2ee, --panel #f7f6f3, --line rgba(23,23,26,0.14).
 // Every other shade is the ink or the paper at a lower alpha, so nothing here invents a new hue,
 // with one exception: the site has no warning colour, so "warn" is a placeholder amber for Ro to choose.
 // "sunken" (--sand) is not a background tint in this engine: every use in index.html is a text or
@@ -25,9 +25,9 @@ const DEMO_THEME = {
     leaf: "#17171a",
     dark: "#17171a",
     onDark: "#f3f2ee",
-    shade: "#1f6f45",
-    ok: "#1f6f45",
-    okSurface: "rgba(31,111,69,0.12)",
+    shade: "#333333",
+    ok: "#17171a",
+    okSurface: "#e6e4df",
     warn: "#8a5a14",
     warnSurface: "rgba(138,90,20,0.12)",
     chrome: "#17171a",

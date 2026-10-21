@@ -1,5 +1,5 @@
 /* Booking flow styles, scoped under .bk. Only existing design tokens from styles.css:
-   --ink, --paper, --panel, --cleared, --line, --display, --mono, --s-1..--s-9, --gutter,
+   --ink, --paper, --panel, --color-hover, --color-hover-dark, --line, --display, --mono, --s-1..--s-9, --gutter,
    --section-y, --r-pill, and alphas of ink/paper. No new hex, fonts, radii or shadows. */
 
 .bk, .bk * { box-sizing: border-box; }
@@ -84,7 +84,7 @@
 .bk-progress__segs { display: flex; gap: 6px; }
 .bk-progress__seg { height: 2px; flex: 1; background: var(--line); }
 .bk-progress__seg[data-state="complete"] { background: var(--ink); }
-.bk-progress__seg[data-state="current"] { background: var(--cleared); }
+.bk-progress__seg[data-state="current"] { background: var(--ink); }
 .bk-progress__label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(23,23,26,.70); }
 
 /* Steps */
@@ -129,11 +129,11 @@
   font-size: 14px;
   position: relative;
 }
-.bk-cal__cell:focus-visible { outline: 2px solid var(--cleared); outline-offset: 2px; }
+.bk-cal__cell:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .bk-cal__cell[aria-disabled="true"] { color: rgba(23,23,26,.60); text-decoration: line-through; cursor: not-allowed; background: var(--panel); }
 .bk-cal__cell[data-today="true"] { box-shadow: inset 0 0 0 1px var(--ink); }
 .bk-cal__cell[aria-selected="true"] { background: var(--ink); color: var(--paper); }
-.bk-cal__dot { width: 4px; height: 4px; border-radius: var(--r-pill); background: var(--cleared); }
+.bk-cal__dot { width: 4px; height: 4px; border-radius: var(--r-pill); background: var(--ink); }
 .bk-cal__cell[aria-selected="true"] .bk-cal__dot { background: var(--paper); }
 .bk-cal__caption { margin: 12px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: rgba(23,23,26,.70); }
 
@@ -169,7 +169,7 @@
 .bk-guest-row[data-outcome="fail"] { background: var(--panel); border-left: 2px solid var(--ink); }
 .bk-flag { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; }
 .bk-flag__icon { flex: none; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-pill); font-size: 11px; font-family: var(--mono); }
-.bk-flag--pass .bk-flag__icon { color: var(--cleared); }
+.bk-flag--pass .bk-flag__icon { color: var(--ink); }
 .bk-flag--warn .bk-flag__icon { border: 1px solid rgba(23,23,26,.4); }
 .bk-flag--fail .bk-flag__icon { border: 1px solid var(--ink); }
 .bk-guest-row label { display: grid; gap: 6px; font-size: 13px; }
@@ -186,7 +186,7 @@
 }
 .bk-guest-row input:focus, .bk-field input:focus, .bk-field textarea:focus {
   outline: none;
-  border-bottom: 2px solid var(--cleared);
+  border-bottom: 2px solid var(--ink);
 }
 .bk-guest-row input.err, .bk-field input.err, .bk-field textarea.err { border-bottom: 2px solid var(--ink); }
 .bk-consent { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; }
@@ -207,7 +207,7 @@
 .bk-policy { font-size: 13px; color: rgba(23,23,26,.82); margin: 0 0 16px; }
 .bk-policy a { color: var(--ink); }
 .bk-reassure { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; margin: 0 0 16px; }
-.bk-reassure::before { content: "\2713"; color: var(--cleared); flex: none; }
+.bk-reassure::before { content: "\2713"; color: var(--ink); flex: none; }
 .bk-pay-btn {
   width: 100%;
   min-height: 48px;
@@ -220,7 +220,7 @@
   cursor: pointer;
   padding: 12px;
 }
-.bk-pay-btn:hover { background: var(--cleared); }
+.bk-pay-btn:hover { background: var(--color-hover-dark); }
 .bk-pay-note { font-size: 12px; color: rgba(23,23,26,.70); margin: 12px 0 0; }
 .bk-demo-box {
   margin: 16px 0 0;

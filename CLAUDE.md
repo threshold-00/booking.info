@@ -57,7 +57,7 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 - **No business pricing or commission on customer pages.** The 12% fee appears only on /for-business/ (and llms.txt).
 - **Prefer targeted patches over full-file rewrites.** Edit the specific block, do not regenerate the file.
 - **Styling is mostly inline.** Only shared primitives live in `styles.css`. Match the surrounding approach.
-- **Design tokens** are the `:root` custom properties in `styles.css`: `--ink` `#17171a`, `--paper` `#f3f2ee`, `--panel` `#f7f6f3`, `--cleared` `#1f6f45`, `--line`, `--display`, `--mono`. Use the variables, do not hardcode new hexes.
+- **Design tokens** are the `:root` custom properties in `styles.css`: `--ink` `#17171a`, `--paper` `#f3f2ee`, `--panel` `#f7f6f3`, `--line`, `--display`, `--mono`, and grey hovers `--color-hover` `#e6e4df` (on paper) and `--color-hover-dark` `#333333` (on ink fills). No accent colour: green was retired (Ro, 22 Oct 2026). Links go ink with an underline on hover; success states are ink text plus an icon. Use the variables, do not hardcode new hexes.
 - **Type:** body is Chivo Mono, uppercase, 12px. Headings use the Neue Haas Grotesk Display stack, sentence case, weight 500.
 - **Responsive:** one breakpoint at `max-width:820px` in `styles.css`. New two-column sections should use `class="split"`.
 - **Check all pages** after a change to `styles.css`.

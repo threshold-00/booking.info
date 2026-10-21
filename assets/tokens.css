@@ -15,7 +15,8 @@
   --t-title:clamp(1rem,.974rem + .11vw,1.0625rem);
   --t-body:.875rem;
   --t-small:.8125rem;
-  --t-label:.6875rem;
+  --t-label:.75rem;
+  --t-min:12px;      /* smallest text on new or changed components: captions, credits, breadcrumbs, footer links, booking labels */
 
   /* 4.3 letter-spacing */
   --ls-display:-.015em;
@@ -24,18 +25,23 @@
   --ls-title:-.005em;
   --ls-mono:.08em;
   --ls-label:.1em;
-  --ls-blurb:.02em; /* mono caps body text, e.g. the homepage value blurbs */
+  --ls-blurb:.02em; /* retired for body text: multi-line copy is Neue Haas, sentence case (Ro, 22 Oct 2026) */
 
   /* 4.4 colour */
-  --ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;--cleared:#1f6f45;
+  --ink:#17171a;--paper:#f3f2ee;--panel:#f7f6f3;
   --ink-2:rgba(23,23,26,.70);--ink-3:rgba(23,23,26,.62);--ink-disabled:rgba(23,23,26,.45);
   --paper-2:rgba(243,242,238,.78);--paper-3:rgba(243,242,238,.62);
   --line:rgba(23,23,26,.14);--line-ui:rgba(23,23,26,.50);--line-dark:rgba(243,242,238,.18);--line-ui-dark:rgba(243,242,238,.40);
-  --cleared-tint:rgba(31,111,69,.18);--tint-hover:rgba(23,23,26,.04);--tint-hover-dark:rgba(243,242,238,.12);--paper-glass:rgba(243,242,238,.92);
+  --tint-hover:rgba(23,23,26,.04);--tint-hover-dark:rgba(243,242,238,.12);--paper-glass:rgba(243,242,238,.92);
   --scrim:linear-gradient(180deg,rgba(23,23,26,.5),rgba(23,23,26,.65));
   --scrim-side:linear-gradient(90deg,rgba(23,23,26,.9),rgba(23,23,26,.82) 55%,rgba(23,23,26,.6));
   --scrim-strong:rgba(23,23,26,.95);
-  --focus:var(--cleared);--focus-dark:var(--paper);--focus-offset:2px;
+  /* No accent colour (green retired, Ro, 22 Oct 2026). Hover is grey:
+     --color-hover, a warm grey on paper surfaces (ink text on it 14.1:1, --ink-2 5.9:1);
+     --color-hover-dark, a lighter black for filled ink controls (paper text on it 11.3:1).
+     Hover is never the only focus cue: :focus-visible is a 2px ink outline (paper on ink). */
+  --color-hover:#e6e4df;--color-hover-dark:#333333;
+  --focus:var(--ink);--focus-dark:var(--paper);--focus-offset:2px;
 
   /* 4.5 spacing */
   --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--s-10:128px;
@@ -72,9 +78,12 @@
   --gallery-ratio-mobile:4/3;  /* each slide of the mobile carousel */
   --r-gallery:var(--r-card);
   --text-info:var(--ink);      /* session details under a demo page's title */
+  --hero-ratio-mobile:4/3;     /* experience page hero on phones, anchored to the top (center top) */
+  --fact-gap:var(--s-5);       /* fact row: the gap that holds the "·" separator */
 
   /* 4.13 browse: Grid / Map view, map card, bottom sheet, comparison table */
-  --hit:44px;                  /* minimum tap target */
+  --hit:44px;                  /* minimum tap target, and the .btn minimum height. Where a control looks
+                                  smaller (chips, tabs, text links), a ::before inset makes up the 44px. */
   --icon-s:16px;               /* icons inside tabs and buttons */
   --map-view-h:70vh;           /* the Map tab on desktop */
   --map-view-h-mobile:65vh;    /* the Map tab on phones */
