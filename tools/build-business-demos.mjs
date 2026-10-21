@@ -42,8 +42,9 @@ function fillTokens(v, d) {
 
 // Gallery header (design system 6.20). 3 or more photos: one large photo and a grid
 // of up to 4 on desktop, a swipeable carousel with a "1 / N" counter on mobile.
-// 1 or 2: a single hero. Every photo opens the lightbox. Only Unsplash photos carry
-// a credit, "Stock photo: Name / Unsplash", in the lightbox caption (Unsplash licence).
+// 1 or 2: a single hero. Every photo opens the lightbox. Unsplash photos carry a
+// credit, "Stock photo: Name / Unsplash", in the lightbox caption (Unsplash licence).
+// A self-hosted photo with a "credit" (e.g. Wikimedia Commons, CC BY-SA) shows that.
 function galleryImg(it, dir, i, main) {
   const sizes = main ? '(max-width:820px) 100vw, 420px' : '(max-width:820px) 100vw, 220px';
   const load = i === 0 ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"';
@@ -57,7 +58,7 @@ function galleryImg(it, dir, i, main) {
   return `<picture>
             <source type="image/avif" srcset="${set('avif')}" sizes="${sizes}" />
             <source type="image/webp" srcset="${set('webp')}" sizes="${sizes}" />
-            <img src="${dir}${it.file}-1600.webp" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" ${load} decoding="async" data-lightbox-index="${i}"${pos} />
+            <img src="${dir}${it.file}-1600.webp" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" ${load} decoding="async" data-lightbox-index="${i}"${it.credit ? ` data-credit="${esc(it.credit)}"` : ''}${pos} />
           </picture>`;
 }
 
@@ -76,7 +77,7 @@ function galleryHeader(d) {
   // Photos past the ones shown still open in the lightbox.
   const extra = items
     .slice(n)
-    .map((it, j) => `<img hidden src="${it.unsplash ? imgUrl(it.src, 1600) : `${p.dir ?? ''}${it.file}-1600.webp`}" alt="${esc(it.alt)}" data-lightbox-index="${n + j}"${it.unsplash ? ` data-credit="Stock photo: ${esc(it.unsplash.name)} / Unsplash"` : ''} />`)
+    .map((it, j) => `<img hidden src="${it.unsplash ? imgUrl(it.src, 1600) : `${p.dir ?? ''}${it.file}-1600.webp`}" alt="${esc(it.alt)}" data-lightbox-index="${n + j}"${it.unsplash ? ` data-credit="Stock photo: ${esc(it.unsplash.name)} / Unsplash"` : it.credit ? ` data-credit="${esc(it.credit)}"` : ''} />`)
     .join('');
   return `<div class="gallery-header gallery-header--${n}" data-count="${n}">
         <div class="gallery-header__track" role="region" tabindex="0" aria-label="Photos of ${esc(d.business.name)}">

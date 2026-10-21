@@ -484,7 +484,7 @@ footer a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 .compare-placeholder{color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.04em}
 .compare-note{margin:var(--s-4) 0 0;color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.02em}
 
-/* Value blurbs under "Made by a person, not a platform" and the rest of the
+/* Value blurbs under "For the adventurers and the makers" and the rest of the
    homepage band: mono caps body, headings unchanged. */
 .benefit-row p{font-family:var(--mono);font-size:var(--t-small);text-transform:uppercase;letter-spacing:.02em;line-height:1.5}
 
