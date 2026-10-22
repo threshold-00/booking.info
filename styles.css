@@ -961,11 +961,13 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
    reflows beside it), over the list with a scrim from 768px, full screen on phones. */
 .map-panel{position:fixed;z-index:var(--z-panel);display:flex;flex-direction:column;background:var(--paper);transition:transform var(--dur) var(--ease-out),opacity var(--dur) var(--ease-out)}
 .map-panel[hidden]{display:none}
+.map-panel.is-warming{visibility:hidden}
 .map-panel__head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);padding:var(--s-3) var(--s-4);border-bottom:var(--bw) solid var(--line)}
 .map-panel__title{margin:0;color:var(--ink)}
-.map-panel__close{position:relative;display:inline-flex;align-items:center;justify-content:center;width:var(--control-h);height:var(--control-h);padding:0;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);background:var(--paper);color:var(--ink);font:400 20px/1 var(--display);cursor:pointer}
-.map-panel__close::before{content:"";position:absolute;inset:-4px}
-@media (hover:hover){.map-panel__close:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}}
+/* While the map is open, "View on map" moves here as "Close map", its arrow turned
+   to point back (Ro, 22 Oct 2026); the one in the filter bar steps aside. */
+.rd .map-panel__close{flex:none}
+.rd .fn-map[aria-expanded=true]{visibility:hidden}
 .map-panel #exploreMap{flex:1 1 auto;height:100%;min-height:0;border:0}
 .map-scrim{position:fixed;inset:0;z-index:var(--z-scrim);background:var(--ink);opacity:.4}
 .map-scrim[hidden]{display:none}

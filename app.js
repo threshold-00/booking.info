@@ -257,7 +257,9 @@ var exploreMap = (function () {
     // The map has its own panel now, so dragging and wheel zoom are on everywhere.
     map = L.map(mapEl, { scrollWheelZoom: true, zoomControl: false, zoomSnap: 0.25, wheelPxPerZoomLevel: 90 });
     L.control.zoom({ position: 'bottomright' }).addTo(map);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // One host (OpenStreetMap's advice since its servers moved to HTTP/2): one connection,
+    // made early by the preconnect in the page head, instead of three.
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -584,6 +586,7 @@ var mapPanel = (function () {
       var gap = slot.getBoundingClientRect().top - h;
       if (gap > 0) window.scrollBy(0, gap + 1);
     }
+    panel.classList.remove('is-warming');
     panel.hidden = false;
     setMode();
     requestAnimationFrame(function () { requestAnimationFrame(function () { panel.classList.add('is-open'); }); });
@@ -604,6 +607,19 @@ var mapPanel = (function () {
     if (focus) toggle.focus({ preventScroll: true });
   }
   function requestClose() { if (api.onRequestClose) api.onRequestClose(); else hide(true); }
+
+  // Head start: when someone points at, focuses or touches "View on map", the panel is
+  // laid out off screen (unseen, out of the accessibility tree) and the map built there,
+  // so the tiles are already downloading by the time the click lands.
+  function warm() {
+    if (open || !exploreMap || !panel.hidden) return;
+    clearTimeout(timer);
+    panel.classList.add('is-warming');
+    panel.hidden = false;
+    exploreMap.open();
+    timer = setTimeout(function () { if (!open) { panel.hidden = true; panel.classList.remove('is-warming'); } }, 10000);
+  }
+  ['pointerenter', 'focus', 'touchstart'].forEach(function (type) { toggle.addEventListener(type, warm, { passive: true }); });
 
   if (closeBtn) closeBtn.addEventListener('click', requestClose);
   if (scrim) scrim.addEventListener('click', requestClose);

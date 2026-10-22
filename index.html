@@ -10,7 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=ea683667" />
+<link rel="stylesheet" href="styles.css?v=d76af3e2" />
+<!-- Map tiles: connect early so "View on map" fills in faster. -->
+<link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
 <link rel="canonical" href="https://thresholdbooking.com/" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -769,7 +771,7 @@
   <aside class="map-panel" id="mapPanel" role="region" aria-labelledby="mapPanelTitle" hidden>
     <div class="map-panel__head">
       <h2 class="label map-panel__title" id="mapPanelTitle" tabindex="-1">Map</h2>
-      <button type="button" class="map-panel__close" id="mapClose" aria-label="Close map"><span aria-hidden="true">&times;</span></button>
+      <button type="button" class="fn-map map-panel__close" id="mapClose"><span>Close map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(135deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
     </div>
     <div id="exploreMap"></div>
   </aside>
@@ -888,6 +890,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=e7415d9e"></script>
+<script src="app.js?v=0d120a77"></script>
 </body>
 </html>
