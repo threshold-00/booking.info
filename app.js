@@ -121,12 +121,12 @@ window.ThCurrency = (function () {
 })();
 
 
-// Explore map (Leaflet, vendored in assets/leaflet/), the Map tab of the Experiences
-// section. One pin per business location; each pin shows that business's activities one
+// Explore map (Leaflet, vendored in assets/leaflet/), in the homepage's "View on map"
+// panel (mapPanel, below). One pin per business location; each pin shows that business's activities one
 // at a time, read from the homepage cards (#browseGrid), so a new card shows up on the
 // map without touching this list. The map follows the browse filters (only pins with a
 // matching card, and only the matching cards in each pin). It is built the first time
-// the Map tab opens, so Leaflet measures a visible box. Pins sit on the business's
+// the panel opens, so Leaflet measures a visible box. Pins sit on the business's
 // address, or the suburb when the address is private or not confirmed.
 var exploreMap = (function () {
   var mapEl = document.getElementById('exploreMap');
@@ -227,7 +227,6 @@ var exploreMap = (function () {
   }
 
   var map = null, markers = [], active = null, pop, sheet, sheetBody, sheetClose;
-  var isMobile = function () { return window.matchMedia('(max-width:640px)').matches; };
   var useSheet = window.matchMedia('(max-width:820px)');
 
   function setActive(m) {
@@ -246,21 +245,17 @@ var exploreMap = (function () {
     sheetBody.appendChild(slides(p));
     sheet.setAttribute('aria-label', p.business);
     sheet.hidden = false;
-    // Bring the map up under the header so it shows above the sheet, then keep the pin
-    // above the sheet.
-    var header = document.querySelector('.site-header');
-    var top = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
-    var gap = mapEl.getBoundingClientRect().top - top;
-    if (Math.abs(gap) > 8) window.scrollBy(0, gap);
+    // The map sits in the fixed map panel: keep the pin in the part above the sheet.
     var rect = mapEl.getBoundingClientRect(), pt = map.latLngToContainerPoint(m.getLatLng());
-    var from = Math.max(0, top - rect.top), to = Math.min(rect.height, sheet.getBoundingClientRect().top - rect.top);
-    map.panBy([pt.x - rect.width / 2, pt.y - (from + to) / 2]);
+    var to = Math.min(rect.height, sheet.getBoundingClientRect().top - rect.top);
+    map.panBy([pt.x - rect.width / 2, pt.y - to / 2]);
     sheetClose.focus({ preventScroll: true });
   }
   function close() { if (map) map.closePopup(); closeSheet(); }
 
   function build() {
-    map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: false, dragging: !isMobile(), tap: !isMobile(), zoomSnap: 0.25, wheelPxPerZoomLevel: 90 });
+    // The map has its own panel now, so dragging and wheel zoom are on everywhere.
+    map = L.map(mapEl, { scrollWheelZoom: true, zoomControl: false, zoomSnap: 0.25, wheelPxPerZoomLevel: 90 });
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -281,23 +276,6 @@ var exploreMap = (function () {
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
     map.on('click', closeSheet);
 
-    // Zooming with the mouse wheel. It only switches on once the map has been clicked,
-    // and off again when the pointer leaves, so scrolling down the page never gets
-    // stuck on the map. Trackpad pinch and Ctrl or Cmd + scroll always zoom (and never
-    // zoom the whole page). Scrolling over the map before that shows a short hint.
-    var hint = el('div', 'map-hint', 'Click the map, then scroll to zoom'), hintTimer;
-    hint.setAttribute('aria-hidden', 'true');
-    mapEl.appendChild(hint);
-    function wheelOn() { if (!map.scrollWheelZoom.enabled()) map.scrollWheelZoom.enable(); hint.classList.remove('is-on'); }
-    map.on('click focus', wheelOn);
-    mapEl.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
-    mapEl.addEventListener('wheel', function (e) {
-      if (map.scrollWheelZoom.enabled()) return;
-      if (e.ctrlKey || e.metaKey) { e.preventDefault(); wheelOn(); return; }
-      hint.classList.add('is-on');
-      clearTimeout(hintTimer);
-      hintTimer = setTimeout(function () { hint.classList.remove('is-on'); }, 1600);
-    }, { passive: false });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { if (!es[0].isIntersecting) closeSheet(); }).observe(mapEl);
     }
@@ -318,10 +296,7 @@ var exploreMap = (function () {
       return { pin: p, marker: m };
     });
 
-    window.addEventListener('resize', function () {
-      map.invalidateSize();
-      if (isMobile()) map.dragging.disable(); else map.dragging.enable();
-    });
+    window.addEventListener('resize', function () { map.invalidateSize(); });
   }
 
   // Only pins with a matching card. The view fits the chosen location's pins; with All
@@ -345,12 +320,13 @@ var exploreMap = (function () {
   return {
     // Called by the browse filters: which cards match, and the chosen location.
     filter: function (fn, r) { match = fn; region = r || ''; draw(); },
-    // Called when the Map tab opens.
+    // Called when the map panel opens, and again once it has slid in or changed size.
     open: function () {
       if (!map) build();
       map.invalidateSize();
       draw();
     },
+    resize: function () { if (map) { map.invalidateSize(); draw(); } },
     close: close
   };
 })();
@@ -398,17 +374,35 @@ var exploreMap = (function () {
   nav.appendChild(panel);
 })();
 
-// Site-styled dropdowns: the Experiences filters (Location, Duration) and the header's
-// currency picker. The real
+// Sort by, for the homepage results: one list, so the options are easy to change (a
+// proposal for Ro to confirm). No "Soonest available": no experience has dates yet.
+var SORT_OPTIONS = [
+  { value: 'recommended', label: 'Recommended' },
+  { value: 'price-asc', label: '$ (low to high)' },
+  { value: 'price-desc', label: '$ (high to low)' }
+];
+(function () {
+  var select = document.getElementById('sortSelect');
+  if (!select) return;
+  select.textContent = '';
+  SORT_OPTIONS.forEach(function (o) { select.add(new Option(o.label, o.value)); });
+})();
+
+// One dropdown open at a time across the page: each one announces itself on opening with
+// "rd:dropdown-open" and closes when another does. "rd:dropdowns-close" closes them all
+// (the map opening, the filter nav un-sticking).
+function closeDropdowns() { document.dispatchEvent(new CustomEvent('rd:dropdowns-close')); }
+
+// Site-styled dropdowns: the Experiences filters (Where, How long, Sort by), the hero
+// search and the header's currency picker. The real
 // <select> stays in the page, hidden, and still fires "change", so the filters and the
 // URL work as before; a button and a listbox in the site's style sit on top. Setting
 // select.value from code updates the button too. Phones (coarse pointers) keep the
 // built-in picker, which is easier to use there.
 (function () {
   if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
-  var selects = [].slice.call(document.querySelectorAll('#browse select.location-select, .site-header select.currency-select'));
+  var selects = [].slice.call(document.querySelectorAll('#browse select.location-select, #sortSelect, #top select.location-select, .site-header select.currency-select'));
   var desc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
-  var openOne = null;
 
   selects.forEach(function (select, n) {
     var wrap = document.createElement('div'), btn = document.createElement('button'), list = document.createElement('ul');
@@ -463,26 +457,37 @@ var exploreMap = (function () {
     });
     select.addEventListener('change', sync);
 
+    // Scrolls only the list, never the page.
     function highlight(i) {
       active = i;
       opts.forEach(function (li, k) { li.classList.toggle('is-active', k === i); });
-      if (i >= 0) { list.setAttribute('aria-activedescendant', opts[i].id); opts[i].scrollIntoView({ block: 'nearest' }); }
+      if (i < 0) return;
+      var li = opts[i];
+      list.setAttribute('aria-activedescendant', li.id);
+      if (li.offsetTop < list.scrollTop) list.scrollTop = li.offsetTop;
+      else if (li.offsetTop + li.offsetHeight > list.scrollTop + list.clientHeight) list.scrollTop = li.offsetTop + li.offsetHeight - list.clientHeight;
     }
+    // Opens under the button, or above it if it would cross the bottom of the hero (or
+    // of the screen elsewhere).
     function open() {
-      if (openOne && openOne !== close) openOne();
+      document.dispatchEvent(new CustomEvent('rd:dropdown-open', { detail: list }));
+      list.classList.remove('is-up');
       list.hidden = false;
+      var hero = wrap.closest('#top'), r = list.getBoundingClientRect();
+      var limit = hero ? hero.getBoundingClientRect().bottom : window.innerHeight;
+      if (r.bottom > limit && btn.getBoundingClientRect().top - r.height - 6 > 0) list.classList.add('is-up');
       btn.setAttribute('aria-expanded', 'true');
       highlight(select.selectedIndex);
-      list.focus();
-      openOne = close;
+      list.focus({ preventScroll: true });
     }
     function close(refocus) {
       if (list.hidden) return;
       list.hidden = true;
       btn.setAttribute('aria-expanded', 'false');
-      if (refocus) btn.focus();
-      if (openOne === close) openOne = null;
+      if (refocus) btn.focus({ preventScroll: true });
     }
+    document.addEventListener('rd:dropdown-open', function (e) { if (e.detail !== list) close(false); });
+    document.addEventListener('rd:dropdowns-close', function () { close(false); });
     function choose(i) {
       var changed = i !== select.selectedIndex;
       desc.set.call(select, select.options[i].value);
@@ -502,7 +507,7 @@ var exploreMap = (function () {
       else if (e.key === 'Home') { e.preventDefault(); highlight(0); }
       else if (e.key === 'End') { e.preventDefault(); highlight(last); }
       else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (active >= 0) choose(active); }
-      else if (e.key === 'Escape') { e.preventDefault(); close(true); }
+      else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(true); }
       else if (e.key === 'Tab') { close(false); }
       else if (e.key.length === 1) {
         typed = (Date.now() - typedAt > 600 ? '' : typed) + e.key.toLowerCase(); typedAt = Date.now();
@@ -521,7 +526,7 @@ var exploreMap = (function () {
 (function () {
   if (!window.matchMedia || window.matchMedia('(pointer:fine)').matches) return;
   var desc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
-  [].forEach.call(document.querySelectorAll('#browse select.location-select'), function (select) {
+  [].forEach.call(document.querySelectorAll('#browse select.location-select, #sortSelect'), function (select) {
     var wrap = document.createElement('span'), value = document.createElement('span');
     wrap.className = 'th-native';
     value.className = select.className + ' th-native__value';
@@ -541,82 +546,165 @@ var exploreMap = (function () {
   });
 })();
 
-// Homepage browse (#browse): Location and Duration dropdowns, category chips, horse
-// sub-chips and the Grid / Map tabs. Filters the experience cards in place with AND
-// logic (location AND duration AND category AND sub-type), never navigates, and keeps
-// the state in the URL (?location=&duration=&cat=&sub=&view=map) so it survives a
-// refresh and the back button. With no filters active, the grouped default view
-// (#browseDefault) shows; any filter switches to the flat results grid (#browseGrid).
-// The map (exploreMap) follows the same filters.
+// "View on map" panel (#mapPanel) around the explore map. From 1024px it docks on the
+// right half, from under the header to the bottom of the screen, and the filter nav and
+// list reflow into the left half (a region, no focus trap);
+// from 768px it slides over the list with a scrim; on phones it's a full-screen sheet
+// with the page locked behind it (both modal, focus kept inside). Slides in over 250ms,
+// or just appears with reduced motion. Esc, the close button and the scrim close it.
+// The browse code drives show/hide (and the map=1 address); it sets onRequestClose.
+var mapPanel = (function () {
+  var panel = document.getElementById('mapPanel'), toggle = document.getElementById('mapToggle');
+  if (!panel || !toggle) return null;
+  var closeBtn = document.getElementById('mapClose'), scrim = document.getElementById('mapScrim');
+  var docked = window.matchMedia('(min-width:1024px)');
+  var mobile = window.matchMedia('(max-width:767px)');
+  var open = false, timer, api;
+
+  function durMs() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur')) || 0; }
+  function setMode() {
+    var modal = !docked.matches;
+    panel.setAttribute('role', modal ? 'dialog' : 'region');
+    if (modal) panel.setAttribute('aria-modal', 'true'); else panel.removeAttribute('aria-modal');
+    if (scrim) scrim.hidden = !(open && modal && !mobile.matches);
+    document.body.classList.toggle('map-docked', open && docked.matches);
+    document.documentElement.classList.toggle('is-map-locked', open && mobile.matches);
+  }
+  function refit() { if (exploreMap) exploreMap.resize(); }
+
+  function show(focus) {
+    if (open) return;
+    open = true;
+    clearTimeout(timer);
+    closeDropdowns();
+    // Beside or over the list: bring the results up so the filter nav sits under the header.
+    var slot = document.getElementById('filterSlot');
+    if (slot && !mobile.matches) {
+      var h = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+      var gap = slot.getBoundingClientRect().top - h;
+      if (gap > 0) window.scrollBy(0, gap + 1);
+    }
+    panel.hidden = false;
+    setMode();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { panel.classList.add('is-open'); }); });
+    toggle.setAttribute('aria-expanded', 'true');
+    if (exploreMap) exploreMap.open();
+    timer = setTimeout(refit, durMs() + 30);
+    if (focus && closeBtn) closeBtn.focus({ preventScroll: true });
+  }
+  function hide(focus) {
+    if (!open) return;
+    open = false;
+    panel.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    setMode();
+    if (exploreMap) exploreMap.close();
+    clearTimeout(timer);
+    timer = setTimeout(function () { if (!open) panel.hidden = true; }, durMs() + 30);
+    if (focus) toggle.focus({ preventScroll: true });
+  }
+  function requestClose() { if (api.onRequestClose) api.onRequestClose(); else hide(true); }
+
+  if (closeBtn) closeBtn.addEventListener('click', requestClose);
+  if (scrim) scrim.addEventListener('click', requestClose);
+  document.addEventListener('keydown', function (e) {
+    if (!open) return;
+    // A pin's sheet closes first (its own Esc handler).
+    if (e.key === 'Escape' && !document.querySelector('.map-sheet:not([hidden])')) { requestClose(); return; }
+    // Modal modes keep Tab inside the panel.
+    if (e.key !== 'Tab' || docked.matches) return;
+    var f = [].filter.call(panel.querySelectorAll('a[href],button,input,select,[tabindex]:not([tabindex="-1"])'), function (el) { return el.offsetParent !== null; });
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+  });
+  function onChange() { if (!open) return; setMode(); refit(); }
+  [docked, mobile].forEach(function (mq) { if (mq.addEventListener) mq.addEventListener('change', onChange); });
+  var resizeTimer;
+  window.addEventListener('resize', function () { if (!open) return; clearTimeout(resizeTimer); resizeTimer = setTimeout(refit, 100); });
+  document.addEventListener('filternav:change', function () { if (open) setTimeout(refit, 0); });
+
+  api = { show: show, hide: hide, isOpen: function () { return open; }, onRequestClose: null };
+  return api;
+})();
+
+// Homepage browse (#browse): the filter nav (What and Situation chips, horse sub-chips,
+// Where, How long and Sort by), the two hand-picked rails and "All experiences". Filters
+// combine with AND logic on the cards in #browseGrid, never navigate, and live in the URL
+// (?cat=&sub=&who=&location=&duration=&sort=&map=1), so a refresh or the back button
+// brings them back. With any filter on, the rails hide and only matching cards show.
+// The hero search sets the same filters. The map (exploreMap, in the "View on map"
+// panel) follows them.
 (function () {
   var grid = document.getElementById('browseGrid');
-  var defaultView = document.getElementById('browseDefault');
   if (!grid) return;
+  var $ = function (id) { return document.getElementById(id); };
+  var rails = $('browseRails');
+  var chipRow = $('chipRow'), horseSub = $('horseSub');
+  var locationSelect = $('locationSelect'), durationSelect = $('durationSelect'), sortSelect = $('sortSelect');
+  var countEl = $('browseCount'), statusEl = $('browseStatus'), emptyEl = $('browseEmpty'), clearBtn = $('clearFilters');
+  var capBtn = document.querySelector('.card-cap-more[aria-controls="browseGrid"]');
+  var heroForm = $('heroSearch'), heroWhat = $('heroWhat'), heroWhere = $('heroWhere'), heroWho = $('heroWho');
 
-  var chipRow = document.getElementById('chipRow');
-  var horseSub = document.getElementById('horseSub');
-  var locationSelect = document.getElementById('locationSelect');
-  var durationSelect = document.getElementById('durationSelect');
-  var tabs = [].slice.call(document.querySelectorAll('#browse [role=tab]'));
-  var countEl = document.getElementById('browseCount');
-  var emptyEl = document.getElementById('browseEmpty');
-  var clearBtn = document.getElementById('clearFilters');
-
-  var cards = [].slice.call(grid.querySelectorAll('.x-card, .sc-card'));
-  var realCards = cards.filter(function (c) { return !c.hasAttribute('data-placeholder'); });
+  var cards = [].slice.call(grid.querySelectorAll('.card'));
+  cards.forEach(function (c, i) { c._order = i; });
   var catChips = chipRow ? [].slice.call(chipRow.querySelectorAll('.cat-chip')) : [];
   var horseChip = catChips.filter(function (c) { return c.getAttribute('data-cat') === 'horse'; })[0];
   var subChips = horseSub ? [].slice.call(horseSub.querySelectorAll('.sub-chip')) : [];
-  var seeAllBtns = [].slice.call(document.querySelectorAll('.see-all'));
+  var whoChips = [].slice.call(document.querySelectorAll('#situationRow .who-chip'));
 
-  // Hide any Experience chip whose category has no live listings yet, worked
-  // out from the card data at runtime so a chip appears on its own once the
-  // first business in that category is listed. "All" always shows.
-  (function hideEmptyCatChips() {
-    var liveCats = {};
-    realCards.forEach(function (card) {
-      (card.getAttribute('data-cat') || '').split(/\s+/).forEach(function (c) { if (c) liveCats[c] = true; });
+  // Hide any What chip with no live listings yet, worked out from the cards, so a chip
+  // appears on its own once the first business in that category is listed.
+  (function () {
+    var live = {};
+    cards.forEach(function (card) {
+      (card.getAttribute('data-cat') || '').split(/\s+/).forEach(function (c) { if (c) live[c] = true; });
     });
     catChips.forEach(function (chip) {
       var cat = chip.getAttribute('data-cat');
-      if (cat && !liveCats[cat]) chip.hidden = true;
+      if (cat && !live[cat]) chip.hidden = true;
     });
   })();
 
-  // state.cat is a list of selected category chips (OR'd together); an empty list means
-  // "All" and shows every experience.
-  var state = { cat: [], sub: '', region: '', duration: '', view: 'grid' };
-
-  // Locations in the address read as words; the cards use their region keys.
+  // state.cat: the selected What chips (OR'd together); empty means Anything.
+  var state = { cat: [], sub: '', who: '', region: '', duration: '', sort: 'recommended', map: false };
   var LOCATIONS = { victoria: 'mornington', bali: 'bali' };
   var DURATIONS = ['1h', '1-5h', 'full-day', 'multi-day'];
+  var WHO = ['solo', 'duo', 'group'];
+  var SORTS = (window.SORT_OPTIONS || []).map(function (o) { return o.value; });
 
   function readURL() {
     var params = new URLSearchParams(window.location.search);
     var cat = params.get('cat') || '';
     state.cat = cat ? cat.split(',').filter(Boolean) : [];
     state.sub = params.get('sub') || '';
-    var loc = params.get('location') || '';
-    state.region = LOCATIONS[loc] || params.get('region') || '';
+    state.who = WHO.indexOf(params.get('who')) >= 0 ? params.get('who') : '';
+    state.region = LOCATIONS[params.get('location') || ''] || '';
     state.duration = DURATIONS.indexOf(params.get('duration')) >= 0 ? params.get('duration') : '';
-    state.view = params.get('view') === 'map' ? 'map' : 'grid';
+    state.sort = SORTS.indexOf(params.get('sort')) > 0 ? params.get('sort') : 'recommended';
+    // view=map is the old Map tab's address; it opens the map panel now.
+    state.map = params.get('map') === '1' || params.get('view') === 'map';
   }
 
-  // push: a new history entry (location, duration and view changes), so the back
-  // button steps back through them. Chip changes replace the current entry.
-  function writeURL(push) {
+  // push: a new history entry (location, duration, map), so the back button steps back
+  // through them. Chip and sort changes replace the current entry.
+  function writeURL(push, mark) {
     var params = new URLSearchParams(window.location.search);
-    if (state.cat.length) params.set('cat', state.cat.join(',')); else params.delete('cat');
-    if (state.sub) params.set('sub', state.sub); else params.delete('sub');
+    function put(k, v) { if (v) params.set(k, v); else params.delete(k); }
+    put('cat', state.cat.join(','));
+    put('sub', state.sub);
+    put('who', state.who);
+    put('location', Object.keys(LOCATIONS).filter(function (k) { return LOCATIONS[k] === state.region; })[0]);
+    put('duration', state.duration);
+    put('sort', state.sort === 'recommended' ? '' : state.sort);
+    put('map', state.map ? '1' : '');
+    params.delete('view');
     params.delete('region');
-    var loc = Object.keys(LOCATIONS).filter(function (k) { return LOCATIONS[k] === state.region; })[0];
-    if (loc) params.set('location', loc); else params.delete('location');
-    if (state.duration) params.set('duration', state.duration); else params.delete('duration');
-    if (state.view === 'map') params.set('view', 'map'); else params.delete('view');
     var qs = params.toString();
     var url = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
     if (url === window.location.pathname + window.location.search + window.location.hash) return;
-    if (push) history.pushState(null, '', url); else history.replaceState(null, '', url);
+    if (push) history.pushState(mark || null, '', url); else history.replaceState(history.state, '', url);
   }
 
   // Buckets: 60 minutes or less; 61 to 300; over 300 on a single day; two days or more.
@@ -629,256 +717,435 @@ var exploreMap = (function () {
     if (mins <= 300) return '1-5h';
     return 'full-day';
   }
+  function has(card, attr, v) { return (card.getAttribute(attr) || '').split(/\s+/).indexOf(v) !== -1; }
 
   function cardMatches(card, opts) {
     opts = opts || {};
-    var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
-    if (!opts.ignoreCat && state.cat.length) {
-      var matchesAnyCat = state.cat.some(function (cat) { return cats.indexOf(cat) !== -1; });
-      if (!matchesAnyCat) return false;
-    }
-    if (!opts.ignoreSub && state.sub && cats.indexOf('horse') !== -1) {
-      if (card.getAttribute('data-type') !== state.sub) return false;
-    }
-    if (state.region) {
-      if (card.getAttribute('data-region') !== state.region) return false;
-    }
+    if (!opts.ignoreCat && state.cat.length && !state.cat.some(function (c) { return has(card, 'data-cat', c); })) return false;
+    if (!opts.ignoreSub && state.sub && has(card, 'data-cat', 'horse') && card.getAttribute('data-type') !== state.sub) return false;
+    if (state.who && !has(card, 'data-situation', state.who)) return false;
+    if (state.region && card.getAttribute('data-region') !== state.region) return false;
     if (state.duration && durationBucket(card) !== state.duration) return false;
     return true;
   }
-
   function hasActiveFilters() {
-    return !!(state.cat.length || state.sub || state.region || state.duration);
+    return !!(state.cat.length || state.sub || state.who || state.region || state.duration);
   }
 
-  // Sub-chip counts reflect the currently visible horse cards, respecting region and
-  // search but not the sub-chip selection itself, per the brief.
+  // Sub-chip counts: the horse cards left by the other filters.
   function updateSubCounts() {
-    if (!subChips.length) return;
-    var horseCards = realCards.filter(function (card) {
-      var cats = (card.getAttribute('data-cat') || '').split(/\s+/);
-      if (cats.indexOf('horse') === -1) return false;
-      return cardMatches(card, { ignoreCat: true, ignoreSub: true });
-    });
+    var horse = cards.filter(function (c) { return has(c, 'data-cat', 'horse') && cardMatches(c, { ignoreCat: true, ignoreSub: true }); });
     subChips.forEach(function (chip) {
       var type = chip.getAttribute('data-type');
-      var n = type ? horseCards.filter(function (c) { return c.getAttribute('data-type') === type; }).length : horseCards.length;
+      var n = type ? horse.filter(function (c) { return c.getAttribute('data-type') === type; }).length : horse.length;
       var base = chip.getAttribute('data-label') || chip.textContent.replace(/\s*\(\d+\)\s*$/, '');
       chip.setAttribute('data-label', base);
       chip.textContent = base + ' (' + n + ')';
     });
   }
 
+  function countLabel(n) {
+    var label = n === 1 ? '1 experience' : n + ' experiences';
+    if (state.region === 'bali') label += ' in Bali';
+    else if (state.region === 'mornington') label += ' in Victoria, Australia';
+    return label;
+  }
+
+  var shown = cards.length;
   function render() {
     var active = hasActiveFilters();
-
-    if (defaultView) defaultView.hidden = active;
-    grid.hidden = !active;
-
-    var visibleReal = 0;
+    if (rails) rails.hidden = active;
+    shown = 0;
     cards.forEach(function (card) {
-      var isPlaceholder = card.hasAttribute('data-placeholder');
-      if (isPlaceholder) {
-        card.hidden = active;
-        return;
-      }
-      var match = active ? cardMatches(card) : false;
+      var match = cardMatches(card);
       card.hidden = !match;
-      if (match) visibleReal++;
+      if (match) shown++;
     });
-
-    if (countEl) {
-      var count = active ? visibleReal : realCards.length;
-      var label = count === 1 ? '1 experience' : count + ' experiences';
-      if (state.region === 'bali') label += ' in Bali';
-      else if (state.region === 'mornington') label += ' in Victoria, Australia';
-      countEl.textContent = label;
-    }
-
-    if (emptyEl) {
-      var showEmpty = active && visibleReal === 0;
-      emptyEl.hidden = !showEmpty;
-    }
-
+    if (countEl) countEl.textContent = countLabel(shown);
+    if (emptyEl) emptyEl.hidden = !(active && shown === 0);
+    // Phones show the first 12 of the full list, then "See all"; never while filtering.
+    if (active) grid.removeAttribute('data-mobile-cap'); else grid.setAttribute('data-mobile-cap', '');
+    if (capBtn) capBtn.hidden = active || grid.classList.contains('is-expanded');
     updateSubCounts();
     if (exploreMap) exploreMap.filter(cardMatches, state.region);
   }
 
-  function setSub(sub) {
-    state.sub = sub || '';
-    subChips.forEach(function (chip) {
-      chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
-    });
-    writeURL();
-    render();
-  }
-
-  function showHorseSub(show) {
-    if (!horseSub) return;
-    horseSub.hidden = !show;
-    if (horseChip) horseChip.setAttribute('aria-expanded', show ? 'true' : 'false');
-    if (!show) setSub('');
-  }
-
-  // Category chips are multi-select: toggles a cat in/out of state.cat. Clicking "All"
-  // (an empty cat) always clears the selection back to everything.
-  function toggleCat(cat) {
-    if (!cat) {
-      state.cat = [];
-    } else {
-      var i = state.cat.indexOf(cat);
-      if (i === -1) state.cat.push(cat); else state.cat.splice(i, 1);
+  // Sort: re-orders the cards in "All experiences" (the rails keep their own order).
+  // Ties keep the recommended order; cards with no price go last.
+  function applySort(announce) {
+    var dir = state.sort === 'price-asc' ? 1 : state.sort === 'price-desc' ? -1 : 0;
+    var price = function (c) { var v = parseFloat(c.getAttribute('data-sort-aud')); return isNaN(v) ? null : v; };
+    cards.slice().sort(function (a, b) {
+      if (dir) {
+        var pa = price(a), pb = price(b);
+        if (pa === null && pb !== null) return 1;
+        if (pb === null && pa !== null) return -1;
+        if (pa !== pb && pa !== null) return dir * (pa - pb);
+      }
+      return a._order - b._order;
+    }).forEach(function (c) { grid.appendChild(c); });
+    if (announce && statusEl) {
+      var o = (window.SORT_OPTIONS || []).filter(function (x) { return x.value === state.sort; })[0];
+      var said = state.sort === 'price-asc' ? 'Sorted by price, low to high' : state.sort === 'price-desc' ? 'Sorted by price, high to low' : 'Sorted by ' + (o ? o.label : 'recommended').toLowerCase();
+      statusEl.textContent = said + '. ' + countLabel(shown) + '.';
     }
-    applyCatState();
   }
 
-  function setCat(cats) {
-    state.cat = cats ? [cats] : [];
-    applyCatState();
+  // Situation helper: one line under the chips. With a mouse or trackpad, hovering or
+  // focusing a chip shows its line, otherwise the chosen chip's; on touch it changes on
+  // select. The line is aria-hidden; each chip has its own description (aria-describedby).
+  var helpEl = $('situationHelp'), helpTimer, hoverWho = '';
+  var canHover = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function helpFor(who) {
+    var chip = whoChips.filter(function (c) { return c.getAttribute('data-who') === who; })[0];
+    return chip ? chip.getAttribute('data-help') || '' : '';
   }
-
-  function applyCatState() {
-    catChips.forEach(function (chip) {
-      var cat = chip.getAttribute('data-cat');
-      var pressed = cat ? state.cat.indexOf(cat) !== -1 : state.cat.length === 0;
-      chip.setAttribute('aria-pressed', pressed ? 'true' : 'false');
-    });
-    showHorseSub(state.cat.indexOf('horse') !== -1);
-    writeURL();
-    render();
+  // Fades out, swaps the text, fades back in; instant with reduced motion (--dur is 0).
+  function syncHelp() {
+    var text = helpFor(hoverWho || state.who);
+    if (!helpEl || helpEl.getAttribute('data-text') === text) return;
+    helpEl.setAttribute('data-text', text);
+    var half = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur')) || 0) / 2;
+    clearTimeout(helpTimer);
+    if (!half) { helpEl.textContent = text; placeHelp(); return; }
+    helpEl.classList.add('is-fading');
+    helpTimer = setTimeout(function () { helpEl.textContent = text; placeHelp(); helpEl.classList.remove('is-fading'); }, half);
   }
-
-  function setRegion(region) {
-    state.region = region || '';
-    if (locationSelect) locationSelect.value = state.region;
-    writeURL(true);
-    render();
+  // Centred under the chips, but nudged back inside the container when the line is wider
+  // than the chips and they sit near an edge (phones, narrow windows).
+  function placeHelp() {
+    if (!helpEl) return;
+    helpEl.style.transform = '';
+    var box = helpEl.closest('.container');
+    if (!box || !helpEl.textContent) return;
+    var r = helpEl.getBoundingClientRect(), b = box.getBoundingClientRect(), cs = getComputedStyle(box);
+    var left = b.left + parseFloat(cs.paddingLeft), right = b.right - parseFloat(cs.paddingRight), dx = 0;
+    if (r.left < left) dx = left - r.left;
+    else if (r.right > right) dx = right - r.right;
+    if (dx) helpEl.style.transform = 'translateX(calc(-50% + ' + Math.round(dx) + 'px))';
   }
-
-  function setDuration(d) {
-    state.duration = d || '';
-    if (durationSelect) durationSelect.value = state.duration;
-    writeURL(true);
-    render();
-  }
-
-  // Grid / Map tabs: automatic activation, arrow keys, Home and End.
-  function showView(view, focus) {
-    state.view = view === 'map' ? 'map' : 'grid';
-    tabs.forEach(function (t) {
-      var on = (t.id === 'tabMap') === (state.view === 'map');
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-      t.tabIndex = on ? 0 : -1;
-      var panel = document.getElementById(t.getAttribute('aria-controls'));
-      if (panel) panel.hidden = !on;
-      if (on && focus) t.focus();
-    });
-    placeLine();
-    if (exploreMap) { if (state.view === 'map') exploreMap.open(); else exploreMap.close(); }
-  }
-  // The 2px line under the selected tab, slid into place.
-  var tabLine = document.querySelector('#browse .view-tabs__line');
-  function placeLine() {
-    var on = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
-    if (!tabLine || !on) return;
-    tabLine.style.left = on.offsetLeft + 'px';
-    tabLine.style.width = on.offsetWidth + 'px';
-  }
-  window.addEventListener('resize', placeLine);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeLine);
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () {
-      showView(t.id === 'tabMap' ? 'map' : 'grid');
-      writeURL(true);
-    });
-    t.addEventListener('keydown', function (e) {
-      var to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
-      if (to === undefined) return;
-      e.preventDefault();
-      var next = tabs[(to + tabs.length) % tabs.length];
-      showView(next.id === 'tabMap' ? 'map' : 'grid', true);
-      writeURL(true);
-    });
+  window.addEventListener('resize', placeHelp);
+  if (canHover) whoChips.forEach(function (chip) {
+    function on() { hoverWho = chip.getAttribute('data-who'); syncHelp(); }
+    function off() { hoverWho = chip === document.activeElement ? hoverWho : ''; syncHelp(); }
+    chip.addEventListener('mouseenter', on);
+    chip.addEventListener('focus', on);
+    chip.addEventListener('mouseleave', off);
+    chip.addEventListener('blur', function () { hoverWho = ''; syncHelp(); });
   });
 
-  catChips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      toggleCat(chip.getAttribute('data-cat'));
-      if (chip === horseChip) chip.focus();
+  // Stuck filter nav (768px and up): What, Situation, Where and How long become
+  // dropdowns in one row, built here with the same options as the expanded bar and
+  // driven by the same state. What stays multi-select (checkboxes); the others close on
+  // a choice. Esc closes and returns focus to the button; Tab or a click outside closes.
+  function makeDropdown(box, key, name, options, multi, selected, pick) {
+    var wrap = document.createElement('div'), btn = document.createElement('button'), list = document.createElement('ul');
+    var id = 'fnDd' + key, active = -1;
+    wrap.className = 'dd';
+    btn.type = 'button';
+    btn.className = 'dd__btn';
+    btn.id = id + 'Button';
+    btn.setAttribute('aria-haspopup', 'listbox');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', id);
+    var nameEl = document.createElement('span'), valueEl = document.createElement('span');
+    nameEl.className = 'dd__label';
+    nameEl.textContent = name + ':';
+    valueEl.className = 'dd__value';
+    btn.appendChild(nameEl);
+    btn.appendChild(document.createTextNode(' '));
+    btn.appendChild(valueEl);
+    list.className = 'dd__list';
+    list.id = id;
+    list.setAttribute('role', 'listbox');
+    list.setAttribute('aria-label', name);
+    if (multi) list.setAttribute('aria-multiselectable', 'true');
+    list.tabIndex = -1;
+    list.hidden = true;
+    var items = options.map(function (o, i) {
+      var li = document.createElement('li'), mark = document.createElement('span'), text = document.createElement('span'), main = document.createElement('span');
+      li.id = id + '-' + i;
+      li.setAttribute('role', 'option');
+      mark.className = multi ? 'dd__check' : 'dd__tick';
+      mark.setAttribute('aria-hidden', 'true');
+      text.className = 'dd__text';
+      main.textContent = o.label;
+      text.appendChild(main);
+      if (o.sub) { var sub = document.createElement('span'); sub.className = 'dd__sub'; sub.textContent = o.sub; text.appendChild(sub); }
+      li.appendChild(mark);
+      li.appendChild(text);
+      li.addEventListener('mousedown', function (e) { e.preventDefault(); });
+      li.addEventListener('click', function () { choose(i); });
+      li.addEventListener('mousemove', function () { highlight(i); });
+      list.appendChild(li);
+      return li;
     });
-  });
+    wrap.appendChild(btn);
+    wrap.appendChild(list);
+    box.appendChild(wrap);
 
-  subChips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      setSub(chip.getAttribute('data-type'));
+    function sync() {
+      var sel = selected();
+      var labels = options.filter(function (o) { return sel.indexOf(o.value) !== -1; }).map(function (o) { return o.label; });
+      items.forEach(function (li, k) { li.setAttribute('aria-selected', sel.indexOf(options[k].value) !== -1 ? 'true' : 'false'); });
+      valueEl.textContent = labels.length ? labels[0] + (labels.length > 1 ? ' +' + (labels.length - 1) : '') : options[0].label;
+    }
+    function highlight(i) {
+      active = i;
+      items.forEach(function (li, k) { li.classList.toggle('is-active', k === i); });
+      if (i < 0) return;
+      var li = items[i];
+      list.setAttribute('aria-activedescendant', li.id);
+      if (li.offsetTop < list.scrollTop) list.scrollTop = li.offsetTop;
+      else if (li.offsetTop + li.offsetHeight > list.scrollTop + list.clientHeight) list.scrollTop = li.offsetTop + li.offsetHeight - list.clientHeight;
+    }
+    // Left aligned under the button; right aligned if it would pass the container's edge.
+    function open() {
+      document.dispatchEvent(new CustomEvent('rd:dropdown-open', { detail: list }));
+      list.classList.remove('is-right');
+      list.hidden = false;
+      var c = wrap.closest('.container');
+      var edge = c ? c.getBoundingClientRect().right - (parseFloat(getComputedStyle(c).paddingRight) || 0) : window.innerWidth;
+      if (list.getBoundingClientRect().right > edge) list.classList.add('is-right');
+      btn.setAttribute('aria-expanded', 'true');
+      var sel = selected(), first = 0;
+      for (var k = 0; k < options.length; k++) if (sel.indexOf(options[k].value) !== -1) { first = k; break; }
+      highlight(first);
+      list.focus({ preventScroll: true });
+    }
+    function close(refocus) {
+      if (list.hidden) return;
+      list.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      if (refocus) btn.focus({ preventScroll: true });
+    }
+    function choose(i) {
+      pick(options[i].value);
+      if (!multi) close(true);
+    }
+    btn.addEventListener('click', function () { if (list.hidden) open(); else close(true); });
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); }
     });
-  });
-
-  if (locationSelect) {
-    locationSelect.addEventListener('change', function () {
-      setRegion(locationSelect.value);
+    list.addEventListener('keydown', function (e) {
+      var last = items.length - 1;
+      if (e.key === 'ArrowDown') { e.preventDefault(); highlight(Math.min(last, active + 1)); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(Math.max(0, active - 1)); }
+      else if (e.key === 'Home') { e.preventDefault(); highlight(0); }
+      else if (e.key === 'End') { e.preventDefault(); highlight(last); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (active >= 0) choose(active); }
+      else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(true); }
+      else if (e.key === 'Tab') { close(false); }
     });
+    list.addEventListener('blur', function () { setTimeout(function () { if (!wrap.contains(document.activeElement)) close(false); }, 0); });
+    document.addEventListener('mousedown', function (e) { if (!wrap.contains(e.target)) close(false); });
+    document.addEventListener('rd:dropdown-open', function (e) { if (e.detail !== list) close(false); });
+    document.addEventListener('rd:dropdowns-close', function () { close(false); });
+    return { sync: sync };
   }
-  if (durationSelect) {
-    durationSelect.addEventListener('change', function () {
-      setDuration(durationSelect.value);
-    });
-  }
+  var compact = [];
+  (function () {
+    var row = document.querySelector('#filterNav .fn-row--bottom');
+    if (!row) return;
+    var box = document.createElement('div');
+    box.className = 'fn-compact';
+    row.insertBefore(box, row.querySelector('.fn-where'));
+    function fromSelect(sel) { return sel ? [].map.call(sel.options, function (o) { return { value: o.value, label: o.textContent }; }) : []; }
+    var what = catChips.filter(function (c) { return !c.hidden; }).map(function (c) { return { value: c.getAttribute('data-cat'), label: c.textContent }; });
+    var who = [{ value: '', label: 'Anyone' }].concat(whoChips.map(function (c) { return { value: c.getAttribute('data-who'), label: c.textContent, sub: c.getAttribute('data-help') }; }));
+    compact.push(makeDropdown(box, 'What', 'What', what, true,
+      function () { return state.cat.length ? state.cat : ['']; },
+      function (v) {
+        if (!v) state.cat = [];
+        else { var i = state.cat.indexOf(v); if (i === -1) state.cat.push(v); else state.cat.splice(i, 1); }
+        update();
+      }));
+    compact.push(makeDropdown(box, 'Who', 'Situation', who, false,
+      function () { return [state.who]; }, function (v) { state.who = v; update(); }));
+    compact.push(makeDropdown(box, 'Where', 'Where', fromSelect(locationSelect), false,
+      function () { return [state.region]; }, function (v) { state.region = v; update(true); }));
+    compact.push(makeDropdown(box, 'Long', 'How long', fromSelect(durationSelect), false,
+      function () { return [state.duration]; }, function (v) { state.duration = v; update(true); }));
+  })();
+  // Sticking or un-sticking closes any open list.
+  document.addEventListener('filternav:change', closeDropdowns);
 
-  seeAllBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var cat = btn.getAttribute('data-cat') || '';
-      var sub = btn.getAttribute('data-sub') || '';
-      state.cat = cat ? [cat] : [];
-      catChips.forEach(function (chip) {
-        var c = chip.getAttribute('data-cat');
-        chip.setAttribute('aria-pressed', c ? state.cat.indexOf(c) !== -1 : state.cat.length === 0);
-      });
-      showHorseSub(cat === 'horse');
-      state.sub = sub;
-      subChips.forEach(function (chip) {
-        chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === sub ? 'true' : 'false');
-      });
-      writeURL();
-      render();
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var browseSection = document.getElementById('browse');
-      if (browseSection) browseSection.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-      if (countEl) countEl.focus();
-    });
-  });
-
-  function clearFilters() {
-    state = { cat: [], sub: '', region: '', duration: '', view: state.view };
-    if (locationSelect) locationSelect.value = '';
-    if (durationSelect) durationSelect.value = '';
-    catChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-cat') === '' ? 'true' : 'false'); });
-    showHorseSub(false);
-    writeURL(true);
-    render();
-  }
-
-  if (clearBtn) clearBtn.addEventListener('click', clearFilters);
-
-  // Everything from the address: on load, and on back / forward.
-  function fromURL() {
-    readURL();
+  // Everything that shows the state: chips, selects and the hero search.
+  function syncControls() {
     catChips.forEach(function (chip) {
       var c = chip.getAttribute('data-cat');
       chip.setAttribute('aria-pressed', c ? state.cat.indexOf(c) !== -1 : state.cat.length === 0);
     });
-    showHorseSub(state.cat.indexOf('horse') !== -1);
-    subChips.forEach(function (chip) {
-      chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false');
-    });
+    var horseOn = state.cat.indexOf('horse') !== -1;
+    if (horseSub) horseSub.hidden = !horseOn;
+    if (horseChip) horseChip.setAttribute('aria-expanded', horseOn ? 'true' : 'false');
+    if (!horseOn) state.sub = '';
+    subChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-type') === state.sub ? 'true' : 'false'); });
+    whoChips.forEach(function (chip) { chip.setAttribute('aria-pressed', chip.getAttribute('data-who') === state.who ? 'true' : 'false'); });
     if (locationSelect) locationSelect.value = state.region;
     if (durationSelect) durationSelect.value = state.duration;
-    render();
-    showView(state.view);
+    if (sortSelect) sortSelect.value = state.sort;
+    if (heroWhat) heroWhat.value = state.cat.length === 1 ? state.cat[0] : '';
+    if (heroWhere) heroWhere.value = state.region;
+    if (heroWho) heroWho.value = state.who;
+    compact.forEach(function (d) { d.sync(); });
+    syncHelp();
   }
+
+  function update(push) { syncControls(); writeURL(push); render(); }
+
+  catChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var cat = chip.getAttribute('data-cat');
+      if (!cat) state.cat = [];
+      else {
+        var i = state.cat.indexOf(cat);
+        if (i === -1) state.cat.push(cat); else state.cat.splice(i, 1);
+      }
+      update();
+    });
+  });
+  subChips.forEach(function (chip) {
+    chip.addEventListener('click', function () { state.sub = chip.getAttribute('data-type') || ''; update(); });
+  });
+  // Situation: one at a time; pressing the chosen one again clears it.
+  whoChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var who = chip.getAttribute('data-who');
+      state.who = state.who === who ? '' : who;
+      update();
+    });
+  });
+  if (locationSelect) locationSelect.addEventListener('change', function () { state.region = locationSelect.value; update(true); });
+  if (durationSelect) durationSelect.addEventListener('change', function () { state.duration = durationSelect.value; update(true); });
+  if (sortSelect) sortSelect.addEventListener('change', function () {
+    state.sort = SORTS.indexOf(sortSelect.value) >= 0 ? sortSelect.value : 'recommended';
+    writeURL(false);
+    applySort(true);
+  });
+  if (clearBtn) clearBtn.addEventListener('click', function () {
+    state.cat = []; state.sub = ''; state.who = ''; state.region = ''; state.duration = '';
+    update(true);
+  });
+
+  // The filter nav's top, as a page position, so the page can scroll to it.
+  var slot = $('filterSlot');
+  function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
+  function scrollToFilters() {
+    if (!slot) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: slot.getBoundingClientRect().top + window.pageYOffset - headerH(), behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  // Hero search: sets the same filters, writes the URL and scrolls to the results.
+  if (heroForm) heroForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    state.cat = heroWhat && heroWhat.value ? [heroWhat.value] : [];
+    state.region = heroWhere ? heroWhere.value : '';
+    state.who = heroWho ? heroWho.value : '';
+    update(true);
+    scrollToFilters();
+    if (countEl) countEl.focus({ preventScroll: true });
+  });
+  // Phones, filter nav stuck: "Filters" brings the full filters back into view.
+  var filtersBtn = $('filtersBtn');
+  if (filtersBtn) filtersBtn.addEventListener('click', function () {
+    scrollToFilters();
+    var first = chipRow && chipRow.querySelector('.chip:not([hidden])');
+    if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 400);
+  });
+
+  // "View on map": opens the panel and adds map=1 to the address, so the back button
+  // closes it. Closing pops that entry when it's the one we added.
+  var mapToggle = $('mapToggle');
+  function setMap(on, focus) {
+    if (!mapPanel) return;
+    if (on) mapPanel.show(focus); else mapPanel.hide(focus);
+  }
+  if (mapToggle && mapPanel) {
+    mapToggle.addEventListener('click', function () {
+      if (mapPanel.isOpen()) { closeMap(); return; }
+      state.map = true;
+      writeURL(true, { rdMap: true });
+      setMap(true, true);
+    });
+    mapPanel.onRequestClose = closeMap;
+  }
+  function closeMap() {
+    state.map = false;
+    if (history.state && history.state.rdMap) { history.back(); setMap(false, true); return; }
+    writeURL(false);
+    setMap(false, true);
+  }
+
   if (countEl) countEl.setAttribute('tabindex', '-1');
+  function fromURL() {
+    readURL();
+    syncControls();
+    render();
+    applySort(false);
+    setMap(state.map, false);
+  }
   fromURL();
   window.addEventListener('popstate', fromURL);
+})();
+
+// Filter nav: once its top reaches the header it's fixed there in its compact form
+// (.is-stuck: labels hidden, tighter padding, a shadow; one row on phones), until the
+// results end. The slot keeps the full height, so the page never jumps.
+(function () {
+  var slot = document.getElementById('filterSlot'), nav = document.getElementById('filterNav');
+  var results = document.getElementById('browseResults');
+  if (!slot || !nav || !results) return;
+  var stuck = false, ticking = false;
+  function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
+  function set(on) {
+    if (on === stuck) return;
+    if (on) slot.style.height = slot.offsetHeight + 'px';
+    nav.classList.toggle('is-stuck', on);
+    if (!on) slot.style.height = '';
+    stuck = on;
+    document.dispatchEvent(new CustomEvent('filternav:change'));
+  }
+  function check() {
+    ticking = false;
+    var h = headerH();
+    var on = slot.getBoundingClientRect().top < h && results.getBoundingClientRect().bottom > h + nav.offsetHeight;
+    set(on);
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(check); } }, { passive: true });
+  window.addEventListener('resize', function () { set(false); check(); });
+  check();
+})();
+
+// Card rails: Previous / Next step one screenful of cards, and each hides at its end.
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  [].forEach.call(document.querySelectorAll('.card-rail'), function (rail) {
+    var btns = [].slice.call(document.querySelectorAll('.rail-btn[data-rail="' + rail.id + '"]'));
+    function stepWidth() {
+      var first = rail.children[0], cs = getComputedStyle(rail);
+      if (!first) return rail.clientWidth;
+      var gap = parseFloat(cs.columnGap) || 0, w = first.getBoundingClientRect().width + gap;
+      var view = rail.clientWidth - (parseFloat(cs.paddingRight) || 0);
+      return Math.max(1, Math.floor((view + gap) / w)) * w;
+    }
+    function update() {
+      var max = rail.scrollWidth - rail.clientWidth - 2;
+      var had = btns.filter(function (b) { return b === document.activeElement; })[0];
+      btns.forEach(function (b) { b.hidden = +b.getAttribute('data-dir') < 0 ? rail.scrollLeft <= 2 : rail.scrollLeft >= max; });
+      if (had && had.hidden) { var other = btns.filter(function (b) { return !b.hidden; })[0]; if (other) other.focus(); }
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        rail.scrollBy({ left: +b.getAttribute('data-dir') * stepWidth(), behavior: reduce ? 'auto' : 'smooth' });
+      });
+    });
+    var t = false;
+    rail.addEventListener('scroll', function () { if (!t) { t = true; requestAnimationFrame(function () { t = false; update(); }); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
 })();
 
 // Wires a lead/sign-up form generically: every named field becomes a line (checkboxes
@@ -891,7 +1158,7 @@ function wireLeadForm(form) {
     var f = e.target;
     var btn = f.querySelector('button[type=submit]');
     var status = f.querySelector('.form-status');
-    var subjectBase = f.getAttribute('data-subject') || 'Threshold enquiry';
+    var subjectBase = f.getAttribute('data-subject') || 'RealDays enquiry';
     var titleField = f.elements['business'] || f.elements['name'];
     var subject = subjectBase + (titleField && titleField.value ? ', ' + titleField.value : '');
     var lines = [], grouped = {}, order = [];
@@ -1331,4 +1598,18 @@ window.addEventListener('resize', setHeaderOffset);
 
   window.addEventListener('resize', syncPadding);
   render();
+})();
+
+// /for-business/ "Jump to" links: the browser scrolls to the section (smoothly, unless
+// reduced motion is on) and updates the address; its heading takes focus, so keyboard
+// and screen reader users carry on from there.
+(function () {
+  [].forEach.call(document.querySelectorAll('.jump a[href^="#"]'), function (a) {
+    a.addEventListener('click', function () {
+      var section = document.getElementById(a.getAttribute('href').slice(1));
+      var heading = section && section.querySelector('h2[tabindex="-1"]');
+      // After the browser's own jump, which would otherwise reset focus.
+      if (heading) setTimeout(function () { heading.focus({ preventScroll: true }); }, 0);
+    });
+  });
 })();

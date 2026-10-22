@@ -55,7 +55,7 @@ function header(base) {
   return `  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
       <a href="${base}index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
-      <nav class="nav" id="siteNav" aria-label="Main" style="align-items:baseline;flex-wrap:wrap;gap:28px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
+      <nav class="nav" id="siteNav" aria-label="Main">
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/for-business/" class="btn-ghost">For businesses</a>
         <label for="currencySelect" class="sr-only">Currency</label>
@@ -98,7 +98,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="${base}styles.css?v=a41662c8" />
+<link rel="stylesheet" href="${base}styles.css?v=da1e9a2a" />
 <link rel="canonical" href="https://thresholdbooking.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -442,7 +442,7 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js?v=f2e3154c"></script>
+<script src="${base}app.js?v=ea59e321"></script>
 <script src="${base}assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
@@ -503,7 +503,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js?v=f2e3154c"></script>
+<script src="${base}app.js?v=ea59e321"></script>
 </body>
 </html>
 `;
