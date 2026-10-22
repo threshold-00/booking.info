@@ -98,7 +98,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="${base}styles.css?v=da1e9a2a" />
+<link rel="stylesheet" href="${base}styles.css?v=06d96945" />
 <link rel="canonical" href="https://thresholdbooking.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="website" />

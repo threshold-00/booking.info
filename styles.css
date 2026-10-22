@@ -1006,8 +1006,8 @@ html.is-map-locked{overflow:hidden}
 .signup-form__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4)}
 .signup-form__foot .form-status{margin:0;min-height:17px;color:var(--paper-2)}
 .signup-form__foot .btn--on-dark{margin-left:auto}
-/* "Say hey": square like the other buttons (Ro, 22 Oct 2026). */
-.rd .signup-form .btn--on-dark{width:116px;height:44px;min-height:44px;border-radius:var(--r-control);letter-spacing:var(--ls-label)}
+/* "Get listed" (was "Say hey"): square like the other buttons (Ro, 22 Oct 2026). */
+.rd .signup-form .btn--on-dark{width:auto;min-width:116px;height:44px;min-height:44px;border-radius:var(--r-control);letter-spacing:var(--ls-label)}
 
 /* Footer: one height, on the container edges */
 .rd footer{padding-block:var(--s-7)!important}
@@ -1050,9 +1050,11 @@ html.is-map-locked{overflow:hidden}
 .biz-media{margin:0}
 .biz-media img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
 /* Stacked (under 1024px), the "Our why" photo is half as tall, Simone and the horse kept in frame. */
-@media (max-width:1023px){#our-why .biz-media img{aspect-ratio:8/3;object-position:50% 30%}}
+/* The motorbike photo is portrait: the crop keeps both riders and the bike, centred across. */
+#our-why .biz-media img{object-position:50% 62%}
+@media (max-width:1023px){#our-why .biz-media img{aspect-ratio:8/3;object-position:50% 40%}}
 /* Numerals at 60% of the text size, on its first line's baseline, with the gap cut to match. */
-.ambitions{margin:0;padding:0;list-style:none;counter-reset:ambition;font-family:var(--display);font-weight:600;font-size:var(--t-headline);line-height:1.15}
+.ambitions{margin:0;padding:0;list-style:none;counter-reset:ambition;font-family:var(--display);font-weight:600;font-size:calc(var(--t-headline) * .8);line-height:1.15}
 /* Each item's text is one <span>, so the numeral and the text are the grid's only two cells. */
 .ambitions li{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:.15em;counter-increment:ambition}
 .ambitions li::before{content:counter(ambition) ".";font-size:.6em;font-weight:600}
@@ -1063,9 +1065,9 @@ html.is-map-locked{overflow:hidden}
 .rd .steps li{display:grid;gap:var(--s-4);justify-items:center;text-align:center}
 .rd .steps img{display:block;width:100%;max-width:320px;aspect-ratio:4/3;object-fit:contain;background:var(--panel)}
 .rd .steps p{margin:0;max-width:24ch;font-size:var(--t-small);line-height:1.5;color:var(--ink-2)}
-/* Two static text boxes under the steps, left aligned, 70% of their old 62ch width. */
-.rd .steps-note{margin:var(--s-8) 0 0}
-.rd .steps-note p{max-width:calc(62ch * .7);margin:0;font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
+/* Two static text boxes under the steps, centred, 70% of their old 62ch width. */
+.rd .steps-note{margin:var(--s-8) 0 0;text-align:center}
+.rd .steps-note p{max-width:calc(62ch * .7);margin:0 auto;font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
 .rd .steps-note p:first-child{color:var(--ink)}
 .rd .steps-note p+p{margin-top:var(--s-2)}
 @media (max-width:767px){.rd .steps-note p{max-width:none}}
