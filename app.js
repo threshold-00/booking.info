@@ -564,6 +564,15 @@ var mapPanel = (function () {
   var open = false, timer, api;
 
   function durMs() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur')) || 0; }
+  function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
+  function alignResults() {
+    var nav = document.getElementById('filterNav');
+    var head = [].filter.call(document.querySelectorAll('#browseResults h2'), function (h) { return h.offsetParent; })[0];
+    if (!nav || !head || !nav.classList.contains('is-stuck')) return;
+    var gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s-5')) || 24;
+    var delta = head.getBoundingClientRect().top - (headerH() + nav.offsetHeight + gap);
+    if (delta > 1) window.scrollBy({ top: delta, behavior: 'instant' });
+  }
   function setMode() {
     var modal = !docked.matches;
     panel.setAttribute('role', modal ? 'dialog' : 'region');
@@ -582,13 +591,15 @@ var mapPanel = (function () {
     // Beside or over the list: bring the results up so the filter nav sits under the header.
     var slot = document.getElementById('filterSlot');
     if (slot && !mobile.matches) {
-      var h = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
-      var gap = slot.getBoundingClientRect().top - h;
-      if (gap > 0) window.scrollBy(0, gap + 1);
+      var gap = slot.getBoundingClientRect().top - headerH();
+      if (gap > 0) window.scrollBy({ top: gap + 1, behavior: 'instant' });
     }
     panel.classList.remove('is-warming');
     panel.hidden = false;
     setMode();
+    // Once the nav has stuck (next frames), close the space its placeholder leaves above
+    // the list, so the first heading sits just under the bar. Never scrolls back up.
+    if (!mobile.matches) requestAnimationFrame(function () { requestAnimationFrame(alignResults); });
     requestAnimationFrame(function () { requestAnimationFrame(function () { panel.classList.add('is-open'); }); });
     toggle.setAttribute('aria-expanded', 'true');
     if (exploreMap) exploreMap.open();
@@ -623,6 +634,13 @@ var mapPanel = (function () {
 
   if (closeBtn) closeBtn.addEventListener('click', requestClose);
   if (scrim) scrim.addEventListener('click', requestClose);
+  // Docked (1024px and up): a click anywhere outside the panel closes it, except in the
+  // filter nav, where changing filters updates the map. The modal sizes use the scrim.
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!open || !docked.matches || !t.isConnected || panel.contains(t) || toggle.contains(t) || t.closest('#filterNav')) return;
+    requestClose();
+  });
   document.addEventListener('keydown', function (e) {
     if (!open) return;
     // A pin's sheet closes first (its own Esc handler).

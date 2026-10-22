@@ -967,7 +967,7 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
 /* While the map is open, "View on map" moves here as "Close map", its arrow turned
    to point back (Ro, 22 Oct 2026); the one in the filter bar steps aside. */
 .rd .map-panel__close{flex:none}
-.rd .fn-map[aria-expanded=true]{visibility:hidden}
+.rd .fn-map[aria-expanded=true]{display:none}
 .map-panel #exploreMap{flex:1 1 auto;height:100%;min-height:0;border:0}
 .map-scrim{position:fixed;inset:0;z-index:var(--z-scrim);background:var(--ink);opacity:.4}
 .map-scrim[hidden]{display:none}
