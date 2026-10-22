@@ -790,6 +790,8 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
 
 /* Section heads and eyebrows */
 .section-title{font-family:var(--display);font-weight:600;font-size:var(--t-headline);line-height:var(--lh-tight);letter-spacing:0;margin:0}
+/* Homepage section headings at 60% (Ro, 22 Oct 2026). */
+.home .section-title{font-size:calc(var(--t-headline) * .6)}
 .rd .section-count{margin:var(--s-1) 0 0;color:var(--ink-2)}
 .rd .eyebrow{display:flex;align-items:center;gap:var(--s-2);margin:0 0 var(--s-4);color:var(--ink-2)}
 .rd .eyebrow::before{content:"";flex:none;width:8px;height:8px;background:var(--ink)}
