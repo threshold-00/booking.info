@@ -132,7 +132,7 @@ function gallery(d) {
 // Site header and footer, shared by the demo page and the card preview.
 const HEADER = `  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
-      <a href="/index.html#top" class="display" style="font-size:17px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;">Threshold</a>
+      <a href="/index.html#top" class="logo">RealDays.</a>
       <nav class="nav" id="siteNav" aria-label="Main">
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/for-business/" class="btn-ghost">For businesses</a>
