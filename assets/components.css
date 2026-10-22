@@ -1,4 +1,4 @@
-/* Threshold component library. Built only from assets/tokens.css variables.
+/* RealDays component library. Built only from assets/tokens.css variables.
    The only non-token values permitted are the two chevron data-URI SVGs in 6.3.
 
    Rules (mobile QA, Ro, 22 Oct 2026):
@@ -430,7 +430,7 @@
 .link-btn::before{content:"";position:absolute;inset:-12px -8px}
 
 /* 6.29 comparison table (/for-business/): a real table with a caption and column and row
-   headers: platform and commission, up to 640px wide, the same at every width. Threshold's
+   headers: platform and commission, up to 640px wide, the same at every width. RealDays'
    row first, on --table-highlight, name and rate in 600. .compare-note is the footnote. */
 .compare-table{width:100%;max-width:640px;border-collapse:collapse;font-family:var(--display);font-size:15px;line-height:1.45;color:var(--ink)}
 .compare-table th,.compare-table td{padding:var(--s-4);text-align:left;vertical-align:top;border-bottom:var(--bw) solid var(--line)}

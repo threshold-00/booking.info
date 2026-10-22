@@ -76,7 +76,7 @@ function header(base) {
 function footer(base) {
   return `  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
-      <span style="color:var(--ink);">&copy; 2026 Threshold</span>
+      <span style="color:var(--ink);">&copy; 2026 RealDays</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="${base}mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
         <a href="${base}bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
@@ -102,7 +102,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link rel="canonical" href="https://thresholdbooking.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="Threshold" />
+<meta property="og:site_name" content="RealDays" />
 <meta property="og:url" content="https://thresholdbooking.com${canonicalPath}" />
 <meta property="og:title" content="${esc(title)}" />
 <meta property="og:description" content="${esc(description)}" />
@@ -172,7 +172,7 @@ function faqItems(a) {
     q: `What's included in ${a.title.toLowerCase()}?`,
     a: a.included.length ? a.included.join(', ') + '.' : 'See the included and not included lists above for what this activity covers.'
   });
-  items.push({ q: 'How do I book?', a: 'Tap "Check dates with Salty Cowboy" below. You\'ll finish booking directly with Salty Cowboy, and Simone confirms your date on WhatsApp. No payment is taken on Threshold.' });
+  items.push({ q: 'How do I book?', a: 'Tap "Check dates with Salty Cowboy" below. You\'ll finish booking directly with Salty Cowboy, and Simone confirms your date on WhatsApp. No payment is taken on RealDays.' });
   items.push({ q: 'What are the start times?', a: `Start times depend on the duration you choose. See the times table above, and note Salty Cowboy is closed Sundays and Saturday afternoons.` });
   const weightRow = a.goodToKnow.find(g => g.label === 'Weight');
   if (weightRow) {
@@ -290,7 +290,7 @@ function jsonLd(a, canonicalPath) {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Threshold', item: 'https://thresholdbooking.com/' },
+        { '@type': 'ListItem', position: 1, name: 'RealDays', item: 'https://thresholdbooking.com/' },
         { '@type': 'ListItem', position: 2, name: 'Bali', item: 'https://thresholdbooking.com/?region=bali#browse' },
         { '@type': 'ListItem', position: 3, name: 'Salty Cowboy', item: 'https://thresholdbooking.com/bali/salty-cowboy/' },
         { '@type': 'ListItem', position: 4, name: a.title, item: `https://thresholdbooking.com${canonicalPath}` }
@@ -323,7 +323,7 @@ function jsonLd(a, canonicalPath) {
 
 function activityPage(a, base) {
   const canonicalPath = `/bali/salty-cowboy/${a.slug}/`;
-  const title = `${a.title} | Salty Cowboy | Threshold`;
+  const title = `${a.title} | Salty Cowboy | RealDays`;
   const description = a.overview.length > 155 ? a.overview.slice(0, 152) + '...' : a.overview;
   const more = moreFrom(a, 3);
   const faqs = faqItems(a);
@@ -426,7 +426,7 @@ ${faqs.map(f => `          <details><summary>${esc(f.q)}</summary><p>${esc(f.a)}
         </div>
 
         <h3 id="h-reviews" style="margin-top:var(--s-6);">Reviews</h3>
-        <p class="prose">No reviews on Threshold yet. This listing is new.</p>
+        <p class="prose">No reviews on RealDays yet. This listing is new.</p>
       </section>
 
       <section aria-labelledby="h-more">
@@ -442,7 +442,7 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js?v=ea59e321"></script>
+<script src="${base}app.js?v=e7415d9e"></script>
 <script src="${base}assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
@@ -450,7 +450,7 @@ ${mobileStickyBar(a)}
 }
 
 function businessIndexPage(base) {
-  const title = 'Salty Cowboy, Bali | Threshold';
+  const title = 'Salty Cowboy, Bali | RealDays';
   const description = "All 11 experiences from Salty Cowboy, an owner-run horse rescue and riding centre in Bali.";
   const canonicalPath = '/bali/salty-cowboy/';
   return `<!DOCTYPE html>
@@ -465,7 +465,7 @@ ${JSON.stringify({
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Threshold', item: 'https://thresholdbooking.com/' },
+          { '@type': 'ListItem', position: 1, name: 'RealDays', item: 'https://thresholdbooking.com/' },
           { '@type': 'ListItem', position: 2, name: 'Bali', item: 'https://thresholdbooking.com/?region=bali#browse' },
           { '@type': 'ListItem', position: 3, name: 'Salty Cowboy', item: 'https://thresholdbooking.com/bali/salty-cowboy/' }
         ]
@@ -503,7 +503,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js?v=ea59e321"></script>
+<script src="${base}app.js?v=e7415d9e"></script>
 </body>
 </html>
 `;

@@ -1,4 +1,4 @@
-// The one neutral Threshold theme shared by the three demo configs, built from the site's tokens
+// The one neutral RealDays theme shared by the three demo configs, built from the site's tokens
 // (site/styles.css). A designer restyles all three demos by editing this one object.
 // Plain data. A demo config loads AFTER this file and reads DEMO_THEME as a top-level const, so
 // Phase 3's Apps Script can concatenate the two files and never needs the browser.

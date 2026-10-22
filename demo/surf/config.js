@@ -1,4 +1,4 @@
-// Example Surf School (Demo). FICTIONAL business and owner, for the Threshold demo only.
+// Example Surf School (Demo). FICTIONAL business and owner, for the RealDays demo only.
 // Example values, not advice to real businesses. Load demo-theme.js first.
 // Fields marked NEW extend schemaVersion 2; all are optional (see docs/config-schema.md).
 window.THRESHOLD_CONFIG = {
@@ -16,8 +16,8 @@ window.THRESHOLD_CONFIG = {
     location: "Mornington Peninsula, Victoria (example location)", // NEW
     ownerBio: "Run by Jo Example, who has taught surfing here for 12 years. (Fictional owner.)", // NEW
     seo: {
-      title: "Demo: Surf lessons on the Mornington Peninsula | Threshold",
-      description: "Example listing showing how booking works on Threshold. Small-group and private surf lessons, boards and wetsuits included."
+      title: "Demo: Surf lessons on the Mornington Peninsula | RealDays",
+      description: "Example listing showing how booking works on RealDays. Small-group and private surf lessons, boards and wetsuits included."
     },
     languages: { default: "en", available: ["en"], operatorMessage: "en" },
     links: [],
@@ -100,7 +100,7 @@ window.THRESHOLD_CONFIG = {
   payment: {
     provider: "stripe_connect", // NEW value (was "demo")
     testMode: true, // NEW
-    platformFeeBps: 0, // NEW: 0 while Threshold is free for businesses; server value wins
+    platformFeeBps: 0, // NEW: 0 while RealDays is free for businesses; server value wins
     mode: "authorise_then_capture", // NEW value: card authorised at request, charged when the business confirms
     currency: "AUD",
     currencySymbol: "$" // NEW: show "$95", with "All prices in AUD" once in the summary
@@ -133,7 +133,7 @@ window.THRESHOLD_CONFIG = {
       arrival: "Please arrive 15 minutes before your lesson." // example value, Ro to confirm
     } },
     email: { subject: "You're booked: {activity}, {date}", body: "See APPENDIX 2 booking_confirmed" },
-    operatorNotice: "New booking request through Threshold {ref}: {activity}, {date} {time}, {party} people, {amount}. {flags}",
+    operatorNotice: "New booking request through RealDays {ref}: {activity}, {date} {time}, {party} people, {amount}. {flags}",
     reminders: { customer: { hoursBefore: 24 }, business: { localTime: "07:00" } } // NEW
   },
   copy: {
@@ -149,7 +149,7 @@ window.THRESHOLD_CONFIG = {
       payTitle: "Your details", payEmailLabel: "Email", payPhoneLabel: "Mobile",
       payBtn: "Request booking · {amount}", // authorise now, charge on confirm
       payNote: "Your card is authorised now and only charged if {owner} confirms. {owner} replies within {hours} hours. You'll get an email either way.",
-      payTo: "Your payment goes to {business} through Threshold.",
+      payTo: "Your payment goes to {business} through RealDays.",
       sentTitle: "Request sent.", paidTitle: "You're booked.", paidSub: "We've emailed the details to {email}.",
       addToCalendar: "Add to calendar",
       dateLabel: "Date", emptyDay: "No lessons on this day. Try another date.", overCapacity: "Only {n} places left at this time.",

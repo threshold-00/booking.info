@@ -62,7 +62,7 @@ All of these are additive. A config that omits every one of them behaves exactly
 | `booking.confirmMode` | `"request"` | The business confirms every booking (request-to-book model). |
 | `booking.responseHours` | number | How long the business has to respond. Must stay under 168 (Stripe's 7-day card authorisation window). |
 | `payment.provider` | `"stripe_connect"` | New value alongside the existing `"none" \| "demo"`. |
-| `payment.platformFeeBps` | number | Threshold's commission in basis points. The server-side value always wins over this display value. |
+| `payment.platformFeeBps` | number | RealDays' commission in basis points. The server-side value always wins over this display value. |
 | `payment.testMode` | boolean | Whether this business's Stripe integration is in test mode. |
 | `payment.mode` | `"authorise_then_capture"` | New value: the card is authorised at request time and only captured when the business confirms. |
 | `payment.currencySymbol` | string | Display symbol, e.g. `"$"`. |

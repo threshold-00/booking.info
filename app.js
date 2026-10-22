@@ -1,4 +1,4 @@
-// Threshold, static site behaviour. Set your address here (used by the contact form and call link).
+// RealDays, static site behaviour. Set your address here (used by the contact form and call link).
 var CONTACT_EMAIL = 'rowenabaulch@outlook.com';
 
 // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.

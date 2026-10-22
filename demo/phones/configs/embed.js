@@ -1,4 +1,4 @@
-// Runs inside each phone on the Threshold home page. Walks the booking page to one step,
+// Runs inside each phone on the RealDays home page. Walks the booking page to one step,
 // then locks it there: answers, dates and times stay tappable, anything that would leave
 // the page (back, book, continue, pay, jump to another activity) is stopped with a note.
 (function () {

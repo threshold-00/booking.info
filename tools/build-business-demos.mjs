@@ -146,7 +146,7 @@ const HEADER = `  <header class="site-header" style="position:sticky;top:0;backg
 `;
 const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
-      <span style="color:var(--ink);">&copy; 2026 Threshold</span>
+      <span style="color:var(--ink);">&copy; 2026 RealDays</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="/mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
         <a href="/bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
@@ -251,7 +251,7 @@ function page(d) {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>Demo: ${esc(b.name)} | Threshold</title>
+<title>Demo: ${esc(b.name)} | RealDays</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -539,7 +539,7 @@ ${FOOTER}</div>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
 <script src="/assets/demo-booking.js?v=427d24b6"></script>
-<script src="/app.js?v=ea59e321"></script>
+<script src="/app.js?v=e7415d9e"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>

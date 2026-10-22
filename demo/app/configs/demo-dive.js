@@ -1,4 +1,4 @@
-// Blue Ledger Freedive: a made-up freediving school for the Threshold demo. Plainly fictional.
+// Blue Ledger Freedive: a made-up freediving school for the RealDays demo. Plainly fictional.
 // Proves the three outcome kinds the schema has, in one journey: fail with a redirect
 // (certification), fail with no redirect (cannot swim 200 m), and flag (a medical yes never
 // blocks, but marks the booking for the operator). Courses are booked by start day, not multiDay.
@@ -29,7 +29,7 @@ window.THRESHOLD_CONFIG = {
     refPrefix: "BL",
     timezone: "UTC",
     demo: true,
-    seo: { title: "Blue Ledger Freedive · Book online", description: "A Threshold booking page for a made-up freediving school. Certification, swim and medical checks before the slot is confirmed." },
+    seo: { title: "Blue Ledger Freedive · Book online", description: "A RealDays booking page for a made-up freediving school. Certification, swim and medical checks before the slot is confirmed." },
     languages: { default: "en", available: ["en"], operatorMessage: "en" },
     links: [],
     contact: { whatsapp: null, operatorEmail: null }

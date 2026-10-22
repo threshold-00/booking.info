@@ -45,7 +45,7 @@ window.THRESHOLD_CONFIG = {
     refPrefix: "SG",
     timezone: "Australia/Melbourne",
     demo: true,
-    seo: { title: "Saltgrass Trail Rides · Book your ride", description: "A Threshold booking page for a made-up Mornington Peninsula trail ride operator. Experience, weight and age screening before the slot is confirmed." },
+    seo: { title: "Saltgrass Trail Rides · Book your ride", description: "A RealDays booking page for a made-up Mornington Peninsula trail ride business. Experience, weight and age screening before the slot is confirmed." },
     languages: { default: "en", available: ["en"], operatorMessage: "en" },
     links: [],
     contact: { whatsapp: null, operatorEmail: null }

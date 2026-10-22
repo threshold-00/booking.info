@@ -1,11 +1,11 @@
-# Threshold, booking.info
+# RealDays, booking.info
 
-Static marketing site for Threshold, a booking site for small, owner-run experience businesses on the Mornington Peninsula and in Bali.
+Static marketing site for RealDays, a booking site for small, owner-run experience businesses on the Mornington Peninsula and in Bali.
 
 Live at **https://thresholdbooking.com/**
 
 ## Files
-- `index.html` - home page (experiences, map, Why Threshold)
+- `index.html` - home page (experiences, map, Why RealDays)
 - `mornington-peninsula/index.html` - Mornington Peninsula hub
 - `bali/index.html` - Bali hub
 - `faq/index.html` - FAQ

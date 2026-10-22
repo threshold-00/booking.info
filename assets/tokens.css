@@ -1,4 +1,4 @@
-/* Threshold design tokens. Single source of truth for Phase 2 adoption.
+/* RealDays design tokens. Single source of truth for Phase 2 adoption.
    Values marked * in the brief override tokens.md on Ro's decisions (18 Oct 2026). */
 :root{
   /* 4.1 fonts */
@@ -90,7 +90,7 @@
   --popup-w:300px;             /* map popup card on desktop */
   --sheet-max:480px;           /* bottom sheet's widest */
   --z-sheet:60;                /* bottom sheet, above the floating CTA */
-  --table-highlight:var(--panel); /* Threshold's row in the comparison table */
+  --table-highlight:var(--panel); /* RealDays' row in the comparison table */
 }
 
 @media (max-width:820px){

@@ -382,7 +382,7 @@ const ce = React.createElement;
 // activities, prices, screening questions, availability and theme comes from
 // window.THRESHOLD_CONFIG, which config.js sets before this script runs.
 const CFG = window.THRESHOLD_CONFIG;
-if (!CFG) throw new Error("Threshold engine: window.THRESHOLD_CONFIG is missing. Load config.js first.");
+if (!CFG) throw new Error("RealDays engine: window.THRESHOLD_CONFIG is missing. Load config.js first.");
 const BIZ = CFG.business;
 // A demo config makes every live call impossible, whatever else the config says:
 // no log beacon, no WhatsApp window, no network.
@@ -679,7 +679,7 @@ const UI = {
 // Keys added by the engine. Neutral English defaults stand in for business copy a config leaves out.
 const UI_EXTRA = {
   en: {
-    yes: "Yes", no: "No", slotTaken: "Full", seatsLeft: "{n} left", poweredBy: "Powered by Threshold", demoData: "Demo data. This is not a real calendar.",
+    yes: "Yes", no: "No", slotTaken: "Full", seatsLeft: "{n} left", poweredBy: "Powered by RealDays", demoData: "Demo data. This is not a real calendar.",
     heroTitle: "Book your experience", notice: "Your selected date and time will be confirmed by {business}.",
     sentSub: "{business} reviews every request and will be in touch.", notesPlaceholder: "Write a message for {business}",
     notesTimeHint: "If the times are not suitable, or you have an additional request, please let us know here.",
@@ -701,7 +701,7 @@ const UI_EXTRA = {
     dashBestDay: "Best day", dashDiscounts: "Discounts given", dashJustNow: "Just now", dashNoBestDay: "No bookings yet",
     calSyncLine: "Availability from Google Calendar, {account}. Synced {mins} min ago.", calBusyPrefix: "Busy: {title}",
     panelCalendar: "Your Google Calendar", panelCalendarNote: "Shown here, not written. Live accounts write this event the moment the customer pays.",
-    calAddedByThreshold: "Added by Threshold", addToCalendar: "Add to my calendar", addedToCalendar: "Added",
+    calAddedByThreshold: "Added by RealDays", addToCalendar: "Add to my calendar", addedToCalendar: "Added",
     addToCalendarNote: "In production this is a real calendar file on your confirmation email.", calAllDay: "All day"
   },
   id: { yes: "Ya", no: "Tidak", slotTaken: "Penuh", seatsLeft: "sisa {n}" },
@@ -1120,7 +1120,7 @@ const THEME_RADIUS_FINE = ["3","6","8","12","16","20","24","26","300"];
 function buildThemeCss() {
   const out = [];
   Object.keys(THEME_PRIMARY).forEach(k => {
-    if (THEME_COLOURS[k] === undefined) throw new Error("Threshold engine: theme.colours." + k + " is required.");
+    if (THEME_COLOURS[k] === undefined) throw new Error("RealDays engine: theme.colours." + k + " is required.");
     out.push(THEME_PRIMARY[k] + ": " + THEME_COLOURS[k] + ";");
   });
   const fine = THEME_COLOURS.fine || {};
@@ -1131,13 +1131,13 @@ function buildThemeCss() {
     out.push("--" + n + ": " + val + ";");
   });
   const fonts = THEME.fonts || {};
-  if (!fonts.display || !fonts.body) throw new Error("Threshold engine: theme.fonts.display and theme.fonts.body are required.");
+  if (!fonts.display || !fonts.body) throw new Error("RealDays engine: theme.fonts.display and theme.fonts.body are required.");
   out.push("--display: " + fonts.display + ";", "--body: " + fonts.body + ";");
   out.push("--mono: " + (fonts.mono || fonts.body) + ";");
   out.push("--body-transform: " + ((THEME.type && THEME.type.bodyTransform) || "none") + ";");
   const rad = THEME.radius || {};
   ["card", "control", "pill"].forEach(k => {
-    if (rad[k] === undefined) throw new Error("Threshold engine: theme.radius." + k + " is required.");
+    if (rad[k] === undefined) throw new Error("RealDays engine: theme.radius." + k + " is required.");
     out.push("--r-" + k + ": " + rad[k] + "px;");
   });
   const radFine = rad.fine || {};

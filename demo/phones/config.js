@@ -1,4 +1,4 @@
-// Loads one business per ?brand= for the phones on the Threshold home page, then embed.js,
+// Loads one business per ?brand= for the phones on the RealDays home page, then embed.js,
 // which walks the page to its step and locks it there.
 (function () {
   var b = (/[?&]brand=([a-z]+)/.exec(location.search) || [])[1] || 'dive';
