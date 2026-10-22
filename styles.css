@@ -466,13 +466,15 @@ footer nav a::before{content:"";position:absolute;inset:0 -10px}
 .card-row,.x-card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 /* Homepage card sections (Experiences, Meet the businesses) fit cards the way Airbnb does
-   (Ro, 22 Oct 2026): up to 1480px of cards, 80px side margins from 1128px (40px below),
-   cards about 190px and up, so 7 across on a wide screen, 5 at 1280, 4 at 1024. Phones
+   (Ro, 22 Oct 2026). Airbnb's rows sit in a 1920px box with 48px side margins inside it
+   (measured on airbnb.com.au): the same here from 1128px (40px below),
+   cards about 190px and up, at most 6 across (Ro, 22 Oct 2026), 5 at 1280, 4 at 1024. Phones
    keep one card per row. */
-#browse,#new-on-threshold{max-width:1640px}
-@media (min-width:1128px){#browse,#new-on-threshold{padding-inline:80px}}
+#browse,#new-on-threshold{max-width:1920px}
+@media (min-width:1128px){#browse,#new-on-threshold{padding-inline:48px}}
 @media (min-width:821px){
-  #browse .card-row,#browse .x-card-grid,#new-on-threshold .card-row{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:24px 16px}
+  /* At most 6 across: a track is never narrower than a sixth of the row (less the five 16px gaps). */
+  #browse .card-row,#browse .x-card-grid,#new-on-threshold .card-row{grid-template-columns:repeat(auto-fill,minmax(max(190px,calc((100% - 80px) / 6)),1fr));gap:24px 16px}
 }
 .see-all,.card-cap-more{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;background:none;border:0;cursor:pointer;padding:0;min-height:44px;display:inline-flex;align-items:center}
 .see-all:hover,.see-all:focus-visible,.card-cap-more:hover,.card-cap-more:focus-visible{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
