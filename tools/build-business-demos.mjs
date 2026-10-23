@@ -441,7 +441,7 @@ ${HEADER}<main id="main">
             <p class="bp-field-error" id="email-err" hidden></p>
           </div>
           <div class="bp-field" id="f-phone">
-            <label for="phone">Phone</label>
+            <label for="phone">Mobile</label>
             <input id="phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="phone-hint phone-err" />
             <p class="bp-hint" id="phone-hint">So ${esc(b.name)} can reach you on the day.</p>
             <p class="bp-field-error" id="phone-err" hidden></p>
@@ -538,7 +538,7 @@ ${FOOTER}</div>
   <a href="#book" class="btn">${mode === 'link' ? 'Book' : 'Choose a date'}</a>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-<script src="/assets/demo-booking.js?v=09541d94"></script>
+<script src="/assets/demo-booking.js?v=28ffa345"></script>
 <script src="/app.js?v=61fe8cbe"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>

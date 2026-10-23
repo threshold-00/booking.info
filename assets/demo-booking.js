@@ -542,7 +542,7 @@
   var FIELDS = [
     ['name', function (v) { return v ? '' : 'Add your name'; }],
     ['email', function (v) { return !v ? 'Add an email we can send your booking to' : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'That email doesn\'t look right'; }],
-    ['phone', function (v) { return v.replace(/[^\d]/g, '').length >= 6 ? '' : 'Add a phone number'; }]
+    ['phone', function (v) { return v.replace(/[^\d]/g, '').length >= 6 ? '' : 'Add a mobile number'; }]
   ];
   function setFieldError(id, msg) {
     var box = $('f-' + id), err = $(id + '-err');
@@ -731,7 +731,7 @@
       var b = r.body;
       var rows = [[b.experience, ''], [b.when, ''], [b.party_size + (b.party_size > 1 ? ' people' : ' person'), b.customer.name], ['Price', money(b.price_cents)]];
       if (b.payment_plan === 'deposit') rows.push(['Deposit', money(b.deposit_cents)]);
-      if (b.customer.phone) rows.push(['Phone', b.customer.phone]);
+      if (b.customer.phone) rows.push(['Mobile', b.customer.phone]);
       (b.details || []).forEach(function (d) { rows.push([d.label, d.answer === true ? 'Yes' : d.answer === false ? 'No' : String(d.answer)]); });
       list($('reqBox'), rows, '<div class="row"><span></span><span></span></div>').forEach(function (row, i) {
         text(row.children[0], rows[i][0]); text(row.children[1], rows[i][1]);

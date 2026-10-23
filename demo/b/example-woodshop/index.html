@@ -175,7 +175,7 @@
             <p class="bp-field-error" id="email-err" hidden></p>
           </div>
           <div class="bp-field" id="f-phone">
-            <label for="phone">Phone</label>
+            <label for="phone">Mobile</label>
             <input id="phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="phone-hint phone-err" />
             <p class="bp-hint" id="phone-hint">So <span data-biz></span> can reach you on the day.</p>
             <p class="bp-field-error" id="phone-err" hidden></p>
@@ -498,7 +498,7 @@
   var FIELDS = [
     ['name', function (v) { return v ? '' : 'Add your name'; }],
     ['email', function (v) { return !v ? 'Add an email we can send your booking to' : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'That email doesn\'t look right'; }],
-    ['phone', function (v) { return v.replace(/[^\d]/g, '').length >= 6 ? '' : 'Add a phone number'; }]
+    ['phone', function (v) { return v.replace(/[^\d]/g, '').length >= 6 ? '' : 'Add a mobile number'; }]
   ];
   function setFieldError(id, msg) {
     var box = $('f-' + id), err = $(id + '-err');
