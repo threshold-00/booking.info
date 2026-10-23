@@ -78,8 +78,6 @@ function footer(base) {
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
       <span style="color:var(--ink);">&copy; 2026 RealDays</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
-        <a href="${base}mornington-peninsula/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Victoria, Australia</a>
-        <a href="${base}bali/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Bali</a>
         <a href="${base}for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
         <a href="${base}#faq" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">FAQ</a>
         <a href="${base}for-business/#interested" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Contact</a>
@@ -100,7 +98,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="${base}styles.css?v=a0fca9d4" />
 <link rel="canonical" href="https://getrealdays.com${canonicalPath}" />
-<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="${base}assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="RealDays" />
 <meta property="og:url" content="https://getrealdays.com${canonicalPath}" />
@@ -442,7 +440,7 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js?v=61fe8cbe"></script>
+<script src="${base}app.js?v=d055e13c"></script>
 <script src="${base}assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
@@ -503,7 +501,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js?v=61fe8cbe"></script>
+<script src="${base}app.js?v=d055e13c"></script>
 </body>
 </html>
 `;

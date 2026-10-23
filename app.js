@@ -342,7 +342,7 @@ var exploreMap = (function () {
   var nav = document.getElementById('siteNav');
   if (!nav || nav.querySelector('.menu-panel')) return;
   var groups = [
-    ['Explore', [['Browse experiences', '/#browse'], ['Victoria', '/mornington-peninsula/'], ['Bali', '/bali/'], ['FAQ', '/#faq']]],
+    ['Explore', [['Browse experiences', '/#browse'], ['FAQ', '/#faq']]],
     ['For businesses', [['List your business', '/for-business/'], ['Talk to us', '/for-business/#interested']]]
   ];
   var here = location.pathname.replace(/index\.html$/, '');

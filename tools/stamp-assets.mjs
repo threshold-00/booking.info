@@ -29,6 +29,7 @@ const ASSETS = {
   'booking.css': 'assets/booking/booking.css',
   'booking.js': 'assets/booking/booking.js',
   'track.js': 'assets/booking/track.js',
+  'favicon.svg': 'assets/favicon.svg',
 };
 
 const stamp = Object.fromEntries(
