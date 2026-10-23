@@ -2,7 +2,7 @@
 
 Static marketing site for RealDays, a booking site for small, owner-run experience businesses on the Mornington Peninsula and in Bali.
 
-Live at **https://thresholdbooking.com/**
+Live at **https://getrealdays.com/**
 
 ## Files
 - `index.html` - home page (experiences, map, Why RealDays)

@@ -4,4 +4,4 @@ Disallow: /sitev2/
 Disallow: /demo/phones/
 Disallow: /demo/b/
 
-Sitemap: https://thresholdbooking.com/sitemap.xml
+Sitemap: https://getrealdays.com/sitemap.xml

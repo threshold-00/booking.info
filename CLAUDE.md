@@ -2,7 +2,7 @@
 
 Static marketing site for RealDays (renamed from Threshold, Ro, 22 Oct 2026), a booking site for small, owner-run experience businesses. The pitch: unique experiences run by the local people who started them, on the Mornington Peninsula and in Bali. Free to join. From 1 May 2027, businesses pay a 12% fee (including GST and card fees) on bookings made through RealDays. No subscription, no setup fee.
 
-User-facing copy says "RealDays" (capital R and D, no space). The domain (thresholdbooking.com), repo, file and folder names, CSS/JS identifiers and localStorage keys still say threshold; don't rename those without asking Ro.
+User-facing copy says "RealDays" (capital R and D, no space). The domain is getrealdays.com (Ro, 23 Oct 2026); thresholdbooking.com and www 301-redirect to the same path and query on it through a Cloudflare Redirect Rule, so keep that domain renewed. The repo, file and folder names, CSS/JS identifiers and localStorage keys still say threshold; don't rename those without asking Ro.
 
 Salty Cowboy Bali is the first listed business.
 
@@ -26,7 +26,7 @@ Salty Cowboy Bali is the first listed business.
 │   └── leaflet/                  # vendored Leaflet for the map
 ├── demo/phones/                  # live demo phone iframes (on for-business page)
 ├── llms.txt                      # AI/LLM site summary
-├── CNAME                         # thresholdbooking.com
+├── CNAME                         # getrealdays.com
 ├── robots.txt                    # allows all, hides sitev2/ and demo/phones/, points at sitemap
 ├── sitemap.xml                   # all public pages
 ├── .nojekyll                     # stops GitHub Pages running Jekyll
@@ -38,7 +38,7 @@ No build step, no bundler, no framework. Third-party scripts are `assets/rough.j
 
 ## Deploy
 
-GitHub Pages serves `main` from repo root at **https://thresholdbooking.com/** (custom domain via `CNAME`). Every page carries a `<link rel="canonical">` to the thresholdbooking.com URL, Open Graph and Twitter tags, and a JSON-LD block in `<head>`. Remote is `threshold-00/booking.info`. Every push to `main` redeploys automatically, usually within a minute. Never upload files through the GitHub web UI.
+GitHub Pages serves `main` from repo root at **https://getrealdays.com/** (custom domain via `CNAME`). Every page carries a `<link rel="canonical">` to the getrealdays.com URL, Open Graph and Twitter tags, and a JSON-LD block in `<head>`. Remote is `threshold-00/booking.info`. Every push to `main` redeploys automatically, usually within a minute. Never upload files through the GitHub web UI.
 
 ## Local preview
 
@@ -68,7 +68,7 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 ## Site specifics
 
 - **Contact form** posts to Formspree when `FORM_ENDPOINT` at the top of `app.js` is set. Falls back to a mail draft to `CONTACT_EMAIL`. The hidden `_gotcha` input is Formspree's spam trap.
-- **Contact address** is `CONTACT_EMAIL` in `app.js`, currently `rowenabaulch@outlook.com`. Hardcoded `mailto:hello@example.com` links are rewritten by `app.js` on load.
+- **Contact address** is `CONTACT_EMAIL` in `app.js`, currently `rowena@getrealdays.com`. Hardcoded `mailto:hello@example.com` links are rewritten by `app.js` on load.
 - **Experiences section** (`#browse`): a filter nav under the hero (What chips, horse sub-chips, Situation chips Group / Duo / Solo with a one-line helper under them, Where, How long, Sort by, View on map) that sticks under the header once scrolled to, as one 56px row of dropdowns (What, Situation, Where, How long, built by app.js) plus Sort by and View on map (phones: Filters, Sort by, map); then two hand-picked rails ("Good for a first go", "Just added") and "All experiences" (`#browseGrid`). Filters combine with AND; with any filter on, the rails hide. The hero search (What, Where, Situation, Go) sets the same filters. State lives in the URL (`?cat=&sub=&who=&location=&duration=&sort=&map=1`); location, duration and map changes add history entries so the back button steps through them, and the old `view=map` opens the map. Each card carries `data-cat` (the What chips: horse, clay, sealife, surf, wood, fashion, bike, adrenaline), `data-situation` (solo duo group, drafted from group sizes, Ro to confirm) and `data-sort-aud` (price in AUD for Sort by; blank sorts last). Sort options are the `SORT_OPTIONS` list in `app.js`. The Grid / Map tabs are hidden in the markup until Ro decides whether they come back. Duration buckets: 60 min or less, 61 to 300, over 300 on one day, two days or more. Each listed experience has `durationMinutes` (and `durationDays` when it spans 2+ days) in its data file (`data/business-layer/<slug>.json` page.experiences, `data/salty-cowboy.json` activities); after changing one or adding a card, run `node tools/card-durations.mjs` to copy them onto the homepage cards (`data-duration`, `data-days`).
 - **Map** (`#exploreMap`, inside the "View on map" panel `#mapPanel`: the right half of the screen from 1024px, from under the header to the bottom, with the filter nav and list reflowing into the left half, over the list with a scrim from 768px, full screen on phones) uses vendored Leaflet, built the first time the panel opens, and follows the filters: only pins with a matching card, fitted to the chosen location (All locations fits Victoria, or Bali when nothing in Victoria matches). One pin per business location (the `pins` list in `app.js`, suburb-level when an address is private or unconfirmed); each pin shows its matching activities one at a time (photo, title, place, price, arrows and "1 / N"), read from the homepage cards in `#browseGrid`, so new cards appear on the map automatically. A popup on desktop, a bottom sheet at 820px and under. A new business needs one line in `pins`. No placeholder pins.
 - **Floating CTA** (`#floatCta`) shows once the hero is off screen.

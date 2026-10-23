@@ -10,7 +10,7 @@
   if (!cfgEl) return;
   var C = JSON.parse(cfgEl.textContent);
   // Local Worker when previewing on localhost, the test booking service otherwise.
-  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.thresholdbooking.com';
+  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
   var SLUG = C.slug, TZ = C.timezone, BIZ = C.business;
   // booking_mode (data file): sandbox takes test bookings; off shows the page only.
   // Pages built before booking_mode carry none and keep working as they did.

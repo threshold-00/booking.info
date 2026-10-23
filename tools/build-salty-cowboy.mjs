@@ -99,18 +99,18 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="${base}styles.css?v=1fd15a3b" />
-<link rel="canonical" href="https://thresholdbooking.com${canonicalPath}" />
+<link rel="canonical" href="https://getrealdays.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="RealDays" />
-<meta property="og:url" content="https://thresholdbooking.com${canonicalPath}" />
+<meta property="og:url" content="https://getrealdays.com${canonicalPath}" />
 <meta property="og:title" content="${esc(title)}" />
 <meta property="og:description" content="${esc(description)}" />
-<meta property="og:image" content="https://thresholdbooking.com/assets/${ogImage}" />
+<meta property="og:image" content="https://getrealdays.com/assets/${ogImage}" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="${esc(title)}" />
 <meta name="twitter:description" content="${esc(description)}" />
-<meta name="twitter:image" content="https://thresholdbooking.com/assets/${ogImage}" />`;
+<meta name="twitter:image" content="https://getrealdays.com/assets/${ogImage}" />`;
 }
 
 // G4: signals the "Get directions" link opens a new tab, since it leaves the
@@ -290,17 +290,17 @@ function jsonLd(a, canonicalPath) {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'RealDays', item: 'https://thresholdbooking.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Bali', item: 'https://thresholdbooking.com/?region=bali#browse' },
-        { '@type': 'ListItem', position: 3, name: 'Salty Cowboy', item: 'https://thresholdbooking.com/bali/salty-cowboy/' },
-        { '@type': 'ListItem', position: 4, name: a.title, item: `https://thresholdbooking.com${canonicalPath}` }
+        { '@type': 'ListItem', position: 1, name: 'RealDays', item: 'https://getrealdays.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Bali', item: 'https://getrealdays.com/?region=bali#browse' },
+        { '@type': 'ListItem', position: 3, name: 'Salty Cowboy', item: 'https://getrealdays.com/bali/salty-cowboy/' },
+        { '@type': 'ListItem', position: 4, name: a.title, item: `https://getrealdays.com${canonicalPath}` }
       ]
     },
     {
       '@type': 'TouristTrip',
       name: a.title,
       description: a.overview,
-      image: a.images.map(img => `https://thresholdbooking.com/assets/salty-cowboy/${img.file}`),
+      image: a.images.map(img => `https://getrealdays.com/assets/salty-cowboy/${img.file}`),
       provider: { '@type': 'LocalBusiness', name: 'Salty Cowboy' },
       location: {
         '@type': 'Place',
@@ -442,7 +442,7 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js?v=ab1fb024"></script>
+<script src="${base}app.js?v=61fe8cbe"></script>
 <script src="${base}assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
@@ -465,16 +465,16 @@ ${JSON.stringify({
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'RealDays', item: 'https://thresholdbooking.com/' },
-          { '@type': 'ListItem', position: 2, name: 'Bali', item: 'https://thresholdbooking.com/?region=bali#browse' },
-          { '@type': 'ListItem', position: 3, name: 'Salty Cowboy', item: 'https://thresholdbooking.com/bali/salty-cowboy/' }
+          { '@type': 'ListItem', position: 1, name: 'RealDays', item: 'https://getrealdays.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Bali', item: 'https://getrealdays.com/?region=bali#browse' },
+          { '@type': 'ListItem', position: 3, name: 'Salty Cowboy', item: 'https://getrealdays.com/bali/salty-cowboy/' }
         ]
       },
       {
         '@type': 'LocalBusiness',
         name: 'Salty Cowboy',
         description: "Owner-run horse rescue and riding centre in Bali.",
-        url: 'https://thresholdbooking.com/bali/salty-cowboy/'
+        url: 'https://getrealdays.com/bali/salty-cowboy/'
       }
     ]
   }, null, 2)}
@@ -503,7 +503,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js?v=ab1fb024"></script>
+<script src="${base}app.js?v=61fe8cbe"></script>
 </body>
 </html>
 `;

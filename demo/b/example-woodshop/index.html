@@ -15,7 +15,7 @@
 <style>
   /* Clickable prototype with a made-up business, in Stripe test mode. Unlisted (noindex,
      robots.txt). Same two-step booking panel as /design-system/ (components 6.12a).
-     Talks to the test booking service at api-test.thresholdbooking.com. */
+     Talks to the test booking service at api-test.getrealdays.com. */
   [hidden]{display:none!important}
   .example-bar{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:9px var(--gutter);text-align:center}
   .bp-demo{margin:0 0 var(--s-3);padding:10px 12px;border:1px solid var(--line-ui);border-radius:8px;background:var(--panel);font-size:12px;line-height:1.45;color:var(--ink)}
@@ -285,7 +285,7 @@
 <script>
 (function () {
   // Local Worker when previewing on localhost, the test booking service otherwise.
-  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.thresholdbooking.com';
+  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
   var SLUG = 'example-woodshop';
   var TZ = 'Australia/Melbourne';
   // Course copy from the business's website. Prices, dates, places, the business
@@ -667,7 +667,7 @@
   loadDates();
 })();
 </script>
-<script src="/app.js?v=ab1fb024"></script>
+<script src="/app.js?v=61fe8cbe"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
