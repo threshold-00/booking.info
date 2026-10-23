@@ -362,6 +362,8 @@
     slots.forEach(function (s) { if (!seen[s.date_local]) { seen[s.date_local] = []; byDate.push(s.date_local); } seen[s.date_local].push(s); });
     if (!byDate.length) { $('dates').innerHTML = '<p class="bp-note">No dates open right now.</p>'; $('moreDates').hidden = true; return; }
     var show = byDate.slice(0, state.shown);
+    // A date picked on the calendar, further out than the list, joins the end of it.
+    if (state.date && seen[state.date] && show.indexOf(state.date) < 0) show.push(state.date);
     $('dates').innerHTML = show.map(function (d, i) {
       var ss = seen[d], open = ss.filter(function (s) { return s.places_left > 0; }), s0 = ss[0], p = parts(d);
       var n = days(s0.date_local, s0.end_date_local);
@@ -405,7 +407,56 @@
     [].forEach.call($('times').children, function (x) { x.setAttribute('aria-pressed', x === b); });
     pickSlot(state.byDate[state.date][+b.dataset.i]);
   });
-  if (!LINK) $('moreDates').onclick = function () { state.shown += 8; renderDates(); };
+  if (!LINK) $('moreDates').onclick = openCal;
+
+  // ── Calendar: "More dates" opens every open date by month, as far ahead as the business takes bookings ──
+  var MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function addMonth(m, n) {
+    var i = +m.slice(0, 4) * 12 + +m.slice(5, 7) - 1 + n, mo = i % 12 + 1;
+    return Math.floor(i / 12) + '-' + (mo < 10 ? '0' : '') + mo;
+  }
+  function isOpen(d) { return state.byDate[d].some(function (s) { return s.places_left > 0; }); }
+  function openCal() {
+    var dates = Object.keys(state.byDate).sort();
+    state.calMonth = (state.date || dates.filter(isOpen)[0] || dates[0]).slice(0, 7);
+    renderCal();
+    $('calendar').showModal();
+  }
+  function renderCal() {
+    var dates = Object.keys(state.byDate).sort(), m = state.calMonth;
+    $('calMonth').textContent = MONTHS_LONG[+m.slice(5, 7) - 1] + ' ' + m.slice(0, 4);
+    $('calPrev').disabled = m <= dates[0].slice(0, 7);
+    $('calNext').disabled = m >= dates[dates.length - 1].slice(0, 7);
+    var lead = isoWeekday(m + '-01') - 1, len = new Date(Date.UTC(+m.slice(0, 4), +m.slice(5, 7), 0)).getUTCDate(), html = '';
+    for (var i = 0; i < lead; i++) html += '<span></span>';
+    for (var n = 1; n <= len; n++) {
+      var d = m + '-' + (n < 10 ? '0' : '') + n, p = parts(d), runs = !!state.byDate[d], open = runs && isOpen(d);
+      html += '<button type="button" class="bp-cal__day' + (runs && !open ? ' bp-cal__day--full' : '') + '" data-d="' + d + '" aria-pressed="' + (state.date === d) + '"'
+        + ' aria-label="' + p.wd + ' ' + n + ' ' + p.mon + (open ? ', open' : runs ? ', full' : '') + '"' + (open ? '' : ' disabled') + '>' + n + '</button>';
+    }
+    $('calGrid').innerHTML = html;
+  }
+  if (!LINK) {
+    $('calPrev').onclick = function () { state.calMonth = addMonth(state.calMonth, -1); renderCal(); };
+    $('calNext').onclick = function () { state.calMonth = addMonth(state.calMonth, 1); renderCal(); };
+    $('calClose').onclick = function () { $('calendar').close(); };
+    // A click on the dim area around the panel closes it too.
+    $('calendar').addEventListener('click', function (e) {
+      var r = this.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) this.close();
+    });
+    $('calGrid').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-d]'); if (!b || b.disabled) return;
+      $('calendar').close();
+      state.date = b.dataset.d; state.slot = null;
+      renderDates();
+      var ss = state.byDate[state.date];
+      if (ss.length === 1) pickSlot(ss[0]);
+      else { $('timesNote').textContent = ''; render(); }
+      var chosen = $('dates').querySelector('[aria-pressed="true"]');
+      if (chosen) chosen.focus();
+    });
+  }
 
   // ── Policy and how-it-works, from the business's own settings ──
   function cancelLine(policy) {
@@ -466,8 +517,11 @@
     $('dates').innerHTML = '<p class="bp-note">Loading dates...</p>';
     $('moreDates').hidden = true; $('timesBlock').hidden = true; $('timesNote').textContent = '';
     $('total').hidden = true; $('bookingCta').disabled = true;
-    var from = new Date().toISOString().slice(0, 10), to = new Date(Date.now() + 180 * 864e5).toISOString().slice(0, 10);
-    api('GET', '/availability?business=' + SLUG + '&experience=' + key + '&from=' + from + '&to=' + to).then(function (r) {
+    var from = new Date().toISOString().slice(0, 10);
+    function upTo(n) { return '/availability?business=' + SLUG + '&experience=' + key + '&from=' + from + '&to=' + new Date(Date.now() + n * 864e5).toISOString().slice(0, 10); }
+    // A year ahead for the calendar. A booking service that still takes 186 days at most
+    // says no, so ask again for 180.
+    api('GET', upTo(365)).then(function (r) { return r.status === 400 ? api('GET', upTo(180)) : r; }).then(function (r) {
       if (seq !== state.loadSeq) return;
       if (r.status !== 200) { $('dates').innerHTML = ''; showError($('err'), r.body.message || 'Dates could not be loaded.'); return; }
       var m = state.meta = r.body; state.slots = m.slots;

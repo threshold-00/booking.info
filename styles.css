@@ -986,7 +986,8 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
   body.map-docked .card-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
   body.map-docked .card-rail{margin-right:0;padding-right:0}
 }
-@media (max-width:767px){.map-panel{inset:0;transform:translateY(100%)}}
+/* Full screen on phones, above the site header so its own "Close map" shows (Ro, 23 Oct 2026). */
+@media (max-width:767px){.map-panel{inset:0;z-index:calc(var(--z-header) + 1);transform:translateY(100%)}}
 .map-panel.is-open{transform:none}
 @media (prefers-reduced-motion:reduce){.map-panel{transform:none;opacity:0}.map-panel.is-open{opacity:1}}
 html.is-map-locked{overflow:hidden}
