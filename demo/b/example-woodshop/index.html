@@ -565,6 +565,7 @@
   var bizLater = function (fn) { var t = setInterval(function () { if (state.biz) { clearInterval(t); fn(); } }, 50); };
   if (result === 'requested') {
     bizLater(function () {
+      $('doneBack').hidden = true; // they're already on the class page
       done('Reference ' + ref, 'Request sent', 'Your card is held, not charged. ' + state.biz + ' will confirm within ' + state.meta.response_hours + ' hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.');
       demoBox($('demoBox'), 'Demo: in the real thing, ' + state.biz + ' gets this request by text and email. Try their side now.', 'See what ' + state.biz + ' sees', function (links) {
         return '?x=' + key + '&respond=' + encodeURIComponent(links.respond_token) + '&bal=' + encodeURIComponent(links.balance_token);
@@ -572,6 +573,7 @@
     });
   } else if (result === 'balance_paid') {
     done('Reference ' + ref, 'You\'re all paid', 'Thanks. Your balance is paid and your place is confirmed. See you at the bench.');
+    $('doneBack').hidden = true;
   } else if (result === 'cancelled') {
     done('Not booked yet', 'Payment not finished', 'You left the payment page before finishing, so nothing was charged. Your places are held for a few more minutes if you want to try again.');
   } else if (q.get('respond')) {

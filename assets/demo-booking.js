@@ -663,6 +663,7 @@
   if (result === 'requested' && ref) {
     done('Reference ' + ref, 'Request sent', NOCARD ? 'Demo booking, so no card was taken. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.' : 'Your card is held, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.');
     booked(ref);
+    $('doneBack').hidden = true; // they're already on the business's page
     var once = 'th_done_' + ref, fresh = true;
     try { fresh = !sessionStorage.getItem(once); sessionStorage.setItem(once, '1'); } catch (e) {}
     if (fresh) track('booking_completed');
@@ -682,6 +683,7 @@
     done('Not booked yet', 'Payment not finished', 'You left the payment page before finishing, so nothing was charged. Your places are held for a few more minutes if you want to try again.');
   } else if (result === 'balance_paid' && ref) {
     done('Reference ' + ref, 'You\'re all paid', 'Thanks. Your balance is paid and your place is confirmed.');
+    $('doneBack').hidden = true;
   } else if (q.get('respond')) {
     bizView(q.get('respond'), q.get('bal'));
   } else if (q.get('balance')) {

@@ -538,7 +538,7 @@ ${FOOTER}</div>
   <a href="#book" class="btn">${mode === 'link' ? 'Book' : 'Choose a date'}</a>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-<script src="/assets/demo-booking.js?v=ba13cbb1"></script>
+<script src="/assets/demo-booking.js?v=09541d94"></script>
 <script src="/app.js?v=61fe8cbe"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>
