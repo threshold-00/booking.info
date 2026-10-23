@@ -147,7 +147,7 @@
 </style>
 </head>
 <body class="has-sticky-bar">
-<div class="demo-strip" role="note">Demo. Try a booking, no card needed</div>
+<div class="demo-strip demo-strip--sandbox" role="note">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
@@ -299,8 +299,8 @@
           <div id="riders"></div>
           <div id="questions"></div>
           <div class="bp-summary" id="summary" aria-live="polite"></div>
-          <button type="submit" class="btn" id="requestBtn">Send request</button>
-          <p class="bp-under">Demo: the card step is skipped. In a live booking you'd add your card next, held, not charged.</p>
+          <button type="submit" class="btn" id="requestBtn">Continue to payment</button>
+          <p class="bp-under">Next, add your card. It's held, not charged.</p>
 
           <div class="bp-policy">
             <p id="policyHold"></p>
@@ -399,7 +399,7 @@
   <span class="t-small" id="stickyPrice"></span>
   <a href="#book" class="btn">Choose a date</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"lygon-street-pottery","business":"Lygon Street Pottery","booking_mode":"demo","timezone":"Australia/Melbourne","phone":"0461 263 890","party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"intro-wheel","label":"Intro workshop","sub":"$125"},{"experience":"six-week-course","label":"Six-week course","sub":"$470"}],"experiences":{"intro-wheel":{"durationMinutes":150,"facts":["2.5 hours","A first go on the wheel","Class size [TO CONFIRM]","Brunswick East"],"included":["Clay and firing","Use of the wheel and tools"],"notes":["[TO CONFIRM: whether the course cancellation fees apply to this workshop]"],"dates_note":"Next listed: Sun 24 Jan 2027, 2 to 4:30pm. The other dates are examples for the demo [TO CONFIRM]","good_to_know":[]},"six-week-course":{"durationMinutes":900,"durationDays":6,"facts":["6 x 2.5 hours","Level [TO CONFIRM]","Clay and 2kg firing included","Brunswick East"],"included":["Clay","2kg of firing","Six classes on the wheel"],"notes":[],"dates_note":"Term 6 starts 26 Oct 2026. Monday 6pm is an example for the demo [TO CONFIRM: day and time]","good_to_know":[]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
+<script type="application/json" id="demo-config">{"slug":"lygon-street-pottery","business":"Lygon Street Pottery","booking_mode":"sandbox","timezone":"Australia/Melbourne","phone":"0461 263 890","party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"intro-wheel","label":"Intro workshop","sub":"$125"},{"experience":"six-week-course","label":"Six-week course","sub":"$470"}],"experiences":{"intro-wheel":{"durationMinutes":150,"facts":["2.5 hours","A first go on the wheel","Class size [TO CONFIRM]","Brunswick East"],"included":["Clay and firing","Use of the wheel and tools"],"notes":["[TO CONFIRM: whether the course cancellation fees apply to this workshop]"],"dates_note":"Next listed: Sun 24 Jan 2027, 2 to 4:30pm. The other dates are examples for the demo [TO CONFIRM]","good_to_know":[]},"six-week-course":{"durationMinutes":900,"durationDays":6,"facts":["6 x 2.5 hours","Level [TO CONFIRM]","Clay and 2kg firing included","Brunswick East"],"included":["Clay","2kg of firing","Six classes on the wheel"],"notes":[],"dates_note":"Term 6 starts 26 Oct 2026. Monday 6pm is an example for the demo [TO CONFIRM: day and time]","good_to_know":[]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
 <script src="/assets/demo-booking.js?v=641f34a7"></script>
 <script src="/app.js?v=d055e13c"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
