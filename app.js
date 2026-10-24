@@ -1669,13 +1669,14 @@ window.addEventListener('resize', setHeaderOffset);
 })();
 
 // For businesses: the founding partner invite opens once, a few seconds in. "Apply" goes
-// to the sign-up form (marked as a founding partner application) and it never comes back;
-// "Maybe later", Esc or a click outside closes it for this visit.
+// to the sign-up form (ticking its founding partner box) and it never comes back; the
+// close button, "Maybe later", Esc or a click outside close it for this visit.
 (function () {
   var dlg = document.getElementById('foundingDialog');
   if (!dlg || typeof dlg.showModal !== 'function') return;
   var KEY = 'threshold-founding-invite', apply = document.getElementById('foundingApply');
   var later = document.getElementById('foundingLater'), field = document.getElementById('leadFounding');
+  var closeBtn = document.getElementById('foundingClose');
   try { if (localStorage.getItem(KEY) || sessionStorage.getItem(KEY)) return; } catch (e) { /* show it */ }
   function remember(store) { try { store.setItem(KEY, '1'); } catch (e) { /* ignore */ } }
   setTimeout(function () {
@@ -1689,10 +1690,11 @@ window.addEventListener('resize', setHeaderOffset);
     if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
   });
   if (later) later.addEventListener('click', function () { dlg.close(); });
+  if (closeBtn) closeBtn.addEventListener('click', function () { dlg.close(); });
   if (apply) apply.addEventListener('click', function (e) {
     e.preventDefault();
     remember(localStorage);
-    if (field) field.value = 'Yes';
+    if (field) field.checked = true;
     dlg.close();
     var form = document.getElementById('interested'), first = document.querySelector('#lead input[name="business"]');
     if (form) form.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
