@@ -179,23 +179,26 @@ var exploreMap = (function () {
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
 
-  // One activity at a time: photo, title, place and price, all one link, with arrows and
-  // "1 / 2" when the business has more. Built when opened, so prices filled in by the
+  // One activity at a time: photo, title and place as one link, then the price and a
+  // "Book now" button to the same page, with arrows and "1 / 2" when the business has more. Built when opened, so prices filled in by the
   // currency switcher are current. Used for the desktop popup and the phone sheet.
   function slides(pin) {
     var list = activities(pin), i = 0;
     var box = el('div', 'pop'), card = el('a', 'pop-card');
     var media = el('div', 'pop-media'), body = el('div', 'pop-body');
     var title = el('p', 'pop-title'), meta = el('p', 'pop-meta', pin.place), price = el('p', 'card__price pop-amount');
+    var foot = el('div', 'pop-foot'), book = el('a', 'btn--primary pop-book', 'Book now');
     card.appendChild(media); card.appendChild(body);
-    body.appendChild(title); body.appendChild(meta); body.appendChild(price);
-    box.appendChild(card);
+    body.appendChild(title); body.appendChild(meta);
+    foot.appendChild(price); foot.appendChild(book);
+    box.appendChild(card); box.appendChild(foot);
 
     var count;
     function go(n) {
       i = (n + list.length) % list.length;
       var c = list[i], src = c.querySelector('.card__media picture') || c.querySelector('.card__media img');
-      card.href = c.getAttribute('href');
+      card.href = book.href = c.getAttribute('href');
+      book.setAttribute('aria-label', 'Book now, ' + (c.getAttribute('data-title') || ''));
       card.setAttribute('aria-label', (c.getAttribute('data-title') || '') + ', ' + pin.business + ', ' + pin.place);
       title.textContent = c.getAttribute('data-title') || '';
       var p = c.querySelector('.card__price');
@@ -1131,21 +1134,25 @@ var mapPanel = (function () {
   var slot = document.getElementById('filterSlot'), nav = document.getElementById('filterNav');
   var results = document.getElementById('browseResults');
   if (!slot || !nav || !results) return;
-  var stuck = false, ticking = false;
+  var stuck = false, ticking = false, stuckH = 64;
+  var phone = window.matchMedia('(max-width:767px)');
   function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
   function set(on) {
     if (on === stuck) return;
     if (on) slot.style.height = slot.offsetHeight + 'px';
     nav.classList.toggle('is-stuck', on);
     if (!on) slot.style.height = '';
+    else stuckH = nav.offsetHeight;
     stuck = on;
     document.dispatchEvent(new CustomEvent('filternav:change'));
   }
+  // On phones the full filters are much taller than the one-row bar, so the bar only
+  // sticks once they've scrolled up behind it; sticking at their top left an empty gap.
   function check() {
     ticking = false;
-    var h = headerH();
-    var on = slot.getBoundingClientRect().top < h && results.getBoundingClientRect().bottom > h + nav.offsetHeight;
-    set(on);
+    var h = headerH(), r = slot.getBoundingClientRect();
+    var past = phone.matches ? r.bottom < h + stuckH : r.top < h;
+    set(past && results.getBoundingClientRect().bottom > h + nav.offsetHeight);
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(check); } }, { passive: true });
   window.addEventListener('resize', function () { set(false); check(); });
@@ -1645,5 +1652,50 @@ window.addEventListener('resize', setHeaderOffset);
       // After the browser's own jump, which would otherwise reset focus.
       if (heading) setTimeout(function () { heading.focus({ preventScroll: true }); }, 0);
     });
+  });
+})();
+
+// Homepage: a notice along the bottom that more experiences are coming, until "Got it".
+(function () {
+  var bar = document.getElementById('moreSoon'), ok = document.getElementById('moreSoonOk');
+  var KEY = 'threshold-more-soon-dismissed';
+  if (!bar || !ok) return;
+  try { if (localStorage.getItem(KEY)) return; } catch (e) { /* show it */ }
+  bar.hidden = false;
+  ok.addEventListener('click', function () {
+    bar.hidden = true;
+    try { localStorage.setItem(KEY, '1'); } catch (e) { /* ignore */ }
+  });
+})();
+
+// For businesses: the founding partner invite opens once, a few seconds in. "Apply" goes
+// to the sign-up form (marked as a founding partner application) and it never comes back;
+// "Maybe later", Esc or a click outside closes it for this visit.
+(function () {
+  var dlg = document.getElementById('foundingDialog');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  var KEY = 'threshold-founding-invite', apply = document.getElementById('foundingApply');
+  var later = document.getElementById('foundingLater'), field = document.getElementById('leadFounding');
+  try { if (localStorage.getItem(KEY) || sessionStorage.getItem(KEY)) return; } catch (e) { /* show it */ }
+  function remember(store) { try { store.setItem(KEY, '1'); } catch (e) { /* ignore */ } }
+  setTimeout(function () {
+    if (document.querySelector('dialog[open]')) return;
+    dlg.showModal();
+  }, 4000);
+  dlg.addEventListener('close', function () { remember(sessionStorage); });
+  dlg.addEventListener('click', function (e) {
+    if (e.target !== dlg) return;
+    var r = dlg.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+  });
+  if (later) later.addEventListener('click', function () { dlg.close(); });
+  if (apply) apply.addEventListener('click', function (e) {
+    e.preventDefault();
+    remember(localStorage);
+    if (field) field.value = 'Yes';
+    dlg.close();
+    var form = document.getElementById('interested'), first = document.querySelector('#lead input[name="business"]');
+    if (form) form.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 400);
   });
 })();
