@@ -869,8 +869,8 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
 .hero-search .btn--on-dark{flex:0 0 auto;min-width:88px}
 @media (max-width:640px){.hero-search{padding:var(--s-4)}.hero-search__field{flex-basis:100%}.hero-search .btn--on-dark{width:100%}}
 
-/* Filter nav under the hero. Once it reaches the header it's fixed there in a compact
-   form (app.js adds .is-stuck); its slot keeps the full height so nothing jumps. */
+/* Filter nav under the hero. Once it has scrolled up behind the header it's fixed there
+   in a compact form (app.js adds .is-stuck); its slot keeps the full height so nothing jumps. */
 .filter-slot{position:relative}
 .filter-nav{background:var(--panel);border-bottom:var(--bw) solid var(--line);padding-block:var(--s-5)}
 .filter-nav.is-stuck{position:fixed;top:var(--header-h,85px);left:0;right:0;z-index:var(--z-filter);padding-block:var(--s-3);box-shadow:var(--shadow-stuck)}

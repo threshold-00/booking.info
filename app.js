@@ -138,7 +138,6 @@ var exploreMap = (function () {
     { business: 'Gordon Studio Glassblowers', emoji: '🔥', place: 'Red Hill', region: 'mornington', lat: -38.3726, lng: 145.0218 },
     { business: 'Heathcote Bike Hire', emoji: '🚲', place: 'Heathcote', region: 'mornington', lat: -36.9220, lng: 144.7080 },
     { business: 'Salty Seas Surf School', emoji: '🏄', place: 'Inverloch', region: 'mornington', lat: -38.6475, lng: 145.7390 },
-    { business: 'Tiger Moth World', emoji: '✈️', place: 'Torquay Airport', region: 'mornington', lat: -38.2977, lng: 144.3653 },
     { business: 'Spring Creek Horse Rides', emoji: '🐴', place: 'Bellbrae, near Torquay', region: 'mornington', lat: -38.3375, lng: 144.2533 },
     { business: 'Indigo Woodworks', emoji: '🪵', place: 'Indigo Valley', region: 'mornington', lat: -36.0860, lng: 146.8480 },
     { business: 'Moonraker Dolphin Swims', emoji: '🐬', place: 'Sorrento Pier', region: 'mornington', lat: -38.3390, lng: 144.7430 },
@@ -568,13 +567,13 @@ var mapPanel = (function () {
 
   function durMs() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur')) || 0; }
   function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
+  // Scrolls the full filters up behind the header, so the compact bar sticks and the
+  // list starts just under it. Never scrolls back up.
   function alignResults() {
-    var nav = document.getElementById('filterNav');
-    var head = [].filter.call(document.querySelectorAll('#browseResults h2'), function (h) { return h.offsetParent; })[0];
-    if (!nav || !head || !nav.classList.contains('is-stuck')) return;
-    var gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s-5')) || 24;
-    var delta = head.getBoundingClientRect().top - (headerH() + nav.offsetHeight + gap);
-    if (delta > 1) window.scrollBy({ top: delta, behavior: 'instant' });
+    var slot = document.getElementById('filterSlot'), nav = document.getElementById('filterNav');
+    if (!slot || !nav) return;
+    var over = slot.getBoundingClientRect().bottom - (headerH() + (+nav.getAttribute('data-stuck-h') || 56));
+    if (over > 0) window.scrollBy({ top: over + 1, behavior: 'instant' });
   }
   function setMode() {
     var modal = !docked.matches;
@@ -591,17 +590,11 @@ var mapPanel = (function () {
     open = true;
     clearTimeout(timer);
     closeDropdowns();
-    // Beside or over the list: bring the results up so the filter nav sits under the header.
-    var slot = document.getElementById('filterSlot');
-    if (slot && !mobile.matches) {
-      var gap = slot.getBoundingClientRect().top - headerH();
-      if (gap > 0) window.scrollBy({ top: gap + 1, behavior: 'instant' });
-    }
     panel.classList.remove('is-warming');
     panel.hidden = false;
     setMode();
-    // Once the nav has stuck (next frames), close the space its placeholder leaves above
-    // the list, so the first heading sits just under the bar. Never scrolls back up.
+    // Beside or over the list: once the list has reflowed (next frames), bring it up
+    // under the compact filter bar.
     if (!mobile.matches) requestAnimationFrame(function () { requestAnimationFrame(alignResults); });
     requestAnimationFrame(function () { requestAnimationFrame(function () { panel.classList.add('is-open'); }); });
     toggle.setAttribute('aria-expanded', 'true');
@@ -714,7 +707,9 @@ var mapPanel = (function () {
   function readURL() {
     var params = new URLSearchParams(window.location.search);
     var cat = params.get('cat') || '';
-    state.cat = cat ? cat.split(',').filter(Boolean) : [];
+    // Only categories that still have a chip, so an old link (e.g. cat=adrenaline) shows everything.
+    var known = catChips.map(function (c) { return c.getAttribute('data-cat'); });
+    state.cat = cat ? cat.split(',').filter(function (c) { return c && known.indexOf(c) >= 0; }) : [];
     state.sub = params.get('sub') || '';
     state.who = WHO.indexOf(params.get('who')) >= 0 ? params.get('who') : '';
     state.region = LOCATIONS[params.get('location') || ''] || '';
@@ -1127,31 +1122,30 @@ var mapPanel = (function () {
   window.addEventListener('popstate', fromURL);
 })();
 
-// Filter nav: once its top reaches the header it's fixed there in its compact form
-// (.is-stuck: labels hidden, tighter padding, a shadow; one row on phones), until the
-// results end. The slot keeps the full height, so the page never jumps.
+// Filter nav: once the full filters have scrolled up behind the header, it's fixed there
+// in its compact form (.is-stuck: labels hidden, tighter padding, a shadow; one row on
+// phones), until the results end. The slot keeps the full height, so the page never jumps.
 (function () {
   var slot = document.getElementById('filterSlot'), nav = document.getElementById('filterNav');
   var results = document.getElementById('browseResults');
   if (!slot || !nav || !results) return;
-  var stuck = false, ticking = false, stuckH = 64;
-  var phone = window.matchMedia('(max-width:767px)');
+  var stuck = false, ticking = false, stuckH = 56;
   function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
   function set(on) {
     if (on === stuck) return;
     if (on) slot.style.height = slot.offsetHeight + 'px';
     nav.classList.toggle('is-stuck', on);
     if (!on) slot.style.height = '';
-    else stuckH = nav.offsetHeight;
+    else { stuckH = nav.offsetHeight; nav.setAttribute('data-stuck-h', stuckH); }
     stuck = on;
     document.dispatchEvent(new CustomEvent('filternav:change'));
   }
-  // On phones the full filters are much taller than the one-row bar, so the bar only
-  // sticks once they've scrolled up behind it; sticking at their top left an empty gap.
+  // The full filters are taller than the compact bar, so the bar only sticks once
+  // they've scrolled up behind it; sticking at their top left an empty gap.
   function check() {
     ticking = false;
-    var h = headerH(), r = slot.getBoundingClientRect();
-    var past = phone.matches ? r.bottom < h + stuckH : r.top < h;
+    var h = headerH();
+    var past = slot.getBoundingClientRect().bottom < h + stuckH;
     set(past && results.getBoundingClientRect().bottom > h + nav.offsetHeight);
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(check); } }, { passive: true });

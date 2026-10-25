@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=8d1295ab" />
+<link rel="stylesheet" href="styles.css?v=6ae46b8f" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -148,7 +148,7 @@
       <h1 class="hero-h1 hero-h1--lg">Something you'll actually remember doing.</h1>
       <p class="hero-sub label">Unique experiences, run by the local people who started them.</p>
       <form class="hero-search" id="heroSearch" action="#browse" role="search" aria-label="Find an experience">
-        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="sealife">Sea life</option><option value="surf">Surfing</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="bike">Biking</option><option value="adrenaline">Adrenaline</option></select></div>
+        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="sealife">Sea life</option><option value="surf">Surfing</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="bike">Biking</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWhere">Where</label><select id="heroWhere" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option><option value="bali">Bali</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWho">Situation</label><select id="heroWho" class="location-select pill-select"><option value="">Anyone</option><option value="solo">Solo</option><option value="duo">Duo</option><option value="group">Group (3+ ppl)</option></select></div>
         <button type="submit" class="btn--on-dark">Go</button>
@@ -175,7 +175,6 @@
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="wood">Woodworks</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="fashion">Fashion</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="bike">Biking</button>
-              <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="adrenaline">Adrenaline</button>
             </div>
             <div class="chip-list" id="horseSub" hidden role="group" aria-label="Horse experiences">
               <button type="button" class="chip chip--sm sub-chip" aria-pressed="true" data-type="">All horse (11)</button>
@@ -460,26 +459,6 @@
             <p class="card__loc">90 min &middot; Salty Seas Surf School &middot; Victoria</p>
             <p class="card__desc">A lesson just for you, or bring friends for $80 each.</p>
             <div class="card__meta card__row"><p class="card__price">From $180 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/tiger-moth-world/?x=biggles-over-bells" aria-label="Demo: Fly over Bells Beach in an open-cockpit biplane, Tiger Moth World" data-title="Fly over Bells Beach in an open-cockpit biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="adrenaline" data-situation="solo duo" data-sort-aud="375" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road bells beach biggles" data-duration="20">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/tiger-moth-world/card-beach-pass-800.avif" /><img src="/assets/img/demo/tiger-moth-world/card-beach-pass-800.webp" alt="A yellow open-cockpit biplane flying low over the surf and a sandy beach" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Demo</span></p>
-            <h3 class="card__title">Fly over Bells Beach in an open-cockpit biplane</h3>
-            <p class="card__loc">20 min &middot; Tiger Moth World &middot; Victoria</p>
-            <p class="card__desc">A 20-minute loop over Bells Beach from Torquay Airport.</p>
-            <div class="card__meta card__row"><p class="card__price">From $375 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/tiger-moth-world/?x=great-ocean-road" aria-label="Demo: Fly the Great Ocean Road in a vintage biplane, Tiger Moth World" data-title="Fly the Great Ocean Road in a vintage biplane" data-business="Tiger Moth World" data-region="mornington" data-cat="adrenaline" data-situation="solo duo" data-sort-aud="1000" data-type="" data-rank="0" data-keywords="demo tiger moth world scenic flight biplane open cockpit torquay great ocean road historic" data-duration="55">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/tiger-moth-world/card-cockpit-coast-800.avif" /><img src="/assets/img/demo/tiger-moth-world/card-cockpit-coast-800.webp" alt="The view from the open cockpit, past the pilot's head and the yellow wings to the coastline below" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Demo</span></p>
-            <h3 class="card__title">Fly the Great Ocean Road in a vintage biplane</h3>
-            <p class="card__loc">55 min &middot; Tiger Moth World &middot; Victoria</p>
-            <p class="card__desc">West from Torquay along the Great Ocean Road, in an open cockpit.</p>
-            <div class="card__meta card__row"><p class="card__price">From $1,000 AUD</p></div>
           </div>
         </a>
         <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-1h" aria-label="Demo: A one-hour trail ride through the bush near Torquay, Spring Creek Horse Rides" data-title="A one-hour trail ride through the bush near Torquay" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-situation="solo duo group" data-sort-aud="120" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways one hour beginner" data-duration="60">
@@ -894,6 +873,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=86078885"></script>
+<script src="app.js?v=ac205493"></script>
 </body>
 </html>
