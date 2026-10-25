@@ -1,7 +1,7 @@
 # RealDays
 > Unique experiences run by the local people who started them. In Victoria, Australia and Bali.
 
-RealDays is a booking site for small, owner-run experience businesses. Being listed and taking bookings is free until 1 May 2027. After that, businesses pay a 12% commission per booking, only on bookings made through RealDays, with card fees and GST included. Businesses get at least 60 days' notice first and can leave whenever they want. No subscription or setup fee.
+RealDays is a booking site for small, owner-run experience businesses. Nothing to join and nothing a month. Until 1 May 2027, businesses pay only the card fee on each booking, about 1.7% plus 30 cents for Australian cards. From 1 May 2027, it's 12% of each booking made through RealDays, with GST and the card fee included. If a booking is refunded in full, so is the fee. Bookings a business takes itself cost nothing. Businesses get at least 60 days' notice of any change and can leave whenever they want. The first five businesses become founding partners and pay nothing but the card fee, for life.
 
 ## Pages
 - [Home](https://getrealdays.com/)
