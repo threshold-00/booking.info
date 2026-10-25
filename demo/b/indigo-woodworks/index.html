@@ -147,7 +147,7 @@
 </style>
 </head>
 <body class="has-sticky-bar">
-<div class="demo-strip demo-strip--sandbox" role="note">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>
+<div class="demo-strip" role="note">Demo page for Indigo Woodworks. Not live yet. Availability and booking are on the business's own website.</div>
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
@@ -235,7 +235,7 @@
       
     </div>
 
-    <aside class="booking-panel" id="book" aria-label="Book">
+    <aside class="booking-panel" id="book" aria-label="Check availability">
       <div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
@@ -243,110 +243,18 @@
             <div class="opt-list" id="choices" role="group" aria-label="Course"></div>
             <p class="bp-lead" id="panelLead" hidden></p>
           </div>
-          <div id="groups"></div>
-          <div class="bp-block">
-            <p class="bp-label" id="datesLabel">Choose a date</p>
-            <div class="date-list" id="dates"><p class="bp-note">Loading dates...</p></div>
-            <button type="button" class="bp-more" id="moreDates" aria-haspopup="dialog" hidden>More dates</button>
-            <dialog class="bp-cal" id="calendar" aria-labelledby="calTitle">
-              <div class="bp-cal__top">
-                <p class="bp-label" id="calTitle">Choose a date</p>
-                <button type="button" class="bp-cal__close" id="calClose" aria-label="Close">&times;</button>
-              </div>
-              <div class="bp-cal__head">
-                <button type="button" class="bp-cal__nav" id="calPrev" aria-label="Previous month">&larr;</button>
-                <p class="bp-cal__month" id="calMonth" aria-live="polite"></p>
-                <button type="button" class="bp-cal__nav" id="calNext" aria-label="Next month">&rarr;</button>
-              </div>
-              <div class="bp-cal__week" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
-              <div class="bp-cal__grid" id="calGrid"></div>
-              <p class="bp-note bp-cal__note">Dates with a dot are open.</p>
-            </dialog>
-            <p class="bp-note" id="filterHint" style="margin-top:var(--s-2);" hidden></p>
-            <div class="bp-block" id="timesBlock" hidden>
-              <p class="bp-label">Choose a time</p>
-              <div class="time-list" id="times"></div>
-            </div>
-            <p class="bp-note" id="timesNote" style="margin-top:var(--s-2);"></p>
-            <p class="bp-note" id="datesNote" style="margin-top:4px;"></p>
-          </div>
-
-          <div id="party"></div>
+          <p class="bp-note" id="datesNote" style="margin-top:var(--s-3);"></p>
           <ul class="bp-notes" id="notes"></ul>
-
-          <div class="bp-total" id="total" aria-live="polite" hidden><span>Total</span><b id="totalValue"></b></div>
           <div class="bp-decision">
-            <button type="button" class="btn" id="bookingCta" disabled>Continue to book</button>
+            <a class="btn" id="bookingCta" href="#" target="_blank" rel="noopener">Check availability on website</a>
           </div>
-          <p class="bp-note" style="margin-top:var(--s-2);">You won't be charged yet.</p>
+          <p class="bp-note" id="linkNote" style="margin-top:var(--s-2);"></p>
         </div>
-
-        <form id="step2" novalidate hidden>
-          <p class="bp-steplabel">Step 2 of 2</p>
-          <div class="bp-chosen"><span id="chosen"></span><button type="button" class="bp-change" id="change">Change</button></div>
-
-          <div class="bp-field" id="f-name">
-            <label for="name">Full name</label>
-            <input id="name" name="name" autocomplete="name" aria-describedby="name-err" />
-            <p class="bp-field-error" id="name-err" hidden></p>
-          </div>
-          <div class="bp-field" id="f-email">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="email-err" />
-            <p class="bp-field-error" id="email-err" hidden></p>
-          </div>
-          <div class="bp-field" id="f-phone">
-            <label for="phone">Mobile</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="phone-hint phone-err" />
-            <p class="bp-hint" id="phone-hint">So Indigo Woodworks can reach you on the day.</p>
-            <p class="bp-field-error" id="phone-err" hidden></p>
-          </div>
-          <p class="bp-note" id="pickup" style="margin:0 0 var(--s-4);" hidden></p>
-
-          <div id="riders"></div>
-          <div id="questions"></div>
-          <div class="bp-summary" id="summary" aria-live="polite"></div>
-          <button type="submit" class="btn" id="requestBtn">Continue to payment</button>
-          <p class="bp-under">Next, add your card. It's held, not charged.</p>
-
-          <div class="bp-policy">
-            <p id="policyHold"></p>
-            <p id="policyCancel"></p>
-          </div>
-        </form>
         <p class="bp-error" id="err" hidden></p>
         <div class="bp-ask">
           <p class="bp-label">Also from Indigo Woodworks</p>
           <ul><li><b>Gift certificates</b> Ask Andy.</li></ul>
         </div>
-      </div>
-
-      <div id="bpDone" class="bp-done" hidden>
-        <p class="bp-label" id="doneLabel"></p>
-        <h2 id="doneTitle"></h2>
-        <p class="prose" id="doneText" style="margin:0 0 var(--s-4);"></p>
-        <div class="bp-summary" id="doneSummary" hidden></div>
-        <div class="know-list__wrap" id="doneKnow" hidden>
-          <h3 class="know-list__title">Good to know</h3>
-          <ul class="know-list" id="doneKnowList"></ul>
-        </div>
-        <button type="button" class="btn" id="doneBtn" hidden style="width:100%;margin-bottom:var(--s-3);"></button>
-        <p class="bp-error" id="doneErr" hidden></p>
-        <a class="btn-ghost" id="doneBack" href="./">Back to Indigo Woodworks</a>
-        <div class="demo-box" id="demoBox" hidden></div>
-      </div>
-
-      <div id="bpBiz" hidden>
-        <p class="bp-label">What Indigo Woodworks sees</p>
-        <h2 style="font-size:28px;line-height:1.1;margin:var(--s-2) 0 var(--s-3);">New booking request</h2>
-        <div class="bp-summary" id="reqBox"></div>
-        <div class="resp-actions" id="respActions" hidden>
-          <button type="button" class="btn" data-act="accept">Accept</button>
-          <button type="button" class="btn-ghost" data-act="decline">Decline</button>
-        </div>
-        <p class="bp-note" id="respNote" style="margin-top:var(--s-3);"></p>
-        <p class="bp-error" id="respErr" hidden></p>
-        <div class="demo-box" id="bizDemoBox" hidden></div>
       </div>
     </aside>
 
@@ -371,11 +279,10 @@
         <dl class="know-details">
           <div><dt>Duration</dt><dd>Four-Legged Milking Stool: 2 full days, Sat and Sun. Three Legged Perch Stool: 3 full days, Fri to Sun. 9am to 5pm each day. <span class="tbc">[TO CONFIRM: daily hours]</span></dd></div>
           <div><dt>Price</dt><dd>Milking stool $600, perch stool $850, per person. Includes all materials and timber, tuition, use of tools, morning and afternoon tea, and your finished stool.</dd></div>
-          <div><dt>Deposit</dt><dd>50% to book. The balance is due 48 hours before the first day, and we email you a link to pay it. <span class="tbc">[TO CONFIRM: Andy's site says the balance is paid when the course finishes]</span></dd></div>
           <div><dt>Location</dt><dd>190 Jessies Lane, Indigo Valley VIC 3688. 30 minutes from Albury Wodonga, 15 minutes from Yackandandah.</dd></div>
           <div><dt>Age or ability</dt><dd>Milking stool: no experience needed. Perch stool: for people who have done the beginner course or have woodworking experience. Up to 5 people per course. <span class="tbc">[TO CONFIRM: places per course]</span></dd></div>
           <div><dt>Stay nearby</dt><dd>Many people make a weekend of it. Andy suggests Magpie Lane Farm, Hart Cottage Farm Stay, or a stay in Yackandandah or Beechworth.</dd></div>
-          <div><dt>Cancellation</dt><dd>Cancel 48 hours or more before the first day for a full refund. <span class="tbc">[TO CONFIRM]</span></dd></div>
+          <div><dt>Cancellation</dt><dd>Ask Andy about cancellation when you book.</dd></div>
         </dl>
         <h3 id="h-cancellation">Cancellation</h3>
         <p class="prose prose--info" id="policy"></p>
@@ -407,10 +314,11 @@
 </div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
   <span class="t-small" id="stickyPrice"></span>
-  <a href="#book" class="btn">Choose a date</a>
+  <a href="#book" class="btn" id="stickyCta">Check availability</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"indigo-woodworks","business":"Indigo Woodworks","booking_mode":"sandbox","timezone":"Australia/Melbourne","phone":null,"party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"milking-stool","label":"Milking stool, 2 days","sub":"$600"},{"experience":"perch-stool","label":"Perch stool, 3 days","sub":"$850"}],"experiences":{"milking-stool":{"durationMinutes":960,"durationDays":2,"facts":["2 full days, Sat and Sun","Up to 5 people","No experience needed","Indigo Valley"],"included":["All materials and timber","Tuition and use of tools","Morning and afternoon tea","Your finished stool to take home"],"notes":["50% deposit to book. The balance is due 48 hours before the first day. [TO CONFIRM]"],"good_to_know":["Arrive by 8:45am on the first day. Wear closed shoes and clothes you don't mind getting dusty.","Morning and afternoon tea are provided. Bring your own lunch. [TO CONFIRM]"]},"perch-stool":{"durationMinutes":1440,"durationDays":3,"facts":["3 full days, Fri to Sun","Up to 5 people","For people with some woodworking","Indigo Valley"],"included":["All materials and timber","Tuition and use of tools","Morning and afternoon tea","Your finished perch stool to take home"],"notes":["50% deposit to book. The balance is due 48 hours before the first day. [TO CONFIRM]","For people who have done the beginner course or have woodworking experience."],"good_to_know":["Arrive by 8:45am on the first day. Wear closed shoes and clothes you don't mind getting dusty.","Morning and afternoon tea are provided. Bring your own lunch. [TO CONFIRM]"]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
-<script src="/assets/demo-booking.js?v=641f34a7"></script>
+<script type="application/json" id="demo-config">{"slug":"indigo-woodworks","business":"Indigo Woodworks","booking_mode":"link","timezone":"Australia/Melbourne","phone":null,"party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"milking-stool","label":"Milking stool, 2 days","sub":"$600"},{"experience":"perch-stool","label":"Perch stool, 3 days","sub":"$850"}],"experiences":{"milking-stool":{"durationMinutes":960,"durationDays":2,"facts":["2 full days, Sat and Sun","Up to 5 people","No experience needed","Indigo Valley"],"included":["All materials and timber","Tuition and use of tools","Morning and afternoon tea","Your finished stool to take home"],"notes":[],"good_to_know":["Arrive by 8:45am on the first day. Wear closed shoes and clothes you don't mind getting dusty.","Morning and afternoon tea are provided. Bring your own lunch. [TO CONFIRM]"],"book_url":"https://www.indigowoodworks.com.au/courses?utm_source=realdays&utm_medium=listing&utm_campaign=indigo-woodworks"},"perch-stool":{"durationMinutes":1440,"durationDays":3,"facts":["3 full days, Fri to Sun","Up to 5 people","For people with some woodworking","Indigo Valley"],"included":["All materials and timber","Tuition and use of tools","Morning and afternoon tea","Your finished perch stool to take home"],"notes":["For people who have done the beginner course or have woodworking experience."],"good_to_know":["Arrive by 8:45am on the first day. Wear closed shoes and clothes you don't mind getting dusty.","Morning and afternoon tea are provided. Bring your own lunch. [TO CONFIRM]"],"book_url":"https://www.indigowoodworks.com.au/courses?utm_source=realdays&utm_medium=listing&utm_campaign=indigo-woodworks"}},"addons":[],"riders":null,"pickup":null,"price_basis":null,"cancellation":"Ask Andy about cancellation when you book.","contact":null}</script>
+<script src="/assets/booking/track.js?v=1a5b125d"></script>
+<script src="/assets/demo-booking.js?v=1b6f3eaf"></script>
 <script src="/app.js?v=ac205493"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>

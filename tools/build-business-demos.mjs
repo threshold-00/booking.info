@@ -161,14 +161,15 @@ function bannerFor(b) {
   const mode = b.booking_mode ?? 'off';
   if (mode === 'sandbox') return '<div class="demo-strip demo-strip--sandbox" role="note">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>';
   if (mode === 'demo') return '<div class="demo-strip" role="note">Demo. Try a booking, no card needed</div>';
-  if (mode === 'link') return '<div class="demo-strip" role="note">Demo. Book buttons go to their own site</div>';
+  if (mode === 'link') return `<div class="demo-strip" role="note">Demo page for ${esc(b.name)}. Not live yet. Availability and booking are on the business's own website.</div>`;
   return '<div class="demo-strip" role="note">Demo. Bookings are not taken</div>';
 }
 
 // booking_mode "link" (listing only, briefs/demo-data-batch2-2026-10-21.md): the
 // panel lists the experiences and its Book button goes to the business's own
-// booking page (the experience's external_book_url, or page.book_url). No dates,
-// no payment, nothing held. The Worker is used only to count demo traffic.
+// booking page (the experience's external_book_url, or page.book_url), tagged
+// utm_source=realdays so the business can see the clicks we send. No dates, no
+// payment, nothing held. The Worker is used only to count demo traffic.
 function linkPanel(b, p, askOnly) {
   return `<div id="bpForm">
         <div id="step1">
@@ -180,13 +181,20 @@ function linkPanel(b, p, askOnly) {
           <p class="bp-note" id="datesNote" style="margin-top:var(--s-3);"></p>
           <ul class="bp-notes" id="notes"></ul>
           <div class="bp-decision">
-            <a class="btn" id="bookingCta" href="#" target="_blank" rel="noopener">Book on their website</a>
+            <a class="btn" id="bookingCta" href="#" target="_blank" rel="noopener">Check availability on website</a>
           </div>
           <p class="bp-note" id="linkNote" style="margin-top:var(--s-2);"></p>
         </div>
         <p class="bp-error" id="err" hidden></p>
         ${askOnly}
       </div>`;
+}
+
+// The link out, tagged so the business's own analytics show RealDays (& if the
+// link already has a query).
+function outbound(url, slug) {
+  if (!url) return null;
+  return `${url}${url.includes('?') ? '&' : '?'}utm_source=realdays&utm_medium=listing&utm_campaign=${slug}`;
 }
 
 function page(d) {
@@ -203,7 +211,7 @@ function page(d) {
   const experiences = Object.fromEntries(
     Object.entries(p.experiences).map(([k, x]) => {
       const e = d.experiences.find((y) => y.key === k);
-      return [k, { ...x, good_to_know: e?.good_to_know ?? [], ...(mode === 'link' ? { book_url: e?.external_book_url ?? p.book_url ?? null } : {}) }];
+      return [k, { ...x, good_to_know: e?.good_to_know ?? [], ...(mode === 'link' ? { book_url: outbound(e?.external_book_url ?? p.book_url, slug) } : {}) }];
     }),
   );
   const config = {
@@ -219,7 +227,8 @@ function page(d) {
     riders: p.riders ?? null,
     pickup: p.pickup ?? null,
     price_basis: p.price_basis ?? null,
-    ...(mode === 'link' ? { cancellation: b.cancellation_policy?.text ?? null, contact: p.contact ?? null } : {}),
+    // page.cancellation: what a link-mode page says instead, when the policy is the business's to give.
+    ...(mode === 'link' ? { cancellation: p.cancellation ?? b.cancellation_policy?.text ?? null, contact: p.contact ?? null } : {}),
   };
   if (mode === 'link') {
     for (const [k, x] of Object.entries(experiences)) {
@@ -417,7 +426,7 @@ ${HEADER}<main id="main">
       ${photoNote}
     </div>
 
-    <aside class="booking-panel" id="book" aria-label="Book">
+    <aside class="booking-panel" id="book" aria-label="${mode === 'link' ? 'Check availability' : 'Book'}">
       ${mode === 'link' ? linkPanel(b, p, askOnly) : `<div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
@@ -572,10 +581,10 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
   <span class="t-small" id="stickyPrice">${esc(p.sticky_price ?? '')}</span>
-  <a href="#book" class="btn">${mode === 'link' ? 'Book' : 'Choose a date'}</a>
+  ${mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-<script src="/assets/demo-booking.js?v=641f34a7"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=1b6f3eaf"></script>
 <script src="/app.js?v=ac205493"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>

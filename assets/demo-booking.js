@@ -15,7 +15,7 @@
   // booking_mode (data file): sandbox takes test bookings; off shows the page only.
   // Pages built before booking_mode carry none and keep working as they did.
   var OFF = C.booking_mode === 'off';
-  // link: listing only. The Book button goes to the business's own booking page.
+  // link: listing only. "Check availability" goes to the business's own website.
   var LINK = C.booking_mode === 'link';
   var NOCARD = C.booking_mode === 'demo'; // full flow, the Worker skips the card step
   var $ = function (id) { return document.getElementById(id); };
@@ -482,25 +482,35 @@
     });
   }
 
-  // ── Listing only: the Book button links out ──
+  // ── Listing only: "Check availability" links out, from the panel and the sticky bar ──
   function linkPanel() {
-    var x = X(), a = $('bookingCta'), o = C.options.filter(function (y) { return y.experience === state.key; })[0];
+    var x = X(), a = $('bookingCta'), st = $('stickyCta'), o = C.options.filter(function (y) { return y.experience === state.key; })[0];
     a.hidden = !x.book_url;
     if (x.book_url) a.href = x.book_url;
-    rich($('linkNote'), x.book_url ? 'Opens their own booking page in a new tab.' : (x.book_note || 'Ask ' + BIZ + ' to book.') + (C.contact ? ' ' + C.contact : ''));
+    // No link: the sticky bar button goes back to the panel instead.
+    st.href = x.book_url || '#book';
+    if (x.book_url) { st.target = '_blank'; st.rel = 'noopener'; } else { st.removeAttribute('target'); st.removeAttribute('rel'); }
+    rich($('linkNote'), x.book_url ? 'Opens their website in a new tab.' : (x.book_note || 'Ask ' + BIZ + ' to book.') + (C.contact ? ' ' + C.contact : ''));
     var sp = $('stickyPrice');
     if (sp.dataset.fixed) sp.textContent = sp.dataset.fixed; else rich(sp, o && o.sub ? o.sub : '');
     rich($('policy'), C.cancellation || cancelLine('ask the business'));
     var steps = [
       ['Choose an experience', 'See what\'s on, what\'s included and what to bring, here.'],
-      ['Book on their website', 'Dates, payment and any changes are handled there.'],
+      ['Check availability on their website', 'Dates, booking and any changes are handled there.'],
       ['Turn up on the day', 'Their confirmation tells you where to go and what to bring.']
     ];
     list($('howSteps'), steps, '<li><span class="n"></span><span><b></b><span class="prose" style="display:block;"></span></span></li>').forEach(function (li, i) {
       text(li.querySelector('.n'), i + 1); text(li.querySelector('b'), steps[i][0]); text(li.querySelector('.prose'), steps[i][1]);
     });
   }
-  if (LINK) $('bookingCta').addEventListener('click', function () { track('book_click'); });
+  // One outbound_click per click, to track.js and to the Worker's demo count
+  // (migration 0005). Neither for team visits.
+  function outboundClick(e) {
+    if (TEAM || !e.currentTarget.target) return;
+    if (window.ThresholdTrack) window.ThresholdTrack.track('outbound_click', { business_slug: SLUG, experience_id: state.key });
+    track('outbound_click');
+  }
+  if (LINK) { $('bookingCta').addEventListener('click', outboundClick); $('stickyCta').addEventListener('click', outboundClick); }
 
   // Sticky bar price, "From $500 AUD". It follows the site's currency picker
   // (app.js converts data-price-aud) unless the data file fixes the wording.
