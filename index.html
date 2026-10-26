@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=cc4c9caa" />
+<link rel="stylesheet" href="styles.css?v=3a9f51de" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -804,14 +804,19 @@
 </div>
 <div class="notice-bar" id="moreSoon" role="region" aria-label="More experiences on the way">
   <div class="container notice-bar__in">
-    <p>We're still adding experiences, so there's more on the way. Stay tuned.</p>
-    <p class="notice-bar__ask">Know someone that runs a cool experience?
-      <button type="button" class="btn--secondary" id="shareBiz" data-label="Link them">Link them</button>
-      <span class="sr-only" id="shareBizStatus" role="status" aria-live="polite"></span></p>
+    <div class="notice-bar__state" id="noticeMain">
+      <p>We're still adding experiences, so there's more on the way. Stay tuned.</p>
+      <p class="notice-bar__ask">Know someone that runs a cool experience?
+        <button type="button" class="btn--on-dark" id="shareBiz">Link them</button></p>
+    </div>
+    <div class="notice-bar__state" id="noticeDone" hidden>
+      <p class="notice-bar__ask" role="status">Link copied to clipboard.
+        <button type="button" class="btn--on-dark" id="shareBizClose">Close</button></p>
+    </div>
   </div>
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=06fcaae5"></script>
+<script src="app.js?v=d2cc19f4"></script>
 </body>
 </html>

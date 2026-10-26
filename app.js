@@ -1681,24 +1681,30 @@ window.addEventListener('resize', setHeaderOffset);
   window.addEventListener('resize', size);
   if (window.ResizeObserver) new ResizeObserver(size).observe(bar);
 
-  // "Link them" copies the for-business page address so it can be passed on.
-  var share = document.getElementById('shareBiz'), status = document.getElementById('shareBizStatus');
-  if (share) share.addEventListener('click', function () {
-    var url = location.origin + '/for-business/';
-    function done() {
-      share.textContent = 'Link copied';
-      if (status) status.textContent = 'Link copied';
-      setTimeout(function () { share.textContent = share.getAttribute('data-label'); if (status) status.textContent = ''; }, 2500);
-    }
-    function fallback() {
-      var t = document.createElement('textarea');
-      t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
-      document.body.appendChild(t); t.select();
-      try { document.execCommand('copy'); done(); } catch (e) { window.prompt('Copy this link', url); }
-      document.body.removeChild(t);
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, fallback);
-    else fallback();
-  });
+  // "Link them" copies the for-business page address and swaps the bar to a confirmation;
+  // Close puts the bar back as it was.
+  var share = document.getElementById('shareBiz'), closeBtn = document.getElementById('shareBizClose');
+  var main = document.getElementById('noticeMain'), done = document.getElementById('noticeDone');
+  function show(copied) {
+    main.hidden = copied; done.hidden = !copied;
+    size();
+    (copied ? closeBtn : share).focus();
+  }
+  if (share && closeBtn && main && done) {
+    share.addEventListener('click', function () {
+      var url = location.origin + '/for-business/';
+      function ok() { show(true); }
+      function fallback() {
+        var t = document.createElement('textarea');
+        t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); ok(); } catch (e) { window.prompt('Copy this link', url); }
+        document.body.removeChild(t);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, fallback);
+      else fallback();
+    });
+    closeBtn.addEventListener('click', function () { show(false); });
+  }
 })();
 
