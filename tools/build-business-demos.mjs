@@ -412,7 +412,7 @@ ${HEADER}<main id="main">
 
   <div class="container detail-layout">
     <div class="detail-head">
-      <p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
+      ${b.show_demo_flag === false ? '' : '<p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>'}
       <h1>${esc(p.headline)}</h1>
       <p class="detail-lead" id="lead" hidden></p>
       <a href="#business" class="owner-strip navlink">
