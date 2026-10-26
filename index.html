@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=6e317ee5" />
+<link rel="stylesheet" href="styles.css?v=d912cd9c" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -208,6 +208,7 @@
             <label class="sr-only" for="sortSelect" id="sortLabel">Sort by</label>
             <span class="select-wrap fn-select"><select id="sortSelect" class="fn-text"><option value="recommended">Recommended</option></select></span>
           </div>
+          <button type="button" class="fn-reset" id="resetFilters" disabled>[Reset]</button>
           <button type="button" class="fn-map" id="mapToggle" aria-expanded="false" aria-controls="mapPanel"><span><span class="fn-map-label">View on </span>map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
         </div>
       </div>
@@ -727,30 +728,6 @@
               <p class="card__desc">Owner-run stable with rescue horses. 11 experiences, from quick rides to a 3-day course.</p>
             </div>
           </a>
-          <div class="card card--empty">
-            <div class="card__media"></div>
-            <div class="card__body">
-              <p class="card__loc">Victoria, Australia</p>
-              <h3 class="card__title">A spot waiting to be filled</h3>
-              <p class="card__desc">Know a business that belongs here? Let us know.</p>
-            </div>
-          </div>
-          <div class="card card--empty">
-            <div class="card__media"></div>
-            <div class="card__body">
-              <p class="card__loc">Victoria, Australia</p>
-              <h3 class="card__title">A spot waiting to be filled</h3>
-              <p class="card__desc">Know a business that belongs here? Let us know.</p>
-            </div>
-          </div>
-          <div class="card card--empty">
-            <div class="card__media"></div>
-            <div class="card__body">
-              <p class="card__loc">Bali</p>
-              <h3 class="card__title">A spot waiting to be filled</h3>
-              <p class="card__desc">Know a business that belongs here? Let us know.</p>
-            </div>
-          </div>
         </div>
     </div>
   </section>
@@ -833,6 +810,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=1682412c"></script>
+<script src="app.js?v=e0b2474b"></script>
 </body>
 </html>

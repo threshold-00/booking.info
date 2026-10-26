@@ -1153,3 +1153,13 @@ html.is-map-locked{overflow:hidden}
    Cards marked data-live (Suigeneris, Indigo and the Bali listings) keep full colour. */
 .rd #browseGrid .card[href^="/demo/b/"]:not([data-live]){opacity:.55;filter:grayscale(1);transition:opacity var(--dur) var(--ease-out),filter var(--dur) var(--ease-out)}
 .rd #browseGrid .card[href^="/demo/b/"]:not([data-live]):hover,.rd #browseGrid .card[href^="/demo/b/"]:not([data-live]):focus-within{opacity:.85;filter:grayscale(.4)}
+
+/* [Reset] in the filter bar: a bracketed mono label, like the Situation helper line. Live only
+   when a filter or sort is on. */
+.rd .fn-reset{position:relative;align-self:flex-end;margin-bottom:2px;height:36px;padding:2px 0 0;border:0;background:none;color:var(--ink);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer}
+.rd .fn-reset::before{content:"";position:absolute;inset:-6px}
+@media (hover:hover){.rd .fn-reset:not(:disabled):hover{text-decoration:underline;text-underline-offset:4px}}
+.rd .fn-reset:disabled{color:var(--ink-disabled);cursor:default}
+.rd .fn-reset:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media (min-width:768px){.filter-nav.is-stuck .fn-reset{align-self:center;margin-bottom:0}}
+@media (max-width:767px){.filter-nav.is-stuck .fn-reset{display:none}.rd .fn-reset{align-self:end;justify-self:start;margin-bottom:0}}

@@ -673,6 +673,7 @@ var mapPanel = (function () {
   var chipRow = $('chipRow'), horseSub = $('horseSub');
   var locationSelect = $('locationSelect'), durationSelect = $('durationSelect'), sortSelect = $('sortSelect');
   var allTitle = $('allTitle');
+  var resetBtn = $('resetFilters');
   var countEl = $('browseCount'), statusEl = $('browseStatus'), emptyEl = $('browseEmpty'), clearBtn = $('clearFilters');
   var capBtn = document.querySelector('.card-cap-more[aria-controls="browseGrid"]');
   var heroForm = $('heroSearch'), heroWhat = $('heroWhat'), heroWhere = $('heroWhere'), heroWho = $('heroWho');
@@ -776,6 +777,11 @@ var mapPanel = (function () {
     });
   }
 
+  // [Reset] is live only when a filter or a non-default sort is on.
+  function syncReset() {
+    if (resetBtn) resetBtn.disabled = !(hasActiveFilters() || state.sort !== 'recommended');
+  }
+
   function countLabel(n) {
     var label = n === 1 ? '1 experience' : n + ' experiences';
     if (state.region === 'bali') label += ' in Bali';
@@ -795,6 +801,7 @@ var mapPanel = (function () {
       card.hidden = !match || inRail;
       if (match && !inRail) shown++;
     });
+    syncReset();
     if (allTitle) allTitle.textContent = active ? 'All experiences' : 'New experiences loading...';
     if (countEl) countEl.textContent = countLabel(shown);
     if (emptyEl) emptyEl.hidden = !(active && shown === 0);
@@ -1057,6 +1064,15 @@ var mapPanel = (function () {
     state.sort = SORTS.indexOf(sortSelect.value) >= 0 ? sortSelect.value : 'recommended';
     writeURL(false);
     applySort(true);
+    syncReset();
+  });
+  // [Reset] clears every filter and puts Sort by back to Recommended.
+  if (resetBtn) resetBtn.addEventListener('click', function () {
+    state.cat = []; state.sub = ''; state.who = ''; state.region = ''; state.duration = ''; state.sort = 'recommended';
+    applySort(false);
+    update(true);
+    if (statusEl) statusEl.textContent = 'Filters reset. ' + countLabel(shown) + '.';
+    if (countEl) countEl.focus({ preventScroll: true });
   });
   if (clearBtn) clearBtn.addEventListener('click', function () {
     state.cat = []; state.sub = ''; state.who = ''; state.region = ''; state.duration = '';
@@ -1652,17 +1668,14 @@ window.addEventListener('resize', setHeaderOffset);
   });
 })();
 
-// Homepage: a notice along the bottom that more experiences are coming, until "Got it".
+// Homepage: a notice along the bottom that more experiences are coming. It shows on every
+// load, including a reload by the same visitor (Ro, 26 Oct 2026); "Got it" hides it until
+// the page is loaded again, and nothing is remembered.
 (function () {
   var bar = document.getElementById('moreSoon'), ok = document.getElementById('moreSoonOk');
-  var KEY = 'threshold-more-soon-dismissed';
   if (!bar || !ok) return;
-  try { if (localStorage.getItem(KEY)) return; } catch (e) { /* show it */ }
   bar.hidden = false;
-  ok.addEventListener('click', function () {
-    bar.hidden = true;
-    try { localStorage.setItem(KEY, '1'); } catch (e) { /* ignore */ }
-  });
+  ok.addEventListener('click', function () { bar.hidden = true; });
 })();
 
 // For businesses: the founding partner invite opens once, a few seconds in. "Apply" goes
