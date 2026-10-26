@@ -1149,7 +1149,7 @@ html.is-map-locked{overflow:hidden}
 .rd-dialog__actions{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-5)}
 @media (max-width:767px){.rd-dialog{padding:var(--s-5)}.rd-dialog__actions .btn--primary,.rd-dialog__actions .btn--secondary{width:100%}}
 
-/* Homepage: experiences still loading onto RealDays sit greyed out below "Now on RealDays".
+/* Homepage: experiences still loading onto RealDays sit greyed out below "New experiences".
    Cards marked data-live (Suigeneris, Indigo) and the Bali listings keep full colour. */
 .rd #browseGrid .card[href^="/demo/b/"]:not([data-live]){opacity:.55;filter:grayscale(1);transition:opacity var(--dur) var(--ease-out),filter var(--dur) var(--ease-out)}
 .rd #browseGrid .card[href^="/demo/b/"]:not([data-live]):hover,.rd #browseGrid .card[href^="/demo/b/"]:not([data-live]):focus-within{opacity:.85;filter:grayscale(.4)}

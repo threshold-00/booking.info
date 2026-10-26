@@ -659,7 +659,7 @@ var mapPanel = (function () {
 })();
 
 // Homepage browse (#browse): the filter nav (What and Situation chips, horse sub-chips,
-// Where, How long and Sort by), the "Now on RealDays" rail and the greyed group below it. Filters
+// Where, How long and Sort by), the "New experiences" rail and the greyed group below it. Filters
 // combine with AND logic on the cards in #browseGrid, never navigate, and live in the URL
 // (?cat=&sub=&who=&location=&duration=&sort=&map=1), so a refresh or the back button
 // brings them back. With any filter on, the rails hide and only matching cards show.
@@ -790,12 +790,12 @@ var mapPanel = (function () {
     shown = 0;
     cards.forEach(function (card) {
       var match = cardMatches(card);
-      // Suigeneris and Indigo (data-live) sit in the "Now on RealDays" rail until a filter is on.
+      // Suigeneris and Indigo (data-live) sit in the "New experiences" rail until a filter is on.
       var inRail = !active && card.hasAttribute('data-live');
       card.hidden = !match || inRail;
       if (match && !inRail) shown++;
     });
-    if (allTitle) allTitle.textContent = active ? 'All experiences' : 'Loading new experiences to RealDays...';
+    if (allTitle) allTitle.textContent = active ? 'All experiences' : 'New experiences loading...';
     if (countEl) countEl.textContent = countLabel(shown);
     if (emptyEl) emptyEl.hidden = !(active && shown === 0);
     // Phones show the first 12 of the full list, then "See all"; never while filtering.
