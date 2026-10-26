@@ -585,7 +585,7 @@ ${FOOTER}</div>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
 ${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=1b6f3eaf"></script>
-<script src="/app.js?v=ac205493"></script>
+<script src="/app.js?v=a754b53f"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
@@ -598,6 +598,7 @@ let built = 0;
 for (const f of files) {
   const d = JSON.parse(readFileSync(join(dataDir, f), 'utf8'));
   if (!d.page) continue;
+  if (d.taken_down) continue; // off the site (Tiger Moth World 25 Oct, Lygon Street Pottery 26 Oct 2026): never rebuilt
   const slug = d.business.slug;
   if (wanted.length && !wanted.includes(slug)) continue;
   if (`${slug}.json` !== f) throw new Error(`${f}: business.slug is ${slug}`);

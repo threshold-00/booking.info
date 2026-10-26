@@ -440,7 +440,7 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js?v=ac205493"></script>
+<script src="${base}app.js?v=a754b53f"></script>
 <script src="${base}assets/detail.js?v=845a0aa9" defer></script>
 </body>
 </html>
@@ -501,7 +501,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js?v=ac205493"></script>
+<script src="${base}app.js?v=a754b53f"></script>
 </body>
 </html>
 `;
