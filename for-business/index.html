@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=d912cd9c" />
+<link rel="stylesheet" href="../styles.css?v=09144e81" />
 <link rel="canonical" href="https://getrealdays.com/for-business/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -200,7 +200,6 @@
               </tr>
             </tbody>
           </table>
-          <p class="label price-founding"><a href="#interested">Five founding partners pay nothing but the card fee, for life.</a></p>
         </div>
       </div>
       <p class="compare-note">*Excludes card fees. **Airbnb says it typically charges 20%. GetYourGuide and Viator don't publish a rate; 25% is an estimate from their supplier terms and investor reports. Sources checked 21 Oct 2026. Rates vary by business and can change.</p>
@@ -260,7 +259,6 @@
           <label><span class="label">Phone</span><input type="tel" name="phone" autocomplete="tel" required /></label>
           <label><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
         </div>
-        <label class="signup-check"><input type="checkbox" name="founding_partner" id="leadFounding" value="Yes" data-label="Interested in being a founding partner" /><span class="label">I'm interested in being a founding partner</span></label>
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
         <div class="signup-form__foot">
           <p id="leadStatus" class="form-status" role="status" aria-live="polite"></p>
@@ -285,18 +283,8 @@
 <aside class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" id="businessStickyBar" aria-label="List your business">
   <a href="#interested" class="btn">Get listed</a>
 </aside>
-<dialog class="rd-dialog" id="foundingDialog" aria-labelledby="foundingTitle">
-  <button type="button" class="rd-dialog__close" id="foundingClose" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
-  <h2 id="foundingTitle">Become a RealDays founding partner</h2>
-  <p>We're building RealDays with the businesses that use it. We want booking and admin to take care of themselves, so you can get back to running great experiences.</p>
-  <p>Our first 5 businesses become founding partners. You'll work directly with Ro, our founder, help shape the tool, and get a say in how it's built.</p>
-  <div class="rd-dialog__actions">
-    <a href="#interested" class="btn--primary" id="foundingApply">Apply to be a founding partner</a>
-    <button type="button" class="btn--secondary" id="foundingLater">Maybe later</button>
-  </div>
-</dialog>
 <script src="../assets/rough.js"></script>
-<script src="../app.js?v=e0b2474b"></script>
+<script src="../app.js?v=ae545f35"></script>
 <script>
 document.querySelectorAll('[data-tier]').forEach(function(el){
   el.addEventListener('click', function(){

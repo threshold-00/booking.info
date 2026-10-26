@@ -10,7 +10,7 @@
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" />
 <link rel="stylesheet" href="/assets/tokens.css?v=2cf6efff" />
-<link rel="stylesheet" href="/assets/components.css?v=dba4a3fe" />
+<link rel="stylesheet" href="/assets/components.css?v=3f9774fb" />
 <style>
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/neuehaas-600.woff2') format('woff2')}
@@ -478,7 +478,6 @@
         <form class="signup-form" onsubmit="return false;">
           <label><span class="label">Business name</span><input type="text" name="ds-business" autocomplete="off" /></label>
           <label><span class="label">Email</span><input type="email" name="ds-email-dark" autocomplete="off" value="ro@example" /></label>
-          <label class="signup-check"><input type="checkbox" checked /><span class="label">I'm interested in being a founding partner</span></label>
         </form>
       </div>
       <form id="lead" style="display:grid;gap:var(--s-4);max-width:480px;margin-bottom:var(--s-6);">
@@ -598,7 +597,7 @@
       </div>
 
       <h3 class="t-title">Contact block and founder caption</h3>
-      <p class="ds-section__intro">The dark band at the foot of /for-business/ (.band-dark.on-dark). A 12-column .grid: copy in columns 1 to 5, the form in columns 7 to 12 (stacked under 1024px). The copy has the "For businesses" eyebrow, a .section-title, then .signup-founder: a 40px greyscale round photo (an avatar, so the one rounded shape here), a .label "You'll speak directly with Ro" and, on the next line, "[RealDays founder]" in square brackets. The form has four fields (Business name, Your name, Phone, Email), a square 20px tick box for founding partners, and a square "Get listed" button (44px high, 116px wide at least). Inputs are a bottom border only, 40px, mono 16px.</p>
+      <p class="ds-section__intro">The dark band at the foot of /for-business/ (.band-dark.on-dark). A 12-column .grid: copy in columns 1 to 5, the form in columns 7 to 12 (stacked under 1024px). The copy has the "For businesses" eyebrow, a .section-title, then .signup-founder: a 40px greyscale round photo (an avatar, so the one rounded shape here), a .label "You'll speak directly with Ro" and, on the next line, "[RealDays founder]" in square brackets. The form has four fields (Business name, Your name, Phone, Email) and a square "Get listed" button (44px high, 116px wide at least). Inputs are a bottom border only, 40px, mono 16px.</p>
       <section class="band-dark on-dark" style="padding:var(--s-8) 0;margin-bottom:var(--s-6);">
         <div class="container grid">
           <div class="c-1-5">
@@ -616,7 +615,6 @@
               <label><span class="label">Phone</span><input type="tel" autocomplete="off" /></label>
               <label><span class="label">Email</span><input type="email" autocomplete="off" /></label>
             </div>
-            <label class="signup-check"><input type="checkbox" /><span class="label">I'm interested in being a founding partner</span></label>
             <div class="signup-form__foot">
               <p class="label" style="margin:0;color:var(--paper-2);">&nbsp;</p>
               <button type="submit" class="btn btn--on-dark">Get listed</button>
@@ -625,23 +623,13 @@
         </div>
       </section>
 
-      <h3 class="t-title">Notice bar and dialog</h3>
-      <p class="ds-section__intro">.notice-bar (#moreSoon on the homepage): a full-width bar along the bottom at z 16, dismissible with "Got it" and remembered in localStorage. .rd-dialog is a native modal dialog (the founding partner invite on /for-business/, opened 4 seconds in): square, 1px ink border, 560px wide at most, with an h2 at --t-subhead. Note: the notice bar text on live is mono caps and runs to several lines on phones. That breaks the rule that multi-line copy is Neue Haas in sentence case, and it is shown here as live has it.</p>
-      <div class="notice-bar" style="position:static;margin-bottom:var(--s-5);" role="note">
+      <h3 class="t-title">Notice bar</h3>
+      <p class="ds-section__intro">.notice-bar (#moreSoon on the homepage): a full-width bar along the bottom at z 16. It has no close button and shows on every load. app.js measures it, sets --notice-h and pads the page by that height so the footer is never hidden behind it, and lifts the floating CTA above it. Note: the notice bar text on live is mono caps and runs to several lines on phones. That breaks the rule that multi-line copy is Neue Haas in sentence case, and it is shown here as live has it.</p>
+      <div class="notice-bar" style="position:static;margin-bottom:var(--s-6);" role="note">
         <div class="container notice-bar__in" style="padding-inline:var(--s-5);">
           <p>We're still adding experiences, so there's more on the way. Stay tuned.</p>
-          <button type="button" class="btn btn--primary">Got it</button>
         </div>
       </div>
-      <dialog class="rd-dialog" open style="position:static;margin:0 0 var(--s-6);" aria-labelledby="ds-dialog-title">
-        <button type="button" class="rd-dialog__close" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
-        <h2 id="ds-dialog-title">Become a RealDays founding partner</h2>
-        <p>We're building RealDays with the businesses that use it. We want booking and admin to take care of themselves, so you can get back to running great experiences.</p>
-        <div class="rd-dialog__actions">
-          <a href="#" class="btn btn--primary">Apply to be a founding partner</a>
-          <button type="button" class="btn btn--secondary">Maybe later</button>
-        </div>
-      </dialog>
 
       <h3 class="t-title">Footer</h3>
       <p class="ds-section__intro">Dark on every page (ink fill, a hairline of --line-dark above): 48px top and bottom, one flex row on the container edges that stacks under 821px, 12px mono caps. The links are paper-2 and go paper on hover; the copyright line is .label text. On live the footer is dark, not the light footer a first read of the brief suggests.</p>

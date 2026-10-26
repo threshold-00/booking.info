@@ -1014,13 +1014,6 @@ html.is-map-locked{overflow:hidden}
 .signup-form label{display:grid;gap:var(--s-2)}
 .signup-form label .label{color:var(--paper-3)}
 .rd .signup-form input{min-height:var(--control-h);height:var(--control-h);padding:var(--s-2) 0}
-/* Founding partner tick box, a square that fills with a tick (on the dark band). */
-.signup-check{display:flex!important;align-items:center;gap:var(--s-3);cursor:pointer}
-.signup-check .label{color:var(--paper)!important}
-.rd .signup-form .signup-check input{appearance:none;-webkit-appearance:none;flex:none;position:relative;width:20px;height:20px;min-height:0;margin:0;padding:0;border:var(--bw) solid var(--line-ui-dark);background:none;cursor:pointer}
-.rd .signup-form .signup-check input:checked{background:var(--paper);border-color:var(--paper)}
-.rd .signup-form .signup-check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid var(--ink);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
-.rd .signup-form .signup-check input:focus-visible{outline:2px solid var(--focus-dark);outline-offset:2px}
 .signup-form__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4)}
 .signup-form__foot .form-status{margin:0;min-height:17px;color:var(--paper-2)}
 .signup-form__foot .btn--on-dark{margin-left:auto}
@@ -1101,8 +1094,6 @@ html.is-map-locked{overflow:hidden}
 .price-head u{text-decoration-thickness:2px;text-underline-offset:6px}
 .price-copy p{margin:0 0 var(--s-6);max-width:var(--measure);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
 .price-copy h3{font-size:var(--t-title);margin:0 0 var(--s-3)}
-.price-founding{margin:var(--s-4) 0 0}
-.price-founding a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .price-copy ul{margin:0;padding-left:1.2em;font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
 .rd .compare-table{max-width:none;font-size:var(--t-small)}
 .rd .compare-table th,.rd .compare-table td{padding:var(--s-3) var(--s-4)}
@@ -1129,25 +1120,11 @@ html.is-map-locked{overflow:hidden}
 .rd .faq-section{padding-bottom:var(--section-y)}
 .rd .band-dark+.faq-section{padding-top:var(--section-y)}
 
-/* Homepage notice, full width along the bottom, cookie-banner style, until "Got it" (app.js). */
-.notice-bar{position:fixed;left:0;right:0;bottom:0;z-index:16;padding-block:var(--s-4) calc(var(--s-4) + env(safe-area-inset-bottom,0px));background:var(--paper);border-top:var(--bw) solid var(--ink);box-shadow:var(--shadow-bar)}
-.notice-bar[hidden]{display:none}
+/* Homepage notice, full width along the bottom, cookie-banner style. It has no close button (Ro, 26 Oct 2026); app.js pads the page by its height. */
+.notice-bar{position:fixed;left:0;right:0;bottom:0;z-index:16;padding-block:var(--s-4) max(var(--s-4),env(safe-area-inset-bottom,0px));background:var(--paper);border-top:var(--bw) solid var(--ink);box-shadow:var(--shadow-bar)}
 .notice-bar__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-3) var(--s-5)}
 .notice-bar p{flex:1 1 240px;margin:0;font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink)}
-.notice-bar .btn--primary{flex:none}
-@media (max-width:767px){.notice-bar .btn--primary{width:100%}}
 
-/* For businesses: founding partner invite, a native modal dialog (app.js opens it once). */
-.rd-dialog{width:min(560px,calc(100vw - 2 * var(--gutter)));max-height:calc(100dvh - 2 * var(--gutter));margin:auto;padding:var(--s-6);background:var(--paper);color:var(--ink);border:var(--bw) solid var(--ink);border-radius:0;box-shadow:var(--shadow-float)}
-.rd-dialog__close{position:absolute;top:var(--s-2);right:var(--s-2);display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer}
-@media (hover:hover){.rd-dialog__close:hover{background:var(--color-hover)}}
-.rd-dialog__close:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
-.rd-dialog h2{padding-right:var(--s-6)}
-.rd-dialog::backdrop{background:var(--ink);opacity:.4}
-.rd-dialog h2{margin:0 0 var(--s-4);font-family:var(--display);font-size:var(--t-subhead);font-weight:500;line-height:var(--lh-tight)}
-.rd-dialog p{margin:0 0 var(--s-4);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
-.rd-dialog__actions{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-5)}
-@media (max-width:767px){.rd-dialog{padding:var(--s-5)}.rd-dialog__actions .btn--primary,.rd-dialog__actions .btn--secondary{width:100%}}
 
 /* Homepage: experiences still loading onto RealDays sit greyed out below the New in Victoria and New in Bali rails.
    Cards marked data-live (Suigeneris, Indigo and the Bali listings) keep full colour. */
@@ -1163,3 +1140,8 @@ html.is-map-locked{overflow:hidden}
 .rd .fn-reset:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 @media (min-width:768px){.filter-nav.is-stuck .fn-reset{align-self:center;margin-bottom:0}}
 @media (max-width:767px){.filter-nav.is-stuck .fn-reset{display:none}.rd .fn-reset{align-self:end;justify-self:start;margin-bottom:0}}
+
+/* Homepage notice bar (can't be closed): leave room for it under the page, and lift the floating button above it. */
+body.has-notice{padding-bottom:var(--notice-h,0px)}
+body.has-notice .float-cta{bottom:calc(var(--notice-h,0px) + 24px)}
+@media (max-width:820px){body.has-notice .float-cta{bottom:calc(var(--notice-h,0px) + 16px)}}

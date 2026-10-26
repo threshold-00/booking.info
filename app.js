@@ -1668,46 +1668,17 @@ window.addEventListener('resize', setHeaderOffset);
   });
 })();
 
-// Homepage: a notice along the bottom that more experiences are coming. It shows on every
-// load, including a reload by the same visitor (Ro, 26 Oct 2026); "Got it" hides it until
-// the page is loaded again, and nothing is remembered.
+// Homepage: a notice along the bottom that more experiences are coming. It can't be closed
+// (Ro, 26 Oct 2026) and shows on every load. The page gets bottom padding equal to the bar's
+// height, so the last lines of the footer are never hidden behind it, and the floating
+// button rides above it.
 (function () {
-  var bar = document.getElementById('moreSoon'), ok = document.getElementById('moreSoonOk');
-  if (!bar || !ok) return;
-  bar.hidden = false;
-  ok.addEventListener('click', function () { bar.hidden = true; });
+  var bar = document.getElementById('moreSoon');
+  if (!bar) return;
+  function size() { document.documentElement.style.setProperty('--notice-h', bar.offsetHeight + 'px'); }
+  document.body.classList.add('has-notice');
+  size();
+  window.addEventListener('resize', size);
+  if (window.ResizeObserver) new ResizeObserver(size).observe(bar);
 })();
 
-// For businesses: the founding partner invite opens once, a few seconds in. "Apply" goes
-// to the sign-up form (ticking its founding partner box) and it never comes back; the
-// close button, "Maybe later", Esc or a click outside close it for this visit.
-(function () {
-  var dlg = document.getElementById('foundingDialog');
-  if (!dlg || typeof dlg.showModal !== 'function') return;
-  var KEY = 'threshold-founding-invite', apply = document.getElementById('foundingApply');
-  var later = document.getElementById('foundingLater'), field = document.getElementById('leadFounding');
-  var closeBtn = document.getElementById('foundingClose');
-  try { if (localStorage.getItem(KEY) || sessionStorage.getItem(KEY)) return; } catch (e) { /* show it */ }
-  function remember(store) { try { store.setItem(KEY, '1'); } catch (e) { /* ignore */ } }
-  setTimeout(function () {
-    if (document.querySelector('dialog[open]')) return;
-    dlg.showModal();
-  }, 4000);
-  dlg.addEventListener('close', function () { remember(sessionStorage); });
-  dlg.addEventListener('click', function (e) {
-    if (e.target !== dlg) return;
-    var r = dlg.getBoundingClientRect();
-    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
-  });
-  if (later) later.addEventListener('click', function () { dlg.close(); });
-  if (closeBtn) closeBtn.addEventListener('click', function () { dlg.close(); });
-  if (apply) apply.addEventListener('click', function (e) {
-    e.preventDefault();
-    remember(localStorage);
-    if (field) field.checked = true;
-    dlg.close();
-    var form = document.getElementById('interested'), first = document.querySelector('#lead input[name="business"]');
-    if (form) form.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 400);
-  });
-})();
