@@ -584,7 +584,7 @@ ${FOOTER}</div>
   ${mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=1b6f3eaf"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=5074b312"></script>
 <script src="/app.js?v=a754b53f"></script>
 <script src="/assets/detail.js?v=845a0aa9" defer></script>
 </body>

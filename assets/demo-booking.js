@@ -739,7 +739,7 @@
     a.onclick = function (ev) {
       ev.preventDefault();
       api('GET', '/demo/links?ref=' + encodeURIComponent(ref)).then(function (r) {
-        if (r.status === 200) location.href = '?x=' + state.key + '&respond=' + encodeURIComponent(r.body.respond_token) + (r.body.balance_token ? '&bal=' + encodeURIComponent(r.body.balance_token) : '');
+        if (r.status === 200) location.href = '?x=' + state.key + '&respond=' + encodeURIComponent(r.body.respond_token) + (r.body.balance_token ? '&bal=' + encodeURIComponent(r.body.balance_token) : '') + (r.body.cancel_token ? '&can=' + encodeURIComponent(r.body.cancel_token) : '');
         else { text(box.querySelector('p'), 'That demo link has expired. Make a new test booking to try again.'); a.remove(); }
       });
     };
@@ -752,6 +752,8 @@
     bizView(q.get('respond'), q.get('bal'));
   } else if (q.get('balance')) {
     balanceView(q.get('balance'));
+  } else if (q.get('cancel')) {
+    cancelView(q.get('cancel'));
   } else {
     track('page_view');
   }
@@ -823,13 +825,24 @@
       : status === 'confirmed' ? 'Accepted. The ' + (dep ? 'deposit' : 'payment') + ' has been taken (test mode) and the customer is told.'
       : status === 'declined' ? 'Declined. The hold on their card is released and they aren\'t charged.'
       : 'This request is ' + status.replace(/_/g, ' ') + '.';
-    if (status === 'confirmed' && dep && balToken && $('bizDemoBox')) {
+    var canToken = q.get('can');
+    if (status === 'confirmed' && $('bizDemoBox') && ((dep && balToken) || canToken)) {
       var box = $('bizDemoBox');
       box.hidden = false;
-      box.innerHTML = '<p></p><a class="btn-ghost"></a>';
-      text(box.querySelector('p'), 'Demo: the customer gets a link to pay the balance a few days before. Try it as the customer.');
-      var a = box.querySelector('a'); text(a, 'Pay the balance as the customer');
-      a.href = '?x=' + state.key + '&balance=' + encodeURIComponent(balToken);
+      box.innerHTML = '<p></p>';
+      text(box.querySelector('p'), dep && balToken
+        ? 'Demo: the customer gets a link to pay the balance a few days before, and one to cancel. Try them as the customer.'
+        : 'Demo: the customer\'s emails have a link to cancel. Try it as the customer.');
+      if (dep && balToken) {
+        var a = document.createElement('a'); a.className = 'btn-ghost'; text(a, 'Pay the balance as the customer');
+        a.href = '?x=' + state.key + '&balance=' + encodeURIComponent(balToken);
+        box.appendChild(a);
+      }
+      if (canToken) {
+        var c = document.createElement('a'); c.className = 'btn-ghost'; text(c, 'Cancel as the customer');
+        c.href = '?x=' + state.key + '&cancel=' + encodeURIComponent(canToken);
+        box.appendChild(c);
+      }
     }
   }
 
@@ -854,6 +867,43 @@
         api('POST', '/balance', { token: token }).then(function (p) {
           if (p.body.checkout_url) location.href = p.body.checkout_url;
           else { showError($('doneErr'), p.body.message || 'Something went wrong.'); btn.hidden = true; }
+        });
+      };
+    });
+  }
+
+  // The customer's cancel link, from their email. Shows what they get back first.
+  function cancelView(token) {
+    done('Your booking', 'Cancel your booking', '');
+    $('doneBack').hidden = true;
+    api('GET', '/cancel?token=' + encodeURIComponent(token)).then(function (r) {
+      if (r.status !== 200) { $('doneText').textContent = r.body.message || 'This link has expired.'; return; }
+      var b = r.body, box = $('doneSummary');
+      $('doneLabel').textContent = 'Reference ' + b.ref;
+      $('doneText').textContent = b.experience + ', ' + b.when + '.';
+      if (/^cancelled/.test(b.status)) {
+        $('doneText').textContent += ' This booking is cancelled.' + (b.refunded_cents ? ' ' + money(b.refunded_cents) + ' has been refunded.' : '');
+        return;
+      }
+      if (b.cannot) { $('doneText').textContent += ' ' + b.cannot.message; return; }
+      var quote = b.quote;
+      box.hidden = false;
+      box.innerHTML = '<div class="row"><b>You get back</b><b></b></div><div class="row later"></div>';
+      text(box.firstChild.children[1], quote.charged ? money(quote.refund_cents) : 'Nothing was charged');
+      text(box.lastChild, !quote.charged ? 'Your card is only held. Cancelling releases it.'
+        : quote.refund_cents >= quote.paid_cents ? 'A full refund of what you paid.'
+        : quote.refund_cents > 0 ? 'Of the ' + money(quote.paid_cents) + ' you paid' + (quote.admin_fee_cents ? ', less a ' + money(quote.admin_fee_cents) + ' admin fee' : '') + '. ' + quote.policy_text
+        : 'There is no refund this close to the start. ' + quote.policy_text);
+      var btn = $('doneBtn');
+      btn.hidden = false; btn.textContent = 'Cancel booking';
+      btn.onclick = function () {
+        btn.disabled = true; btn.textContent = 'Cancelling...';
+        api('POST', '/cancel', { token: token }).then(function (p) {
+          btn.hidden = true;
+          if (p.status !== 200) { showError($('doneErr'), p.body.message || 'Something went wrong.'); return; }
+          box.hidden = true;
+          $('doneText').textContent = 'Cancelled. ' + (p.body.refund_cents ? money(p.body.refund_cents) + ' is on its way back to your card. Refunds usually show within 5 to 10 business days.'
+            : quote.charged ? 'There is no refund under the cancellation policy.' : 'The hold on your card is released. You haven\'t been charged.');
         });
       };
     });
