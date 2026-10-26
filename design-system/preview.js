@@ -22,35 +22,18 @@
     }
   }
 
-  var state = Object.assign({ mono: 'chivo', corners: 'pill', reducedMotion: false }, loadState());
-
-  function applyMono(value) {
-    root.style.setProperty('--mono', value === 'plex' ? "'IBM Plex Mono',ui-monospace,monospace" : "'Chivo Mono',ui-monospace,monospace");
-  }
-
-  function applyCorners(value) {
-    var map = { pill: 'var(--r-pill)', '2px': 'var(--r-2)', square: 'var(--r-0)' };
-    root.style.setProperty('--r-control', map[value] || map.pill);
-  }
+  var state = Object.assign({ reducedMotion: false }, loadState());
 
   function applyReducedMotion(on) {
     root.classList.toggle('ds-reduced-motion', !!on);
   }
 
   function applyAll() {
-    applyMono(state.mono);
-    applyCorners(state.corners);
     applyReducedMotion(state.reducedMotion);
     syncControls();
   }
 
   function syncControls() {
-    document.querySelectorAll('input[name="ds-mono"]').forEach(function (el) {
-      el.checked = el.value === state.mono;
-    });
-    document.querySelectorAll('input[name="ds-corners"]').forEach(function (el) {
-      el.checked = el.value === state.corners;
-    });
     var rm = document.getElementById('ds-reduced-motion');
     if (rm) rm.checked = !!state.reducedMotion;
   }
@@ -58,15 +41,7 @@
   document.addEventListener('change', function (e) {
     var t = e.target;
     if (!t) return;
-    if (t.name === 'ds-mono') {
-      state.mono = t.value;
-      applyMono(state.mono);
-      saveState(state);
-    } else if (t.name === 'ds-corners') {
-      state.corners = t.value;
-      applyCorners(state.corners);
-      saveState(state);
-    } else if (t.id === 'ds-reduced-motion') {
+    if (t.id === 'ds-reduced-motion') {
       state.reducedMotion = t.checked;
       applyReducedMotion(state.reducedMotion);
       saveState(state);
@@ -75,12 +50,10 @@
 
   applyAll();
 
-  /* Marquee pause, mirrors the live site's sessionStorage-backed toggle. */
-  document.querySelectorAll('[data-marquee-demo]').forEach(function (btn) {
+  /* Pause / Play on the hero example, a stand-in for the video toggle on the home hero. */
+  document.querySelectorAll('[data-hero-pause-demo]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var pressed = btn.getAttribute('aria-pressed') === 'true';
-      btn.setAttribute('aria-pressed', String(!pressed));
-      btn.textContent = pressed ? 'Pause' : 'Play';
+      btn.textContent = btn.textContent === 'Pause' ? 'Play' : 'Pause';
     });
   });
 

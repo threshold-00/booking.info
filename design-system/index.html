@@ -8,9 +8,9 @@
 <link rel="canonical" href="/design-system/" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="/assets/tokens.css?v=9e799500" />
-<link rel="stylesheet" href="/assets/components.css?v=6345d07e" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="/assets/tokens.css?v=2cf6efff" />
+<link rel="stylesheet" href="/assets/components.css?v=dba4a3fe" />
 <style>
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/neuehaas-600.woff2') format('woff2')}
@@ -36,16 +36,16 @@
   .ds-swatch{border:var(--bw) solid var(--line);padding:var(--s-3)}
   .ds-swatch__fill{height:64px;margin-bottom:var(--s-2)}
   .ds-swatch__name{font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label)}
-  .ds-swatch__value{font-family:var(--mono);font-size:var(--t-label);color:var(--ink-2);word-break:break-all}
+  .ds-swatch__value{font-family:var(--display);font-size:var(--t-small);color:var(--ink-2);word-break:break-all}
 
   .ds-specimen{border-bottom:var(--bw) solid var(--line);padding:var(--s-5) 0;display:grid;grid-template-columns:1fr 2fr;gap:var(--s-5);align-items:baseline}
-  .ds-specimen__meta{font-family:var(--mono);font-size:var(--t-label);color:var(--ink-2)}
+  .ds-specimen__meta{font-family:var(--display);font-size:var(--t-small);line-height:1.4;color:var(--ink-2)}
   @media (max-width:820px){.ds-specimen{grid-template-columns:1fr}}
 
-  .ds-mono-zoom{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:44px;display:block;margin:var(--s-4) 0}
+  .ds-mono-zoom{font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--ls-label);font-size:44px;display:block;margin:var(--s-4) 0}
   .ds-mono-real{font-size:12px}
 
-  table.ds-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:var(--t-small)}
+  table.ds-table{width:100%;border-collapse:collapse;font-family:var(--display);font-size:var(--t-small)}
   table.ds-table th,table.ds-table td{text-align:left;padding:var(--s-2) var(--s-3);border-bottom:var(--bw) solid var(--line)}
   .ds-pass{color:var(--ink)}
   .ds-pass::before{content:"\2713\00a0"}
@@ -66,24 +66,20 @@
 
   .ds-index{display:flex;gap:var(--s-2);align-items:baseline;margin-bottom:var(--s-2)}
 
-  footer.ds-footer{padding:var(--s-6) var(--gutter);color:var(--ink-2);font-family:var(--mono);font-size:var(--t-label)}
+  footer.ds-footer{padding:var(--s-6) var(--gutter);color:var(--ink-2);font-family:var(--display);font-size:var(--t-small)}
+  .ds-spacelabel{width:90px;font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase}
+  .ds-diagram{position:relative;border:var(--bw) solid var(--line);background:var(--panel)}
+  .ds-diagram__box{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;border:var(--bw) dashed var(--line-ui);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-2)}
+  .ds-diagram__box--map{background:var(--paper);border-style:solid;border-color:var(--ink);color:var(--ink)}
+  .ds-diagram__box--scrim{background:var(--ink);opacity:.4;border:0}
+  .ds-placeholder{display:flex;align-items:center;justify-content:center;padding:var(--s-4);border:var(--bw) dashed var(--line-ui);background:var(--panel);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-2);text-align:center}
 </style>
+
 </head>
-<body>
+<body class="rd">
 <a href="#main" class="skip-link btn btn--lg" style="width:auto;">Skip to content</a>
 
 <div class="ds-toggles">
-  <div class="ds-toggle-group">
-    <span class="ds-toggle-group__label">Mono</span>
-    <label class="ds-radio"><input type="radio" name="ds-mono" value="chivo" checked /> Chivo Mono</label>
-    <label class="ds-radio"><input type="radio" name="ds-mono" value="plex" /> IBM Plex Mono</label>
-  </div>
-  <div class="ds-toggle-group">
-    <span class="ds-toggle-group__label">Corners</span>
-    <label class="ds-radio"><input type="radio" name="ds-corners" value="pill" checked /> Pill</label>
-    <label class="ds-radio"><input type="radio" name="ds-corners" value="2px" /> 2px</label>
-    <label class="ds-radio"><input type="radio" name="ds-corners" value="square" /> Square</label>
-  </div>
   <div class="ds-toggle-group">
     <label class="ds-radio"><input type="checkbox" id="ds-reduced-motion" /> Preview reduced motion</label>
   </div>
@@ -94,10 +90,10 @@
 
     <section class="ds-section" id="tokens">
       <div class="ds-index"><span class="index">[01]</span><h2>Tokens</h2></div>
-      <p class="ds-section__intro">Colour, type, spacing, radius, border, shadow, motion and breakpoints. Everything below reads from /assets/tokens.css. No value here is invented; see the brief, section 4.</p>
+      <p class="ds-section__intro">Colour, type, spacing, radius, border, shadow, layers, motion and breakpoints. Everything below reads from /assets/tokens.css, which mirrors the body.rd layer of the live styles.css. Update both together. Last synced to live getrealdays.com on 26 Oct 2026.</p>
 
       <h3 class="t-title">Colour</h3>
-      <p class="ds-section__intro">Ink, paper and greys only: there is no accent colour (green retired 22 Oct 2026). Hover is grey: --color-hover behind ink text on paper surfaces (pills, menus, light buttons on dark), --color-hover-dark on filled ink buttons and the map pin. Links go ink and underline on hover. Success and status are ink text with an icon (&check;), never a colour. Hover is never the only focus cue: :focus-visible is always a 2px ink outline (paper on ink).</p>
+      <p class="ds-section__intro">Ink, paper and greys only: there is no accent colour (green retired 22 Oct 2026). Hover is grey: --color-hover behind ink text on paper surfaces (chips, menus, light buttons on dark), --color-hover-dark on filled ink buttons and the map pin. Links go ink and underline on hover. Success and status are ink text with an icon (&check;), never a colour. Hover is never the only focus cue: :focus-visible is always a 2px ink outline (paper on ink).</p>
       <div class="ds-grid" style="margin-bottom:var(--s-7);">
         <div class="ds-swatch"><div class="ds-swatch__fill ds-swatch--ink"></div><div class="ds-swatch__name">ink</div><div class="ds-swatch__value">#17171a</div></div>
         <div class="ds-swatch"><div class="ds-swatch__fill ds-swatch--paper"></div><div class="ds-swatch__name">paper</div><div class="ds-swatch__value">#f3f2ee</div></div>
@@ -111,45 +107,108 @@
       </div>
 
       <h3 class="t-title">Type scale</h3>
+      <p class="ds-section__intro">Two layers. The :root values apply to pages outside body.rd (the demos, the hubs, the case study). body.rd, the homepage and /for-business/, overrides display, title, body and small, and the specimens below render at those values because this page carries class="rd". Headings (h1 to h3) have letter-spacing 0. Neue Haas has only a 400 and a 600 face: a weight of 500 falls back to 400, so only 400 and 600 are documented. Chivo Mono is the only mono and it is always uppercase, weight 400.</p>
       <div style="margin-bottom:var(--s-7);">
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-display<br />36&ndash;72px &middot; lh 1.1 &middot; <span id="ds-mono-label-1">ls -.015em</span> &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-display);font-weight:var(--w-strong);letter-spacing:var(--ls-display);line-height:1.1;">Something you'll actually remember doing.</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-headline<br />28&ndash;44px &middot; lh 1.08 &middot; ls -.015em &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-headline);font-weight:var(--w-strong);letter-spacing:var(--ls-headline);line-height:1.08;">List with RealDays.</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-subhead<br />20&ndash;24px &middot; lh 1.15 &middot; ls -.01em &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-subhead);font-weight:var(--w-strong);letter-spacing:var(--ls-subhead);line-height:1.15;">Horse experiences</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-title<br />16&ndash;17px &middot; lh 1.3 &middot; ls -.005em &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);letter-spacing:var(--ls-title);line-height:1.3;">Guided horse ride through rice fields to the beach</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-body<br />14px &middot; lh 1.5 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-body);line-height:1.5;">A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-small<br />13px &middot; lh 1.45 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-small);line-height:1.45;">Per person, up to 5 riders</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-label (floor)<br />12px &middot; lh 16px &middot; ls .1em &middot; uppercase mono</div><div style="font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;line-height:16px;">Check dates with Salty Cowboy</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-display<br />body.rd 40&ndash;72px (clamp(2.5rem,1.6rem + 3.8vw,4.5rem)) &middot; :root 36&ndash;72px<br />lh 1.1 &middot; ls 0 &middot; 600<br />Hero h1: lh 1.18, ls .01em. Business hero h1: ls -.01em</div><div style="font-family:var(--display);font-size:var(--t-display);font-weight:var(--w-strong);letter-spacing:0;line-height:1.1;">Something you'll actually remember doing.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-headline<br />28&ndash;44px &middot; lh 1.1 &middot; ls 0 &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-headline);font-weight:var(--w-strong);letter-spacing:0;line-height:1.1;">List with RealDays.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-subhead<br />20&ndash;24px &middot; lh 1.15 &middot; ls 0 &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-subhead);font-weight:var(--w-strong);letter-spacing:0;line-height:1.15;">Horse experiences</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-title<br />body.rd 17px &middot; :root 16&ndash;17px<br />lh 1.25 to 1.3 &middot; ls 0 &middot; 600 (FAQ questions 400)</div><div style="font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);letter-spacing:0;line-height:1.3;">Guided horse ride through rice fields to the beach</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-body<br />body.rd 16px &middot; :root 14px<br />lh 1.5 to 1.6 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-body);line-height:1.5;">A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-small<br />body.rd 14px &middot; :root 13px<br />lh 1.4 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-small);line-height:1.4;">Per person, up to 5 riders</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-label (floor)<br />12px &middot; lh 18px (1.5 in blocks) &middot; ls .08em (0.96px)<br />uppercase Chivo Mono &middot; 400</div><div class="label">Check dates with Salty Cowboy</div></div>
       </div>
 
       <h3 class="t-title">The 12px mono specimen, large and real size</h3>
-      <p class="ds-section__intro">Same string, same markup, two sizes. Advance width is identical between Chivo Mono and IBM Plex Mono at this tracking, so the mono toggle above never reflows anything on this page.</p>
+      <p class="ds-section__intro">Same string, same markup, two sizes: Chivo Mono 400, uppercase, tracking .08em (0.96px at 12px). Short labels only; anything that runs past about six words is Neue Haas in sentence case.</p>
       <span class="ds-mono-zoom">CHECK DATES WITH SALTY COWBOY</span>
-      <span class="ds-mono-real" style="font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;">CHECK DATES WITH SALTY COWBOY</span>
+      <span class="ds-mono-real" style="font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--ls-label);">CHECK DATES WITH SALTY COWBOY</span>
 
-      <h3 class="t-title" style="margin-top:var(--s-7);">Spacing</h3>
+      <h3 class="t-title" style="margin-top:var(--s-7);">Controls</h3>
+      <table class="ds-table" style="margin-bottom:var(--s-7);">
+        <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
+        <tbody>
+          <tr><td>--control-h</td><td>40px</td><td>buttons, chips, selects, rail arrows, currency picker</td></tr>
+          <tr><td>--control-h-sm</td><td>24px</td><td>Demo tag, jump links</td></tr>
+          <tr><td>--control-px</td><td>16px</td><td>side padding on buttons and selects</td></tr>
+          <tr><td>chip--sm</td><td>32px (padding 6px 10px)</td><td>sub-chips</td></tr>
+          <tr><td>tap target</td><td>44px</td><td>::before inset -4px 0 on .btn and .chip, so the visual size stays 40px</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="t-title">Spacing</h3>
       <div style="display:flex;flex-direction:column;gap:var(--s-2);margin-bottom:var(--s-7);">
-        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-1 4px</span><span style="height:16px;background:var(--ink);width:4px;"></span></div>
-        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-4 16px</span><span style="height:16px;background:var(--ink);width:16px;"></span></div>
-        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-6 32px</span><span style="height:16px;background:var(--ink);width:32px;"></span></div>
-        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-8 64px</span><span style="height:16px;background:var(--ink);width:64px;"></span></div>
-        <div style="display:flex;align-items:center;gap:var(--s-3);"><span style="width:90px;font-family:var(--mono);font-size:var(--t-label);">s-10 128px</span><span style="height:16px;background:var(--ink);width:128px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-1 4px</span><span style="height:16px;background:var(--ink);width:4px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-2 8px</span><span style="height:16px;background:var(--ink);width:8px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-3 12px</span><span style="height:16px;background:var(--ink);width:12px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-4 16px</span><span style="height:16px;background:var(--ink);width:16px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-5 24px</span><span style="height:16px;background:var(--ink);width:24px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-6 32px</span><span style="height:16px;background:var(--ink);width:32px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-7 48px</span><span style="height:16px;background:var(--ink);width:48px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-8 64px</span><span style="height:16px;background:var(--ink);width:64px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-9 96px</span><span style="height:16px;background:var(--ink);width:96px;"></span></div>
+        <div style="display:flex;align-items:center;gap:var(--s-3);"><span class="ds-spacelabel">s-10 128px</span><span style="height:16px;background:var(--ink);width:128px;"></span></div>
       </div>
 
       <h3 class="t-title">Radius &amp; border</h3>
-      <div style="display:flex;gap:var(--s-5);align-items:center;flex-wrap:wrap;margin-bottom:var(--s-7);">
-        <div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-0);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">r-0</div>
-        <div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">r-2</div>
-        <div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">pill</div>
+      <p class="ds-section__intro">Square is the rule: --r-control is 0, and so are cards, panels, chips, buttons, selects, inputs and menus. The exceptions are listed here and nowhere else.</p>
+      <div style="display:flex;gap:var(--s-5);align-items:flex-end;flex-wrap:wrap;margin-bottom:var(--s-5);">
+        <div><div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-control);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">0</div><p class="label" style="margin:var(--s-2) 0 0;">Square</p></div>
+        <div><div style="width:72px;height:72px;background:var(--ink);border-radius:var(--r-panel);"></div><p class="label" style="margin:var(--s-2) 0 0;">6px panel</p></div>
+        <div><div style="padding:var(--s-3) 0;"><span class="tag">Demo</span></div><p class="label" style="margin:var(--s-2) 0 0;">999px tag</p></div>
+        <div><div style="width:40px;height:40px;background:var(--ink);border-radius:var(--r-round);"></div><p class="label" style="margin:var(--s-2) 0 0;">50% avatar</p></div>
         <div style="width:1px;height:40px;background:var(--ink);"></div>
         <div style="width:2px;height:40px;background:var(--ink);"></div>
-        <span class="eyebrow">bullet</span>
+        <span class="eyebrow" style="margin:0;">bullet 8px</span>
       </div>
+      <table class="ds-table" style="margin-bottom:var(--s-5);">
+        <thead><tr><th>Token</th><th>Value</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>--r-control</td><td>0</td><td>everything by default</td></tr>
+          <tr><td>--r-panel</td><td>6px</td><td>the hero search panel</td></tr>
+          <tr><td>--r-pill</td><td>999px</td><td>the Demo tag on cards</td></tr>
+          <tr><td>--r-round</td><td>50%</td><td>avatars (the founder photo, 40px)</td></tr>
+          <tr><td>--bw / --bw-strong</td><td>1px / 2px</td><td>borders / focus ring</td></tr>
+          <tr><td>--bullet</td><td>8 &times; 8px square</td><td>.eyebrow</td></tr>
+        </tbody>
+      </table>
+      <p class="ds-section__intro"><strong style="font-weight:var(--w-strong);">Known drift from the square rule.</strong> These are on live and are not rules, so they are not documented as components here. Ro can decide whether to fix live. Pills: .demo-flag, .map-hint, .pricing-tag, .gallery-header__count, .card__dots span. Rounded corners: --r-card and --r-gallery at 14px (the gallery photos on demo pages and the booking summary box). Found while syncing: the demo pages' inline .stepper is still a pill and their .bp-field-error has 8px corners. This page draws all of them square.</p>
+
+      <h3 class="t-title">Layers</h3>
+      <table class="ds-table" style="margin-bottom:var(--s-7);">
+        <thead><tr><th>z-index</th><th>What</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>.dd__list (dropdown list)</td></tr>
+          <tr><td>15 (--z-filter)</td><td>stuck filter bar</td></tr>
+          <tr><td>16</td><td>notice bar</td></tr>
+          <tr><td>17 (--z-scrim)</td><td>map scrim</td></tr>
+          <tr><td>18 (--z-panel)</td><td>map panel</td></tr>
+          <tr><td>19 (--z-menu)</td><td>open mobile menu</td></tr>
+          <tr><td>20 (--z-header)</td><td>site header</td></tr>
+          <tr><td>21</td><td>map panel on phones (header + 1)</td></tr>
+          <tr><td>40 (--z-bar)</td><td>.mobile-sticky-bar</td></tr>
+          <tr><td>50 (--z-top)</td><td>.float-cta</td></tr>
+          <tr><td>60 (--z-sheet)</td><td>map sheet on phones</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="t-title">Header height</h3>
+      <p class="ds-section__intro">--header-h is measured, not fixed: app.js sets it from siteHeader.offsetHeight. The CSS reads it with fallbacks of 85px (map panel and stuck filter bar), 73px and 61px (hero min-height). This page has no app.js, so it uses the 85px fallback.</p>
 
       <h3 class="t-title">Motion &amp; breakpoints</h3>
-      <p class="ds-section__intro">Easing var(--ease), durations 200/400/600ms. The bar below animates on hover; toggle "Preview reduced motion" above to confirm it goes static. Breakpoints: layout 820px, phone 640px.</p>
-      <div style="width:100%;height:8px;background:var(--line);overflow:hidden;">
+      <p class="ds-section__intro">--dur 250ms (0 under reduced motion) with --ease-out cubic-bezier(.2,.8,.2,1). The older --ease and --dur-1 to --dur-3 still drive the button spinner and a few legacy transitions. The bar below animates on hover; toggle "Preview reduced motion" above to confirm it goes static.</p>
+      <div style="width:100%;height:8px;background:var(--line);overflow:hidden;margin-bottom:var(--s-5);">
         <div id="ds-motion-demo" style="width:40%;height:100%;background:var(--ink);transition:transform var(--dur-3) var(--ease);" onmouseenter="this.style.transform='translateX(150%)'" onmouseleave="this.style.transform='translateX(0)'"></div>
       </div>
+      <table class="ds-table">
+        <thead><tr><th>Breakpoint</th><th>What changes</th></tr></thead>
+        <tbody>
+          <tr><td>640</td><td>mobile menu (burger and full-screen panel below; desktop nav above)</td></tr>
+          <tr><td>768</td><td>3-up cards, 32px gutter, stuck bar becomes dropdowns, map slide-over</td></tr>
+          <tr><td>820</td><td>legacy tablet rules (header padding, sticky bar, gallery carousel, 12-card mobile cap)</td></tr>
+          <tr><td>1024</td><td>map docks to the right half, 12-column grid</td></tr>
+          <tr><td>1200</td><td>5-up cards, 48px gutter, 96px home sections</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <section class="ds-section" id="contrast">
@@ -171,36 +230,39 @@
           <tr data-fg="rgba(243,242,238,.40)" data-bg="#17171a" data-ui="true"><td>line-ui-dark</td><td>ink</td><td class="ds-ratio">&ndash;</td><td class="ds-result">&ndash;</td></tr>
         </tbody>
       </table>
-      <p class="ds-section__intro" style="margin-top:var(--s-4);">Text on both hover colours passes 4.5:1. The focus ring is ink on light surfaces and paper on ink.</p>
+      <p class="ds-section__intro" style="margin-top:var(--s-4);">Text on both hover colours, including paper on #333333, passes 4.5:1. The focus ring is ink on light surfaces and paper on ink.</p>
     </section>
 
     <section class="ds-section" id="components">
       <div class="ds-index"><span class="index">[03]</span><h2>Components</h2></div>
-      <p class="ds-section__intro">Every interactive component in default, hover (pinned with .is-hover), focus-visible, active and disabled states, plus loading where relevant.</p>
-      <p class="ds-section__intro">Mobile rules (22 Oct 2026). Tap targets are at least 44px: buttons are 44px tall, and controls that look smaller (chips, Grid and Map tabs, breadcrumb, footer and photo credit links, map zoom) get a ::before inset that makes up the 44px. Text is at least 12px for captions, credits, breadcrumbs, footer links and booking labels. Chivo Mono caps are for short labels only, under about six words: labels, pills, prices, buttons and the hero subtext. Anything that runs to more than one line is Neue Haas in sentence case. Selects keep 16px text, or iOS zooms in.</p>
+      <p class="ds-section__intro">Every interactive component in default, hover (pinned with .is-hover), focus-visible, active and disabled states, plus loading where relevant. Mirrors the live body.rd layer; where this page and the live styles.css disagree, live wins.</p>
+      <p class="ds-section__intro">Rules (22 and 23 Oct 2026). Buttons, chips and selects are 40px and square; a ::before inset makes up the 44px tap target. Text is at least 12px. Chivo Mono caps are for short labels only, under about six words: labels, tags, prices, buttons and the hero subtext. Anything that runs to more than one line is Neue Haas in sentence case. Selects that open the phone's own picker keep 16px text, or iOS zooms in.</p>
 
       <h3 class="t-title">Buttons</h3>
+      <p class="ds-section__intro">.btn and .btn--primary (ink fill), .btn--secondary (outlined) and .btn--on-dark (paper on ink). 40px, 1px ink border, padding 2px 16px 0 calc(16px + .08em), radius 0, Chivo Mono 12px, line-height 1, .08em, uppercase, weight 400. Hover is --color-hover-dark on ink fills and --color-hover on outlined buttons. The old round sign-up button is retired; it is now a square "Get listed", 44px high and 116px wide at least (see Contact block).</p>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
         <div><span class="ds-state-label">Default</span><button class="btn">Browse experiences</button></div>
-        <div><span class="ds-state-label">Hover</span><button class="btn is-hover" style="background:var(--color-hover-dark);">Browse experiences</button></div>
+        <div><span class="ds-state-label">Hover</span><button class="btn is-hover" style="background:var(--color-hover-dark);color:var(--paper);border-color:var(--color-hover-dark);">Browse experiences</button></div>
         <div><span class="ds-state-label">Focus-visible</span><button class="btn" style="outline:var(--bw-strong) solid var(--focus);outline-offset:var(--focus-offset);">Browse experiences</button></div>
         <div><span class="ds-state-label">Loading</span><button class="btn" aria-busy="true"><span class="btn__label">Checking...</span></button></div>
         <div><span class="ds-state-label">Disabled</span><button class="btn" aria-disabled="true">Sold out</button></div>
         <div><span class="ds-state-label">Secondary</span><button class="btn btn--secondary">For businesses</button></div>
+        <div><span class="ds-state-label">Secondary, hover</span><button class="btn btn--secondary" style="background:var(--color-hover);border-color:var(--ink);">For businesses</button></div>
         <div><span class="ds-state-label">btn--lg (Book)</span><button class="btn btn--lg">Check dates with Salty Cowboy</button></div>
-        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="ds-state-label" style="color:var(--paper-2);">On dark</span><button class="btn">Get listed</button></div>
-        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="ds-state-label" style="color:var(--paper-2);">On dark, hover</span><button class="btn" style="background:var(--color-hover);color:var(--ink);">Get listed</button></div>
+        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="ds-state-label" style="color:var(--paper-2);">On dark</span><button class="btn btn--on-dark">Get listed</button></div>
+        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="ds-state-label" style="color:var(--paper-2);">On dark, hover</span><button class="btn btn--on-dark" style="background:var(--color-hover);border-color:var(--color-hover);">Get listed</button></div>
         <div><span class="ds-state-label">Link arrow</span><a href="#" class="link-arrow">See all experiences &rarr;</a></div>
         <div><span class="ds-state-label">Link arrow, hover</span><a href="#" class="link-arrow" style="text-decoration:underline;text-underline-offset:3px;">See all experiences &rarr;</a></div>
-        <div><span class="ds-state-label">Icon button</span><button class="btn--icon" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button></div>
+        <div><span class="ds-state-label">Icon button</span><button class="btn--icon" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6-6"/></svg></button></div>
       </div>
 
       <h3 class="t-title">Chips</h3>
+      <p class="ds-section__intro">40px, padding 10px, 1px --line-ui, radius 0, 12px mono caps at .08em, ink text. Pressed is an ink fill with paper text (no tick). .chip--sm is 32px.</p>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
-        <div><span class="ds-state-label">Default</span><button class="chip" aria-pressed="false">Horse experiences</button></div>
-        <div><span class="ds-state-label">Hover</span><button class="chip is-hover" aria-pressed="false">Horse experiences</button></div>
-        <div><span class="ds-state-label">Pressed</span><button class="chip" aria-pressed="true">Horse experiences</button></div>
-        <div><span class="ds-state-label">Sub chip</span><button class="chip chip--sub" aria-pressed="false">Beach ride</button></div>
+        <div><span class="ds-state-label">Default</span><button class="chip" aria-pressed="false">Horse riding</button></div>
+        <div><span class="ds-state-label">Hover</span><button class="chip is-hover" aria-pressed="false">Horse riding</button></div>
+        <div><span class="ds-state-label">Pressed</span><button class="chip" aria-pressed="true">Horse riding</button></div>
+        <div><span class="ds-state-label">Sub chip (32px)</span><button class="chip chip--sm" aria-pressed="false">Rides (2)</button></div>
         <div><span class="ds-state-label">Option (radio)</span>
           <div role="radiogroup" aria-label="Duration" style="display:flex;gap:var(--s-2);">
             <button class="chip--option" role="radio" aria-checked="true">1 hr<span class="chip--option__price">IDR 1,600,000</span></button>
@@ -209,38 +271,457 @@
         </div>
       </div>
 
-      <h3 class="t-title">View tabs</h3>
-      <p class="ds-section__intro">.view-tabs (6.24): Grid and Map in line with the "Experiences" title, right-aligned. Text tabs in mono caps with a 16px icon 8px from the label. Selected is --ink, the other --ink-2, and one 2px --ink line slides between them. The tap target reaches 44px around each tab. role=tablist, tab and tabpanel, aria-selected, arrow keys, Home and End. The view goes in the address as ?view=map.</p>
+      <h3 class="t-title">Header and nav</h3>
+      <p class="ds-section__intro">.site-header is sticky at z 20, paper at 92% with an 8px backdrop blur and a 1px --line bottom border. The logo sits on the container's left edge: Neue Haas 600, 22px on a 36px line, -.01em (plain text "RealDays." for now, see Wordmark and favicon). #siteNav is right-aligned (margin-left:auto) and never wraps: links are mono 400, 12px on an 18px line, uppercase, .96px tracking, 30px apart, ink-3. A 1px underline marks the active page and the hover; it is transparent when inactive so the height never changes. #currencySelect ("AUD $") is 40px high, square, with the same 12px / 400 / .96px type. Under 641px the nav collapses to the burger.</p>
+      <header class="site-header" style="position:static;margin-bottom:var(--s-6);border:var(--bw) solid var(--line);">
+        <div class="bar">
+          <a href="#" class="logo">RealDays.</a>
+          <nav class="nav" id="siteNav" aria-label="Main (example)">
+            <a href="#" class="navlink on" aria-current="page">For customers</a>
+            <a href="#" class="navlink">For businesses</a>
+            <label for="currencySelect" class="sr-only">Currency</label>
+            <select id="currencySelect" aria-label="Currency">
+              <option value="AUD">AUD $</option>
+              <option value="USD">USD $</option>
+              <option value="IDR">IDR Rp</option>
+            </select>
+          </nav>
+        </div>
+      </header>
+
+      <h3 class="t-title">Hero search panel</h3>
+      <p class="ds-section__intro">.hero-search on the homepage hero: max-width 680px, padding 24px (16px under 641px), gap 16px, radius 6px (--r-panel), fill rgba(243,242,238,.12) (--tint-hover-dark). Square 40px selects (.pill-select; the name is old, they are square) with a mono label above, and a "Go" .btn--on-dark. The list opens over the page, absolutely positioned so nothing moves, and shows five options (5 &times; 40px) before it scrolls inside. It sets the same filters as the filter bar.</p>
+      <div style="position:relative;padding:var(--s-6) var(--s-5);margin-bottom:var(--s-6);background:var(--ink);" class="on-dark">
+        <form class="hero-search" action="#" onsubmit="return false;" aria-label="Find an experience (example)">
+          <div class="hero-search__field"><label class="label" for="ds-hero-what">What</label><select id="ds-hero-what" class="select pill-select"><option>Anything</option><option>Horse riding</option><option>Clay</option></select></div>
+          <div class="hero-search__field"><label class="label" for="ds-hero-where">Where</label><select id="ds-hero-where" class="select pill-select"><option>Anywhere</option><option>Victoria</option><option>Bali</option></select></div>
+          <div class="hero-search__field"><label class="label" for="ds-hero-who">Situation</label><select id="ds-hero-who" class="select pill-select"><option>Anyone</option><option>Solo</option><option>Duo</option><option>Group (3+ ppl)</option></select></div>
+          <button type="submit" class="btn btn--on-dark">Go</button>
+        </form>
+      </div>
+
+      <h3 class="t-title">Filter bar, expanded and stuck</h3>
+      <p class="ds-section__intro">#filterNav.filter-nav sits inside #filterSlot, which keeps the full height so nothing jumps when the bar sticks. Expanded: labelled rows, .chip groups (What, then the horse sub-chips, then Situation), .fn-help under Situation, then Where, How long and Sort by, with View on map at the far right from 768px. app.js adds .is-stuck once the full filters have scrolled behind the header. Stuck: position fixed, top var(--header-h,85px), z 15, a 55px row from 768px, shadow 0 1px 0 var(--line), 0 6px 16px rgba(23,23,26,.08). The stuck row from 768px is the .fn-compact dropdowns What (multi-select), Situation, Where and How long (single-select), then Sort by, then View on map (margin-left:auto). Each trigger reads "Name: value". Under 768px the stuck bar is one row: Filters, Sort by and a map control. Both states are shown as static examples.</p>
+      <p class="label" style="margin:0 0 var(--s-2);">Expanded</p>
+      <div class="filter-slot" style="margin-bottom:var(--s-5);">
+        <div class="filter-nav" style="border:var(--bw) solid var(--line);">
+          <div class="container" style="padding-inline:var(--s-5);">
+            <div class="fn-rows">
+              <div class="fn-row fn-row--top">
+                <div class="fn-group fn-what">
+                  <span class="label fn-label">What</span>
+                  <div class="chip-list" role="group" aria-label="What (example)">
+                    <button type="button" class="chip" aria-pressed="true">Anything</button>
+                    <button type="button" class="chip" aria-pressed="false">Horse riding</button>
+                    <button type="button" class="chip" aria-pressed="false">Clay</button>
+                    <button type="button" class="chip" aria-pressed="false">Sea life</button>
+                    <button type="button" class="chip" aria-pressed="false">Surfing</button>
+                  </div>
+                  <div class="chip-list" role="group" aria-label="Horse experiences (example)" style="margin-top:var(--s-2);">
+                    <button type="button" class="chip chip--sm" aria-pressed="true">All horse (11)</button>
+                    <button type="button" class="chip chip--sm" aria-pressed="false">Rides (2)</button>
+                    <button type="button" class="chip chip--sm" aria-pressed="false">Lessons (5)</button>
+                  </div>
+                </div>
+                <div class="fn-group fn-who">
+                  <span class="label fn-label">Situation</span>
+                  <div class="chip-list" role="group" aria-label="Situation (example)">
+                    <button type="button" class="chip" aria-pressed="false">Group</button>
+                    <button type="button" class="chip is-hover" aria-pressed="false">Duo</button>
+                    <button type="button" class="chip" aria-pressed="false">Solo</button>
+                  </div>
+                  <p class="label fn-help">[Besties/Lovers/Situationship]</p>
+                </div>
+              </div>
+              <div class="fn-row fn-row--bottom">
+                <div class="fn-group fn-where">
+                  <span class="label fn-label">Where</span>
+                  <span class="fn-select"><select class="select pill-select" aria-label="Where (example)"><option>Anywhere</option><option>Victoria</option><option>Bali</option></select></span>
+                </div>
+                <div class="fn-group fn-long">
+                  <span class="label fn-label">How long?</span>
+                  <span class="fn-select"><select class="select pill-select" aria-label="How long (example)"><option>Don't mind</option><option>1 hour or less</option></select></span>
+                </div>
+                <div class="fn-group fn-sort">
+                  <span class="fn-select"><button type="button" class="fn-text" aria-label="Sort by (example)"><span>Sort by: Recommended</span></button></span>
+                </div>
+                <button type="button" class="fn-map" aria-label="View on map (example)"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="label" style="margin:0 0 var(--s-2);">Stuck, 768px and up</p>
+      <div class="filter-slot" style="margin-bottom:var(--s-5);">
+        <div class="filter-nav is-stuck" style="position:static;border:var(--bw) solid var(--line);">
+          <div class="container" style="padding-inline:var(--s-5);">
+            <div class="fn-rows">
+              <div class="fn-row fn-row--bottom" style="min-height:55px;align-items:center;gap:var(--s-2) var(--s-6);padding-block:var(--s-2);">
+                <div class="dd"><button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="false"><span class="dd__label">What:</span> Anything</button></div>
+                <div class="dd"><button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="false"><span class="dd__label">Situation:</span> Duo</button></div>
+                <div class="dd"><button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="false"><span class="dd__label">Where:</span> Victoria</button></div>
+                <div class="dd"><button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="false"><span class="dd__label">How long:</span> Don't mind</button></div>
+                <div class="fn-sort"><span class="fn-select"><button type="button" class="fn-text"><span>Sort by: Recommended</span></button></span></div>
+                <button type="button" class="fn-map" style="margin-left:auto;"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="label" style="margin:0 0 var(--s-2);">Stuck, under 768px</p>
+      <div class="filter-slot" style="max-width:390px;margin-bottom:var(--s-6);">
+        <div class="filter-nav is-stuck" style="position:static;padding-block:var(--s-3);border:var(--bw) solid var(--line);">
+          <div class="container" style="padding-inline:var(--s-4);">
+            <div class="fn-row fn-row--bottom" style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s-4) var(--s-3);align-items:end;">
+              <button type="button" class="btn btn--secondary">Filters</button>
+              <div class="fn-sort"><span class="fn-select" style="width:100%;"><button type="button" class="fn-text"><span>Sort by</span></button></span></div>
+              <button type="button" class="fn-map"><span>Map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="t-title">Sort by and View on map</h3>
+      <p class="ds-section__intro">.fn-text and .fn-map: text-style controls with no box and no pill. Mono 400, 12px on an 18px line, uppercase, .96px tracking, 36px high, a 1px bottom border in --line-ui that goes ink on hover, a 2px focus outline offset 2px. Sort by has a chevron (a 9&times;5 SVG, 6px from the label); View on map has the arrow (a 9&times;8 SVG rotated -45deg, 5px from the label). These are the exact SVGs from live. Sort options: Recommended, $ (low to high), $ (high to low).</p>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
-        <div><span class="ds-state-label">Grid selected</span><div class="view-tabs" role="tablist" aria-label="View (example)"><button type="button" class="view-tab" role="tab" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button><button type="button" class="view-tab" role="tab" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button><span class="view-tabs__line" aria-hidden="true" style="width:55px;"></span></div></div>
-        <div><span class="ds-state-label">Map selected</span><div class="view-tabs" role="tablist" aria-label="View (example 2)"><button type="button" class="view-tab" role="tab" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button><button type="button" class="view-tab" role="tab" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button><span class="view-tabs__line" aria-hidden="true" style="left:79px;width:47px;"></span></div></div>
-        <div><span class="ds-state-label">Hover</span><button type="button" class="view-tab is-hover" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button></div>
-        <div><span class="ds-state-label">Focus-visible</span><button type="button" class="view-tab" aria-hidden="true" tabindex="-1" style="outline:var(--bw-strong) solid var(--focus);outline-offset:var(--focus-offset);"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button></div>
+        <div><span class="ds-state-label">Sort by</span><span style="display:block;width:148px;"><button type="button" class="fn-text"><span>Sort by: Recommended</span></button></span></div>
+        <div><span class="ds-state-label">Sort by, hover</span><span style="display:block;width:148px;"><button type="button" class="fn-text" style="border-bottom-color:var(--ink);"><span>Sort by: Recommended</span></button></span></div>
+        <div><span class="ds-state-label">Sort by, focus-visible</span><span style="display:block;width:148px;"><button type="button" class="fn-text" style="outline:2px solid var(--focus);outline-offset:2px;"><span>Sort by: Recommended</span></button></span></div>
+        <div><span class="ds-state-label">View on map</span><button type="button" class="fn-map"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button></div>
+        <div><span class="ds-state-label">View on map, hover</span><button type="button" class="fn-map" style="border-bottom-color:var(--ink);"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button></div>
+      </div>
+
+      <h3 class="t-title">Situation helper</h3>
+      <p class="ds-section__intro">.fn-help sits under the Group / Duo / Solo chips: mono 12px on an 18px line, ink-2, with its 18px reserved so nothing jumps. It follows chip hover and focus, then falls back to the selected chip. The copy is exactly: "[3+ is a crowd]", "[Besties/Lovers/Situationship]", "[You can do anything]". Live has no spaces around the slashes in the middle one, and that is what is shown.</p>
+      <div class="fn-who" style="margin-bottom:var(--s-6);max-width:360px;">
+        <div class="chip-list" role="group" aria-label="Situation helper (example)">
+          <button type="button" class="chip" aria-pressed="false">Group</button>
+          <button type="button" class="chip is-hover" aria-pressed="false">Duo</button>
+          <button type="button" class="chip" aria-pressed="false">Solo</button>
+        </div>
+        <p class="label fn-help" style="left:0;">[Besties/Lovers/Situationship]</p>
+      </div>
+
+      <h3 class="t-title">Map panel</h3>
+      <p class="ds-section__intro">#mapPanel has a header row (the label "Map" and Close map) and a 1px left border. Three modes. From 1024px it docks to the right half: left 50%, width var(--map-w) (50vw), top var(--header-h,85px), height calc(100dvh - var(--header-h)), z 18, and the page shifts left (body.map-docked): the filter bar and list reflow into the left half and the card grid becomes auto-fill with a 220px minimum. From 768 to 1023px it is a 60vw slide-over from the right with #mapScrim (z 17). Under 768px it is full screen at z 21, above the header, sliding up. The map follows the filters. The diagrams are plain boxes, not tiles.</p>
+      <table class="ds-table" style="margin-bottom:var(--s-5);">
+        <thead><tr><th>Width</th><th>Mode</th><th>Panel</th><th>Layer</th></tr></thead>
+        <tbody>
+          <tr><td>1024 and up</td><td>docked</td><td>right half, 50vw, page content shifts</td><td>18</td></tr>
+          <tr><td>768 to 1023</td><td>slide-over</td><td>60vw from the right, scrim over the list</td><td>18 (scrim 17)</td></tr>
+          <tr><td>under 768</td><td>full screen</td><td>slides up over the header</td><td>21</td></tr>
+        </tbody>
+      </table>
+      <div class="ds-states" style="margin-bottom:var(--s-5);grid-template-columns:repeat(auto-fill,minmax(240px,1fr));">
+        <div><span class="ds-state-label">Docked, 1024 and up</span><div class="ds-diagram" style="height:140px;"><div class="ds-diagram__box" style="left:0;width:50%;">List</div><div class="ds-diagram__box ds-diagram__box--map" style="right:0;width:50%;">Map panel</div></div></div>
+        <div><span class="ds-state-label">Slide-over, 768 to 1023</span><div class="ds-diagram" style="height:140px;"><div class="ds-diagram__box" style="left:0;width:100%;">List</div><div class="ds-diagram__box ds-diagram__box--scrim" style="left:0;width:40%;"></div><div class="ds-diagram__box ds-diagram__box--map" style="right:0;width:60%;">Map panel</div></div></div>
+        <div><span class="ds-state-label">Full screen, under 768</span><div class="ds-diagram" style="height:140px;width:90px;"><div class="ds-diagram__box ds-diagram__box--map" style="left:0;width:100%;">Map</div></div></div>
+      </div>
+      <p class="ds-section__intro">Map cards (a popup on desktop, a floating sheet inside the gutters at 820px and under) carry a "Book now" button beside the price. On live they are .pop-card and .map-sheet in styles.css, and are not part of this library yet.</p>
+      <div class="map-panel" style="max-width:420px;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);">
+        <div class="map-panel__head"><p class="label map-panel__title">Map</p><button type="button" class="fn-map"><span>Close map</span></button></div>
+        <div class="map-frame" style="border:0;aspect-ratio:4/3;"></div>
       </div>
 
       <h3 class="t-title">Selects</h3>
+      <p class="ds-section__intro">.select: 40px, square, 12px mono caps, a chevron on the right, 1px --line-ui. The hero search uses the same select as .pill-select (shown on dark in the Hero search panel above); the name is old, it is square. Hover is --color-hover with an ink border.</p>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
-        <div><span class="ds-state-label">Location</span>
-          <label class="sr-only" for="ds-location">Location</label>
+        <div><span class="ds-state-label">Where</span>
+          <label class="sr-only" for="ds-location">Where</label>
           <select id="ds-location" class="select">
-            <option value="">All locations</option>
+            <option value="">Anywhere</option>
             <option value="mornington">Victoria</option>
             <option value="bali">Bali</option>
           </select>
         </div>
-        <div><span class="ds-state-label">Duration</span>
-          <label class="sr-only" for="ds-duration">Duration</label>
+        <div><span class="ds-state-label">How long?</span>
+          <label class="sr-only" for="ds-duration">How long</label>
           <select id="ds-duration" class="select">
-            <option value="">Any duration</option>
+            <option value="">Don't mind</option>
             <option value="1h">1 hour or less</option>
             <option value="1-5h">1 to 5 hours</option>
             <option value="full-day">Full day</option>
             <option value="multi-day">Multi-day</option>
           </select>
         </div>
-        <div><span class="ds-state-label">Currency</span>
-          <label class="sr-only" for="ds-currency">Currency</label>
-          <select id="ds-currency" class="select">
+        <div><span class="ds-state-label">Hover</span>
+          <label class="sr-only" for="ds-select-hover">Hover example</label>
+          <select id="ds-select-hover" class="select is-hover"><option>Anywhere</option></select>
+        </div>
+      </div>
+
+      <h3 class="t-title">Dropdown menu</h3>
+      <p class="ds-section__intro">.dd, .dd__btn and .dd__list: the dropdowns in the stuck filter bar, built by app.js. The trigger is a text control with a 1px underline and the 9&times;5 chevron; the list is a square paper panel with a 1px --line border, z 2, and 40px options, five visible before it scrolls. The option under the pointer or keyboard has a --color-hover fill. Multi-select (What) shows a 14px square check (.dd__check); single-select shows a tick (.dd__tick). Esc closes the list and returns focus to the trigger, and only one list is open at a time. Phones keep the built-in picker.</p>
+      <div style="position:relative;display:flex;gap:var(--s-7);flex-wrap:wrap;height:240px;margin-bottom:var(--s-6);">
+        <div class="dd" style="width:220px;">
+          <button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="true"><span class="dd__label">What:</span> Anything</button>
+          <ul class="dd__list" role="listbox" aria-multiselectable="true" aria-label="What (example)">
+            <li role="option" aria-selected="true" class="is-active"><span class="dd__check"></span>Anything</li>
+            <li role="option" aria-selected="false"><span class="dd__check"></span>Horse riding</li>
+            <li role="option" aria-selected="true"><span class="dd__check"></span>Clay</li>
+            <li role="option" aria-selected="false"><span class="dd__check"></span>Sea life</li>
+          </ul>
+        </div>
+        <div class="dd" style="width:220px;">
+          <button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="true"><span class="dd__label">Where:</span> Anywhere</button>
+          <ul class="dd__list" role="listbox" aria-label="Where (example)">
+            <li role="option" aria-selected="true"><span class="dd__tick"></span>Anywhere</li>
+            <li role="option" aria-selected="false" class="is-active"><span class="dd__tick"></span>Victoria</li>
+            <li role="option" aria-selected="false"><span class="dd__tick"></span>Bali</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="t-title">Inputs</h3>
+      <p class="ds-section__intro">The live input is the sign-up one (see Contact block): a bottom border only, 1px, 40px high, padding 8px 0, mono 16px, with a .label above it, and a square 20px checkbox. The boxed .field input below is still used by the showcase handover pages, so it stays; it is square and 40px.</p>
+      <div class="band-dark on-dark" style="padding:var(--s-5);max-width:480px;margin-bottom:var(--s-5);">
+        <form class="signup-form" onsubmit="return false;">
+          <label><span class="label">Business name</span><input type="text" name="ds-business" autocomplete="off" /></label>
+          <label><span class="label">Email</span><input type="email" name="ds-email-dark" autocomplete="off" value="ro@example" /></label>
+          <label class="signup-check"><input type="checkbox" checked /><span class="label">I'm interested in being a founding partner</span></label>
+        </form>
+      </div>
+      <form id="lead" style="display:grid;gap:var(--s-4);max-width:480px;margin-bottom:var(--s-6);">
+        <div class="field"><label for="ds-name">Name (required)</label><input id="ds-name" name="name" autocomplete="name" /></div>
+        <div class="field has-error"><label for="ds-email">Email (required)</label><input id="ds-email" name="email" type="email" autocomplete="email" aria-invalid="true" /><span class="error-msg">&otimes; Enter a valid email address</span></div>
+        <div class="field"><label for="ds-msg">Message</label><textarea id="ds-msg" name="message"></textarea><span class="hint">Tell us about your experience.</span></div>
+      </form>
+
+      <h3 class="t-title">Labels</h3>
+      <p class="ds-section__intro">.label is the shared 12px mono caps (400, .08em). .eyebrow is a label with a square 8px ink bullet. .tag is the Demo tag: 24px high, padding 2px 10px, 1px --line-ui, 999px, ink-2. .badge is a square 1px ink "Example" label.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="eyebrow">For businesses</span></div>
+        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="eyebrow" style="margin:0;">On dark</span></div>
+        <div><span class="tag">Demo</span></div>
+        <div><span class="badge">Example</span></div>
+      </div>
+
+      <h3 class="t-title">Cards</h3>
+      <p class="ds-section__intro">One shell for experiences and businesses (.card inside .card-grid). Anatomy, in order: the photo (.card__media, 211:158, square under 768px, scales to 1.03 on hover unless reduced motion), then .card__body at 16px padding (12px under 768): .card__tag holding the Demo .tag; .card__title (17px, 600, line-height 1.25, two lines of height kept); .card__loc (Neue Haas 14px, ink-3, e.g. "90 min &middot; Salty Seas Surf School &middot; Victoria"); .card__desc (14px, ink-2, hidden under 768px); and the price row (.card__meta.card__row, pinned to the bottom with a hairline above it) holding .card__price (14px, 600, left-aligned, "From $180 AUD"). The border is 1px --line, paper fill, ink on hover. On live .card__meta is the name of the price row, not a category line. The empty state is .card--empty: a solid border, panel photo, ink-3 text, for a spot waiting to be filled.</p>
+      <div class="ds-grid" style="margin-bottom:var(--s-6);grid-template-columns:repeat(auto-fill,minmax(211px,1fr));">
+        <article class="card">
+          <a class="card__link" href="#" aria-label="Private surf lesson at Inverloch Surf Beach"></a>
+          <div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" /></div>
+          <div class="card__body">
+            <p class="card__tag"><span class="tag">Demo</span></p>
+            <h4 class="card__title">Private surf lesson at Inverloch Surf Beach</h4>
+            <p class="card__loc">90 min &middot; Salty Seas Surf School &middot; Victoria</p>
+            <p class="card__desc">A lesson just for you, or bring friends for $80 each.</p>
+            <div class="card__meta card__row"><p class="card__price">From $180 AUD</p></div>
+          </div>
+        </article>
+        <article class="card">
+          <a class="card__link" href="#" aria-label="Guided horse ride through rice fields to the beach"></a>
+          <div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div>
+          <div class="card__body">
+            <h4 class="card__title">Guided horse ride through rice fields to the beach</h4>
+            <p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p>
+            <p class="card__desc">A guided ride out along the rice fields, village roads and down to the beach.</p>
+            <div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div>
+          </div>
+        </article>
+        <article class="card" style="border-color:var(--ink);">
+          <div class="card__media"><img src="/assets/salty-cowboy/insta-ride.jpg" alt="" style="object-position:center 15%;transform:scale(1.03);" /></div>
+          <div class="card__body">
+            <h4 class="card__title">Insta ride to the beach</h4>
+            <p class="card__loc">Hover: ink border, photo scale 1.03</p>
+            <p class="card__desc">The hover state: the border goes ink and the title underlines.</p>
+            <div class="card__meta card__row"><p class="card__price">From $50 AUD</p></div>
+          </div>
+        </article>
+        <article class="card card--empty">
+          <div class="card__media"></div>
+          <div class="card__body">
+            <h4 class="card__title">Spot waiting to be filled</h4>
+            <p class="card__loc">Victoria, Australia</p>
+            <p class="card__desc">We're talking with businesses here. Check back soon.</p>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="t-title">Card grid</h3>
+      <p class="ds-section__intro">.card-grid is repeat(var(--cards-per-row),minmax(0,1fr)): five across from 1200px, three from 768px, two on phones, with a 16px column gap (--grid-gap) and a 24px row gap (--row-gap). The maximum is five per row, never six. A grid marked data-mobile-cap shows 12 cards up to 820px, then "See all experiences" (.card-cap-more) adds .is-expanded. Resize to see 5, 3 and 2 across; at 1440px it is five.</p>
+      <div class="card-grid" data-mobile-cap id="dsCardGrid" style="margin-bottom:var(--s-3);">
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><div class="card__body"><p class="card__tag"><span class="tag">Demo</span></p><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p><div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Private dressage lesson</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">One-to-one dressage in the arena.</p><div class="card__meta card__row"><p class="card__price">From $290 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">3-day Horse Whisperer course</h4><p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">Three days of groundwork.</p><div class="card__meta card__row"><p class="card__price">From $2,250 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Horse grooming class</h4><p class="card__loc">90 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">Learn to groom with the stable manager.</p><div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Fifth card</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Five across at 1200px and up.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Sixth card, wraps to a second row</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Never six across.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Seventh card</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Shown on mobile too.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Eighth card</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Shown on mobile too.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Ninth card</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Shown on mobile too.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Tenth card</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Shown on mobile too.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Eleventh card</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Shown on mobile too.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Twelfth card, the last shown on mobile</h4><p class="card__loc">Shown on mobile too</p><p class="card__desc">Rows show 12 cards on mobile.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Thirteenth card, hidden on mobile until See all</h4><p class="card__loc">Shown on desktop</p><p class="card__desc">Shown on desktop.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+      </div>
+      <button type="button" class="card-cap-more" style="margin-bottom:var(--s-6);" onclick="document.getElementById('dsCardGrid').classList.add('is-expanded');this.hidden=true;">See all 13 experiences</button>
+
+      <h3 class="t-title">Card rail</h3>
+      <p class="ds-section__intro">.card-rail is a sideways-scrolling row ("Good for a first go", "Just added") inside the container. Each card is --card-w wide, the same as one cell of the five-across grid, and snaps to the start. .rail-head holds the title and the 40px square .rail-btn arrows, which hide under 768px.</p>
+      <div class="rail-head" style="max-width:var(--container);"><p class="label" style="margin:0;">Good for a first go</p><div class="rail-nav"><button type="button" class="rail-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="rail-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+      <div class="card-rail" style="margin-bottom:var(--s-6);">
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A relaxed guided ride along the beach.</p><div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Private dressage lesson</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">One-to-one dressage in the arena.</p><div class="card__meta card__row"><p class="card__price">From $290 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Horse grooming class</h4><p class="card__loc">90 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">Learn to groom with the stable manager.</p><div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Insta ride to the beach</h4><p class="card__loc">45 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A short ride for photos.</p><div class="card__meta card__row"><p class="card__price">From $50 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Sunset beach ride</h4><p class="card__loc">90 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A ride along the sand at golden hour.</p><div class="card__meta card__row"><p class="card__price">From $200 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Sixth card, past the edge</h4><p class="card__loc">Scrolls into view</p><p class="card__desc">Scroll sideways.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
+      </div>
+
+      <h3 class="t-title">FAQ</h3>
+      <p class="ds-section__intro">.faq-list (border-top 1px --line) holding .faq-item native details: 24px above and below each item, the summary in Neue Haas 17px / 400 / line-height 1.3, a "+" (open: "&minus;") in a 16px mono column in ink-3, and the answer at 16px ink-2, 62ch at most.</p>
+      <div class="faq-list" style="margin-bottom:var(--s-6);">
+        <details class="faq-item" open><summary>How does RealDays make money?</summary><p>Free to join. From 1 May 2027, businesses pay a 12% fee, including GST and card fees, only on bookings made through RealDays. There's no subscription and no setup fee.</p></details>
+        <details class="faq-item"><summary>Is there live availability?</summary><p>Not yet. You book through the business's own system; RealDays doesn't hold a live calendar.</p></details>
+      </div>
+
+      <h3 class="t-title">Hero photo</h3>
+      <p class="ds-section__intro">One pattern shared by the homepage (#top) and /for-business/ (#intro): a full-bleed photo, optional eyebrow, the h1 at --t-display (40 to 72px) in Neue Haas 600, and .hero-sub in mono caps at --t-label. The homepage h1 sits at line-height 1.18 and .01em; the business hero h1 at -.01em. The credit hangs bottom-right (.hero-credit, 12px mono caps, 65% paper, a 1px underline on the link). On the homepage the video's Pause / Play (.hero-pause) takes the credit's place: 12px mono caps, a 1px underline, a 44px tap area. Live sets .hero-pause tracking at .1em, not the .08em of the label scale. Vertically centred below 640px (resize to see).</p>
+      <div class="hero-photo" style="min-height:280px;display:flex;align-items:center;justify-content:center;padding:var(--s-8) var(--gutter);margin-bottom:var(--s-6);">
+        <picture>
+          <source srcset="/assets/photos/coastline-2400.webp" type="image/webp" />
+          <img src="/assets/photos/coastline-2400.jpg" alt="" />
+        </picture>
+        <div class="hero-scrim"></div>
+        <div class="hero-inner">
+          <span class="eyebrow" style="justify-content:center;color:var(--paper);">For businesses</span>
+          <h3 class="hero-h1" style="font-family:var(--display);font-weight:var(--w-strong);color:var(--paper);">Run your own experience? List with RealDays.</h3>
+          <p class="hero-sub">Get found by people looking for experiences like yours, and keep the booking system you already use.</p>
+        </div>
+        <p class="hero-credit">Photo by <a href="https://unsplash.com/@nisarga_1993">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E">Unsplash</a></p>
+      </div>
+      <p class="label" style="margin:0 0 var(--s-2);">Pause / Play, on the video hero</p>
+      <div class="hero-photo" style="min-height:120px;margin-bottom:var(--s-6);background:var(--ink);">
+        <button type="button" class="hero-pause" data-hero-pause-demo>Pause</button>
+      </div>
+
+      <h3 class="t-title">Contact block and founder caption</h3>
+      <p class="ds-section__intro">The dark band at the foot of /for-business/ (.band-dark.on-dark). A 12-column .grid: copy in columns 1 to 5, the form in columns 7 to 12 (stacked under 1024px). The copy has the "For businesses" eyebrow, a .section-title, then .signup-founder: a 40px greyscale round photo (an avatar, so the one rounded shape here), a .label "You'll speak directly with Ro" and, on the next line, "[RealDays founder]" in square brackets. The form has four fields (Business name, Your name, Phone, Email), a square 20px tick box for founding partners, and a square "Get listed" button (44px high, 116px wide at least). Inputs are a bottom border only, 40px, mono 16px.</p>
+      <section class="band-dark on-dark" style="padding:var(--s-8) 0;margin-bottom:var(--s-6);">
+        <div class="container grid">
+          <div class="c-1-5">
+            <p class="label eyebrow">For businesses</p>
+            <h2 class="section-title">Have a question or want to get listed?</h2>
+            <div class="signup-founder">
+              <img src="/assets/founder-portrait.png" alt="" width="40" height="40" loading="lazy" />
+              <p class="label">You'll speak directly with Ro<br />[RealDays founder]</p>
+            </div>
+          </div>
+          <form class="c-7-12 signup-form" onsubmit="return false;" aria-label="Get listed (example)">
+            <div class="signup-form__fields">
+              <label><span class="label">Business name</span><input type="text" autocomplete="off" /></label>
+              <label><span class="label">Your name</span><input type="text" autocomplete="off" /></label>
+              <label><span class="label">Phone</span><input type="tel" autocomplete="off" /></label>
+              <label><span class="label">Email</span><input type="email" autocomplete="off" /></label>
+            </div>
+            <label class="signup-check"><input type="checkbox" /><span class="label">I'm interested in being a founding partner</span></label>
+            <div class="signup-form__foot">
+              <p class="label" style="margin:0;color:var(--paper-2);">&nbsp;</p>
+              <button type="submit" class="btn btn--on-dark">Get listed</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <h3 class="t-title">Notice bar and dialog</h3>
+      <p class="ds-section__intro">.notice-bar (#moreSoon on the homepage): a full-width bar along the bottom at z 16, dismissible with "Got it" and remembered in localStorage. .rd-dialog is a native modal dialog (the founding partner invite on /for-business/, opened 4 seconds in): square, 1px ink border, 560px wide at most, with an h2 at --t-subhead. Note: the notice bar text on live is mono caps and runs to several lines on phones. That breaks the rule that multi-line copy is Neue Haas in sentence case, and it is shown here as live has it.</p>
+      <div class="notice-bar" style="position:static;margin-bottom:var(--s-5);" role="note">
+        <div class="container notice-bar__in" style="padding-inline:var(--s-5);">
+          <p>We're still adding experiences, so there's more on the way. Stay tuned.</p>
+          <button type="button" class="btn btn--primary">Got it</button>
+        </div>
+      </div>
+      <dialog class="rd-dialog" open style="position:static;margin:0 0 var(--s-6);" aria-labelledby="ds-dialog-title">
+        <button type="button" class="rd-dialog__close" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
+        <h2 id="ds-dialog-title">Become a RealDays founding partner</h2>
+        <p>We're building RealDays with the businesses that use it. We want booking and admin to take care of themselves, so you can get back to running great experiences.</p>
+        <div class="rd-dialog__actions">
+          <a href="#" class="btn btn--primary">Apply to be a founding partner</a>
+          <button type="button" class="btn btn--secondary">Maybe later</button>
+        </div>
+      </dialog>
+
+      <h3 class="t-title">Footer</h3>
+      <p class="ds-section__intro">Dark on every page (ink fill, a hairline of --line-dark above): 48px top and bottom, one flex row on the container edges that stacks under 821px, 12px mono caps. The links are paper-2 and go paper on hover; the copyright line is .label text. On live the footer is dark, not the light footer a first read of the brief suggests.</p>
+      <footer class="rd-footer" style="margin-bottom:var(--s-6);">
+        <div class="container label">
+          <span>&copy; 2026 RealDays</span>
+          <nav aria-label="Footer (example)">
+            <a href="#" class="navlink">For businesses</a>
+            <a href="#" class="navlink">FAQ</a>
+            <a href="#" class="navlink">Contact</a>
+          </nav>
+        </div>
+      </footer>
+
+      <h3 class="t-title">Numbered list</h3>
+      <p class="ds-section__intro">.ambitions on /for-business/: an ordered list set in Neue Haas 600 at 0.8 of --t-headline. The numerals ("1." "2.") sit in a 1.1em column and are weight 600, so every item's text lines up.</p>
+      <ol class="ambitions" style="max-width:560px;margin-bottom:var(--s-6);">
+        <li><span>Fill your empty slots. We bring new customers to your door, so quiet days become booked ones.</span></li>
+        <li><span>Less admin, more doing. Bookings, messages and payments in one place, so you can spend your time with your customers, not your inbox.</span></li>
+      </ol>
+
+      <h3 class="t-title">Other live entries</h3>
+      <p class="ds-section__intro">Short entries, with their live values.</p>
+      <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.mobile-sticky-bar</h4>
+      <p class="ds-section__intro">Up to 820px, on experience pages and /for-business/. Fixed to the bottom at z 40, paper with a 1px --line top border and --shadow-bar, shown once the hero is out of view and hidden near the target. The button is 48px, Neue Haas 600 sentence case at --t-title. The dark variant (/for-business/) is ink with a full-width button. Shown in place, not fixed.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-5);">
+        <div><span class="ds-state-label">With a price (experience pages)</span>
+          <div class="mobile-sticky-bar" style="max-width:375px;">
+            <span class="t-small">From $160 AUD</span>
+            <button class="btn btn--lg" style="width:auto;">Check dates with Salty Cowboy</button>
+          </div>
+        </div>
+        <div><span class="ds-state-label">Button only, on dark (/for-business/)</span>
+          <div class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" style="max-width:420px;">
+            <button class="btn btn--on-dark">Get listed</button>
+          </div>
+        </div>
+      </div>
+      <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.float-cta</h4>
+      <p class="ds-section__intro">The floating button, bottom right (24px; 16px on phones) at z 50 with --shadow-float. It fades in once the hero is off screen and hides over the contact section (app.js).</p>
+      <div style="margin-bottom:var(--s-5);"><button type="button" class="btn float-cta" style="position:static;">Get listed</button></div>
+      <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.jump</h4>
+      <p class="ds-section__intro">The "Jump to" nav under the /for-business/ hero: a label, then links with a square 8px ink bullet, wrapping in a row. Links are ink-2, ink with an underline on hover.</p>
+      <ul class="jump label" style="margin:0 0 var(--s-5);">
+        <li class="jump__label" aria-hidden="true">Jump to</li>
+        <li><a href="#">What RealDays is</a></li>
+        <li><a href="#">Our why</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+      <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.empty-state</h4>
+      <p class="ds-section__intro">No experiences match the filters. One line and a Clear filters link; a dashed 1px --line-ui box.</p>
+      <div class="empty-state" style="max-width:640px;margin-bottom:var(--s-5);">
+        <p>No experiences match. Try another duration or location.</p>
+        <button type="button" class="link-btn">Clear filters</button>
+      </div>
+      <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.view-tabs</h4>
+      <p class="ds-section__intro">Grid / Map text tabs. Hidden on the homepage (the markup keeps them hidden until Ro decides whether they come back). Mono 12px caps, a 16px icon 8px from the label, selected ink and the other ink-2, with one 2px ink line sliding between them.</p>
+      <div class="view-tabs" role="tablist" aria-label="View (example)" style="margin-bottom:var(--s-6);"><button type="button" class="view-tab" role="tab" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button><button type="button" class="view-tab" role="tab" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button><span class="view-tabs__line" aria-hidden="true" style="width:55px;"></span></div>
+
+      <h3 class="t-title">Mobile menu</h3>
+      <p class="ds-section__intro">Under 641px the burger (.nav-toggle, 44px) opens .nav.is-open, a full-screen paper panel at z 19 that holds only .menu-panel (app.js builds it). Two groups, Explore (Browse experiences, FAQ) and For businesses (List your business, Talk to us). Each group has a 12px mono label (.menu-group__label, ink-3) over Neue Haas 22px links on 52px rows with a divider. Then the currency select, full width, 44px, 16px text; changing it updates every price and is remembered, like the desktop select.</p>
+      <div class="menu-panel" style="max-width:390px;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);">
+        <div class="menu-group">
+          <p class="menu-group__label" id="ds-menu-explore">Explore</p>
+          <ul aria-labelledby="ds-menu-explore">
+            <li><a href="#">Browse experiences</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <p class="menu-group__label" id="ds-menu-biz">For businesses</p>
+          <ul aria-labelledby="ds-menu-biz">
+            <li><a href="#">List your business</a></li>
+            <li><a href="#">Talk to us</a></li>
+          </ul>
+        </div>
+        <div class="menu-currency">
+          <label class="menu-group__label" for="ds-menu-currency">Currency</label>
+          <select id="ds-menu-currency" class="select">
             <option value="AUD">AUD</option>
             <option value="USD">USD</option>
             <option value="IDR">IDR</option>
@@ -248,40 +729,16 @@
         </div>
       </div>
 
-      <p class="ds-section__intro">.filter-row (6.25): the Experiences filters sit on the card grid, four columns with the cards&#39; 20px gutter. Type runs across the top, with its sub-chips under it; under that, Location is column 1 and Duration column 2. From 821 to 1100px Location and Duration take half each; on phones everything stacks. Controls are 32px tall with a 1px --line-ui border, --paper fill, 12px side padding and 12px text, and sub-chips are 28px. On phones chips are 36px and selects 40px with 16px text, so iOS doesn&#39;t zoom. Labels sit 8px above. Spacing: title row to Type 32px, Type to Location 24px, filters to the count line 40px, count line to cards 16px. Duration buckets: 60 minutes or less; 61 to 300 minutes; over 300 on one day; two days or more. Each experience&#39;s durationMinutes (and durationDays) lives in its data file, and tools/card-durations.mjs copies it onto the homepage cards.</p>
-
-      <h3 class="t-title">Dropdown menu</h3>
-      <p class="ds-section__intro">.th-select (6.30): the Experiences filters on desktop. The button is the select pill; the menu is a paper panel with 14px corners and mono caps options, with a check on the chosen one and a light tint on the one under the pointer or keyboard. Arrow keys, Home and End, Enter, Escape and type-to-jump all work. The real select stays underneath, so the filters and the address work the same. Phones keep the built-in picker.</p>
-      <div style="position:relative;width:250px;height:190px;margin-bottom:var(--s-6);">
-        <div class="th-select">
-          <button type="button" class="select th-select__button" aria-haspopup="listbox" aria-expanded="true" style="width:100%;">All locations</button>
-          <ul class="th-select__list" role="listbox" aria-label="Location (example)">
-            <li role="option" aria-selected="true" class="is-active">All locations</li>
-            <li role="option" aria-selected="false">Victoria</li>
-            <li role="option" aria-selected="false">Bali</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3 class="t-title">Inputs</h3>
-      <form id="lead" style="display:grid;gap:var(--s-4);max-width:480px;margin-bottom:var(--s-6);">
-        <div class="field"><label for="ds-name">Name (required)</label><input id="ds-name" name="name" autocomplete="name" /></div>
-        <div class="field"><label for="ds-biz">Business name</label><input id="ds-biz" name="organization" autocomplete="organization" /></div>
-        <div class="field has-error"><label for="ds-email">Email (required)</label><input id="ds-email" name="email" type="email" autocomplete="email" aria-invalid="true" /><span class="error-msg">&otimes; Enter a valid email address</span></div>
-        <div class="field"><label for="ds-phone">Phone</label><input id="ds-phone" name="phone" type="tel" autocomplete="tel" /></div>
-        <div class="field"><label for="ds-msg">Message</label><textarea id="ds-msg" name="message"></textarea><span class="hint">Tell us about your experience.</span></div>
-      </form>
-
-      <h3 class="t-title">Booking panel</h3>
-      <p class="ds-section__intro">The two-step panel on experience pages. Step 1 is date and people, step 2 is details, then the card is added on Stripe's page. Business name, capacity and cancellation hours always come from the business's data.</p>
+      <h3 class="t-title">Booking panel, step by step</h3>
+      <p class="ds-section__intro">The two-step panel on the business demo pages (date options are .date-opt there). Step 1 is date and people, step 2 is details, then the card is added on Stripe's page. Business name, capacity and cancellation hours always come from the business's data.</p>
       <div class="ds-states" style="margin-bottom:var(--s-5);">
-        <div><span class="ds-state-label">Date pill</span><button type="button" class="date-pill" aria-pressed="false" style="width:140px;"><span>Sun 1 Nov</span></button></div>
-        <div><span class="ds-state-label">Hover</span><button type="button" class="date-pill is-hover" aria-pressed="false" style="width:140px;"><span>Sun 15 Nov</span></button></div>
-        <div><span class="ds-state-label">Selected</span><button type="button" class="date-pill" aria-pressed="true" style="width:140px;"><span>Sun 29 Nov</span></button></div>
-        <div><span class="ds-state-label">Multi-day</span><button type="button" class="date-pill" aria-pressed="false" style="width:140px;"><span>Sat 14 Nov</span><span class="date-pill__days">2 days</span></button></div>
-        <div><span class="ds-state-label">Multi-day, selected</span><button type="button" class="date-pill" aria-pressed="true" style="width:140px;"><span>Sat 28 Nov</span><span class="date-pill__days">2 days</span></button></div>
-        <div><span class="ds-state-label">Few left</span><button type="button" class="date-pill" aria-pressed="false" style="width:140px;"><span>Sat 12 Dec</span><span class="date-pill__note">2 left</span></button></div>
-        <div><span class="ds-state-label">Full</span><button type="button" class="date-pill" aria-pressed="false" disabled style="width:140px;"><span>Sat 19 Dec</span><span class="date-pill__note">Full</span></button></div>
+        <div><span class="ds-state-label">Date option</span><button type="button" class="date-opt" aria-pressed="false" style="width:140px;"><span>Sun 1 Nov</span></button></div>
+        <div><span class="ds-state-label">Hover</span><button type="button" class="date-opt is-hover" aria-pressed="false" style="width:140px;"><span>Sun 15 Nov</span></button></div>
+        <div><span class="ds-state-label">Selected</span><button type="button" class="date-opt" aria-pressed="true" style="width:140px;"><span>Sun 29 Nov</span></button></div>
+        <div><span class="ds-state-label">Multi-day</span><button type="button" class="date-opt" aria-pressed="false" style="width:140px;"><span>Sat 14 Nov</span><small>2 days</small></button></div>
+        <div><span class="ds-state-label">Multi-day, selected</span><button type="button" class="date-opt" aria-pressed="true" style="width:140px;"><span>Sat 28 Nov</span><small>2 days</small></button></div>
+        <div><span class="ds-state-label">Few left</span><button type="button" class="date-opt" aria-pressed="false" style="width:140px;"><span>Sat 12 Dec</span><small>2 left</small></button></div>
+        <div><span class="ds-state-label">Full</span><button type="button" class="date-opt" aria-pressed="false" disabled style="width:140px;"><span>Sat 19 Dec</span><small>Full</small></button></div>
       </div>
       <div class="ds-states" style="margin-bottom:var(--s-5);">
         <div><span class="ds-state-label">Stepper, at minimum</span><div class="stepper" role="group" aria-label="Number of people"><button type="button" disabled aria-label="One fewer person">&minus;</button><output>1</output><button type="button" aria-label="One more person">+</button></div></div>
@@ -311,105 +768,6 @@
         </div>
       </div>
 
-      <h3 class="t-title">Labels</h3>
-      <div class="ds-states" style="margin-bottom:var(--s-6);">
-        <div><span class="eyebrow">For businesses</span></div>
-        <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="eyebrow">On dark</span></div>
-        <div><span class="tag">New</span></div>
-        <div><span class="tag tag--coming-soon">Coming soon</span></div>
-        <div><span class="badge">Example</span></div>
-      </div>
-
-      <h3 class="t-title">Cards</h3>
-      <div class="ds-grid" style="margin-bottom:var(--s-6);">
-        <article class="card">
-          <div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" /></div>
-          <p class="card__meta">Horse experiences &middot; Bali</p>
-          <h4 class="card__title">Guided horse ride through rice fields to the beach</h4>
-          <p class="card__desc">A guided ride out along the rice fields, village roads and down to the beach.</p>
-          <hr class="card__rule" />
-          <div class="card__price-row"><span class="card__price">From $160 AUD</span></div>
-          <a href="#" class="card__link" aria-label="Guided horse ride through rice fields to the beach"></a>
-        </article>
-        <article class="card">
-          <div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div>
-          <p class="card__meta">Horse experiences &middot; Bali</p>
-          <h4 class="card__title">Salty Cowboy</h4>
-          <p class="card__desc">11 experiences run by the people who started them.</p>
-          <hr class="card__rule" />
-          <div class="card__price-row"><span class="card__price">11 experiences</span></div>
-          <a href="#" class="card__link" aria-label="Salty Cowboy"></a>
-        </article>
-        <article class="card" style="border-color:var(--ink);">
-          <div class="card__media" style="outline:var(--bw) solid var(--ink);"><img src="/assets/salty-cowboy/insta-ride.jpg" alt="" style="object-position:center 15%;" /></div>
-          <p class="card__meta">Hover &middot; ink border, no colour</p>
-          <h4 class="card__title">Insta ride to the beach</h4>
-          <p class="card__desc">The hover state: the border and photo outline go ink.</p>
-          <hr class="card__rule" />
-          <div class="card__price-row"><span class="card__price">From $50 AUD</span></div>
-        </article>
-        <article class="card card--placeholder">
-          <div class="card__media"></div>
-          <p class="card__meta">Victoria, Australia</p>
-          <h4 class="card__title">Spot waiting to be filled</h4>
-          <p class="card__desc">We're talking with businesses here. Check back soon.</p>
-        </article>
-      </div>
-
-      <h3 class="t-title">Card list</h3>
-      <p class="ds-section__intro">.card-list: 4 across on desktop, one card per row below 820px (resize to see), never a sideways scroll. Prices sit on the last row of every card, so they line up whatever the title length. With data-mobile-cap a homepage row shows 12 cards on mobile, then "See all".</p>
-      <div class="card-list" data-mobile-cap id="dsCardList" style="margin-bottom:var(--s-3);">
-        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><p class="card__meta">Horse experiences &middot; Bali</p><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $160 AUD</span></div></article>
-        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div><p class="card__meta">Horse experiences &middot; Bali</p><h4 class="card__title">Private dressage lesson</h4><p class="card__desc">One-to-one dressage in the arena.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $290 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">3-day Horse Whisperer course</h4><p class="card__desc">Three days of groundwork.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $2,250 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Horse grooming class</h4><p class="card__desc">Learn to groom with the stable manager.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $125 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Fifth card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Sixth card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Seventh card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Eighth card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Ninth card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Tenth card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Eleventh card</h4><p class="card__desc">Shown on mobile too.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Twelfth card, the last shown on mobile</h4><p class="card__desc">Rows show 12 cards on mobile.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-        <article class="card"><div class="card__media"></div><p class="card__meta">Bali</p><h4 class="card__title">Thirteenth card, hidden on mobile until See all</h4><p class="card__desc">Shown on desktop.</p><hr class="card__rule" /><div class="card__price-row"><span class="card__price">From $175 AUD</span></div></article>
-      </div>
-      <button type="button" class="card-list__more" style="margin-bottom:var(--s-6);" onclick="document.getElementById('dsCardList').classList.add('is-expanded');this.hidden=true;">See all 13 experiences</button>
-
-      <h3 class="t-title">Benefit band</h3>
-      <div class="benefit-band" style="margin-bottom:var(--s-6);">
-        <div class="benefit-band__item"><svg class="benefit-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg><h4 class="benefit-band__title">Get found</h4><p class="benefit-band__text">RealDays is built for people looking for unique experiences run by locals.</p></div>
-        <div class="benefit-band__item"><svg class="benefit-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/></svg><h4 class="benefit-band__title">Keep your system</h4><p class="benefit-band__text">Customers book through the page you already use.</p></div>
-        <div class="benefit-band__item"><svg class="benefit-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16"/></svg><h4 class="benefit-band__title">Your story leads</h4><p class="benefit-band__text">Every listing leads with you and why you started, not just a price.</p></div>
-      </div>
-
-      <h3 class="t-title">FAQ</h3>
-      <div class="faq-list" style="margin-bottom:var(--s-6);">
-        <details class="faq" open><summary>How does RealDays make money?</summary><p class="faq__answer">Free to join. From 1 May 2027, businesses pay a 12% fee, including GST and card fees, only on bookings made through RealDays. There's no subscription and no setup fee.</p></details>
-        <details class="faq"><summary>Is there live availability?</summary><p class="faq__answer">Not yet. You book through the business's own system; RealDays doesn't hold a live calendar.</p></details>
-      </div>
-
-      <h3 class="t-title">Marquee</h3>
-      <div class="marquee" style="margin-bottom:var(--s-6);">
-        <button class="btn--icon marquee-pause" data-marquee-demo aria-pressed="false" aria-label="Pause marquee">Pause</button>
-        <span>Horse riding &middot; Diving &middot; Surf &middot; Climbing &middot; Creative &middot; Motorbike tours</span>
-      </div>
-
-      <h3 class="t-title">Hero photo</h3>
-      <p class="ds-section__intro">One pattern shared by the homepage (#top) and /for-business/ (#intro): full-bleed photo, optional eyebrow, shared h1/subtext sizing via .hero-h1 (add .hero-h1--lg for the homepage's larger size) and .hero-sub, credit bottom-right. Vertically centred below 640px (resize to see).</p>
-      <div class="hero-photo" style="min-height:280px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--s-6);">
-        <picture>
-          <source srcset="/assets/photos/coastline-2400.webp" type="image/webp" />
-          <img src="/assets/photos/coastline-2400.jpg" alt="" />
-        </picture>
-        <div class="hero-scrim"></div>
-        <div class="hero-inner">
-          <span class="eyebrow" style="color:var(--paper);margin-bottom:var(--s-4);">For businesses</span>
-          <h3 class="hero-h1" style="font-family:var(--display);color:var(--paper);">Run your own experience? List with RealDays.</h3>
-          <p class="hero-sub">Get found by people looking for experiences like yours, and keep the booking system you already use.</p>
-        </div>
-        <p class="hero-credit">Photo by <a href="https://unsplash.com/@nisarga_1993">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E">Unsplash</a></p>
-      </div>
-
       <h3 class="t-title">Booking panel</h3>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s-5);margin-bottom:var(--s-6);">
         <div style="background:var(--panel);border:var(--bw) solid var(--line);padding:var(--s-5);">Experience detail content goes here.</div>
@@ -420,48 +778,24 @@
         </div>
       </div>
 
-      <h3 class="t-title">Sticky CTA bar</h3>
-      <p class="ds-section__intro">.sticky-book: fixed to the bottom on mobile only, shown once the hero scrolls out of view, hidden near the footer, while the panel's own booking button is on screen, or while a field is focused, with body padding equal to its height while shown so it never covers the page. Every experience page has it: Salty Cowboy (price and "Check dates with Salty Cowboy") and the business demos. The price stays on one line in the chosen currency; the button label wraps if it has to. .sticky-book--dark is the button-only variant (no price or summary text) for a page like /for-business/ with nothing to summarise.</p>
-      <div class="ds-states" style="margin-bottom:var(--s-6);">
-        <div><span class="ds-state-label">With a price (experience pages)</span>
-          <div class="sticky-book" style="position:static;max-width:375px;display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);">
-            <span class="t-small sticky-book__price">From $160 AUD</span>
-            <button class="btn btn--lg" style="width:auto;">Check dates with Salty Cowboy</button>
-          </div>
-        </div>
-        <div><span class="ds-state-label">Button only, on dark (/for-business/)</span>
-          <div class="sticky-book sticky-book--dark on-dark" style="position:static;max-width:420px;">
-            <button class="btn btn--lg">Get listed</button>
-          </div>
-        </div>
-      </div>
+      <h3 class="t-title">Comparison table</h3>
+      <p class="ds-section__intro">.compare-table, on /for-business/ only. A real table with a caption and column and row headers. The corner cell reads "How we compare" (with a footnote mark), the rate column is centred with a hairline between the columns, and RealDays' row comes first with its name and rate in 600 and no fill. The figures are competitor rates as checked on 21 Oct 2026, with the footnote; there are no "cheaper" or "save" claims. .compare-note is the footnote in small ink-3 text, with the asterisks it refers to. The phone frame shows the live table.</p>
+      <table class="compare-table" style="margin-bottom:0;">
+        <caption class="sr-only">Commission compared (example)</caption>
+        <thead><tr><th scope="col">How we compare**</th><th scope="col">Commission</th></tr></thead>
+        <tbody>
+          <tr class="compare-table__ours"><th scope="row">RealDays</th><td><strong>12% incl. card fees</strong></td></tr>
+          <tr><th scope="row">Airbnb Experiences</th><td>20%*</td></tr>
+          <tr><th scope="row">GetYourGuide</th><td>25%*</td></tr>
+          <tr><th scope="row">Viator</th><td>25%*</td></tr>
+        </tbody>
+      </table>
+      <p class="compare-note" style="margin-bottom:var(--s-5);">*Excludes card fees. **Airbnb says it typically charges 20%. GetYourGuide and Viator don't publish a rate; 25% is an estimate from their supplier terms and investor reports. Sources checked 21 Oct 2026. Rates vary by business and can change.</p>
+      <iframe src="/for-business/#pricing" title="Comparison table on a phone" width="375" height="760" loading="lazy" style="display:block;max-width:100%;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);"></iframe>
 
-      <h3 class="t-title">Mobile menu</h3>
-      <p class="ds-section__intro">The full-screen menu under 640px, the same on every page (app.js builds it). Two groups styled identically, Explore and For businesses: a mono caps label over Neue Haas links, each a 52px row with a divider. Then the currency select, full width, 44px tall, 16px text. Changing it updates every price and is remembered, exactly like the desktop select.</p>
-      <div class="site-menu" style="max-width:390px;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);">
-        <div class="site-menu__group">
-          <p class="site-menu__label" id="ds-menu-explore">Explore</p>
-          <ul aria-labelledby="ds-menu-explore">
-            <li><a href="#" class="site-menu__link">Browse experiences</a></li>
-            <li><a href="#" class="site-menu__link">Victoria</a></li>
-            <li><a href="#" class="site-menu__link">Bali</a></li>
-            <li><a href="#" class="site-menu__link">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="site-menu__group">
-          <p class="site-menu__label" id="ds-menu-biz">For businesses</p>
-          <ul aria-labelledby="ds-menu-biz">
-            <li><a href="#" class="site-menu__link">List your business</a></li>
-            <li><a href="#" class="site-menu__link">Talk to us</a></li>
-          </ul>
-        </div>
-        <label class="site-menu__label" for="ds-menu-currency" style="margin-bottom:calc(-1 * var(--s-5));">Currency</label>
-        <select id="ds-menu-currency" class="select">
-          <option value="AUD">AUD</option>
-          <option value="USD">USD</option>
-          <option value="IDR">IDR</option>
-        </select>
-      </div>
+      <h3 class="t-title">Banner</h3>
+      <div class="banner" style="margin-bottom:var(--s-2);" role="note">Salty Cowboy is approved, live and bookable.</div>
+      <div class="banner banner--light" role="note">Free until May 2027. Then 12% on the bookings we bring you.</div>
 
       <h3 class="t-title">Breadcrumb</h3>
       <p class="ds-section__intro">12px mono caps on one line. The current page truncates with an ellipsis when it doesn't fit (on the demos, the business name at 375px).</p>
@@ -474,88 +808,23 @@
         <div class="map-frame__zoom"><button class="btn--icon" aria-label="Zoom in">+</button><button class="btn--icon" aria-label="Zoom out">&minus;</button></div>
       </div>
 
-      <h3 class="t-title">Map popup card</h3>
-      <p class="ds-section__intro">.map-card (6.26): one experience at a time, about 300px wide on desktop. Full-bleed 16:9 photo, title in Neue Haas sentence case, the place in grey mono caps, then the price row from the cards. The whole card is one link. A business with more than one matching experience gets arrows and a "1 / N" counter. The close button is a 44px target on a paper circle over the photo. The active pin turns green and scales up 1.3 times.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:var(--s-6);align-items:flex-start;margin-bottom:var(--s-6);">
-        <div><span class="ds-state-label">Several experiences</span>
-          <div class="map-card">
-            <a class="map-card__link" href="#"><div class="map-card__media"><img src="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.webp" alt="" /></div><div class="map-card__body"><p class="map-card__title">E-bike the O'Keefe Rail Trail from Heathcote</p><p class="map-card__place">Heathcote</p><p class="card__price">From $25 AUD</p></div></a>
-            <div class="map-card__nav"><button type="button" class="map-card__arrow" aria-label="Previous experience">&lsaquo;</button><span class="map-card__count">1 / 2</span><button type="button" class="map-card__arrow" aria-label="Next experience">&rsaquo;</button></div>
-            <button type="button" class="map-card__close" aria-label="Close"><span>&times;</span></button>
-          </div>
-        </div>
-        <div><span class="ds-state-label">One experience</span>
-          <div class="map-card">
-            <a class="map-card__link" href="#"><div class="map-card__media"><img src="/assets/img/demo/gordon-studio/hot-shop-800.webp" alt="" /></div><div class="map-card__body"><p class="map-card__title">Blow your own glass in a family hot shop</p><p class="map-card__place">Red Hill</p><p class="card__price">From $500 AUD</p></div></a>
-            <button type="button" class="map-card__close" aria-label="Close"><span>&times;</span></button>
-          </div>
-        </div>
-        <div><span class="ds-state-label">Pin: default, hover, selected</span>
-          <div style="display:flex;gap:var(--s-5);align-items:flex-end;padding:var(--s-4);">
-            <svg viewBox="0 0 28 36" width="28" height="36" aria-hidden="true" style="color:var(--ink);"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>
-            <svg class="map-pin is-hover" viewBox="0 0 28 36" width="28" height="36" aria-hidden="true"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>
-            <svg class="map-pin--active" viewBox="0 0 28 36" width="28" height="36" aria-hidden="true"><path d="M14 35s12-12.3 12-21A12 12 0 0 0 2 14c0 8.7 12 21 12 21z" fill="currentColor"/><circle cx="14" cy="14" r="4.5" fill="#f3f2ee"/></svg>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="t-title">Bottom sheet</h3>
-      <p class="ds-section__intro">.bottom-sheet (6.27): the map card at 820px and under, fixed to the bottom of the screen (up to 480px wide) so the pins stay in view. The map moves so the chosen pin sits above it. It closes on the &times;, Escape, a tap on the map, or scrolling the map away. Shown here in place, not fixed.</p>
-      <div style="position:relative;max-width:390px;height:420px;margin-bottom:var(--s-6);border:var(--bw) solid var(--line);background:var(--panel);overflow:hidden;">
-        <div class="bottom-sheet" style="position:absolute;">
-          <div class="map-card">
-            <a class="map-card__link" href="#"><div class="map-card__media"><img src="/assets/img/demo/heathcote-bike-hire/vineyard-800.webp" alt="" /></div><div class="map-card__body"><p class="map-card__title">A full day on an e-bike in Heathcote wine country</p><p class="map-card__place">Heathcote</p><p class="card__price">From $200 AUD</p></div></a>
-            <div class="map-card__nav"><button type="button" class="map-card__arrow" aria-label="Previous experience">&lsaquo;</button><span class="map-card__count">2 / 2</span><button type="button" class="map-card__arrow" aria-label="Next experience">&rsaquo;</button></div>
-            <button type="button" class="map-card__close" aria-label="Close"><span>&times;</span></button>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="t-title">Empty state</h3>
-      <p class="ds-section__intro">.empty-state (6.28): when no experience matches, in Grid or Map. One line and a Clear filters link, which resets Location, Duration and Type.</p>
-      <div class="empty-state" style="max-width:640px;margin-bottom:var(--s-6);">
-        <p>No experiences match. Try another duration or location.</p>
-        <button type="button" class="link-btn">Clear filters</button>
-      </div>
-
-      <h3 class="t-title">Comparison table</h3>
-      <p class="ds-section__intro">.compare-table (6.29), on /for-business/ only. A real table with a caption and column and row headers. RealDays' row comes first, on --table-highlight, with its name and rate in 600, and nothing else coloured. .compare-note is the footnote. It has two columns, platform and commission, up to 640px wide, and stays a table on phones (the phone frame below shows it).</p>
-      <table class="compare-table" role="table" style="margin-bottom:0;">
-        <caption class="sr-only">Commission compared (example)</caption>
-        <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader"><span class="sr-only">Platform</span></th><th scope="col" role="columnheader">Commission</th></tr></thead>
-        <tbody role="rowgroup">
-          <tr role="row" class="compare-table__ours"><th scope="row" role="rowheader">RealDays</th><td role="cell" data-label="Commission"><strong>12%</strong></td></tr>
-          <tr role="row"><th scope="row" role="rowheader">Another platform</th><td role="cell" data-label="Commission">20%*</td></tr>
-        </tbody>
-      </table>
-      <p class="compare-note" style="margin-bottom:var(--s-5);">Footnote: small grey body text, where the figures come from and when they were checked.</p>
-      <iframe src="/for-business/#pricing" title="Comparison table on a phone" width="375" height="760" loading="lazy" style="display:block;max-width:100%;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);"></iframe>
-
-      <h3 class="t-title">Banner</h3>
-      <div class="banner" style="margin-bottom:var(--s-2);" role="note">Salty Cowboy is approved, live and bookable.</div>
-      <div class="banner banner--light" role="note">This is free for now.</div>
-
       <h3 class="t-title" style="margin-top:var(--s-6);">Demo banner</h3>
       <p class="ds-section__intro">.demo-strip: full width, black, above the site header on every hidden /demo/b/ business demo, in the site banner style: white Chivo Mono caps at 12px, one line in every booking mode (cut short with an ellipsis on a screen too narrow for it). It can't be dismissed. The copy is set by booking mode: sandbox (Stripe test mode) gives the test card, demo says no card is needed, link says the book buttons go to the business's own site, off says bookings aren't taken. The booking panel doesn't repeat the test card.</p>
       <div class="demo-strip demo-strip--sandbox" role="note" style="margin-bottom:var(--s-2);">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>
       <div class="demo-strip" role="note" style="margin-bottom:var(--s-2);">Demo. Try a booking, no card needed</div>
       <div class="demo-strip" role="note" style="margin-bottom:var(--s-6);">Demo. Bookings are not taken</div>
 
-      <h3 class="t-title">Demo flag</h3>
-      <p class="ds-section__intro">.demo-flag (6.23): above a demo page's heading, in place of the small Demo pill. An ink "Demo" tag joined to an outlined "No real booking is made", mono caps, 2px ink border.</p>
-      <p class="demo-flag" style="margin:0 0 var(--s-6);"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>
-
       <h3 class="t-title">Gallery header</h3>
       <p class="ds-section__intro">Experience heroes on phones, on every experience page (Salty Cowboy and the demos): 4:3 (--hero-ratio-mobile), never a thin banner, with the photo anchored centre top so riders' heads aren't cropped. Image srcset and sizes give 2x screens about twice the slot width, allowing for photos wider than the slot being cropped to fill it.</p>
-      <p class="ds-section__intro">.gallery-header (6.20), for 3 or more photos: one large photo and up to 4 smaller on desktop, rounded to --r-gallery (--r-card). Under 820px it becomes a full-width swipeable carousel (scroll-snap) with a "1 / N" mono counter. Tapping a photo opens the lightbox; only Unsplash photos carry a credit, in the lightbox caption ("Photo: Name / Unsplash"). 1 or 2 photos: a single hero (.gallery-header--1). Photos are AVIF and WebP, 800 and 1600px.</p>
+      <p class="ds-section__intro">.gallery-header (6.20), for 3 or more photos: one large photo and up to 4 smaller on desktop, square (live still rounds it at 14px, see Known drift). Up to 820px it becomes a full-width swipeable carousel (scroll-snap) with a "1 / N" mono counter. Tapping a photo opens the lightbox; only Unsplash photos carry a credit, in the lightbox caption ("Photo: Name / Unsplash"). 1 or 2 photos: a single hero (.gallery-header--1). Photos are AVIF and WebP, 800 and 1600px.</p>
       <p class="t-label" style="margin:0 0 var(--s-2);">Desktop</p>
       <div class="gallery-header gallery-header--5" style="max-width:740px;margin:0 0 var(--s-5);">
         <div class="gallery-header__track" style="display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:var(--gallery-gap);aspect-ratio:var(--gallery-ratio);overflow:visible;margin:0;">
-          <figure class="gallery-header__item" style="border-radius:var(--r-gallery);grid-row:1 / 3;"><img src="/assets/salty-cowboy/photo-stable.jpg" alt="Stable backdrop" loading="lazy" data-i="0" /></figure>
-          <figure class="gallery-header__item" style="border-radius:var(--r-gallery);"><img src="/assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse in the stable" loading="lazy" data-i="1" /></figure>
-          <figure class="gallery-header__item" style="border-radius:var(--r-gallery);"><img src="/assets/salty-cowboy/gallery-stable-2.jpg" alt="Model with a horse" loading="lazy" data-i="2" /></figure>
-          <figure class="gallery-header__item" style="border-radius:var(--r-gallery);"><img src="/assets/salty-cowboy/gallery-stable-3.jpg" alt="Horse close up" loading="lazy" data-i="3" /></figure>
-          <figure class="gallery-header__item" style="border-radius:var(--r-gallery);"><img src="/assets/salty-cowboy/gallery-stable-4.jpg" alt="Saddle and tack" loading="lazy" data-i="4" /></figure>
+          <figure class="gallery-header__item" style="border-radius:var(--r-0);grid-row:1 / 3;"><img src="/assets/salty-cowboy/photo-stable.jpg" alt="Stable backdrop" loading="lazy" data-i="0" /></figure>
+          <figure class="gallery-header__item" style="border-radius:var(--r-0);"><img src="/assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse in the stable" loading="lazy" data-i="1" /></figure>
+          <figure class="gallery-header__item" style="border-radius:var(--r-0);"><img src="/assets/salty-cowboy/gallery-stable-2.jpg" alt="Model with a horse" loading="lazy" data-i="2" /></figure>
+          <figure class="gallery-header__item" style="border-radius:var(--r-0);"><img src="/assets/salty-cowboy/gallery-stable-3.jpg" alt="Horse close up" loading="lazy" data-i="3" /></figure>
+          <figure class="gallery-header__item" style="border-radius:var(--r-0);"><img src="/assets/salty-cowboy/gallery-stable-4.jpg" alt="Saddle and tack" loading="lazy" data-i="4" /></figure>
         </div>
       </div>
       <p class="t-label" style="margin:0 0 var(--s-2);">Mobile, swipe</p>
@@ -567,7 +836,7 @@
           <figure class="gallery-header__item" style="flex:0 0 100%;aspect-ratio:var(--gallery-ratio-mobile);border-radius:var(--r-0);scroll-snap-align:start;"><img src="/assets/salty-cowboy/gallery-stable-3.jpg" alt="Horse close up" loading="lazy" data-i="3" /></figure>
           <figure class="gallery-header__item" style="flex:0 0 100%;aspect-ratio:var(--gallery-ratio-mobile);border-radius:var(--r-0);scroll-snap-align:start;"><img src="/assets/salty-cowboy/gallery-stable-4.jpg" alt="Saddle and tack" loading="lazy" data-i="4" /></figure>
         </div>
-        <p class="gallery-header__count" aria-hidden="true" style="display:block;position:absolute;right:var(--s-3);bottom:var(--s-3);padding:4px 10px;border-radius:var(--r-pill);background:var(--scrim-strong);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-mono);"><span id="dsCarouselNow">1</span> / 5</p>
+        <p class="gallery-header__count" aria-hidden="true" style="display:block;position:absolute;right:var(--s-3);bottom:var(--s-3);padding:4px 10px;border-radius:var(--r-0);background:var(--scrim-strong);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-mono);"><span id="dsCarouselNow">1</span> / 5</p>
       </div>
       <script>
         (function () {
@@ -588,7 +857,7 @@
         </div>
         <div style="padding:var(--s-4) var(--s-5);border:var(--bw) solid var(--line);max-width:360px;">
           <p class="t-label" style="margin:0 0 var(--s-3);">After booking</p>
-          <div style="background:var(--panel);border-radius:var(--r-card);padding:var(--s-3) var(--s-4);margin:0 0 var(--s-4);font-family:var(--display);font-size:15px;line-height:1.45;">
+          <div style="background:var(--panel);border-radius:var(--r-0);padding:var(--s-3) var(--s-4);margin:0 0 var(--s-4);font-family:var(--display);font-size:15px;line-height:1.45;">
             <div style="display:flex;justify-content:space-between;padding:4px 0;"><b style="font-weight:var(--w-strong);">Experience name</b><span></span></div>
             <div style="display:flex;justify-content:space-between;padding:4px 0;"><span>Sat 21 Nov, 9:30am</span><span></span></div>
             <div style="display:flex;justify-content:space-between;padding:4px 0;"><b style="font-weight:var(--w-strong);">Total (held, not charged)</b><b style="font-weight:var(--w-strong);">$1,000</b></div>
@@ -620,18 +889,41 @@
       <div class="photo-placeholder" role="img" aria-label="Photos coming soon" style="max-width:640px;">
         <span class="photo-placeholder__name">Business name</span>
         <span class="photo-placeholder__label">Photos coming soon</span>
-        <span style="display:inline-flex;align-items:center;min-height:24px;padding:2px 10px;border:var(--bw) solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-mono);text-transform:uppercase;color:var(--ink-2);">Demo</span>
+        <span class="tag">Demo</span>
+      </div>
+
+      <h3 class="t-title">Wordmark and favicon</h3>
+      <p class="label" style="margin:0 0 var(--s-3);">Decided, not live yet</p>
+      <p class="ds-section__intro">Ro chose a handwritten marker wordmark (Permanent Marker as the stand-in) and the plain Permanent Marker R favicon (W1). Live still has a plain Neue Haas "RealDays." for the logo and a blocky R for the favicon. The exported files are not in this checkout, so the boxes below are placeholders. The chosen assets go here, crisp and not pixelated, with the favicon legible at 16px. Do not change the live logo or favicon until the files are supplied.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-6);grid-template-columns:repeat(auto-fill,minmax(240px,1fr));">
+        <div><span class="ds-state-label">Wordmark (placeholder)</span><div class="ds-placeholder" style="height:96px;">Wordmark file not supplied yet</div></div>
+        <div><span class="ds-state-label">Favicon R at 64, 32 and 16px (placeholder)</span><div class="ds-placeholder" style="height:96px;">Favicon file not supplied yet</div></div>
+        <div><span class="ds-state-label">Live today</span><div style="display:flex;align-items:center;gap:var(--s-4);height:96px;"><span class="logo">RealDays.</span><img src="/assets/favicon.svg?v=c732d6da" alt="" width="32" height="32" /></div></div>
       </div>
     </section>
 
     <section class="ds-section" id="layout" style="border-bottom:0;">
       <div class="ds-index"><span class="index">[04]</span><h2>Layout</h2></div>
-      <p class="ds-section__intro">Sections are left-aligned, inside a 1200px container with var(--gutter) side padding at var(--section-y) top and bottom. Only the full-bleed photo heroes (homepage #top and for-business #intro, via .hero-photo) are centred.</p>
+      <p class="ds-section__intro">The homepage and /for-business/ (body.rd) share one container, one 12-column grid, the 8px spacing scale and one type scale. Sections are left-aligned inside the container. Only the full-bleed photo heroes (homepage #top and for-business #intro, via .hero-photo) are centred. Other pages keep their own layout until Ro decides to move them over.</p>
+      <table class="ds-table" style="margin-bottom:var(--s-6);">
+        <thead><tr><th>Token</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>--gutter</td><td>20px under 768, 32px from 768, 48px from 1200</td></tr>
+          <tr><td>--container</td><td>calc(1440px - 2 * var(--gutter)): content runs 48 to 1392 at 1440 and centres above that</td></tr>
+          <tr><td>grid</td><td>12 columns from 1024px (.grid, .c-1-5, .c-7-12 and so on), one column below; gap --grid-gap 16px, row gap --row-gap 24px</td></tr>
+          <tr><td>--cards-per-row</td><td>2 under 768, 3 from 768, 5 from 1200. Maximum five per row, never six. --card-pad 16px.</td></tr>
+          <tr><td>--section-y, home</td><td>64px under 1200, 96px from 1200</td></tr>
+          <tr><td>--section-y, /for-business/</td><td>80px under 768, 96px from 768, 128px from 1200 (body.rd.biz)</td></tr>
+          <tr><td>--header-h</td><td>measured by app.js (see Tokens)</td></tr>
+          <tr><td>--map-w</td><td>50vw (docked map panel, from 1024px)</td></tr>
+        </tbody>
+      </table>
       <div class="ds-layout-demo">
         <div class="ds-layout-demo__inner">
-          <p class="t-label" style="margin:0;">--container 1200px, --gutter 40px (20px &le;820px), --section-y 128px (96px &le;820px)</p>
+          <p class="label" style="margin:0;">--container 1440px less two gutters, --gutter 20 / 32 / 48px</p>
         </div>
       </div>
+      <p class="ds-section__intro" style="margin-top:var(--s-4);">Ro is deciding whether the desktop gutter becomes 80 or 96px, to give the pages more breathing room. It is a one-line change in tokens.css and in styles.css (the min-width:1200px rule). Decided, not live yet: nothing changes until Ro chooses.</p>
     </section>
 
   </div>

@@ -1,16 +1,16 @@
 /* RealDays component library. Built only from assets/tokens.css variables.
-   The only non-token values permitted are the two chevron data-URI SVGs in 6.3.
+   The only non-token values permitted are the chevron data-URI SVGs in 6.3.
+   Mirrors the live styles.css body.rd layer; the DS page carries class="rd". Update both together.
 
-   Rules (mobile QA, Ro, 22 Oct 2026):
-   - Tap targets are at least 44px (--hit). Buttons are 44px tall. Smaller-looking
-     controls (chips, tabs, breadcrumb, footer and credit links) get a ::before
-     inset that makes up the 44px, so the visual size stays.
-   - Text is 12px or larger (--t-min) for captions, credits, breadcrumbs, footer
-     links and booking labels.
-   - Chivo Mono caps for short labels only, under about six words: labels, pills,
-     prices, buttons, the hero subtext. Anything that runs to more than one line
-     is Neue Haas in sentence case.
-   - Selects keep 16px text, or iOS zooms in when one opens. */
+   Rules (live, Ro's briefs of 22 and 23 Oct 2026):
+   - Buttons, chips and selects are 40px (--control-h) and square (--r-control is 0). Smaller-
+     looking controls get a ::before inset (-4px) that makes up a 44px tap target.
+   - Text is 12px or larger (--t-min) for captions, credits, breadcrumbs, footer links and
+     booking labels.
+   - Chivo Mono caps for short labels only, under about six words: labels, tags, prices,
+     buttons, the hero subtext. Anything that runs to more than one line is Neue Haas in
+     sentence case. All mono is weight 400.
+   - Selects that open the phone's own picker keep 16px text, or iOS zooms in. */
 
 /* 6.0 baseline */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -23,46 +23,54 @@
 .skip-link{position:absolute;left:var(--s-4);top:-100px;z-index:var(--z-top);transition:top var(--dur-1) var(--ease)}
 .skip-link:focus{top:var(--s-4)}
 
-/* 6.1 buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);min-height:44px;padding:0 var(--s-5);background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono-strong);text-transform:uppercase;letter-spacing:var(--ls-label);border:0;border-radius:var(--r-control);cursor:pointer;transition:background var(--dur-1) var(--ease),border-color var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
-.btn:hover{background:var(--color-hover-dark)}
-.btn:active{transform:translateY(1px)}
+/* 6.1 buttons: 40px square, 1px ink border, 2px top and 16px side padding (the left a touch
+   more, to balance the letter-spacing gap), Chivo Mono 12px caps at .08em, weight 400. A
+   ::before inset of -4px 0 makes up the 44px tap target. .btn and --primary are ink fills,
+   --secondary is outlined, --on-dark is paper on ink. */
+.btn,.btn--primary,.btn--secondary,.btn--on-dark{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);height:var(--control-h);min-height:var(--control-h);padding:2px var(--control-px) 0 calc(var(--control-px) + .08em);border:var(--bw) solid var(--ink);border-radius:var(--r-control);font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);line-height:1;letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer;transition:background-color var(--dur) var(--ease-out),color var(--dur) var(--ease-out),border-color var(--dur) var(--ease-out)}
+.btn,.btn--primary{background:var(--ink);color:var(--paper)}
+.btn--secondary{background:transparent;color:var(--ink);border-color:var(--line-ui)}
+.btn--on-dark,.on-dark .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.btn::before,.btn--primary::before,.btn--secondary::before,.btn--on-dark::before{content:"";position:absolute;inset:-4px 0}
+@media (hover:hover){
+  .btn:hover,.btn--primary:hover{background:var(--color-hover-dark);color:var(--paper);border-color:var(--color-hover-dark)}
+  .btn--secondary:hover{background:var(--color-hover);color:var(--ink);border-color:var(--ink)}
+  .btn--on-dark:hover,.on-dark .btn:hover{background:var(--color-hover);color:var(--ink);border-color:var(--color-hover)}
+}
+.btn:active,.btn--primary:active,.btn--secondary:active,.btn--on-dark:active{transform:translateY(1px)}
 .btn[aria-busy="true"] .btn__label{opacity:.01}
 .btn__spinner{display:none;width:16px;height:16px;border-radius:var(--r-round);border:2px solid currentColor;border-top-color:transparent;position:absolute;animation:btn-spin var(--dur-3) linear infinite}
 .btn[aria-busy="true"] .btn__spinner{display:block}
 @keyframes btn-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){
+  .btn:active,.btn--primary:active,.btn--secondary:active,.btn--on-dark:active{transform:none}
   .btn__spinner{animation:none;display:none}
   .btn[aria-busy="true"] .btn__label{opacity:1}
   .btn[aria-busy="true"] .btn__label::after{content:"..."}
 }
 
-.btn--lg{min-height:48px;width:100%;font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);text-transform:none;letter-spacing:var(--ls-title)}
-
-.btn--secondary{background:transparent;color:var(--ink);border:var(--bw) solid var(--line-ui)}
-.btn--secondary:hover{border-color:var(--ink);background:var(--tint-hover);color:var(--ink)}
-
-.on-dark .btn{background:var(--paper);color:var(--ink)}
-.on-dark .btn:hover{background:var(--color-hover);color:var(--ink)}
-.on-dark .btn--secondary{background:transparent;color:var(--paper);border-color:var(--line-ui-dark)}
-.on-dark .btn--secondary:hover{background:var(--tint-hover-dark);border-color:var(--paper);color:var(--paper)}
+/* Book button: the sticky bar and the booking panel use Neue Haas 600 sentence case at 48px. */
+.btn--lg{height:auto;min-height:48px;width:100%;padding-block:var(--s-2);font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);text-transform:none;letter-spacing:0;white-space:normal;text-align:center}
 
 .link-arrow{display:inline-flex;align-items:center;gap:var(--s-1);min-height:44px;font-family:var(--mono);font-size:var(--t-small);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink);text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:3px;transition:color var(--dur-1) var(--ease)}
 .link-arrow:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 
-.btn--icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:var(--bw) solid var(--line-ui);background:transparent;color:var(--ink);border-radius:var(--r-control);cursor:pointer;transition:border-color var(--dur-1) var(--ease),background var(--dur-1) var(--ease)}
-.btn--icon:hover{border-color:var(--ink);background:var(--tint-hover)}
+.btn--icon{position:relative;display:inline-flex;align-items:center;justify-content:center;width:var(--control-h);height:var(--control-h);border:var(--bw) solid var(--line-ui);background:transparent;color:var(--ink);border-radius:var(--r-control);cursor:pointer;transition:border-color var(--dur) var(--ease-out),background-color var(--dur) var(--ease-out)}
+.btn--icon::before{content:"";position:absolute;inset:-4px}
+.btn--icon:hover{border-color:var(--ink);background:var(--color-hover)}
 .btn--icon svg{width:18px;height:18px;fill:none;stroke:currentColor}
 
 [aria-disabled="true"]{background:transparent!important;color:var(--ink-2)!important;border:var(--bw) dashed var(--ink-disabled)!important}
 
-/* 6.2 chips */
-.chip{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;padding:0 var(--s-4);font-family:var(--mono);font-size:var(--t-small);text-transform:uppercase;letter-spacing:var(--ls-mono);color:var(--ink-2);background:transparent;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);cursor:pointer;transition:border-color var(--dur-1) var(--ease),background var(--dur-1) var(--ease),color var(--dur-1) var(--ease)}
-.chip:hover{border-color:var(--ink)}
+/* 6.2 chips: 40px square, 1px --line-ui, 10px padding, 12px mono caps, ink text. Pressed
+   is an ink fill with paper text, nothing added. --sm is 32px. */
+.chip{position:relative;display:inline-flex;align-items:center;flex:none;height:var(--control-h);padding:10px;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);background:transparent;color:var(--ink);font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);line-height:1;letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer;transition:background-color var(--dur) var(--ease-out),color var(--dur) var(--ease-out)}
+.chip::before{content:"";position:absolute;inset:-4px 0}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.chip[aria-pressed="true"]::before{content:"";display:inline-block;width:12px;height:9px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg) translate(1px,-2px)}
-
-.chip--sub{font-size:var(--t-label);letter-spacing:var(--ls-label)}
+@media (hover:hover){.chip:not([aria-pressed="true"]):hover{background:var(--color-hover);border-color:var(--ink)}}
+.chip:active{transform:translateY(1px)}
+.chip--sm{height:32px;padding:6px 10px}
+@media (prefers-reduced-motion:reduce){.chip:active{transform:none}}
 
 .chip--option{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:44px;padding:var(--s-2) var(--s-4);font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--ls-mono);color:var(--ink-2);background:transparent;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);cursor:pointer}
 .chip--option .chip--option__price{font-size:var(--t-small);color:var(--ink-2)}
@@ -75,109 +83,133 @@
   .chip-row .chip{scroll-snap-align:start}
 }
 
-/* 6.3 selects */
-.select{min-height:44px;padding:0 var(--s-6) 0 var(--s-4);font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink);background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2317171a' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right var(--s-3) center;background-size:10px 6px;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);appearance:none;-webkit-appearance:none;cursor:pointer}
+/* 6.3 selects: 40px, square, 12px mono caps, with a chevron. The hero search uses the
+   same select as .pill-select (the name is old; it is square). On a phone the native picker
+   opens, so those selects stay at 16px or iOS zooms in. */
+.select{height:var(--control-h);min-height:var(--control-h);padding:0 40px 0 var(--control-px);font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink);background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2317171a' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right var(--control-px) center;background-size:10px 6px;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);appearance:none;-webkit-appearance:none;cursor:pointer}
+@media (hover:hover){.select:hover{border-color:var(--ink);background-color:var(--color-hover)}}
+.pill-select{width:100%;min-width:0}
 .on-dark .select{color:var(--paper);border-color:var(--line-ui-dark);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23f3f2ee' stroke-width='1.5'/%3E%3C/svg%3E")}
+@media (hover:hover){.on-dark .select:hover{border-color:var(--paper);background-color:var(--tint-hover-dark)}}
+.on-dark .select option{color:var(--ink)}
 
-/* 6.4 inputs */
+/* 6.4 inputs. .signup-form input is the live input (below, on the dark band): a bottom
+   border only, 40px, mono 16px. The boxed .field input is still used by the showcase
+   handover pages; it is square and 40px too. */
 .field{display:flex;flex-direction:column;gap:var(--s-2)}
-.field label{font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
+.field label{font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
 .on-dark .field label{color:var(--paper-2)}
 .field .hint{font-family:var(--display);font-size:var(--t-small);color:var(--ink-2)}
-.field input,.field textarea{min-height:48px;padding:var(--s-3);font-family:var(--display);font-size:var(--t-body);color:var(--ink);background:var(--paper);border:var(--bw) solid var(--line-ui);border-radius:var(--r-control)}
-.field textarea{min-height:120px;border-radius:min(var(--r-control),var(--s-3))}
+.field input,.field textarea{min-height:var(--control-h);padding:var(--s-3);font-family:var(--display);font-size:var(--t-body);color:var(--ink);background:var(--paper);border:var(--bw) solid var(--line-ui);border-radius:var(--r-control)}
+.field textarea{min-height:120px}
 .field input:focus,.field textarea:focus{outline:none;border:var(--bw-strong) solid var(--focus)}
 .field.has-error input,.field.has-error textarea{border:var(--bw-strong) solid var(--ink)}
 .field .error-msg{display:flex;align-items:center;gap:var(--s-1);font-family:var(--display);font-size:var(--t-small);color:var(--ink)}
 
-/* 6.5 labels */
-.eyebrow{display:inline-flex;align-items:center;gap:var(--s-2);font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
-.eyebrow::before{content:"";display:inline-block;width:var(--bullet);height:var(--bullet);background:var(--ink)}
+/* 6.5 labels. .label is the shared 12px mono caps (weight 400, .08em). The eyebrow is a label
+   with a square 8px ink bullet. The Demo .tag is the one pill left in the library: 24px
+   high, 1px --line-ui, 999px. */
+.label{font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);letter-spacing:var(--ls-label);text-transform:uppercase;line-height:1.5}
+.eyebrow{display:flex;align-items:center;gap:var(--s-2);margin:0 0 var(--s-4);font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);text-transform:uppercase;letter-spacing:var(--ls-label);line-height:1.5;color:var(--ink-2)}
+.eyebrow::before{content:"";flex:none;width:var(--bullet);height:var(--bullet);background:var(--ink)}
 .on-dark .eyebrow{color:var(--paper-2)}
 .on-dark .eyebrow::before{background:var(--paper)}
 
 .index{font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);color:var(--ink-2)}
 
-.tag{display:inline-flex;align-items:center;font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);padding:var(--s-1) var(--s-3);border:var(--bw) solid var(--line-ui);border-radius:var(--r-control)}
+.tag{display:inline-flex;align-items:center;height:var(--control-h-sm);padding:2px 10px;border:var(--bw) solid var(--line-ui);border-radius:var(--r-pill);font-family:var(--mono);font-size:var(--t-label);line-height:1;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-2)}
 .tag--coming-soon{border-style:dashed}
 
 .badge{display:inline-flex;align-items:center;font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);padding:3px var(--s-2);border:var(--bw) solid var(--ink);border-radius:var(--r-0)}
 
-/* 6.6 cards */
-.card{position:relative;display:flex;flex-direction:column;border-radius:var(--r-0);transition:border-color var(--dur-1) var(--ease)}
-.card__media{position:relative;aspect-ratio:4/3;background:var(--panel);overflow:hidden}
-.card__media img{width:100%;height:100%;object-fit:cover}
-.card__meta{margin-top:var(--s-3);font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
-.card__title{margin:var(--s-1) 0 0;font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);letter-spacing:var(--ls-title);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card__desc{margin:var(--s-1) 0 0;font-family:var(--display);font-size:var(--t-body);color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card__rule{margin:var(--s-3) 0;border:0;border-top:var(--bw) solid var(--line)}
-/* Price row: "From [price]", regular weight, right-aligned, always the card's
-   last row so prices line up across a row whatever the title length. No
-   "approx.", "about" or "per person" on cards. */
-.card__price-row{display:flex;align-items:baseline;justify-content:flex-end;gap:var(--s-2);margin-top:auto;font-family:var(--display)}
-.card__price{font-size:var(--t-body);font-weight:var(--w-regular);color:var(--ink);text-align:right}
-.card__basis{font-size:var(--t-small);color:var(--ink-2)}
-.card__link{position:absolute;inset:0}
+/* 6.6 cards (live body.rd): one shell for experiences and businesses. Square, 1px --line
+   border, paper fill. Photo 211:158 (square under 768), then the body (16px padding, 12px
+   under 768): Demo tag, title (17px / 600, two lines of height kept), place line, description
+   (hidden under 768) and the price row, pinned to the bottom with a hairline above it so
+   prices line up across a row. */
+.card{position:relative;display:flex;flex-direction:column;height:100%;color:var(--ink);border:var(--bw) solid var(--line);border-radius:var(--r-0);background:var(--paper);overflow:hidden}
 .card:hover,.card:focus-within{border-color:var(--ink)}
-.card:hover .card__media,.card:focus-within .card__media{outline:var(--bw) solid var(--ink)}
-.card__nav{font-family:inherit}
-
-.card--placeholder{border:var(--bw) dashed var(--line-ui);color:var(--ink-2)}
-.card--placeholder .card__media{background:var(--panel)}
-
-/* 6.6a card list: 4 across on desktop, one card per row (full width inside
-   the gutter) below 820px, never a sideways scroll. A homepage row marked
-   data-mobile-cap shows 12 cards on mobile, then .card-list__more ("See all")
-   adds .is-expanded to show the rest. */
-.card-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-5)}
-.card-list__more{display:none;min-height:44px;align-items:center;background:none;border:0;padding:0;font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2);cursor:pointer}
-.card-list__more:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-@media (max-width:820px){
-  .card-list{grid-template-columns:minmax(0,1fr);gap:var(--s-4)}
-  .card-list[data-mobile-cap]:not(.is-expanded)>:nth-child(n+13){display:none}
-  .card-list__more{display:inline-flex;margin-top:var(--s-3)}
+.card:focus-visible{outline:2px solid var(--focus);outline-offset:var(--focus-offset)}
+.card__media{height:auto;aspect-ratio:211/158;overflow:hidden;background:var(--panel)}
+.card__media img,.card__media picture{display:block;width:100%;height:100%;object-fit:cover;transition:transform var(--dur) var(--ease-out)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){a.card:hover .card__media img,a.card:hover .card__media picture{transform:scale(1.03)}}
+@media (hover:hover){a.card:hover .card__title{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}}
+.card__body{flex:1;display:flex;flex-direction:column;padding:var(--card-pad)}
+.card__tag{margin:0 0 var(--s-3)}
+.card__title{margin:0 0 var(--s-2);font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);line-height:1.25;letter-spacing:0;min-height:2.5em}
+.card__loc{margin:0 0 var(--s-2);font-family:var(--display);font-size:var(--t-small);line-height:1.4;letter-spacing:0;color:var(--ink-3)}
+.card__desc{margin:0 0 var(--s-3);font-family:var(--display);font-size:var(--t-small);line-height:1.4;color:var(--ink-2)}
+.card__meta{margin-top:auto;padding-top:var(--s-3);border-top:var(--bw) solid var(--line);display:grid;gap:6px}
+.card__row{display:flex;justify-content:space-between;align-items:baseline}
+.card__price{margin:0;font-size:var(--t-small);line-height:1.3;font-weight:var(--w-strong)}
+.card__link{position:absolute;inset:0}
+.card--empty .card__media{background:var(--panel)}
+.card--empty .card__title,.card--empty .card__loc,.card--empty .card__desc{color:var(--ink-3)}
+@media (max-width:767px){
+  .card__media{aspect-ratio:1/1}
+  .card__body{padding:var(--s-3)}
+  .card__desc{display:none}
 }
 
-/* 6.8 benefit band */
-.benefit-band{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-6);padding:var(--section-y) var(--gutter);background:var(--panel);border-top:var(--bw) solid var(--line);border-bottom:var(--bw) solid var(--line)}
-.benefit-band__item{display:flex;flex-direction:column;gap:var(--s-3)}
-.benefit-band__icon{width:28px;height:28px;color:var(--ink)}
-.benefit-band__title{font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong)}
-.benefit-band__text{font-family:var(--display);font-size:var(--t-body);text-transform:none;letter-spacing:0;line-height:1.5;color:var(--ink-2)}
-@media (max-width:820px){
-  .benefit-band{grid-template-columns:1fr}
-}
+/* 6.6a card grid: --cards-per-row across (2 under 768, 3 from 768, 5 from 1200; never six),
+   16px between columns and 24px between rows. A grid marked data-mobile-cap shows 12 cards
+   up to 820px, then .card-cap-more ("See all experiences") adds .is-expanded. */
+.card-grid{display:grid;grid-template-columns:repeat(var(--cards-per-row),minmax(0,1fr));gap:var(--row-gap) var(--grid-gap)}
+.card-grid[data-mobile-cap]:not(.is-expanded)>.card:nth-child(n+13){display:none}
+@media (min-width:821px){.card-grid[data-mobile-cap]:not(.is-expanded)>.card:nth-child(n+13){display:flex}}
+.card-cap-more{display:none;min-height:44px;align-items:center;background:none;border:0;padding:0;font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2);cursor:pointer}
+.card-cap-more:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:820px){.card-cap-more{display:inline-flex;margin-top:var(--s-4)}}
 
-/* 6.9 faq */
-.faq-list{display:flex;flex-direction:column}
-.faq{border-bottom:var(--bw) solid var(--line)}
-.faq summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);min-height:44px;padding:var(--s-4) 0;font-family:var(--display);font-size:var(--t-title);cursor:pointer;list-style:none}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:var(--mono);color:var(--ink-2);font-size:var(--t-headline);line-height:1}
-.faq[open] summary::after{content:"\2212"}
-.faq__answer{margin:0 0 var(--s-4);max-width:var(--measure);font-family:var(--display);font-size:var(--t-body);color:var(--ink-2)}
+/* 6.6b card rails ("Good for a first go", "Just added"): one row that scrolls sideways
+   inside the container, each card the same width as one cell of the five-across grid
+   (--card-w). The 40px square arrows hide under 768. */
+.rail-head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s-4);margin:0 0 var(--stack-heading)}
+.rail-nav{display:flex;gap:var(--s-2)}
+.rail-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:var(--control-h);height:var(--control-h);padding:0;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);background:transparent;color:var(--ink);cursor:pointer}
+.rail-btn::before{content:"";position:absolute;inset:-4px}
+.rail-btn svg{width:16px;height:16px}
+@media (hover:hover){.rail-btn:hover{background:var(--color-hover);border-color:var(--ink)}}
+.card-rail{display:flex;gap:var(--grid-gap);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin:-4px 0;padding:4px 0}
+.card-rail::-webkit-scrollbar{display:none}
+.card-rail>.card{flex:0 0 var(--card-w);height:auto;scroll-snap-align:start}
+@media (max-width:767px){.rail-nav{display:none}}
 
-/* 6.10 marquee */
-.marquee{display:flex;align-items:center;gap:var(--s-4);font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--ls-mono);color:var(--ink-2)}
-.marquee-pause{display:inline-flex}
+
+/* 6.9 faq (live .faq-list / .faq-item, native details): Neue Haas 17px / 400 summary, a
+   16px mono marker column ("+" closed, minus open) in ink-3, 24px above and below each
+   item, the answer at 16px ink-2 and 62ch. */
+.faq-list{border-top:var(--bw) solid var(--line);margin-top:var(--stack-heading)}
+.faq-item{border-bottom:var(--bw) solid var(--line);padding:var(--s-5) 0}
+.faq-item summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);min-height:44px;font-family:var(--display);font-size:var(--t-title);font-weight:400;line-height:1.3;letter-spacing:0}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";flex:none;width:16px;text-align:center;font-family:var(--mono);font-size:16px;color:var(--ink-3)}
+.faq-item[open] summary::after{content:"\2212"}
+.faq-item p{margin:14px 0 0;max-width:var(--measure);font-size:var(--t-body);color:var(--ink-2)}
+
 
 /* 6.11 hero photo: a full-bleed photo hero, used for both the homepage and
-   /for-business/ so the two share one pattern instead of each hand-rolling
-   its own hero type and centring. Content is vertically centred on mobile
-   (full viewport-height-ish hero) and h1/subtext sizes are shared via
-   .hero-h1 / .hero-h1--lg / .hero-sub rather than per-page inline styles. */
+   /for-business/. The h1 is --t-display (40 to 72px) in Neue Haas 600; the homepage h1 sits at
+   line-height 1.18 and .01em, the business hero h1 at -.01em. Sub text is mono caps at --t-label.
+   Content is vertically centred on mobile. */
 .hero-photo{position:relative;text-align:center;overflow:hidden;color:var(--paper)}
 .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .hero-scrim{position:absolute;inset:0;background:var(--scrim);z-index:1}
-.hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto}
-.hero-h1{font-size:clamp(36px,6vw,64px);line-height:1.1;letter-spacing:0;margin:0 0 var(--s-7)}
-.hero-h1--lg{font-size:clamp(47px,7.8vw,83px)}
-.hero-sub{margin:0 auto var(--s-7);max-width:44ch;font-family:var(--mono);text-transform:uppercase;font-size:var(--t-label);letter-spacing:var(--ls-label);line-height:1.5;color:var(--paper-2)}
-.hero-credit{position:absolute;right:var(--gutter);bottom:var(--s-3);font-family:var(--mono);text-transform:uppercase;color:var(--paper-2)}
-.hero-credit a{min-height:24px;display:inline-flex;align-items:center;color:inherit;border-bottom:var(--bw) solid var(--line-ui-dark)}
+.hero-inner{position:relative;z-index:2;max-width:1000px;margin:0 auto}
+.hero-h1{font-size:var(--t-display);line-height:1.18;letter-spacing:.01em;margin:0 0 var(--s-6);text-wrap:balance}
+.hero-h1--biz{line-height:var(--lh-tight);letter-spacing:-.01em}
+.hero-sub{margin:0 auto var(--s-6);font-family:var(--mono);text-transform:uppercase;font-size:var(--t-label);letter-spacing:var(--ls-label);line-height:1.5;color:var(--paper-2)}
+.hero-credit{position:absolute;right:20px;bottom:14px;margin:0;z-index:2;font-family:var(--mono);font-size:var(--t-min);text-transform:uppercase;color:rgba(243,242,238,.65)}
+.hero-credit a{position:relative;color:inherit;border-bottom:var(--bw) solid rgba(243,242,238,.4)}
+.hero-credit a::before{content:"";position:absolute;inset:-16px -4px}
+/* Pause / Play for the homepage background video, where the photo credit sat. Live is .1em
+   here, not the .08em of the label scale. */
+.hero-pause{position:absolute;right:20px;bottom:14px;z-index:2;margin:0;padding:0;border:0;border-bottom:var(--bw) solid rgba(243,242,238,.4);background:none;font-family:var(--mono);font-size:var(--t-min);letter-spacing:.1em;text-transform:uppercase;color:rgba(243,242,238,.65);cursor:pointer}
+.hero-pause::before{content:"";position:absolute;inset:-16px -8px}
+.hero-pause:hover{color:var(--paper);border-bottom-color:var(--paper)}
 @media (max-width:640px){
   .hero-photo{min-height:clamp(420px,60svh,560px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--s-5) var(--gutter)}
-  .hero-h1{margin-bottom:var(--s-5)}
+  .hero-credit,.hero-pause{bottom:16px}
 }
 
 /* 6.12 booking panel */
@@ -192,17 +224,15 @@
 .booking-panel__total-label{font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
 .booking-panel__total-value{font-size:var(--t-title);font-weight:var(--w-strong)}
 
-/* 6.12a booking panel steps (Ro, 20 Oct 2026). Step 1: date pills, people
+/* 6.12a booking panel steps (Ro, 20 Oct 2026). Step 1: date options (.date-opt), people
    stepper, total. Step 2: details fields, summary, policy. */
 .bp-steplabel{font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink);margin:0 0 var(--s-2)}
-.date-pills{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
-.date-pill{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s-1);width:100%;min-height:56px;padding:9px var(--s-3);font-family:var(--display);font-size:.875rem;line-height:1.2;color:var(--ink);background:transparent;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);cursor:pointer;transition:border-color var(--dur-1) var(--ease),background var(--dur-1) var(--ease)}
-.date-pill__days{font-size:.75rem;color:inherit}
-.date-pill__note{font-family:var(--mono);font-size:.625rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
-.date-pill:hover,.date-pill.is-hover{border-color:var(--ink);background:var(--tint-hover)}
-.date-pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.date-pill[aria-pressed="true"] .date-pill__note{color:var(--paper-2)}
-.date-pill[disabled]{opacity:.5;cursor:default;background:transparent}
+.date-opt{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:100%;min-height:56px;padding:9px 12px;text-align:center;font-family:var(--display);font-size:.875rem;line-height:1.2;text-transform:none;color:var(--ink);background:none;border:var(--bw) solid var(--line-ui);border-radius:var(--r-0);cursor:pointer}
+.date-opt small{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.date-opt:hover,.date-opt.is-hover{border-color:var(--ink);background:var(--tint-hover)}
+.date-opt[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.date-opt[aria-pressed="true"] small{color:var(--paper-2)}
+.date-opt[disabled]{opacity:.5;cursor:default;background:none}
 .stepper{display:inline-flex;align-items:center;min-height:44px;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control)}
 .stepper button{width:44px;height:44px;background:none;border:0;font-family:var(--mono);font-size:1.125rem;color:var(--ink);cursor:pointer;border-radius:var(--r-control)}
 .stepper button[disabled]{color:var(--ink-disabled);cursor:default}
@@ -215,9 +245,9 @@
 .bp-field input:focus,.bp-field input:focus-visible,.bp-field input.is-focus{outline:none;border-bottom:var(--bw-strong) solid var(--ink);padding-bottom:10px}
 .bp-field.has-error input{border-bottom:var(--bw-strong) solid var(--ink);padding-bottom:10px}
 .bp-hint{margin:6px 0 0;font-family:var(--display);font-size:var(--t-small);line-height:1.4;color:var(--ink-2)}
-.bp-field-error{display:flex;gap:var(--s-2);align-items:flex-start;width:100%;margin:var(--s-2) 0 0;padding:7px 10px;background:var(--panel);border:var(--bw) solid var(--line-ui);border-radius:8px;font-family:var(--display);font-size:var(--t-small);line-height:1.4;font-weight:var(--w-regular);color:var(--ink)}
+.bp-field-error{display:flex;gap:var(--s-2);align-items:flex-start;width:100%;margin:var(--s-2) 0 0;padding:7px 10px;background:var(--panel);border:var(--bw) solid var(--line-ui);border-radius:var(--r-0);font-family:var(--display);font-size:var(--t-small);line-height:1.4;font-weight:var(--w-regular);color:var(--ink)}
 .bp-field-error svg{flex:none;margin-top:2px}
-.bp-summary{background:var(--panel);border-radius:var(--r-card);padding:var(--s-3) var(--s-4);font-family:var(--display);font-size:.9375rem;line-height:1.45}
+.bp-summary{background:var(--panel);border-radius:var(--r-0);padding:var(--s-3) var(--s-4);font-family:var(--display);font-size:.9375rem;line-height:1.45}
 .bp-summary__row{display:flex;justify-content:space-between;gap:var(--s-3);padding:4px 0}
 .bp-summary__row b{font-weight:var(--w-strong)}
 .bp-summary__later{color:var(--ink-2);font-size:.875rem;border-top:var(--bw) solid var(--line);margin-top:var(--s-2);padding-top:10px}
@@ -226,25 +256,23 @@
 .bp-policy p{margin:0;font-family:var(--display);font-size:var(--t-small);line-height:1.45;color:var(--ink-2)}
 .bp-policy .bp-policy__acl{font-size:.75rem}
 @media (min-width:821px){
-  .booking-panel{position:sticky;top:calc(var(--header-h) + var(--s-5))}
+  .booking-panel{position:sticky;top:calc(var(--header-h,85px) + var(--s-5))}
 }
 
-.sticky-book{position:fixed;left:0;right:0;bottom:0;z-index:var(--z-bar);background:var(--paper);border-top:var(--bw) solid var(--line);box-shadow:var(--shadow-bar);padding:var(--s-3) var(--gutter) max(var(--s-3),env(safe-area-inset-bottom))}
-@media (min-width:821px){
-  .sticky-book{display:none}
-}
+/* 6.12b mobile sticky bar (up to 820px; experience pages and /for-business/). Fixed to the
+   bottom at z 40, shown once the hero is out of view and hidden near the target. The
+   button label is Neue Haas 600 at --t-title, 48px tall. --dark is the button-only
+   variant on /for-business/. Shown here in place, not fixed. */
+.mobile-sticky-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);padding:var(--s-3) var(--gutter) calc(env(safe-area-inset-bottom,0px) + var(--s-3));background:var(--paper);border-top:var(--bw) solid var(--line);box-shadow:var(--shadow-bar)}
+.mobile-sticky-bar .t-small{font-family:var(--display);flex:none;white-space:nowrap}
+.mobile-sticky-bar strong{font-weight:var(--w-strong)}
+.rd .mobile-sticky-bar .btn{height:auto;min-height:48px;white-space:normal;text-align:center;justify-content:center;line-height:1.25;font-family:var(--display);font-weight:600;font-size:var(--t-title);text-transform:none;letter-spacing:0}
+.mobile-sticky-bar.mobile-sticky-bar--dark{background:var(--ink);border-top-color:var(--line-dark);justify-content:center}
+.mobile-sticky-bar--dark .btn{width:100%;justify-content:center}
 
-/* Button-only variant, e.g. a sign-up CTA bar with no price or summary text:
-   same shown-after-hero / hidden-near-target / hidden-while-typing behaviour
-   as the experience-page booking bar, just a full-width button on dark. */
-.sticky-book--dark{background:var(--ink);border-top-color:var(--line-ui-dark);justify-content:center}
-.sticky-book--dark .btn{width:100%;justify-content:center}
-/* Experience pages (Salty Cowboy and the demos) use the same bar: price on one line,
-   the button label wrapping if it has to. Shown once the hero has scrolled past,
-   hidden near the footer and while the panel's own button is on screen; the body
-   gets padding-bottom equal to the bar's height while it shows. */
-.sticky-book__price{flex:none;white-space:nowrap}
-.sticky-book .btn{white-space:normal;text-align:center}
+/* Floating CTA: bottom right at z 50, fades in once the hero is off screen and out over
+   the contact section (app.js). Shown here with .on and in place. */
+.float-cta{z-index:var(--z-top);box-shadow:var(--shadow-float)}
 
 /* 6.13 breadcrumb */
 .breadcrumb{display:flex;align-items:center;gap:var(--s-2);font-family:var(--mono);font-size:var(--t-min);white-space:nowrap;text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
@@ -253,32 +281,42 @@
 .breadcrumb [aria-hidden="true"]{color:var(--ink-3)}
 .breadcrumb [aria-current="page"]{color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis}
 
-/* 6.14 header and footer */
-.site-header{position:sticky;top:0;z-index:var(--z-header);display:flex;align-items:center;justify-content:space-between;padding:var(--s-5) var(--gutter);background:var(--paper-glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:var(--bw) solid var(--line)}
-.site-header__nav{display:flex;align-items:center;gap:var(--s-6)}
-.site-header__nav a{display:inline-flex;align-items:center;min-height:44px;font-family:var(--mono);font-size:var(--t-label);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-2)}
-.nav-toggle{display:none;width:44px;height:44px}
-/* Full-screen mobile menu, the same on every page: two groups styled alike,
-   Explore (Browse experiences, Victoria, Bali, FAQ) and For businesses (List your
-   business, Talk to us), each a mono caps label over Neue Haas links, then the
-   currency select full width below. */
-.site-menu{display:flex;flex-direction:column;gap:var(--s-6);background:var(--paper);padding:var(--s-5) var(--gutter)}
-.site-menu__label{display:block;margin:0 0 var(--s-2);font-family:var(--mono);font-size:var(--t-min);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--ink-3)}
-.site-menu__group ul{list-style:none;margin:0;padding:0;border-top:var(--bw) solid var(--line)}
-.site-menu__link{display:flex;align-items:center;min-height:52px;padding:var(--s-3) 0;font-family:var(--display);font-size:1.375rem;font-weight:var(--w-regular);line-height:1.2;text-transform:none;letter-spacing:0;color:var(--ink);border-bottom:var(--bw) solid var(--line)}
-.site-menu__link:hover,.site-menu__link[aria-current="page"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
-.site-menu .select{display:block;width:100%;min-height:44px;font-size:1rem}
-@media (max-width:820px){
-  .site-header{padding:var(--s-3) var(--gutter)}
-}
-@media (max-width:640px){
-  .nav-toggle{display:inline-flex}
-}
+/* 6.14 header and nav (live styles.css, every page). Logo on the container's left edge, the
+   nav one row pinned right, never wrapping. Nav links are 12px mono caps, ink-3, ink with
+   a 1px underline when active or hovered; the underline is transparent when inactive so
+   the height never changes. The currency picker is 40px, square, 12px like the nav. */
+.site-header{position:sticky;top:0;z-index:var(--z-header);background:var(--paper-glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:var(--bw) solid var(--line)}
+.site-header .bar{display:flex;justify-content:space-between;align-items:center;gap:24px;max-width:calc(var(--container) + 2 * var(--gutter));margin-inline:auto;padding:var(--s-5) var(--gutter)}
+.logo{font-family:var(--display);font-weight:600;font-size:22px;line-height:36px;letter-spacing:-.01em;color:var(--ink);text-transform:none}
+#siteNav{display:flex;margin-left:auto;align-items:center;flex-wrap:nowrap;gap:30px;font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap}
+#siteNav .navlink{display:inline-block;padding:0 0 4px;border-bottom:var(--bw) solid transparent;color:var(--ink-3)}
+#siteNav .navlink.on,#siteNav [aria-current=page]{color:var(--ink);border-bottom-color:var(--ink)}
+#siteNav .navlink:hover{color:var(--ink);border-bottom-color:var(--ink)}
+#currencySelect{height:var(--control-h);min-height:var(--control-h);min-width:70px;padding:0 10px;border:var(--bw) solid var(--line);border-radius:0;background:none;color:var(--ink);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-align:center;text-transform:uppercase;appearance:none;-webkit-appearance:none;cursor:pointer}
+@media (max-width:820px){.site-header .bar{padding-block:var(--s-3)}}
 
-.site-footer{background:var(--ink);border-top:var(--bw) solid var(--line-dark);padding:var(--s-6) var(--gutter);display:flex;flex-wrap:wrap;gap:var(--s-5)}
-.site-footer a{position:relative;display:inline-flex;align-items:center;min-height:44px;font-family:var(--mono);font-size:var(--t-min);text-transform:uppercase;letter-spacing:var(--ls-label);color:var(--paper-2)}
-.site-footer a:hover{color:var(--paper)}
-.site-footer a::before{content:"";position:absolute;inset:0 calc(-1 * var(--s-2))}
+/* Mobile menu (under 641px). The burger is 44px; the open menu is a full-screen paper
+   panel (.nav.is-open at --z-menu, 19) holding only .menu-panel, which app.js builds: two
+   groups, Explore and For businesses, a mono label over Neue Haas 22px links on 52px rows,
+   then the currency select at 44px. */
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;padding:10px;margin:-10px;background:none;border:0;color:var(--ink);cursor:pointer}
+.nav-toggle svg{display:block;width:24px;height:24px}
+.menu-panel{display:flex;flex-direction:column;gap:var(--s-6);background:var(--paper);padding:var(--s-5) var(--gutter)}
+.menu-group__label{display:block;margin:0 0 var(--s-2);font-family:var(--mono);font-size:var(--t-min);line-height:1.5;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-3)}
+.menu-group ul{list-style:none;margin:0;padding:0;border-top:var(--bw) solid var(--line)}
+.menu-group a{display:flex;align-items:center;min-height:52px;padding:var(--s-3) 0;border-bottom:var(--bw) solid var(--line);font-family:var(--display);font-size:22px;line-height:1.2;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink)}
+.menu-group a:hover,.menu-group a[aria-current=page]{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.menu-currency .select{display:block;width:100%;min-width:0;min-height:44px;font-size:1rem}
+
+/* Footer (live, every page): dark, 48px top and bottom, one flex row on the container
+   edges (a column under 821px), 12px mono caps. Links paper-2, paper on hover. */
+.rd-footer{padding-block:var(--s-7);background:var(--ink);border-top:var(--bw) solid var(--line-dark);color:var(--paper-3)}
+.rd-footer .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4) var(--s-5);font-size:var(--t-min)}
+.rd-footer nav{display:flex;flex-wrap:wrap;gap:0 var(--s-5)}
+.rd-footer a{color:var(--paper-2)}
+.rd-footer a:hover{color:var(--paper)}
+.rd-footer a:focus-visible{outline:2px solid var(--focus-dark);outline-offset:3px}
+@media (max-width:820px){.rd-footer .container{flex-direction:column;align-items:flex-start}}
 
 /* 6.15 map frame */
 .map-frame{position:relative;aspect-ratio:16/9;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-0)}
@@ -310,7 +348,7 @@
 .gallery-header{position:relative}
 .gallery-header__track{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:var(--gallery-gap);aspect-ratio:var(--gallery-ratio)}
 .gallery-header__track:focus-visible{outline:2px solid var(--focus);outline-offset:var(--focus-offset)}
-.gallery-header__item{position:relative;margin:0;min-width:0;min-height:0;overflow:hidden;border-radius:var(--r-gallery);background:var(--panel)}
+.gallery-header__item{position:relative;margin:0;min-width:0;min-height:0;overflow:hidden;border-radius:var(--r-0);background:var(--panel)}
 .gallery-header__item:first-child{grid-row:1 / 3}
 .gallery-header__item picture{display:block;width:100%;height:100%}
 .gallery-header__item img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;cursor:zoom-in}
@@ -330,7 +368,7 @@
      so people's heads stay in. Same for the single-photo hero (.detail-hero). */
   .gallery-header__item img,.detail-hero img{object-position:center top}
   .detail-hero{aspect-ratio:var(--hero-ratio-mobile)}
-  .gallery-header__count{display:block;position:absolute;right:var(--s-3);bottom:var(--s-3);padding:4px 10px;border-radius:var(--r-pill);background:var(--scrim-strong);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-mono);pointer-events:none}
+  .gallery-header__count{display:block;position:absolute;right:var(--s-3);bottom:var(--s-3);padding:4px 10px;border-radius:var(--r-0);background:var(--scrim-strong);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-mono);pointer-events:none}
 }
 
 /* 6.21 Good to know list: the same list on the page, on the screen after booking
@@ -353,11 +391,7 @@
    card number in paper on ink. */
 .demo-strip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .demo-strip__card{display:inline-block;padding:0 6px;background:var(--paper);color:var(--ink);border-radius:4px;line-height:1.3;white-space:nowrap}
-/* 6.23 demo flag: above a demo page's heading. Ink "Demo" tag joined to an
-   outlined "No real booking is made", mono caps. */
-.demo-flag{display:inline-flex;align-items:stretch;margin:var(--s-3) 0 var(--s-4);border:var(--bw-strong) solid var(--ink);border-radius:var(--r-pill);overflow:hidden;font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase}
-.demo-flag__tag{display:flex;align-items:center;padding:6px 12px;background:var(--ink);color:var(--paper)}
-.demo-flag__text{display:flex;align-items:center;padding:6px 12px;color:var(--ink)}
+/* 6.23 demo flag: a pill on live; not documented here, see Known drift in the Radius section. */
 /* 6.22 info text, also the Good to know details and functional lines (hours, address). */
 .know-details dd,.prose.prose--info{color:var(--text-info)}
 
@@ -373,54 +407,7 @@
 .view-tab:hover,.view-tab.is-hover,.view-tab[aria-selected="true"]{color:var(--ink)}
 .view-tabs__line{position:absolute;left:0;bottom:calc(-1 * var(--s-2));height:var(--bw-strong);background:var(--ink);transition:left var(--dur-1) var(--ease),width var(--dur-1) var(--ease)}
 
-/* 6.25 filter row: on the card grid, four columns with the cards' 20px gutter. Type runs
-   across the top (its sub-chips under it); under that Location is column 1 and Duration
-   column 2. 821 to 1100px: Location and Duration half each. Phones: stacked. Controls
-   32px tall with a 1px --line-ui border, --paper fill, 12px side padding and 12px text;
-   sub-chips 28px. On phones chips are 36px and selects 40px with 16px text, so iOS
-   doesn't zoom. Labels 8px above. Spacing: title row to Type 32px, Type to Location
-   24px, filters to the count line 40px, count line to cards 16px. */
-.filter-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-5) 20px;align-items:start}
-.filter-pair{display:contents}
-.filter-row>.filter-group--type{grid-column:1 / -1}
-.filter-row .select{width:100%;height:32px;min-height:32px;padding:0 32px 0 var(--s-3);background-color:var(--paper);font-size:12px}
-.filter-row .chip{min-height:32px;padding:0 var(--s-3);background:var(--paper);font-size:12px}
-.filter-row .chip--sub{min-height:28px;padding:0 10px;font-size:12px}
-.filter-row .chip[aria-pressed="true"]{background:var(--ink)}
-@media (min-width:821px) and (max-width:1100px){
-  .filter-pair>.filter-group{grid-column:span 2}
-}
-@media (max-width:820px){
-  .filter-row{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s-5) var(--s-3)}
-  .filter-row .chip{min-height:36px}
-  .filter-row .select{height:40px;min-height:40px;font-size:16px}
-}
 
-/* 6.26 map popup card: one experience at a time. Full-bleed 16:9 photo, title in Neue
-   Haas sentence case, place in grey mono caps, price row as on the cards. The whole
-   card is one link. Arrows and a "1 / N" counter when a business has more than one. */
-.map-card{width:var(--popup-w);max-width:100%;background:var(--paper);border:var(--bw) solid var(--ink);position:relative;box-shadow:var(--shadow-float)}
-.map-card__link{display:block;color:var(--ink);text-decoration:none}
-.map-card__media{aspect-ratio:16/9;background:var(--panel);overflow:hidden}
-.map-card__media img{display:block;width:100%;height:100%;object-fit:cover}
-.map-card__body{padding:var(--s-3) var(--s-4) 14px}
-.map-card__title{margin:0 0 6px;font-family:var(--display);font-weight:var(--w-strong);font-size:16px;line-height:1.25;min-height:2.5em;color:var(--ink)}
-.map-card__place{margin:0 0 10px;font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-mono);text-transform:uppercase;color:var(--ink-3)}
-.map-card__link:hover .map-card__title{text-decoration:underline;text-underline-offset:3px}
-.map-card__nav{display:flex;align-items:center;justify-content:space-between;border-top:var(--bw) solid var(--line)}
-.map-card__arrow{width:var(--hit);height:40px;border:0;background:none;color:var(--ink);font:400 22px/1 var(--display);cursor:pointer}
-.map-card__count{font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-mono);color:var(--ink-2)}
-.map-card__close{position:absolute;top:0;right:0;width:var(--hit);height:var(--hit);display:flex;align-items:center;justify-content:center;border:0;background:none;cursor:pointer}
-.map-card__close span{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:var(--r-round);background:var(--paper);color:var(--ink);font:400 20px/1 var(--display);box-shadow:0 1px 4px rgba(23,23,26,.25)}
-/* Pins are always ink. Hover: the lighter black. Selected: ink, 1.25x, so it stays distinct from the rest. */
-.map-pin:hover,.map-pin.is-hover{color:var(--color-hover-dark)}
-.map-pin--active{transform:scale(1.25);transform-origin:50% 100%;color:var(--ink)}
-
-/* 6.27 bottom sheet: the map card on phones and tablets, fixed to the bottom of the
-   screen so the pins stay in view. Closes on the x, Escape, a tap on the map, or
-   scrolling the map away. */
-.bottom-sheet{position:fixed;left:0;right:0;bottom:0;z-index:var(--z-sheet);max-width:var(--sheet-max);margin:0 auto;background:var(--paper);border:var(--bw) solid var(--ink);border-bottom:0;box-shadow:var(--shadow-bar);padding-bottom:env(safe-area-inset-bottom)}
-.bottom-sheet .map-card{width:auto;border:0;box-shadow:none}
 
 /* 6.28 empty state: no experiences match the filters, in Grid or Map. One line and a
    Clear filters link. */
@@ -430,28 +417,184 @@
 .link-btn::before{content:"";position:absolute;inset:-12px -8px}
 
 /* 6.29 comparison table (/for-business/): a real table with a caption and column and row
-   headers: platform and commission, up to 640px wide, the same at every width. RealDays'
-   row first, on --table-highlight, name and rate in 600. .compare-note is the footnote. */
-.compare-table{width:100%;max-width:640px;border-collapse:collapse;font-family:var(--display);font-size:15px;line-height:1.45;color:var(--ink)}
-.compare-table th,.compare-table td{padding:var(--s-4);text-align:left;vertical-align:top;border-bottom:var(--bw) solid var(--line)}
+   headers, "How we compare" in the corner cell, RealDays first. The rate column is centred
+   with a hairline between the columns; RealDays' name and rate are 600 and nothing else is
+   filled. .compare-note is the footnote (asterisks refer to it). */
+.compare-table{width:100%;border-collapse:collapse;font-family:var(--display);font-size:var(--t-small);line-height:1.45;color:var(--ink)}
+.compare-table th,.compare-table td{padding:var(--s-3) var(--s-4);text-align:left;vertical-align:top;border-bottom:var(--bw) solid var(--line)}
 .compare-table thead th{padding-top:0;font-family:var(--mono);font-size:var(--t-label);font-weight:var(--w-mono);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-3);border-bottom-color:var(--line-ui)}
+.compare-table thead th+th{text-align:center;border-left:0}
 .compare-table tbody th{font-weight:var(--w-regular)}
-.compare-table td{width:40%}
-.compare-table__ours{background:var(--table-highlight)}
+.compare-table td{width:40%;border-left:var(--bw) solid var(--line);text-align:center}
+.compare-table__ours{background:none}
 .compare-table .compare-table__ours th,.compare-table strong{font-weight:var(--w-strong)}
-.compare-note{margin:var(--s-4) 0 0;max-width:70ch;font-family:var(--display);font-size:var(--t-small);line-height:1.5;color:var(--ink-2)}
+.compare-note{margin:var(--s-6) 0 0;font-family:var(--display);font-size:var(--t-small);line-height:1.5;color:var(--ink-3)}
 
-/* 6.30 dropdown menu: the Experiences filters on desktop (app.js). The real <select>
-   stays underneath, hidden; the button is the .select pill and the menu is a paper
-   panel, 14px corners, mono caps options with a check on the chosen one. Arrow keys,
-   Home / End, Enter, Escape and type-to-jump. Phones keep the built-in picker. */
-.th-select{position:relative}
-.th-select__native{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}
-.th-select__button{display:block;text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.th-select__button[aria-expanded="true"]{border-color:var(--ink)}
-.th-select__list{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;margin:0;padding:6px;list-style:none;background:var(--paper);border:var(--bw) solid var(--line-ui);border-radius:14px;box-shadow:var(--shadow-float);outline:none;max-height:320px;overflow:auto}
-.th-select__list[hidden]{display:none}
-.th-select__list [role="option"]{position:relative;display:flex;align-items:center;min-height:36px;padding:0 var(--s-3) 0 30px;border-radius:9px;font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-mono);text-transform:uppercase;color:var(--ink-2);cursor:pointer}
-.th-select__list [role="option"].is-active{background:var(--tint-hover);color:var(--ink)}
-.th-select__list [role="option"][aria-selected="true"]{color:var(--ink)}
-.th-select__list [role="option"][aria-selected="true"]::before{content:"";position:absolute;left:var(--s-3);top:50%;width:8px;height:5px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-70%) rotate(-45deg)}
+/* 6.30 dropdown menu (.dd): the Experiences dropdowns once the filter bar is stuck, the
+   header currency and Sort by. Text-style trigger with a 1px underline, square list with
+   40px options (5 shown, then it scrolls), one open at a time. Multi-select (What) shows a
+   14px square check (.dd__check); single-select shows a tick (.dd__tick). Esc closes and
+   returns focus. Phones keep the built-in picker. */
+.dd{position:relative}
+.dd__btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:2px 0 0;border:0;border-bottom:var(--bw) solid var(--line-ui);border-radius:0;background:none;color:var(--ink);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer}
+.dd__btn::after,.fn-text::after{content:"";flex:none;width:9px;height:5px;background:currentColor;-webkit-mask:var(--chevron) no-repeat center/9px 5px;mask:var(--chevron) no-repeat center/9px 5px}
+.dd__label{color:var(--ink-3)}
+.dd__list{position:absolute;top:calc(100% + var(--s-2));left:0;z-index:var(--z-dd);min-width:max(100%,200px);max-height:calc(5 * var(--control-h));margin:0;padding:0;overflow-y:auto;overscroll-behavior:contain;list-style:none;background:var(--paper);border:var(--bw) solid var(--line);border-radius:0;box-shadow:var(--shadow-menu);outline:none}
+.dd__list[hidden]{display:none}
+.dd__list.is-right{left:auto;right:0}
+.dd__list [role=option]{display:flex;align-items:center;gap:var(--s-2);min-height:var(--control-h);padding:var(--s-2) var(--s-3);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-2);cursor:pointer}
+.dd__list [role=option].is-active{background:var(--color-hover);color:var(--ink)}
+.dd__list [role=option][aria-selected=true]{color:var(--ink)}
+.dd__list:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.dd__text{display:flex;flex-direction:column}
+.dd__sub{color:var(--ink-3)}
+.dd__check{flex:none;position:relative;width:14px;height:14px;border:var(--bw) solid var(--line-ui)}
+[aria-selected=true]>.dd__check{background:var(--ink);border-color:var(--ink)}
+[aria-selected=true]>.dd__check::after{content:"";position:absolute;left:3px;top:1px;width:6px;height:8px;border:solid var(--paper);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.dd__tick{flex:none;width:14px}
+[aria-selected=true]>.dd__tick::after{content:"";display:block;width:8px;height:5px;margin:0 auto 3px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg)}
+@media (hover:hover){.dd__btn:hover{border-bottom-color:var(--ink)}}
+.dd__btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.dd__btn[aria-expanded=true]{border-bottom-color:var(--ink)}
+
+
+/* ===== body.rd layer (mirrors styles.css lines 733 to 1150; update both together) ===== */
+
+/* 6.31 container and 12-column grid. One container (--container is 1440px less two
+   gutters), a 12-column grid from 1024px with .c-1-5, .c-7-12 and so on. */
+.container{max-width:calc(var(--container) + 2 * var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:var(--section-y)}
+.band-dark{background:var(--ink);color:var(--paper)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-6) var(--grid-gap)}
+@media (min-width:1024px){
+  .grid{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .c-1-5{grid-column:1 / span 5}.c-1-6{grid-column:1 / span 6}.c-1-8{grid-column:1 / span 8}
+  .c-7-12{grid-column:7 / -1}.c-8-12{grid-column:8 / -1}.c-9-12{grid-column:9 / -1}
+}
+.section-title{margin:0;font-family:var(--display);font-weight:600;font-size:var(--t-headline);line-height:var(--lh-tight,1.1);letter-spacing:0}
+
+/* 6.32 hero search: a 680px panel over the hero photo, 6px corners (--r-panel, one of the
+   three rounded exceptions), 24px padding (16px under 641px), a tinted fill. Square 40px
+   selects (.pill-select) and a "Go" button. The list opens over the page and shows five
+   options before it scrolls. */
+.hero-search{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:center;gap:var(--s-4);max-width:680px;margin:0 auto;padding:var(--s-5);border-radius:var(--r-panel);background:var(--tint-hover-dark);text-align:left}
+.hero-search__field{flex:1 1 140px;min-width:0}
+.hero-search__field label{display:block;margin:0 0 var(--s-2);color:var(--paper)}
+.hero-search .pill-select{display:flex;align-items:center;padding:2px 40px 0 var(--control-px);color:var(--paper);border-color:var(--line-ui-dark);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3f2ee' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-size:16px 16px}
+.hero-search select.pill-select option{color:var(--ink)}
+@media (hover:hover){.hero-search .pill-select:hover{border-color:var(--paper);background-color:var(--tint-hover-dark)}}
+.hero-search .btn--on-dark{flex:0 0 auto;min-width:88px}
+@media (max-width:640px){.hero-search{padding:var(--s-4)}.hero-search__field{flex-basis:100%}.hero-search .btn--on-dark{width:100%}}
+
+/* 6.33 filter bar. #filterNav sits in #filterSlot, which keeps its height. Expanded: labelled
+   rows of chips, sub-chips, the Situation helper. Once the full filters scroll behind the
+   header app.js adds .is-stuck: fixed under the header at z 15 with a hairline and soft shadow
+   (--shadow-stuck). Stuck from 768px it is one 55px row of dropdowns (What, Situation, Where,
+   How long), Sort by, then View on map at the right; under 768 it is one row: Filters, Sort by
+   and the map control. */
+.filter-slot{position:relative}
+.filter-nav{background:var(--panel);border-bottom:var(--bw) solid var(--line);padding-block:var(--s-5)}
+.filter-nav.is-stuck{position:fixed;top:var(--header-h,85px);left:0;right:0;z-index:var(--z-filter);padding-block:var(--s-3);box-shadow:var(--shadow-stuck)}
+@media (min-width:768px){.filter-nav.is-stuck{padding-block:0}}
+.fn-rows{display:flex;flex-direction:column;gap:var(--s-5)}
+.filter-nav.is-stuck .fn-rows{gap:var(--s-2)}
+.fn-row{display:flex;flex-wrap:wrap;gap:var(--s-5) var(--s-6)}
+.fn-row--top{align-items:flex-start}
+.fn-row--bottom{align-items:flex-end}
+.fn-group{min-width:0}
+.fn-label{display:block;margin:0 0 var(--s-2);color:var(--ink)}
+.chip-list{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.fn-select{width:168px}
+.fn-sort .fn-select{width:148px;padding:0;margin:0}
+/* Situation helper: one line under the Group / Duo / Solo chips, left-aligned, 8px below them.
+   Its 18px is reserved, so changing or clearing the text never moves the bar. */
+.fn-who{position:relative;padding-bottom:calc(var(--s-2) + 18px)}
+.fn-help{position:absolute;left:0;bottom:0;height:18px;margin:0;font-size:var(--t-label);line-height:18px;letter-spacing:var(--ls-label);white-space:nowrap;color:var(--ink-2);transition:opacity calc(var(--dur) / 2) var(--ease-out)}
+.fn-help.is-fading{opacity:0}
+.fn-compact{display:none}
+.filter-nav.is-stuck .fn-label{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.filter-nav.is-stuck .fn-help,.filter-nav.is-stuck #horseSub{display:none!important}
+@media (min-width:768px){
+  .filter-nav.is-stuck .fn-row--top,.filter-nav.is-stuck .fn-where,.filter-nav.is-stuck .fn-long{display:none}
+  .filter-nav.is-stuck .fn-row--bottom{min-height:55px;align-items:center;gap:var(--s-2) var(--s-6);padding-block:var(--s-2)}
+  .filter-nav.is-stuck .fn-compact{display:contents}
+  .filter-nav.is-stuck .fn-sort{align-self:center;margin-bottom:0}
+  .filter-nav.is-stuck .fn-map{margin-left:auto}
+}
+
+/* 6.34 Sort by and View on map: text controls, no box and no pill. 36px high, a 1px bottom
+   border in --line-ui that goes ink on hover, 2px focus outline offset 2px. Sort by has a
+   9x5 chevron 6px from its label; View on map has the 9x8 arrow (rotated -45deg) 5px
+   from its label. Use the SVGs below as they are. */
+.fn-text{display:inline-flex;align-items:center;justify-content:space-between;gap:6px;width:100%;height:36px;min-height:36px;padding:2px 0 0;border:0;border-bottom:var(--bw) solid var(--line-ui);border-radius:0;background:none;color:var(--ink);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer;appearance:none;-webkit-appearance:none}
+.fn-map{position:relative;display:inline-flex;align-items:center;gap:5px;width:auto;height:36px;padding:2px 0 0;border:0;border-bottom:var(--bw) solid var(--line-ui);border-radius:0;background:none;color:var(--ink);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer}
+.fn-map::before{content:"";position:absolute;inset:-6px 0}
+.fn-map .icon-arrow-ne{flex:none;display:block}
+@media (hover:hover){.fn-text:hover,.fn-map:hover{border-bottom-color:var(--ink)}}
+.fn-text:focus-visible,.fn-map:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.fn-text[aria-expanded=true],.fn-map[aria-expanded=true]{border-bottom-color:var(--ink)}
+
+/* 6.35 map panel (#mapPanel): header row ("Map" and Close map), 1px left border. From 1024px
+   it docks to the right half (left 50%, width --map-w) from under the header to the bottom
+   at z 18, and body.map-docked shifts the page left (cards become auto-fill, 220px min).
+   768 to 1023px it is a 60vw slide-over with #mapScrim (z 17). Under 768px it is full screen at
+   z 21 (above the header), sliding up. */
+.map-panel{display:flex;flex-direction:column;background:var(--paper)}
+.map-panel__head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);padding:var(--s-3) var(--s-4);border-bottom:var(--bw) solid var(--line)}
+.map-panel__title{margin:0;color:var(--ink)}
+.map-scrim{background:var(--ink);opacity:.4}
+
+/* 6.36 notice bar (#moreSoon): full width along the bottom at z 16, until "Got it" (remembered
+   in localStorage). The text is mono caps and runs to more than one line on phones. */
+.notice-bar{padding-block:var(--s-4);background:var(--paper);border-top:var(--bw) solid var(--ink);box-shadow:var(--shadow-bar)}
+.notice-bar__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-3) var(--s-5)}
+.notice-bar p{flex:1 1 240px;margin:0;font-family:var(--mono);font-size:var(--t-label);line-height:1.5;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink)}
+.notice-bar .btn--primary{flex:none}
+@media (max-width:767px){.notice-bar .btn--primary{width:100%}}
+
+/* 6.37 dialog (.rd-dialog): a native modal, square, 1px ink border, 560px wide at most. The
+   founding partner invite on /for-business/ opens 4 seconds in. */
+.rd-dialog{width:min(560px,calc(100vw - 2 * var(--gutter)));margin:auto;padding:var(--s-6);background:var(--paper);color:var(--ink);border:var(--bw) solid var(--ink);border-radius:0;box-shadow:var(--shadow-float)}
+.rd-dialog__close{position:absolute;top:var(--s-2);right:var(--s-2);display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer}
+@media (hover:hover){.rd-dialog__close:hover{background:var(--color-hover)}}
+.rd-dialog::backdrop{background:var(--ink);opacity:.4}
+.rd-dialog h2{margin:0 0 var(--s-4);padding-right:var(--s-6);font-family:var(--display);font-size:var(--t-subhead);font-weight:var(--w-regular);line-height:1.1}  /* live sets 500; there is no 500 face, so it renders at 400 */
+.rd-dialog p{margin:0 0 var(--s-4);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
+.rd-dialog__actions{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-5)}
+
+/* 6.38 contact block (dark band): copy in columns 1 to 5, form in columns 7 to 12. The
+   founder caption is a 40px greyscale round photo (an avatar, the third rounded exception)
+   and a bracketed label. Inputs are a bottom border only, 40px, mono 16px; the tick box is a
+   20px square that fills with a tick; the submit is "Get listed", 44px and square. */
+.signup-founder{display:flex;align-items:center;gap:var(--s-4);margin-top:var(--s-6);color:var(--paper-2)}
+.signup-founder img{flex:none;width:40px;height:40px;border-radius:var(--r-round);object-fit:cover;filter:grayscale(1)}
+.signup-founder p{margin:0}
+.signup-form{display:grid;gap:var(--s-5)}
+.signup-form__fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--s-5)}
+.signup-form label{display:grid;gap:var(--s-2)}
+.signup-form label .label{color:var(--paper-3)}
+.signup-form input:not([type=checkbox]){display:block;width:100%;min-height:var(--control-h);height:var(--control-h);padding:var(--s-2) 0;font-family:var(--mono);font-size:1rem;color:var(--paper);background:none;border:0;border-bottom:var(--bw) solid var(--line-ui-dark);border-radius:0}
+.signup-form input:not([type=checkbox]):focus{outline:none;border-bottom-color:var(--paper)}
+.signup-check{display:flex!important;align-items:center;gap:var(--s-3);cursor:pointer}
+.signup-check .label{color:var(--paper)!important}
+.signup-form .signup-check input{appearance:none;-webkit-appearance:none;flex:none;position:relative;width:20px;height:20px;min-height:0;margin:0;padding:0;border:var(--bw) solid var(--line-ui-dark);background:none;cursor:pointer}
+.signup-form .signup-check input:checked{background:var(--paper);border-color:var(--paper)}
+.signup-form .signup-check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid var(--ink);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.signup-form .signup-check input:focus-visible{outline:2px solid var(--focus-dark);outline-offset:2px}
+.signup-form__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4)}
+.signup-form__foot .btn--on-dark{margin-left:auto}
+.signup-form .btn--on-dark{width:auto;min-width:116px;height:44px;min-height:44px}
+
+/* 6.39 numbered list (.ambitions on /for-business/): "1." "2." in a 1.1em column, weight 600,
+   Neue Haas at 0.8 of --t-headline. */
+.ambitions{margin:0;padding:0;list-style:none;counter-reset:ambition;font-family:var(--display);font-weight:600;font-size:calc(var(--t-headline) * .8);line-height:1.15}
+.ambitions li{display:grid;grid-template-columns:1.1em minmax(0,1fr);align-items:baseline;column-gap:.2em;counter-increment:ambition}
+.ambitions li::before{content:counter(ambition) ".";font-weight:600;font-variant-numeric:tabular-nums}
+.ambitions li+li{margin-top:var(--s-6)}
+
+/* 6.40 jump nav (/for-business/): "Jump to" and square-bulleted links under the hero. */
+.jump{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-5);margin:var(--s-6) 0 0;padding:0;list-style:none}
+.jump__label{color:var(--ink)}
+.jump a{display:inline-flex;align-items:center;gap:var(--s-2);min-height:var(--control-h-sm);color:var(--ink-2)}
+.jump a::before{content:"";width:8px;height:8px;background:var(--ink)}
+.jump a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
