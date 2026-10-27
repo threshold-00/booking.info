@@ -3,5 +3,6 @@ Allow: /
 Disallow: /sitev2/
 Disallow: /demo/phones/
 Disallow: /demo/b/
+Disallow: /suigeneris-atelier/
 
 Sitemap: https://getrealdays.com/sitemap.xml

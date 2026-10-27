@@ -14,11 +14,18 @@ const salty = JSON.parse(readFileSync(join(repo, 'data/salty-cowboy.json'), 'utf
 const business = {};
 
 function duration(href) {
-  let m = href.match(/^\/demo\/b\/([a-z0-9-]+)\/\?x=([a-z0-9-]+)/);
+  // A business with a page per class links its cards to /demo/b/<slug>/<key>/.
+  let m = href.match(/^\/demo\/b\/([a-z0-9-]+)\/(?:\?x=)?([a-z0-9-]+)/);
   if (m) {
     const f = join(repo, 'data/business-layer', `${m[1]}.json`);
     if (!existsSync(f)) return null;
     business[m[1]] ||= JSON.parse(readFileSync(f, 'utf8'));
+    return business[m[1]].page?.experiences?.[m[2]] || null;
+  }
+  // A live listing with its own address, /<slug>/<key>/ (business.path).
+  m = href.match(/^\/([a-z0-9-]+)\/([a-z0-9-]+)\/$/);
+  if (m && existsSync(join(repo, 'data/business-layer', `${m[1]}.json`))) {
+    business[m[1]] ||= JSON.parse(readFileSync(join(repo, 'data/business-layer', `${m[1]}.json`), 'utf8'));
     return business[m[1]].page?.experiences?.[m[2]] || null;
   }
   m = href.match(/^\/bali\/salty-cowboy\/([a-z0-9-]+)\/$/);

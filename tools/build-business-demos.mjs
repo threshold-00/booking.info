@@ -124,8 +124,8 @@ function gallery(d) {
   return `<figure style="margin:0;">
           <div class="photo-placeholder" role="img" aria-label="Photos coming soon">
             <span class="photo-placeholder__name">${esc(d.business.name)}</span>
-            <span class="photo-placeholder__label">Photos coming soon</span>
-            <span class="example-tag">Demo</span>
+            <span class="photo-placeholder__label">Photos coming soon</span>${d.business.listing === 'live' ? '' : `
+            <span class="example-tag">Demo</span>`}
           </div>
         </figure>`;
 }
@@ -171,14 +171,14 @@ function bannerFor(b) {
 // booking page (the experience's external_book_url, or page.book_url), tagged
 // utm_source=realdays so the business can see the clicks we send. No dates, no
 // payment, nothing held. The Worker is used only to count demo traffic.
-function linkPanel(b, p, askOnly) {
+function linkPanel(b, p, askOnly, extra = '') {
   return `<div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
             <p class="bp-label">${esc(p.choose_label)}</p>
             <div class="opt-list" id="choices" role="group" aria-label="${esc(p.choose_label)}"></div>
             <p class="bp-lead" id="panelLead" hidden></p>
-          </div>
+          </div>${extra}
           <p class="bp-note" id="datesNote" style="margin-top:var(--s-3);"></p>
           <ul class="bp-notes" id="notes"></ul>
           <div class="bp-decision">
@@ -221,6 +221,117 @@ function gettingThere(g) {
           ${g.notes.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${tbc(v)}</dd></div>`).join('\n          ')}
         </dl>` : ''}
       </section>`;
+}
+
+// One page per class (page.class_pages, Ro, 27 Oct 2026, briefs/suigeneris-live-2026-10-27.md):
+// the business page becomes a hub with a Classes grid, and each class gets its own
+// page at /demo/b/<slug>/<key>/, built from a copy of the data narrowed to that class.
+// Where a business's pages live: /demo/b/<slug>/, or business.path for a live listing
+// with its own address (Suigeneris Atelier at /suigeneris-atelier/, Ro, 27 Oct 2026).
+function baseOf(b) {
+  if (b.path == null) return `/demo/b/${b.slug}/`;
+  if (!/^\/[a-z0-9-]+\/$/.test(b.path)) throw new Error(`${b.slug}: business.path must look like /name/`);
+  return b.path;
+}
+
+const money = (c) => `$${(c / 100).toLocaleString('en-AU', { minimumFractionDigits: c % 100 ? 2 : 0, maximumFractionDigits: 2 })}`;
+
+function narrowTo(d, key) {
+  const x = d.page.experiences[key];
+  const photos = x.photos ?? [];
+  return {
+    ...d,
+    page: {
+      ...d.page,
+      options: d.page.options.filter((o) => o.experience === key),
+      experiences: { [key]: x },
+      photos: photos.length ? { mode: 'gallery', dir: d.page.photos.dir, items: photos } : { mode: 'placeholder' },
+    },
+  };
+}
+
+// A class page's prices, in the booking panel under the class. Classes for 2 or more
+// (people_min) are priced each.
+function pricesBlock(e) {
+  const each = (e.people_min ?? 1) > 1;
+  const rows = (e.prices ?? [{ label: e.name, price_cents: e.price_cents }]).map((pr) => {
+    const label = each ? pr.label.replace(/,?\s*per person$/i, '') || 'Price' : pr.label;
+    return `<div><dt>${esc(label)}</dt><dd>${money(pr.price_cents)}${each ? ' each' : ''}</dd></div>`;
+  });
+  return `
+          <div class="bp-block bp-prices">
+            <p class="bp-label">Prices</p>
+            <dl>
+              ${rows.join('\n              ')}
+            </dl>${each ? `
+            <p class="bp-note" style="margin-top:var(--s-2);">Book for ${e.people_min} or more.</p>` : ''}
+          </div>`;
+}
+
+// The hub's Classes grid: one card per class in the site's card shell, linking to its page.
+function classCards(d) {
+  const p = d.page, dir = p.photos.dir, base = baseOf(d.business);
+  return p.options
+    .map((o) => {
+      const e = d.experiences.find((y) => y.key === o.experience), x = p.experiences[o.experience];
+      const ph = (x.photos ?? [])[0];
+      const media = ph
+        ? `<picture style="display:block;height:100%;"><source type="image/avif" srcset="${dir}${ph.file}-800.avif" /><img src="${dir}${ph.file}-800.webp" alt="${esc(ph.alt)}" width="${Math.round((ph.w * 800) / Math.max(ph.w, ph.h))}" height="${Math.round((ph.h * 800) / Math.max(ph.w, ph.h))}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture>`
+        : '<span class="class-card__nophoto">Photo coming soon</span>';
+      const price = (o.sub ?? '').replace(/(\$[\d,]+)/, '$1 AUD');
+      return `<a class="card sc-card" href="${base}${o.experience}/">
+            <div class="card__media">${media}</div>
+            <div class="card__body">
+              <h3 class="card__title">${esc(e.name)}</h3>
+              <p class="card__loc">${esc(x.card_length ?? x.facts[0])}</p>
+              <div class="card__meta card__row"><p class="card__price">${esc(price)}</p></div>
+            </div>
+          </a>`;
+    })
+    .join('\n          ');
+}
+
+// The hub's booking panel: no class picker (the grid does that), a jump to the
+// classes, and the "Also from" list.
+function hubPanel(d, askOnly) {
+  const p = d.page, n = p.options.length;
+  const from = Math.min(...p.options.map((o) => d.experiences.find((e) => e.key === o.experience).price_cents));
+  return `<div id="bpForm">
+        <div id="step1">
+          <div class="bp-block" style="margin-top:0;">
+            <p class="bp-label">Classes</p>
+            <p class="bp-lead" style="margin-top:0;">${n} classes, from ${money(from)}</p>
+            <p class="bp-note" style="margin-top:var(--s-2);">Choose a class to see its prices, photos and class times. You book and pay on ${esc(p.studio_name ?? d.business.name)}'s own booking page.</p>
+          </div>
+          <div class="bp-decision">
+            <a class="btn" id="bookingCta" href="#classes">See the classes</a>
+          </div>
+          <p class="bp-note" id="linkNote" hidden></p>
+        </div>
+        <p class="bp-error" id="err" hidden></p>
+        ${askOnly}
+      </div>`;
+}
+
+// The redirect left at /demo/b/<slug>/ when a listing has its own address.
+function movedPage(d, base) {
+  const keys = JSON.stringify(d.page.class_pages ? d.page.options.map((o) => o.experience) : []);
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="robots" content="noindex" />
+<title>${esc(d.business.name)} | RealDays</title>
+<link rel="canonical" href="https://getrealdays.com${base}" />
+<!-- Generated by tools/build-business-demos.mjs. ${esc(d.business.name)} moved to ${base}. Do not edit by hand. -->
+<script>(function () { var k = new URLSearchParams(location.search).get('x'); location.replace('${base}' + (${keys}.indexOf(k) >= 0 ? k + '/' : '')); })();</script>
+<meta http-equiv="refresh" content="0; url=${base}" />
+</head>
+<body>
+<p><a href="${base}">${esc(d.business.name)} has moved here.</a></p>
+</body>
+</html>
+`;
 }
 
 // The owner strip under the heading: the business's picture (or initials) and name.
@@ -366,6 +477,18 @@ const DEMO_CSS = `  /* Business demo, Stripe test mode. Unlisted (noindex, robot
   .steps .n{font-family:var(--mono);font-size:12px;width:28px;height:28px;border:1px solid var(--line-ui);border-radius:50%;display:flex;align-items:center;justify-content:center}
   .steps b{font-family:var(--display);font-weight:600;display:block;color:var(--ink)}
   .there-place{padding:var(--s-4) 0;border-top:1px solid var(--line);max-width:40em}
+  .bp-prices dl{margin:0;display:grid;gap:6px}
+  .bp-prices dl div{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3);font-family:var(--display);font-size:14px;line-height:1.35}
+  .bp-prices dd{margin:0;white-space:nowrap;font-weight:600}
+  .class-grid{margin:var(--s-6) 0 var(--s-7);scroll-margin-top:calc(var(--header-h,104px) + var(--s-4))}
+  .class-grid h2{margin:0 0 var(--s-4)}
+  .class-grid .card__media{aspect-ratio:211/158;overflow:hidden}
+  @media (max-width:820px){
+    .class-grid .card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-3)}
+    .class-grid .card__body{padding:var(--s-3)}
+  }
+  .class-card__nophoto{height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .more-classes{margin:var(--s-7) 0 0;padding-top:var(--s-4);border-top:1px solid var(--line)}
   .there-place h3{margin:0 0 var(--s-2)}
 
 `;
@@ -416,16 +539,22 @@ const GIFT_CSS = `
   }
 `;
 
-function page(d) {
+function page(d, view = {}) {
   const b = d.business;
   const p = fillTokens(d.page, d);
   const slug = b.slug;
+  // business.listing "live" (Ro, 27 Oct 2026): a real listing, not a demo, so no demo
+  // strip, Demo flag or "Demo:" title. Pages stay noindex until Ro says otherwise.
+  const live = b.listing === 'live';
+  const hub = !!view.hub;
+  const cls = view.cls ? d.experiences.find((e) => e.key === view.cls) : null;
+  const base = baseOf(b);
   // booking_mode: sandbox (Stripe test mode, demo banner always on), off (no online
   // booking), live (not built: the booking service is test-only, so it's refused).
   const mode = b.booking_mode ?? 'off';
   if (!MODES.includes(mode)) throw new Error(`${slug}: booking_mode must be one of ${MODES.join(', ')}`);
   if (mode === 'live') throw new Error(`${slug}: booking_mode "live" isn't built yet. The booking service is test-only.`);
-  const banner = bannerFor(b);
+  const banner = live ? '' : bannerFor(b);
   // Good to know lives on the business layer's experience (the Worker emails it too).
   const experiences = Object.fromEntries(
     Object.entries(p.experiences).map(([k, x]) => {
@@ -447,6 +576,7 @@ function page(d) {
     pickup: p.pickup ?? null,
     price_basis: p.price_basis ?? null,
     gift: p.gift ? { experience: p.gift.experience, url: `/demo/b/${slug}/gift/` } : null,
+    ...(hub ? { hub: true } : {}),
     // page.cancellation: what a link-mode page says instead, when the policy is the business's to give.
     ...(mode === 'link' ? { cancellation: p.cancellation ?? b.cancellation_policy?.text ?? null, contact: p.contact ?? null } : {}),
   };
@@ -478,7 +608,8 @@ function page(d) {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>Demo: ${esc(b.name)} | RealDays</title>
+<title>${live ? '' : 'Demo: '}${cls ? `${esc(cls.name)}, ` : ''}${esc(b.name)} | RealDays</title>${hub ? `
+<script>(function () { var k = new URLSearchParams(location.search).get('x'); if (${JSON.stringify(p.options.map((o) => o.experience))}.indexOf(k) >= 0) location.replace('${base}' + k + '/'); })();</script>` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -497,24 +628,32 @@ ${HEADER}<main id="main">
 
   <nav class="container detail-crumbs detail-crumbs--one-line" aria-label="Breadcrumb" style="font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);">
     <a href="/index.html#top" class="navlink breadcrumb-link">Home</a> /
-    <span class="breadcrumb-tail">${esc(b.name)}</span>
+    ${cls ? `<a href="${base}" class="navlink breadcrumb-link">${esc(b.name)}</a> /
+    <span class="breadcrumb-tail">${esc(cls.name)}</span>` : `<span class="breadcrumb-tail">${esc(b.name)}</span>`}
   </nav>
 
   <div class="container detail-layout">
     <div class="detail-head">
-      ${b.show_demo_flag === false ? '' : '<p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>'}
-      <h1>${esc(p.headline)}</h1>
-      <p class="detail-lead" id="lead" hidden></p>
+      ${live || b.show_demo_flag === false ? '' : '<p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>'}
+      <h1>${esc(cls ? cls.name : p.headline)}</h1>
+      <p class="detail-lead" id="lead" hidden></p>${cls ? `
+      <p class="detail-lead">${tbc(cls.description)}</p>` : ''}
       ${ownerStrip(p, b, '#business')}
-      <ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"></ul>
-      <div class="detail-gallery${p.photos?.mode === 'stock' ? ' demo-photos' : ''}" id="detailGallery">
+      ${hub ? '' : '<ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"></ul>'}
+      <div class="detail-gallery${p.photos?.mode === 'stock' ? ' demo-photos' : ''}" id="detailGallery"${hub ? ' style="margin-top:var(--s-5);"' : ''}>
         ${gal}
       </div>
-      ${photoNote}
+      ${photoNote}${hub ? `
+      <section class="class-grid" id="classes" aria-labelledby="h-classes">
+        <h2 id="h-classes">Classes</h2>
+        <div class="card-grid">
+          ${classCards(d)}
+        </div>
+      </section>` : ''}
     </div>
 
     <aside class="booking-panel" id="book" aria-label="${mode === 'link' ? 'Check availability' : 'Book'}">
-      ${mode === 'link' ? linkPanel(b, p, askOnly) : `<div id="bpForm">
+      ${hub ? hubPanel(d, askOnly) : mode === 'link' ? linkPanel(b, p, cls ? '' : askOnly, cls ? pricesBlock(cls) : '') : `<div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
             <p class="bp-label">${esc(p.choose_label)}</p>
@@ -653,9 +792,9 @@ ${HEADER}<main id="main">
 
       <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
         <h2 id="h-overview">Overview</h2>
-        <p class="prose">${tbc(p.description)}</p>
+        <p class="prose">${tbc(p.description)}</p>${hub ? '' : `
         <h3>What's included</h3>
-        <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;"></ul>
+        <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;"></ul>`}
       </section>
 
       <section id="know" role="tabpanel" aria-labelledby="h-know tab-know" tabindex="0" hidden>
@@ -677,20 +816,21 @@ ${HEADER}<main id="main">
         <h2 id="h-business">Meet the business</h2>
         <p class="card-title" style="margin:0 0 var(--s-2);">${esc(b.name)}</p>
         ${about}
-        <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
-      </section>${gettingThere(p.getting_there)}${renderReviews(b.reviews, slug)}
+${live ? '' : `        <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
+`}      </section>${gettingThere(p.getting_there)}${renderReviews(b.reviews, slug)}${cls ? `
+      <p class="more-classes"><a href="${base}#classes" class="btn-ghost">More classes from ${esc(p.studio_name ?? b.name)}</a></p>` : ''}
     </div>
   </div>
 
 </main>
 ${FOOTER}</div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
-  <span class="t-small" id="stickyPrice">${esc(p.sticky_price ?? '')}</span>
-  ${mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
+  <span class="t-small" id="stickyPrice">${esc(hub ? `${p.options.length} classes, from ${money(Math.min(...p.options.map((o) => d.experiences.find((e) => e.key === o.experience).price_cents)))} AUD` : p.sticky_price ?? '')}</span>
+  ${hub ? '<a href="#classes" class="btn" id="stickyCta">See the classes</a>' : mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=c32b9614"></script>
-<script src="/app.js?v=4053f17c"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=4f5d8b01"></script>
+<script src="/app.js?v=6f173d43"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>
@@ -917,7 +1057,7 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <script type="application/json" id="gift-config">${json}</script>
 <script src="/assets/demo-gift.js?v=c42f0cc4"></script>
-<script src="/app.js?v=4053f17c"></script>
+<script src="/app.js?v=6f173d43"></script>
 </body>
 </html>
 `;
@@ -937,16 +1077,34 @@ for (const f of files) {
     if (!d.experiences.some((e) => e.key === o.experience)) throw new Error(`${slug}: option ${o.experience} has no experience`);
     if (!d.page.experiences[o.experience]) throw new Error(`${slug}: no page copy for ${o.experience}`);
   }
-  const out = join(repo, 'demo/b', slug, 'index.html');
+  const base = baseOf(d.business);
+  const out = join(repo, base, 'index.html');
   if (!existsSync(dirname(out))) mkdirSync(dirname(out), { recursive: true });
-  writeFileSync(out, page(d));
+  if (d.page.class_pages) {
+    writeFileSync(out, page(d, { hub: true }));
+    for (const o of d.page.options) {
+      const c = join(repo, base, o.experience, 'index.html');
+      if (!existsSync(dirname(c))) mkdirSync(dirname(c), { recursive: true });
+      writeFileSync(c, page(narrowTo(d, o.experience), { cls: o.experience }));
+    }
+    console.log(`Built ${base} and ${d.page.options.length} class pages`);
+  } else {
+    writeFileSync(out, page(d));
+    console.log(`Built ${base}`);
+  }
+  // A listing that moved off /demo/b/ leaves a redirect there, so old links (and
+  // ?x=<class> links) still land on the right page.
+  if (base !== `/demo/b/${slug}/`) {
+    const old = join(repo, 'demo/b', slug, 'index.html');
+    if (!existsSync(dirname(old))) mkdirSync(dirname(old), { recursive: true });
+    writeFileSync(old, movedPage(d, base));
+  }
   if (d.page.gift) {
     const g = join(repo, 'demo/b', slug, 'gift/index.html');
     if (!existsSync(dirname(g))) mkdirSync(dirname(g), { recursive: true });
     writeFileSync(g, giftPage(d));
     console.log(`Built /demo/b/${slug}/gift/`);
   }
-  console.log(`Built /demo/b/${slug}/`);
   built++;
 }
 if (!built) console.log('Nothing built: no data file with a "page" section matched.');

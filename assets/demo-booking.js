@@ -507,6 +507,12 @@
     rich($('linkNote'), x.book_url ? 'Opens their website in a new tab.' : (x.book_note || 'Ask ' + BIZ + ' to book.') + (C.contact ? ' ' + C.contact : ''));
     var sp = $('stickyPrice');
     if (sp.dataset.fixed) sp.textContent = sp.dataset.fixed; else rich(sp, o && o.sub ? o.sub : '');
+    linkSteps();
+  }
+  // Cancellation and "How booking works" for a listing that links out. The business
+  // page of a business with a page per class (C.hub) has only these: its Classes grid
+  // does the choosing.
+  function linkSteps() {
     rich($('policy'), C.cancellation || cancelLine('ask the business'));
     var steps = [
       ['Choose an experience', 'See what\'s on, what\'s included and what to bring, here.'],
@@ -969,7 +975,10 @@
 
   // ── Start ──
   if ($('stickyPrice').textContent.trim()) $('stickyPrice').dataset.fixed = $('stickyPrice').textContent.trim();
-  renderChoices();
-  staticContent();
-  if (LINK) linkPanel(); else loadDates();
+  if (C.hub) linkSteps();
+  else {
+    renderChoices();
+    staticContent();
+    if (LINK) linkPanel(); else loadDates();
+  }
 })();
