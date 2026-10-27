@@ -198,6 +198,31 @@ function outbound(url, slug) {
   return `${url}${url.includes('?') ? '&' : '?'}utm_source=realdays&utm_medium=listing&utm_campaign=${slug}`;
 }
 
+// The "Getting there" tab (Ro, 27 Oct 2026), when the data file has page.getting_there:
+// an intro, one block per place (name, address, a map link, notes), then general notes.
+function gettingThere(g) {
+  if (!g) return '';
+  const map = (q) => `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(q)}`;
+  const places = (g.places ?? [])
+    .map((pl) => `<div class="there-place">
+          <h3>${esc(pl.name)}</h3>
+          <p class="prose prose--info" style="margin:0;">${tbc(pl.address)}</p>
+          ${(pl.notes ?? []).map((n) => `<p class="prose" style="margin:var(--s-2) 0 0;">${tbc(n)}</p>`).join('\n          ')}
+          ${pl.map_query ? `<p style="margin:var(--s-3) 0 0;"><a class="btn-ghost" href="${map(pl.map_query)}" target="_blank" rel="noopener">Open in Google Maps</a></p>` : ''}
+        </div>`)
+    .join('\n        ');
+  return `
+
+      <section id="there" role="tabpanel" aria-labelledby="h-there tab-there" tabindex="0" hidden>
+        <h2 id="h-there">Getting there</h2>
+        ${g.intro ? `<p class="prose" style="margin:0 0 var(--s-5);">${tbc(g.intro)}</p>` : ''}
+        ${places}
+        ${(g.notes ?? []).length ? `<dl class="know-details" style="margin-top:var(--s-6);">
+          ${g.notes.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${tbc(v)}</dd></div>`).join('\n          ')}
+        </dl>` : ''}
+      </section>`;
+}
+
 // The owner strip under the heading: the business's picture (or initials) and name.
 function ownerStrip(p, b, href) {
   return `<a href="${href}" class="owner-strip navlink">
@@ -340,6 +365,8 @@ const DEMO_CSS = `  /* Business demo, Stripe test mode. Unlisted (noindex, robot
   .steps li{display:grid;grid-template-columns:28px 1fr;gap:var(--s-3)}
   .steps .n{font-family:var(--mono);font-size:12px;width:28px;height:28px;border:1px solid var(--line-ui);border-radius:50%;display:flex;align-items:center;justify-content:center}
   .steps b{font-family:var(--display);font-weight:600;display:block;color:var(--ink)}
+  .there-place{padding:var(--s-4) 0;border-top:1px solid var(--line);max-width:40em}
+  .there-place h3{margin:0 0 var(--s-2)}
 
 `;
 
@@ -620,7 +647,8 @@ ${HEADER}<main id="main">
         <button type="button" role="tab" id="tab-overview" aria-controls="overview" aria-selected="true" tabindex="0">Overview</button>
         <button type="button" role="tab" id="tab-know" aria-controls="know" aria-selected="false" tabindex="-1">Good to know</button>
         <button type="button" role="tab" id="tab-how" aria-controls="how" aria-selected="false" tabindex="-1">How booking works</button>
-        <button type="button" role="tab" id="tab-business" aria-controls="business" aria-selected="false" tabindex="-1">The business</button>
+        <button type="button" role="tab" id="tab-business" aria-controls="business" aria-selected="false" tabindex="-1">The business</button>${p.getting_there ? `
+        <button type="button" role="tab" id="tab-there" aria-controls="there" aria-selected="false" tabindex="-1">Getting there</button>` : ''}
       </div>
 
       <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
@@ -650,7 +678,7 @@ ${HEADER}<main id="main">
         <p class="card-title" style="margin:0 0 var(--s-2);">${esc(b.name)}</p>
         ${about}
         <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
-      </section>${renderReviews(b.reviews, slug)}
+      </section>${gettingThere(p.getting_there)}${renderReviews(b.reviews, slug)}
     </div>
   </div>
 

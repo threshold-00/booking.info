@@ -144,6 +144,8 @@
   .steps li{display:grid;grid-template-columns:28px 1fr;gap:var(--s-3)}
   .steps .n{font-family:var(--mono);font-size:12px;width:28px;height:28px;border:1px solid var(--line-ui);border-radius:50%;display:flex;align-items:center;justify-content:center}
   .steps b{font-family:var(--display);font-weight:600;display:block;color:var(--ink)}
+  .there-place{padding:var(--s-4) 0;border-top:1px solid var(--line);max-width:40em}
+  .there-place h3{margin:0 0 var(--s-2)}
 
 
   /* Gift cards (Ro, 27 Oct 2026): a code box in the booking panel, and the gift card page. */
@@ -386,6 +388,7 @@
         <button type="button" role="tab" id="tab-know" aria-controls="know" aria-selected="false" tabindex="-1">Good to know</button>
         <button type="button" role="tab" id="tab-how" aria-controls="how" aria-selected="false" tabindex="-1">How booking works</button>
         <button type="button" role="tab" id="tab-business" aria-controls="business" aria-selected="false" tabindex="-1">The business</button>
+        <button type="button" role="tab" id="tab-there" aria-controls="there" aria-selected="false" tabindex="-1">Getting there</button>
       </div>
 
       <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
@@ -424,6 +427,31 @@
         <p class="prose" style="margin:0 0 var(--s-3);">Adventure Flight Co began in 2009 as Warbird Air Adventures, flying aerobatic joy flights in the Nanchang CJ-6A, a trainer built for air forces. Its pilots are airline, aerobatic and RAAF pilots with thousands of hours of aerobatics between them, and it has flown over 6,000 warbird flights.</p>
         <p class="prose prose--info" style="margin:0 0 var(--s-3);">This is not a charter or scenic flight. Read the business's notes under Good to know before you book. 0402 333 896</p>
         <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
+      </section>
+
+      <section id="there" role="tabpanel" aria-labelledby="h-there tab-there" tabindex="0" hidden>
+        <h2 id="h-there">Getting there</h2>
+        <p class="prose" style="margin:0 0 var(--s-5);">Flights leave from one of two airfields. Check which one your booking is for. <span class="tbc">[TO CONFIRM: which airfield for each booking]</span></p>
+        <div class="there-place">
+          <h3>Barwon Heads Airport</h3>
+          <p class="prose prose--info" style="margin:0;">Barwon Heads Road, Connewarre VIC</p>
+          <p class="prose" style="margin:var(--s-2) 0 0;">At the start of the Great Ocean Road, a little over an hour's drive from Melbourne. This is where Adventure Flight Co is based.</p>
+          <p class="prose" style="margin:var(--s-2) 0 0;">Where to meet: <span class="tbc">[TO CONFIRM: hangar or meeting point]</span></p>
+          <p style="margin:var(--s-3) 0 0;"><a class="btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Barwon%20Heads%20Airport%2C%20Barwon%20Heads%20Road%2C%20Connewarre%20VIC" target="_blank" rel="noopener">Open in Google Maps</a></p>
+        </div>
+        <div class="there-place">
+          <h3>Moorabbin Airport</h3>
+          <p class="prose prose--info" style="margin:0;">Moorabbin Airport, Melbourne VIC <span class="tbc">[TO CONFIRM: street address]</span></p>
+          <p class="prose" style="margin:var(--s-2) 0 0;">In Melbourne's south-east suburbs.</p>
+          <p class="prose" style="margin:var(--s-2) 0 0;">Where to meet: <span class="tbc">[TO CONFIRM: hangar or meeting point]</span></p>
+          <p style="margin:var(--s-3) 0 0;"><a class="btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Moorabbin%20Airport%20VIC" target="_blank" rel="noopener">Open in Google Maps</a></p>
+        </div>
+        <dl class="know-details" style="margin-top:var(--s-6);">
+          <div><dt>When to arrive</dt><dd><span class="tbc">[TO CONFIRM: how early to arrive before the flight]</span></dd></div>
+          <div><dt>Parking</dt><dd><span class="tbc">[TO CONFIRM: where to park]</span></dd></div>
+          <div><dt>On arrival</dt><dd>Staff meet you and walk you to and from the aircraft.</dd></div>
+          <div><dt>Running late?</dt><dd>Call 0402 333 896 or 0415 919 646.</dd></div>
+        </dl>
       </section>
     </div>
   </div>
