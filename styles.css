@@ -853,6 +853,8 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
 .card-rail{display:flex;gap:var(--grid-gap);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin:-4px 0;padding:4px 0}
 .card-rail::-webkit-scrollbar{display:none}
 .card-rail>.card{flex:0 0 var(--card-w);height:auto;scroll-snap-align:start}
+/* A rail in rows (New in Victoria, Ro, 27 Oct 2026): three rows of cards, filled a column at a time, that scroll sideways together. */
+.card-rail--rows{display:grid;grid-auto-flow:column;grid-template-rows:repeat(3,auto);grid-auto-columns:var(--card-w)}
 @media (max-width:767px){.rail-nav{display:none}}
 
 /* Homepage hero: the search panel replaces the button. */
