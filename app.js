@@ -143,6 +143,7 @@ var exploreMap = (function () {
     { business: 'Moonraker Dolphin Swims', emoji: '🐬', place: 'Sorrento Pier', region: 'mornington', lat: -38.3390, lng: 144.7430 },
     { business: 'Phoenix Pottery', emoji: '🏺', place: 'Fitzroy', region: 'mornington', lat: -37.7985, lng: 144.9772 },
     { business: 'simétrie', emoji: '🧵', place: 'Brunswick', region: 'mornington', lat: -37.7667, lng: 144.9600 },
+    { business: 'Adventure Flight Co', emoji: '✈️', place: 'Moorabbin Airport', region: 'mornington', lat: -37.9758, lng: 145.1022 },
     { business: 'Suigeneris Atelier', emoji: '🧵', place: 'Mulgrave', region: 'mornington', lat: -37.9265, lng: 145.1660 },
     { business: 'Peachy Keen Ceramics', emoji: '🏺', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
     { business: 'East Coast Kayaking', emoji: '🛶', place: 'Melbourne city, on the Yarra', region: 'mornington', lat: -37.8210, lng: 144.9640, only: ['city-day', 'city-twilight'] },

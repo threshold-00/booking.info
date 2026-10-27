@@ -180,3 +180,33 @@
     render();
   }
 })();
+
+// Google reviews (design system 6.23): Read more only where the text is cut off, and the
+// arrows scroll the rail one card at a time.
+(function () {
+  var rail = document.querySelector('.reviews__rail');
+  if (!rail) return;
+  var prev = document.querySelector('.reviews__nav--prev'), next = document.querySelector('.reviews__nav--next');
+  function sync() {
+    [].forEach.call(rail.querySelectorAll('.review'), function (c) {
+      var t = c.querySelector('.review__text'), b = c.querySelector('.review__more');
+      if (!c.classList.contains('is-open')) b.hidden = t.scrollHeight <= t.clientHeight + 1;
+    });
+    prev.disabled = rail.scrollLeft < 4;
+    next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+  }
+  rail.addEventListener('click', function (e) {
+    var b = e.target.closest('.review__more');
+    if (!b) return;
+    var c = b.parentNode, open = c.classList.toggle('is-open');
+    b.textContent = open ? 'Show less' : 'Read more';
+    b.hidden = false;
+    b.setAttribute('aria-expanded', open);
+  });
+  function step(dir) { rail.scrollBy({ left: dir * (rail.querySelector('.review').offsetWidth + 16), behavior: 'smooth' }); }
+  prev.addEventListener('click', function () { step(-1); });
+  next.addEventListener('click', function () { step(1); });
+  rail.addEventListener('scroll', sync);
+  window.addEventListener('resize', sync);
+  sync();
+})();

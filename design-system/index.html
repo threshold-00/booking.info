@@ -10,7 +10,7 @@
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" />
 <link rel="stylesheet" href="/assets/tokens.css?v=2cf6efff" />
-<link rel="stylesheet" href="/assets/components.css?v=3f9774fb" />
+<link rel="stylesheet" href="/assets/components.css?v=861a24d9" />
 <style>
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/neuehaas-600.woff2') format('woff2')}
@@ -880,6 +880,48 @@
         <span class="tag">Demo</span>
       </div>
 
+      <h3 class="t-title">Google reviews</h3>
+      <p class="ds-section__intro">.reviews (6.23): a summary tile (business name, ink stars, "N Google reviews", Write a review) beside a sideways rail of review cards: author, "Google" source label, date, stars, text cut at five lines with Read more where it overflows. Arrows from 768px, swipe on phones. Stars are ink, not yellow: no accent colour, and no Google logo or profile photos. The block comes from the Google Places data (rating, count, write-review link, reviews) in the business's data file under <code>reviews</code>, built by tools/reviews-html.mjs onto every experience page. It renders nothing when a business has no reviews data, so there are never placeholder or invented reviews. The specimen below is labelled sample text only.</p>
+
+      <section class="reviews" style="margin-top:0;margin-bottom:var(--s-6);" aria-labelledby="h-reviews">
+        <h2 id="h-reviews" class="t-title">Google reviews</h2>
+        <div class="reviews__layout">
+          <div class="reviews__sum">
+            <p class="reviews__name">Business name</p>
+            <span class="stars" style="--rating:4.5" role="img" aria-label="4.5 out of 5"></span>
+            <p class="reviews__count">3 Google reviews</p>
+            <a class="reviews__write" href="https://search.google.com/local/writereview?placeid=PLACE_ID" target="_blank" rel="noopener">Write a review</a>
+          </div>
+          <div class="reviews__wrap">
+            <button type="button" class="reviews__nav reviews__nav--prev" aria-label="Previous reviews" disabled>&lsaquo;</button>
+            <ul class="reviews__rail" tabindex="0" aria-label="Google reviews">
+          <li class="review">
+            <div class="review__head"><span class="review__author">Reviewer name</span><span class="review__src">Google</span></div>
+            <p class="review__date">2000-01-01</p>
+            <span class="stars" style="--rating:5" role="img" aria-label="5 out of 5"></span>
+            <p class="review__text">Review text goes here. It is cut after five lines and Read more opens the rest. This is a specimen, not a real review. Longer specimen text so the card runs past five lines: the quick brown fox jumps over the lazy dog, again and again, until the text is long enough to be cut off. Nothing here is a real review.</p>
+            <button type="button" class="review__more" hidden>Read more</button>
+          </li>
+          <li class="review">
+            <div class="review__head"><span class="review__author">Reviewer name</span><span class="review__src">Google</span></div>
+            <p class="review__date">2000-01-01</p>
+            <span class="stars" style="--rating:4" role="img" aria-label="4 out of 5"></span>
+            <p class="review__text">Short specimen text.</p>
+            <button type="button" class="review__more" hidden>Read more</button>
+          </li>
+          <li class="review">
+            <div class="review__head"><span class="review__author">Reviewer name</span><span class="review__src">Google</span></div>
+            <p class="review__date">2000-01-01</p>
+            <span class="stars" style="--rating:5" role="img" aria-label="5 out of 5"></span>
+            <p class="review__text">Another specimen. It is just here to show the rail scrolling sideways on desktop and swiping on phones. Nothing here is a real review or a real rating.</p>
+            <button type="button" class="review__more" hidden>Read more</button>
+          </li>
+            </ul>
+            <button type="button" class="reviews__nav reviews__nav--next" aria-label="Next reviews">&rsaquo;</button>
+          </div>
+        </div>
+      </section>
+
       <h3 class="t-title">Wordmark and favicon</h3>
       <p class="label" style="margin:0 0 var(--s-3);">Decided, not live yet</p>
       <p class="ds-section__intro">Ro chose a handwritten marker wordmark (Permanent Marker as the stand-in) and the plain Permanent Marker R favicon (W1). Live still has a plain Neue Haas "RealDays." for the logo and a blocky R for the favicon. The exported files are not in this checkout, so the boxes below are placeholders. The chosen assets go here, crisp and not pixelated, with the favicon legible at 16px. Do not change the live logo or favicon until the files are supplied.</p>
@@ -919,6 +961,7 @@
   <footer class="ds-footer">Internal preview. Not linked from the live site. noindex, nofollow.</footer>
 </main>
 
+<script src="/assets/detail.js?v=9d402d14" defer></script>
 <script src="/design-system/preview.js"></script>
 </body>
 </html>

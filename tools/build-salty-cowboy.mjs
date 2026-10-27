@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { renderReviews } from './reviews-html.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -96,7 +97,7 @@ function headCommon(base, { title, description, canonicalPath, ogImage }) {
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="${base}styles.css?v=3a9f51de" />
+<link rel="stylesheet" href="${base}styles.css?v=786dc275" />
 <link rel="canonical" href="https://getrealdays.com${canonicalPath}" />
 <link rel="icon" href="${base}assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -423,9 +424,9 @@ ${facts.map(f => `        <li>${f}</li>`).join('\n')}
 ${faqs.map(f => `          <details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('\n')}
         </div>
 
-        <h3 id="h-reviews" style="margin-top:var(--s-6);">Reviews</h3>
-        <p class="prose">No reviews on RealDays yet. This listing is new.</p>
-      </section>
+        ${DATA.reviews?.items?.length ? '' : `<h3 id="h-reviews" style="margin-top:var(--s-6);">Reviews</h3>
+        <p class="prose">No reviews on RealDays yet. This listing is new.</p>`}
+      </section>${renderReviews(DATA.reviews, 'salty-cowboy')}
 
       <section aria-labelledby="h-more">
         <h2 id="h-more">More from Salty Cowboy</h2>
@@ -440,8 +441,8 @@ ${more.map(m => '          ' + cardMini(m, base)).join('\n')}
 ${footer(base)}
 </div>
 ${mobileStickyBar(a)}
-<script src="${base}app.js?v=d2cc19f4"></script>
-<script src="${base}assets/detail.js?v=845a0aa9" defer></script>
+<script src="${base}app.js?v=4053f17c"></script>
+<script src="${base}assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>
 `;
@@ -501,7 +502,7 @@ ${activities.map(a => '      ' + cardMini(a, base)).join('\n')}
 
 ${footer(base)}
 </div>
-<script src="${base}app.js?v=d2cc19f4"></script>
+<script src="${base}app.js?v=4053f17c"></script>
 </body>
 </html>
 `;

@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=3a9f51de" />
+<link rel="stylesheet" href="styles.css?v=786dc275" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -148,7 +148,7 @@
       <h1 class="hero-h1 hero-h1--lg">Something you'll actually remember doing.</h1>
       <p class="hero-sub label">Unique experiences, run by the local people who started them.</p>
       <form class="hero-search" id="heroSearch" action="#browse" role="search" aria-label="Find an experience">
-        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="sealife">Sea life</option><option value="surf">Surfing</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="bike">Biking</option></select></div>
+        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="sealife">Sea life</option><option value="surf">Surfing</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="bike">Biking</option><option value="flying">Flying</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWhere">Where</label><select id="heroWhere" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option><option value="bali">Bali</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWho">Situation</label><select id="heroWho" class="location-select pill-select"><option value="">Anyone</option><option value="solo">Solo</option><option value="duo">Duo</option><option value="group">Group (3+ ppl)</option></select></div>
         <button type="submit" class="btn--on-dark">Go</button>
@@ -175,6 +175,7 @@
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="wood">Woodworks</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="fashion">Fashion</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="bike">Biking</button>
+              <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="flying">Flying</button>
             </div>
             <div class="chip-list" id="horseSub" hidden role="group" aria-label="Horse experiences">
               <button type="button" class="chip chip--sm sub-chip" aria-pressed="true" data-type="">All horse (11)</button>
@@ -224,7 +225,7 @@
           <div class="rail-nav"><button type="button" class="rail-btn" data-rail="railLive" data-dir="-1" aria-label="Previous" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" class="rail-btn" data-rail="railLive" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button></div>
         </div>
         <div class="card-rail" id="railLive">
-<a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=couple-pencil-case" aria-label="Make leather pencil cases together, Suigeneris Atelier">
+<a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=couple-pencil-case" aria-label="Make leather pencil cases together, Suigeneris Atelier" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/suigeneris-atelier/card-class-800.avif" /><img src="/assets/img/demo/suigeneris-atelier/card-class-800.webp" alt="Two people holding up the leather pencil cases they made in a class" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Make leather pencil cases together</h3>
@@ -233,7 +234,7 @@
             <div class="card__meta card__row"><p class="card__price">$120 AUD for two</p></div>
           </div>
         </a>
-<a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=bakery-charm" aria-label="Stitch a leather croissant charm, Suigeneris Atelier">
+<a class="card sc-card" href="/demo/b/suigeneris-atelier/?x=bakery-charm" aria-label="Stitch a leather croissant charm, Suigeneris Atelier" data-duration="150">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/suigeneris-atelier/card-croissant-800.avif" /><img src="/assets/img/demo/suigeneris-atelier/card-croissant-800.webp" alt="A hand-stitched leather croissant charm" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Stitch a leather croissant charm</h3>
@@ -242,7 +243,7 @@
             <div class="card__meta card__row"><p class="card__price">From $98 AUD</p></div>
           </div>
         </a>
-<a class="card sc-card" href="/demo/b/indigo-woodworks/?x=milking-stool" aria-label="Make a four-legged stool in a weekend, Indigo Woodworks">
+<a class="card sc-card" href="/demo/b/indigo-woodworks/?x=milking-stool" aria-label="Make a four-legged stool in a weekend, Indigo Woodworks" data-duration="960" data-days="2">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/indigo-woodworks/card-class-800.avif" /><img src="/assets/img/demo/indigo-woodworks/card-class-800.webp" alt="Two people on a course sanding their stools at a workbench in the timber-lined workshop" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Make a four-legged stool in a weekend</h3>
@@ -440,6 +441,16 @@
             <p class="card__loc">3 hr &middot; Gordon Studio Glassblowers &middot; Victoria</p>
             <p class="card__desc">Watch the glassblowers work in the hot shop, with Fenian wines and cheese.</p>
             <div class="card__meta card__row"><p class="card__price">From $70 AUD</p></div>
+          </div>
+        </a>
+        <a class="card sc-card" href="/demo/b/adventure-flight-co/?x=aerobatic-flight" aria-label="Demo: Loop, roll and spin in a warbird over Melbourne, Adventure Flight Co" data-title="Loop, roll and spin in a warbird over Melbourne" data-business="Adventure Flight Co" data-region="mornington" data-cat="flying" data-situation="solo duo" data-sort-aud="365" data-type="" data-rank="0" data-keywords="demo adventure flight co aerobatic flight warbird plane flying loop roll spin moorabbin barwon heads melbourne combat nanchang" data-duration="15">
+          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/adventure-flight-co/card-cockpit-800.avif" /><img src="/assets/img/demo/adventure-flight-co/card-cockpit-800.webp" alt="View from the back seat of a warbird, over the pilot's shoulder, with the Victorian coast far below" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
+          <div class="card__body">
+            <p class="card__tag"><span class="tag">Pending...</span></p>
+            <h3 class="card__title">Loop, roll and spin in a warbird over Melbourne</h3>
+            <p class="card__loc">15 min &middot; Adventure Flight Co &middot; Melbourne</p>
+            <p class="card__desc">High-G aerobatics in an ex-military warbird, with just you and the pilot.</p>
+            <div class="card__meta card__row"><p class="card__price">From $365 AUD</p></div>
           </div>
         </a>
         <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-2h" aria-label="Demo: E-bike the O'Keefe Rail Trail from Heathcote, Heathcote Bike Hire" data-title="E-bike the O'Keefe Rail Trail from Heathcote" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="bike" data-situation="solo duo group" data-sort-aud="25" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail okeefe" data-duration="480">
@@ -817,6 +828,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=d2cc19f4"></script>
+<script src="app.js?v=4053f17c"></script>
 </body>
 </html>
