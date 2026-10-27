@@ -144,6 +144,50 @@
   .steps li{display:grid;grid-template-columns:28px 1fr;gap:var(--s-3)}
   .steps .n{font-family:var(--mono);font-size:12px;width:28px;height:28px;border:1px solid var(--line-ui);border-radius:50%;display:flex;align-items:center;justify-content:center}
   .steps b{font-family:var(--display);font-weight:600;display:block;color:var(--ink)}
+
+
+  /* Gift cards (Ro, 27 Oct 2026): a code box in the booking panel, and the gift card page. */
+  .bp-gift{margin-top:var(--s-2)}
+  #doneTitle:focus{outline:none}
+  .bp-gift .bp-field{margin:var(--s-2) 0 0}
+  .bp-gift__row{display:flex;gap:var(--s-2);align-items:flex-end}
+  .bp-gift__row input{flex:1;min-width:0;text-transform:uppercase}
+  .bp-gift__row .btn-ghost{min-height:40px}
+  .bp-gift__on{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3);margin-top:var(--s-2);padding:var(--s-2) var(--s-3);background:var(--panel)}
+  .bp-gift__on .bp-note{margin:0;color:var(--ink)}
+  .bp-giftbuy{margin:var(--s-4) 0 0;padding-top:var(--s-3);border-top:1px solid var(--line);font-family:var(--display);font-size:14px;color:var(--ink-2)}
+  .bp-giftbuy a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+  .gift-card{margin:var(--s-5) 0 0;background:var(--ink);color:var(--paper);display:grid;grid-template-columns:2fr 3fr;max-width:640px}
+  .gift-card__photo{position:relative;min-height:100%}
+  .gift-card__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .gift-card__body{padding:var(--s-4) var(--s-5) var(--s-5);display:flex;flex-direction:column;gap:var(--s-2)}
+  .gift-card__brand{margin:0 0 var(--s-2);display:flex;justify-content:space-between;gap:var(--s-3);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-2)}
+  .gift-card__brand b{font-family:var(--display);font-size:16px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--paper)}
+  .gift-card__what{margin:0;font-family:var(--display);font-size:24px;line-height:1.15;font-weight:500}
+  .gift-card__biz{margin:0;font-family:var(--display);font-size:14px;color:var(--paper-2)}
+  .gift-card__msg{margin:var(--s-2) 0 0;font-family:var(--display);font-size:15px;line-height:1.45}
+  .gift-card__meta{margin:var(--s-3) 0 0;padding-top:var(--s-3);border-top:1px solid var(--line-dark);display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
+  .gift-card__meta dt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-3)}
+  .gift-card__meta dd{margin:2px 0 0;font-family:var(--display);font-size:15px;overflow-wrap:anywhere}
+  .gift-card__meta .gift-card__code{font-family:var(--mono);letter-spacing:.06em}
+  .gift-msg textarea{display:block;width:100%;min-height:88px;font-size:16px;line-height:1.4;padding:6px 0 11px;resize:vertical}
+  .gift-msg textarea:focus{outline:none;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  #giftCta{width:100%;justify-content:center;min-height:48px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.02em}
+  .gift-email{margin:var(--s-6) 0 0;max-width:640px;border:1px solid var(--line);background:var(--panel)}
+  .gift-email__head{margin:0;padding:var(--s-3) var(--s-4);border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:4px var(--s-3);font-family:var(--display);font-size:14px}
+  .gift-email__head dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .gift-email__head dd{margin:0;overflow-wrap:anywhere}
+  .gift-email__body{padding:var(--s-4) var(--s-4) var(--s-5);background:var(--paper);font-family:var(--display);font-size:15px;line-height:1.5}
+  .gift-email__body p{margin:0 0 var(--s-3)}
+  .gift-email__msg{padding-left:var(--s-3);border-left:2px solid var(--ink)}
+  .gift-email__code{font-family:var(--mono);letter-spacing:.06em}
+  .gift-terms{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-2);max-width:40em}
+  .gift-terms li{font-family:var(--display);font-size:15px;line-height:1.45;color:var(--ink-2);padding-left:var(--s-4);position:relative}
+  .gift-terms li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;background:var(--ink)}
+  @media (max-width:820px){
+    .gift-card{grid-template-columns:1fr}
+    .gift-card__photo{aspect-ratio:16/9;min-height:0}
+  }
 </style>
 </head>
 <body class="has-sticky-bar">
@@ -175,7 +219,7 @@
       <h1>Loop, roll and spin in a warbird over Melbourne</h1>
       <p class="detail-lead" id="lead" hidden></p>
       <a href="#business" class="owner-strip navlink">
-        <span aria-hidden="true" style="width:40px;height:40px;flex:none;border:1px solid var(--line);background:var(--panel);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">AF</span>
+        <img src="/assets/img/demo/adventure-flight-co/avatar-96.png" alt="" width="40" height="40" style="width:40px;height:40px;flex:none;border:1px solid var(--line);background:var(--panel);box-sizing:border-box;object-fit:contain;padding:3px;">
         <span>Run by the founder &middot; Adventure Flight Co</span>
       </a>
       <ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"></ul>
@@ -215,6 +259,23 @@
             <div class="opt-list" id="choices" role="group" aria-label="Flight"></div>
             <p class="bp-lead" id="panelLead" hidden></p>
           </div>
+          <div class="bp-gift" id="giftBox">
+            <button type="button" class="bp-more" id="giftToggle" aria-expanded="false" aria-controls="giftForm">Have a gift card?</button>
+            <div id="giftForm" hidden>
+              <div class="bp-field" id="f-giftCode">
+                <label for="giftCode">Gift card code</label>
+                <div class="bp-gift__row">
+                  <input id="giftCode" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="giftCode-err" />
+                  <button type="button" class="btn-ghost" id="giftApply">Apply</button>
+                </div>
+                <p class="bp-field-error" id="giftCode-err" hidden></p>
+              </div>
+            </div>
+            <div class="bp-gift__on" id="giftOn" hidden>
+              <p class="bp-note" id="giftOnText"></p>
+              <button type="button" class="bp-change" id="giftRemove">Remove</button>
+            </div>
+          </div>
           <div id="groups"></div>
           <div class="bp-block">
             <p class="bp-label" id="datesLabel">Choose a date</p>
@@ -245,12 +306,12 @@
 
           <div id="party"></div>
           <ul class="bp-notes" id="notes"></ul>
-
           <div class="bp-total" id="total" aria-live="polite" hidden><span>Total</span><b id="totalValue"></b></div>
           <div class="bp-decision">
             <button type="button" class="btn" id="bookingCta" disabled>Continue to book</button>
           </div>
           <p class="bp-note" style="margin-top:var(--s-2);">You won't be charged yet.</p>
+          <p class="bp-giftbuy">Giving it as a gift? <a href="/demo/b/adventure-flight-co/gift/" class="navlink">Buy a gift card</a></p>
         </div>
 
         <form id="step2" novalidate hidden>
@@ -329,7 +390,7 @@
 
       <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
         <h2 id="h-overview">Overview</h2>
-        <p class="prose">Adventure Flight Co flies high-G aerobatics in ex-military Nanchang CJ-6A warbirds from Moorabbin and Barwon Heads. It's just you and an experienced pilot, with the flight tailored to how much G you want.</p>
+        <p class="prose">Adventure Flight Co flies high-G aerobatics in ex-military Nanchang CJ-6A warbirds from Moorabbin and Barwon Heads, a WWII-era fighter trainer that goes from 0 to 300km/h in under 5 seconds. It's just you and an experienced pilot, who starts gently and builds up the G force and difficulty as you go, talking you through every manoeuvre. Nervous flyer or adrenaline seeker, it can be mild or wild, it's up to you.</p>
         <h3>What's included</h3>
         <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;"></ul>
       </section>
@@ -339,9 +400,12 @@
         <ul class="know-list" id="knowList" hidden></ul>
         <dl class="know-details">
           <div><dt>Duration</dt><dd>Flights are 15, 25 or 35 minutes in the air. <span class="tbc">[TO CONFIRM: time on site]</span></dd></div>
-          <div><dt>Price</dt><dd>From $365 per flight, up to $695 for the longest. <span class="tbc">[TO CONFIRM: the price for each flight length]</span> <span class="tbc">[TO CONFIRM: prices include GST]</span> A video from three HD cameras is an optional extra.</dd></div>
-          <div><dt>Location</dt><dd>Moorabbin Airport (Melbourne) or Barwon Heads Airport, at the start of the Great Ocean Road. <span class="tbc">[TO CONFIRM: which airfield for each booking]</span></dd></div>
-          <div><dt>Age or ability</dt><dd>No special fitness needed. Maximum 130kg and 6'4&quot;. <span class="tbc">[TO CONFIRM: minimum age]</span></dd></div>
+          <div><dt>Price</dt><dd>From $365 per flight, up to $695 for the longest. <span class="tbc">[TO CONFIRM: the price for each flight length]</span> <span class="tbc">[TO CONFIRM: prices include GST]</span> A video of your flight is an optional extra, and you can decide after the flight.</dd></div>
+          <div><dt>Location</dt><dd>Moorabbin Airport (Melbourne) or Barwon Heads Airport, Barwon Heads Road, Connewarre, at the start of the Great Ocean Road. <span class="tbc">[TO CONFIRM: which airfield for each booking]</span></dd></div>
+          <div><dt>Age or ability</dt><dd>No special fitness needed. Maximum 130kg and 6'4&quot; (193cm). If you're close to either, call first. <span class="tbc">[TO CONFIRM: minimum age]</span></dd></div>
+          <div><dt>Safety</dt><dd>Over 6,000 warbird flights flown. The planes are maintained to the standards that apply to civilian commercial aviation, and every pilot is very experienced before they fly them.</dd></div>
+          <div><dt>Before you book</dt><dd>This is an adventure flight, not a charter or scenic flight. The plane is an ex-military type without normal civilian certification. It isn't required to comply with the safety regulations for standard aircraft, its design, manufacture and airworthiness aren't required to meet any safety standard recognised by CASA, and there is risk in flying it. You fly at your own risk. The business flies you in VH-ALO or VH-NNM only once you understand and accept this.</dd></div>
+          <div><dt>Gift cards</dt><dd>Give a flight as a gift. Gift cards are for a 15, 25 or 35-minute flight, valid for 3 years, and the person flying chooses the date.</dd></div>
           <div><dt>Times</dt><dd>The times here are examples for the demo. <span class="tbc">[TO CONFIRM: session times]</span></dd></div>
           <div><dt>Cancellation</dt><dd><span class="tbc">[TO CONFIRM: their cancellation and weather policy]</span></dd></div>
         </dl>
@@ -357,8 +421,8 @@
       <section id="business" role="tabpanel" aria-labelledby="h-business tab-business" tabindex="0" hidden>
         <h2 id="h-business">Meet the business</h2>
         <p class="card-title" style="margin:0 0 var(--s-2);">Adventure Flight Co</p>
-        <p class="prose" style="margin:0 0 var(--s-3);">Adventure Flight Co began in 2009 as Warbird Air Adventures, flying aerobatic joy flights in the Nanchang CJ-6A, a trainer built for air forces. Its pilots come from the RAAF, the airlines and general aviation.</p>
-        <p class="prose prose--info" style="margin:0 0 var(--s-3);">This is not a charter or scenic flight. The aircraft is not required to meet the safety rules for standard passenger aircraft, and you can ask the pilot to stop the aerobatics at any point. Read the business's full notes before you book. 0402 333 896</p>
+        <p class="prose" style="margin:0 0 var(--s-3);">Adventure Flight Co began in 2009 as Warbird Air Adventures, flying aerobatic joy flights in the Nanchang CJ-6A, a trainer built for air forces. Its pilots are airline, aerobatic and RAAF pilots with thousands of hours of aerobatics between them, and it has flown over 6,000 warbird flights.</p>
+        <p class="prose prose--info" style="margin:0 0 var(--s-3);">This is not a charter or scenic flight. Read the business's notes under Good to know before you book. 0402 333 896</p>
         <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
       </section>
     </div>
@@ -378,9 +442,9 @@
   <span class="t-small" id="stickyPrice"></span>
   <a href="#book" class="btn">Choose a date</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"adventure-flight-co","business":"Adventure Flight Co","booking_mode":"demo","timezone":"Australia/Melbourne","phone":"0402 333 896","party":{"label":"Passenger","one":"passenger","many":"passengers"},"options":[{"experience":"aerobatic-flight","label":"Warbird aerobatic flight","sub":"From $365"}],"experiences":{"aerobatic-flight":{"durationMinutes":15,"facts":["15, 25 or 35 minutes in the air","Just you and the pilot"],"included":["All the usual aerobatic manoeuvres, and some that aren't so usual","A pilot from the RAAF, airlines or general aviation","The flight video from three HD cameras is an optional extra"],"notes":["The price is for the shortest flight. [TO CONFIRM: the price for 25 and 35 minutes]"],"dates_note":"Example times for the demo [TO CONFIRM]","good_to_know":["One passenger flies with the pilot. If you are close to 130kg or 6'4\", call the business first.","Anyone with a serious heart condition, epilepsy or blood pressure problems should check with their doctor first."]}},"addons":[],"riders":null,"pickup":null,"price_basis":null}</script>
-<script src="/assets/demo-booking.js?v=5074b312"></script>
-<script src="/app.js?v=d2cc19f4"></script>
+<script type="application/json" id="demo-config">{"slug":"adventure-flight-co","business":"Adventure Flight Co","booking_mode":"demo","timezone":"Australia/Melbourne","phone":"0402 333 896","party":{"label":"Passenger","one":"passenger","many":"passengers"},"options":[{"experience":"aerobatic-flight","label":"Warbird aerobatic flight","sub":"From $365"}],"experiences":{"aerobatic-flight":{"durationMinutes":15,"facts":["15, 25 or 35 minutes in the air","Just you and the pilot","Over 6,000 flights flown"],"included":["15 to 35 minutes in the plane, with all the usual aerobatic manoeuvres and some that aren't so usual","A flight tailored to you, with just you and the pilot","A pilot with thousands of aerobatic flights, from the airlines, aerobatics or the RAAF","A super-tough ex-military fighter trainer, totally original (except no guns)","The pilot talks you through each manoeuvre over the intercom","Optional extra: your flight filmed on three HD cameras, edited with the in-flight audio and music"],"notes":["The price is for the shortest flight. [TO CONFIRM: the price for 25 and 35 minutes]"],"dates_note":"Example times for the demo [TO CONFIRM]","good_to_know":["One passenger flies with the pilot. If you are close to 130kg or 6'4\", call the business first.","Anyone with a serious heart condition, epilepsy or blood pressure problems should check with their doctor first.","Staff walk you to and from the plane, and show you how your harness and canopy work. Tell the pilot if you have any concerns about your harness or how you're feeling.","The back cockpit has working controls. Keep your hands and feet clear of the joystick and rudder pedals the whole time.","Expect loops, rolls and wingovers, with positive and perhaps negative G. You can ask the pilot to stop the aerobatics at any point.","The plane is noisy, but a voice-activated intercom lets you talk to the pilot. They may ask you to pause now and then for radio calls.","In an emergency, follow the pilot's instructions."]}},"addons":[],"riders":null,"pickup":null,"price_basis":null,"gift":{"experience":"aerobatic-flight","url":"/demo/b/adventure-flight-co/gift/"}}</script>
+<script src="/assets/demo-booking.js?v=c32b9614"></script>
+<script src="/app.js?v=4053f17c"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>

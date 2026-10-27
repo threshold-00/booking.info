@@ -24,6 +24,7 @@ const ASSETS = {
   'app.js': 'app.js',
   'detail.js': 'assets/detail.js',
   'demo-booking.js': 'assets/demo-booking.js',
+  'demo-gift.js': 'assets/demo-gift.js',
   'tokens.css': 'assets/tokens.css',
   'components.css': 'assets/components.css',
   'booking.css': 'assets/booking/booking.css',

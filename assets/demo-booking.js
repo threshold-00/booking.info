@@ -24,7 +24,7 @@
   var state = {
     key: KEYS.indexOf(q.get('x')) >= 0 ? q.get('x') : KEYS[0],
     meta: null, slots: [], date: null, slot: null, people: 1, shown: 8,
-    answers: {}, addons: {}, tix: {}, tixFor: '', camOn: false, pairPart: '', idemKey: null, idemFor: '', loadSeq: 0
+    answers: {}, addons: {}, tix: {}, tixFor: '', camOn: false, pairPart: '', idemKey: null, idemFor: '', loadSeq: 0, gift: null
   };
   var ERR_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>';
 
@@ -294,6 +294,20 @@
       lines: [[money(m.price_cents) + ' × ' + party(n), money(m.price_cents * n)]] };
   }
 
+  // A gift card (demo, Ro 27 Oct 2026) pays for one flight in full: the one on the card.
+  // Anyone else in the party pays the usual price.
+  function withGift(qt) {
+    var g = state.gift;
+    if (!qt || !g) return qt;
+    var n = state.people, each = Math.round(qt.total / n);
+    qt.lines = [[g.label, money(g.price_cents)]]
+      .concat(n > 1 ? [[money(each) + ' × ' + party(n - 1), money(each * (n - 1))]] : [])
+      .concat([['Gift card ' + g.code, '−' + money(g.price_cents)]]);
+    qt.total = each * (n - 1);
+    qt.gift = g.code;
+    return qt;
+  }
+
   // Deposit now, balance later, as the Worker decides it (planPayment in hold.ts):
   // only while the balance isn't due yet, otherwise the full price.
   function withDeposit(qt) {
@@ -328,7 +342,7 @@
   function render() {
     if (!state.meta) return;
     syncParty();
-    var qt = state.slot ? withDeposit(quote()) : null;
+    var qt = state.slot ? withDeposit(withGift(quote())) : null;
     $('total').hidden = !qt;
     if (qt) $('totalValue').textContent = money(qt.total);
     $('bookingCta').disabled = !qt || OFF;
@@ -690,7 +704,7 @@
     if (sending) return;
     var first = checkFields();
     if (first) { $(first).focus(); return; }
-    var qt = withDeposit(quote());
+    var qt = withDeposit(withGift(quote()));
     var body = { business: SLUG, experience: state.key, starts_at: state.slot.starts_at,
       customer: { name: $('name').value.trim(), email: $('email').value.trim(), phone: $('phone').value.trim() },
       screening_answers: composed(), attribution: { landing_path: location.pathname, utm_source: q.get('utm_source') || null } };
@@ -707,8 +721,9 @@
         try {
           var s = state.slot;
           sessionStorage.setItem('th_bk_' + r.body.booking.ref, JSON.stringify({ key: state.key, title: labelFor(state.key),
-            when: range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '' }));
+            when: range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '' }));
         } catch (e2) {}
+        if (state.gift) giftUsed(state.gift.code, r.body.booking.ref);
         location.href = r.body.checkout_url; return;
       }
       sending = false; $('requestBtn').textContent = NOCARD ? 'Send request' : 'Continue to payment';
@@ -770,7 +785,8 @@
     var total = typeof b.total === 'number' ? b.total : Math.round(parseFloat(String(b.total).replace(/[^0-9.]/g, '')) * 100);
     summaryRows(box, rows, { total: total, deposit: b.deposit, balance: b.balance, due: b.due });
     box.children[0].children[0].style.fontWeight = '600';
-    if (b.deposit) $('doneText').textContent = 'Your card is held for the ' + money(b.deposit) + ' deposit, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.';
+    if (b.gift) $('doneText').textContent = 'Demo booking, paid with gift card ' + b.gift + '. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.';
+    else if (b.deposit) $('doneText').textContent = 'Your card is held for the ' + money(b.deposit) + ' deposit, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.';
     box.hidden = false;
     $('doneKnow').hidden = !knowList($('doneKnowList'), C.experiences[b.key].good_to_know);
   }
@@ -907,6 +923,48 @@
         });
       };
     });
+  }
+
+  // ── Gift cards (demo): a code from the gift card page, kept in this browser ──
+  function giftGet(code) { try { return JSON.parse(localStorage.getItem('th_gift_' + code) || 'null'); } catch (e) { return null; } }
+  function giftUsed(code, bookingRef) {
+    var g = giftGet(code); if (!g) return;
+    g.status = 'used'; g.ref = bookingRef;
+    try { localStorage.setItem('th_gift_' + code, JSON.stringify(g)); } catch (e) {}
+  }
+  function giftToday() { try { return new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } }
+  function applyGift(raw) {
+    var code = String(raw || '').toUpperCase().replace(/\s+/g, ''), g = code ? giftGet(code) : null;
+    var err = !code ? 'Add the code from your gift card'
+      : !g || g.business !== SLUG ? 'We can\'t find that code. In this demo, a gift card only works in the browser it was bought in.'
+      : g.status === 'used' ? 'This gift card has been used, for booking ' + g.ref + '.'
+      : g.valid_until < giftToday() ? 'This gift card ran out on ' + g.valid_until.split('-').reverse().join('/') + '.'
+      : '';
+    setFieldError('giftCode', err);
+    if (err) return false;
+    state.gift = g;
+    if (g.experience !== state.key && KEYS.indexOf(g.experience) >= 0) choose(g.experience);
+    $('giftForm').hidden = true; $('giftToggle').hidden = true; $('giftOn').hidden = false;
+    text($('giftOnText'), 'Gift card ' + g.code + ' applied: ' + g.label + (g.to ? ', for ' + g.to : '') + '.');
+    render();
+    return true;
+  }
+  if (C.gift && $('giftBox')) {
+    $('giftToggle').onclick = function () {
+      var open = $('giftForm').hidden;
+      $('giftForm').hidden = !open; this.setAttribute('aria-expanded', open);
+      if (open) $('giftCode').focus();
+    };
+    $('giftApply').onclick = function () { applyGift($('giftCode').value); };
+    $('giftCode').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); applyGift(this.value); } });
+    $('giftCode').addEventListener('input', function () { setFieldError('giftCode', ''); });
+    $('giftRemove').onclick = function () {
+      state.gift = null;
+      $('giftOn').hidden = true; $('giftToggle').hidden = false; $('giftToggle').setAttribute('aria-expanded', 'false');
+      render(); $('giftToggle').focus();
+    };
+    // From the gift card's email: ?gift=<code>.
+    if (q.get('gift')) { $('giftCode').value = q.get('gift'); $('giftForm').hidden = false; $('giftToggle').setAttribute('aria-expanded', 'true'); applyGift(q.get('gift')); }
   }
 
   // ── Start ──
