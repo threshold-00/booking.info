@@ -28,6 +28,13 @@ function duration(href) {
     business[m[1]] ||= JSON.parse(readFileSync(join(repo, 'data/business-layer', `${m[1]}.json`), 'utf8'));
     return business[m[1]].page?.experiences?.[m[2]] || null;
   }
+  // A live listing with one experience, /<slug>/ (Peachy Keen Ceramics, 28 Oct 2026).
+  m = href.match(/^\/([a-z0-9-]+)\/$/);
+  if (m && existsSync(join(repo, 'data/business-layer', `${m[1]}.json`))) {
+    business[m[1]] ||= JSON.parse(readFileSync(join(repo, 'data/business-layer', `${m[1]}.json`), 'utf8'));
+    const xs = Object.values(business[m[1]].page?.experiences || {});
+    return xs.length === 1 ? xs[0] : null;
+  }
   m = href.match(/^\/bali\/salty-cowboy\/([a-z0-9-]+)\/$/);
   if (m) return salty.activities.find((a) => a.slug === m[1]) || null;
   return null;
