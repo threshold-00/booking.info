@@ -557,8 +557,10 @@ function page(d, view = {}) {
   if (mode === 'live') throw new Error(`${slug}: booking_mode "live" isn't built yet. The booking service is test-only.`);
   const banner = live ? '' : bannerFor(b);
   // Good to know lives on the business layer's experience (the Worker emails it too).
+  // Classes taken off the listing (page.options_hidden) stay out of the page.
+  const hidden = new Set((p.options_hidden ?? []).map((o) => o.experience));
   const experiences = Object.fromEntries(
-    Object.entries(p.experiences).map(([k, x]) => {
+    Object.entries(p.experiences).filter(([k]) => !hidden.has(k)).map(([k, x]) => {
       const e = d.experiences.find((y) => y.key === k);
       return [k, { ...x, good_to_know: e?.good_to_know ?? [], ...(mode === 'link' ? { book_url: outbound(e?.external_book_url ?? p.book_url, slug) } : {}) }];
     }),
@@ -1088,7 +1090,14 @@ for (const f of files) {
       if (!existsSync(dirname(c))) mkdirSync(dirname(c), { recursive: true });
       writeFileSync(c, page(narrowTo(d, o.experience), { cls: o.experience }));
     }
-    console.log(`Built ${base} and ${d.page.options.length} class pages`);
+    // Classes taken off the listing (page.options_hidden, Sui's request, 30 Oct 2026)
+    // keep their address as a redirect to the listing, so shared links still land.
+    for (const o of d.page.options_hidden ?? []) {
+      const c = join(repo, base, o.experience, 'index.html');
+      if (!existsSync(dirname(c))) mkdirSync(dirname(c), { recursive: true });
+      writeFileSync(c, movedPage(d, base));
+    }
+    console.log(`Built ${base} and ${d.page.options.length} class pages${d.page.options_hidden?.length ? `, ${d.page.options_hidden.length} redirects` : ''}`);
   } else {
     writeFileSync(out, page(d));
     console.log(`Built ${base}`);
