@@ -656,7 +656,7 @@ ${HEADER}<main id="main">
     </div>
 
     <aside class="booking-panel" id="book" aria-label="${mode === 'link' ? 'Check availability' : 'Book'}">
-      ${hub ? hubPanel(d, askOnly) : mode === 'link' ? linkPanel(b, p, cls ? '' : askOnly, cls ? pricesBlock(cls) : '') : `<div id="bpForm">
+      ${hub ? hubPanel(d, askOnly) : mode === 'link' ? linkPanel(b, p, cls ? '' : askOnly, cls ? pricesBlock(cls) : d.experiences.length === 1 && (d.experiences[0].prices ?? []).length > 1 ? pricesBlock(d.experiences[0]) : '') : `<div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
             <p class="bp-label">${esc(p.choose_label)}</p>
@@ -833,7 +833,7 @@ ${FOOTER}</div>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
 ${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=4f5d8b01"></script>
-<script src="/app.js?v=6f173d43"></script>
+<script src="/app.js?v=b7dbe1be"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>
@@ -1060,7 +1060,7 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <script type="application/json" id="gift-config">${json}</script>
 <script src="/assets/demo-gift.js?v=c42f0cc4"></script>
-<script src="/app.js?v=6f173d43"></script>
+<script src="/app.js?v=b7dbe1be"></script>
 </body>
 </html>
 `;

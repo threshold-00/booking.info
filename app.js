@@ -146,6 +146,7 @@ var exploreMap = (function () {
     { business: 'Adventure Flight Co', emoji: '✈️', place: 'Moorabbin Airport', region: 'mornington', lat: -37.9758, lng: 145.1022 },
     { business: 'Suigeneris Atelier', emoji: '🧵', place: 'Mulgrave', region: 'mornington', lat: -37.9280, lng: 145.1740 }, // Mulgrave's centre: the studio address is private
     { business: 'Peachy Keen Ceramics', emoji: '🏺', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
+    { business: 'Aysha Hansen', emoji: '🧴', place: 'Newtown, Geelong', region: 'mornington', lat: -38.1560, lng: 144.3370 },
     { business: 'East Coast Kayaking', emoji: '🛶', place: 'Melbourne city, on the Yarra', region: 'mornington', lat: -37.8210, lng: 144.9640, only: ['city-day', 'city-twilight'] },
     { business: 'East Coast Kayaking', emoji: '🛶', place: 'Sandringham', region: 'mornington', lat: -37.9510, lng: 145.0010, only: ['bayside', 'point-nepean', 'phillip-island'] },
     { business: 'Salty Cowboy', emoji: '🐴', place: 'Bali', region: 'bali', lat: -8.6500, lng: 115.2167 }
