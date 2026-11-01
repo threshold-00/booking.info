@@ -3,7 +3,5 @@ Allow: /
 Disallow: /sitev2/
 Disallow: /demo/phones/
 Disallow: /demo/b/
-Disallow: /suigeneris-atelier/
-Disallow: /peachy-keen-ceramics/
 
 Sitemap: https://getrealdays.com/sitemap.xml

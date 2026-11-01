@@ -24,3 +24,30 @@ Owner-run horse rescue and riding centre in Bali, run by Simone. 11 experiences:
 - [Cottages photoshoot](https://getrealdays.com/bali/salty-cowboy/cottages-photoshoot/)
 - [Group clinic](https://getrealdays.com/bali/salty-cowboy/group-clinic/)
 - [Horse Whisperer course](https://getrealdays.com/bali/salty-cowboy/horse-whisperer-course/)
+
+<!-- open-listings:start -->
+## Workshops and classes in Victoria, Australia
+- [All experiences as JSON](https://getrealdays.com/experiences.json): one record per experience. Null means not confirmed.
+- [Workshops and classes in Victoria](https://getrealdays.com/workshops/)
+- [Workshops and classes in Melbourne](https://getrealdays.com/melbourne/)
+- [Workshops in regional Victoria](https://getrealdays.com/regional-victoria/)
+
+### Aysha Hansen, Newtown, Geelong
+Perfume workshops in Newtown, Geelong, run by perfumer Aysha Hansen.
+- [Make your own perfume in a Geelong atelier](https://getrealdays.com/aysha-hansen/): $199 to $249 AUD per person, 2 hours. Blend your own fragrance from 70 ingredients with perfumer Aysha Hansen.
+
+### Indigo Woodworks, Indigo Valley
+Woodworking courses in an off-grid workshop in the Indigo Valley, North East Victoria, run by Andy Hooke.
+- [Four-Legged Milking Stool](https://getrealdays.com/indigo-woodworks/milking-stool/): $600 AUD per person, 2 full days, Saturday and Sunday. Build a four-legged stool from scratch over a weekend, for complete beginners.
+- [Three Legged Perch Stool](https://getrealdays.com/indigo-woodworks/perch-stool/): $850 AUD per person, 3 full days. Shape and turn a three-legged perch stool over three days, for people with some woodworking experience.
+
+### Peachy Keen Ceramics, Mount Eliza
+Sunday ceramics sessions in a home studio in Mount Eliza.
+- [Sunday afternoon in a ceramics studio](https://getrealdays.com/peachy-keen-ceramics/): $140 AUD per person, 2 hours. Make what you like in clay on a Sunday afternoon, with all materials and firings included.
+
+### Suigeneris Atelier, Mulgrave
+Leather-making classes at Sui Workshop, the class studio of Suigeneris Atelier in Mulgrave, Melbourne.
+- [Couple Leather Pencil Case Class](https://getrealdays.com/suigeneris-atelier/couple-pencil-case/): $120 to $135 AUD per person, 3 hours. Make matching leather pencil cases for two and stamp your names on them.
+- [Classic Card Holder Class](https://getrealdays.com/suigeneris-atelier/card-holder/): $120 AUD per person, 3 hours. Make a classic leather card holder and learn stitching, gluing and edge finishing.
+- [French Bakery Leather Charm Making Class](https://getrealdays.com/suigeneris-atelier/bakery-charm/): $123 to $150 AUD per person, Baguette 2.5 to 3 hours, croissant 4 to 4.5 hours. Make a leather croissant or baguette charm in Italian leather, step by step.
+<!-- open-listings:end -->

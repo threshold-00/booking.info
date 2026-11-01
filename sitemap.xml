@@ -103,4 +103,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <!-- open-listings:start -->
+  <url><loc>https://getrealdays.com/melbourne/</loc></url>
+  <url><loc>https://getrealdays.com/regional-victoria/</loc></url>
+  <url><loc>https://getrealdays.com/workshops/</loc></url>
+  <url><loc>https://getrealdays.com/aysha-hansen/</loc></url>
+  <url><loc>https://getrealdays.com/indigo-woodworks/</loc></url>
+  <url><loc>https://getrealdays.com/indigo-woodworks/milking-stool/</loc></url>
+  <url><loc>https://getrealdays.com/indigo-woodworks/perch-stool/</loc></url>
+  <url><loc>https://getrealdays.com/peachy-keen-ceramics/</loc></url>
+  <url><loc>https://getrealdays.com/suigeneris-atelier/</loc></url>
+  <url><loc>https://getrealdays.com/suigeneris-atelier/couple-pencil-case/</loc></url>
+  <url><loc>https://getrealdays.com/suigeneris-atelier/card-holder/</loc></url>
+  <url><loc>https://getrealdays.com/suigeneris-atelier/bakery-charm/</loc></url>
+<!-- open-listings:end -->
 </urlset>

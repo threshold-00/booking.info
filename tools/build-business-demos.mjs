@@ -9,12 +9,15 @@
 // shell; /assets/demo-booking.js runs the booking panel from the page's
 // #demo-config JSON and the test booking service (prices, dates and policy
 // come from there). Pages are noindex, disallowed in robots.txt, and never
-// linked from the sitemap, llms.txt, listings or search.
+// linked from the sitemap, llms.txt, listings or search, unless the data file has
+// business.open_to_crawlers (then see tools/listing-record.mjs and
+// tools/build-listing-layers.mjs).
 
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderReviews } from './reviews-html.mjs';
+import { recordFor, factLines, experienceJsonLd, businessJsonLd } from './listing-record.mjs';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dataDir = join(repo, 'data/business-layer');
@@ -347,7 +350,7 @@ function ownerStrip(p, b, href) {
 }
 
 // The demo page styles, shared by the experience page and the gift card page.
-const DEMO_CSS = `  /* Business demo, Stripe test mode. Unlisted (noindex, robots.txt). Booking
+const DEMO_CSS = `  /* Business page. Demos are Stripe test mode and unlisted. Booking
      panel: /assets/demo-booking.js, talking to api-test.getrealdays.com. */
   [hidden]{display:none!important}
   .tbc{font-family:var(--mono);font-size:.85em;letter-spacing:.02em;color:var(--ink-2);background:var(--panel);border:1px dashed var(--line-ui);border-radius:4px;padding:0 4px;white-space:normal}
@@ -545,11 +548,22 @@ function page(d, view = {}) {
   const p = fillTokens(d.page, d);
   const slug = b.slug;
   // business.listing "live" (Ro, 27 Oct 2026): a real listing, not a demo, so no demo
-  // strip, Demo flag or "Demo:" title. Pages stay noindex until Ro says otherwise.
+  // strip, Demo flag or "Demo:" title. Pages stay noindex unless business.open_to_crawlers
+  // (Ro, 31 Oct 2026), which also puts the record's facts in the HTML for crawlers
+  // that don't run JavaScript.
   const live = b.listing === 'live';
   const hub = !!view.hub;
   const cls = view.cls ? d.experiences.find((e) => e.key === view.cls) : null;
   const base = baseOf(b);
+  const open = b.open_to_crawlers === true;
+  if (open && !live) throw new Error(`${slug}: open_to_crawlers needs business.listing "live"`);
+  if (open && !hub && !cls && d.experiences.length !== 1) throw new Error(`${slug}: open_to_crawlers with several experiences needs page.class_pages`);
+  const recKey = !open || hub ? null : cls?.key ?? d.experiences[0].key;
+  const rec = recKey ? recordFor(d, recKey) : null;
+  const recX = recKey ? p.experiences[recKey] : null;
+  const pageUrl = `https://getrealdays.com${base}${cls ? `${cls.key}/` : ''}`;
+  const pageTitle = `${live ? '' : 'Demo: '}${cls ? `${esc(cls.name)}, ` : open ? `${esc(rec?.name ?? p.headline)}, ` : ''}${esc(b.name)} | RealDays`;
+  const pageDesc = open ? esc(rec?.summary ?? d.record.summary) : '';
   // booking_mode: sandbox (Stripe test mode, demo banner always on), off (no online
   // booking), live (not built: the booking service is test-only, so it's refused).
   const mode = b.booking_mode ?? 'off';
@@ -610,8 +624,17 @@ function page(d, view = {}) {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<title>${live ? '' : 'Demo: '}${cls ? `${esc(cls.name)}, ` : ''}${esc(b.name)} | RealDays</title>${hub ? `
+${open ? '' : `<meta name="robots" content="noindex, nofollow" />
+`}<title>${pageTitle}</title>${open ? `
+<meta name="description" content="${pageDesc}" />
+<link rel="canonical" href="${pageUrl}" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="RealDays" />
+<meta property="og:url" content="${pageUrl}" />
+<meta property="og:title" content="${pageTitle}" />
+<meta property="og:description" content="${pageDesc}" />
+${rec ? `<meta property="og:image" content="${rec.image}" />
+` : ''}${rec ? experienceJsonLd(d, recKey) : businessJsonLd(d)}` : ''}${hub ? `
 <script>(function () { var k = new URLSearchParams(location.search).get('x'); if (${JSON.stringify(p.options.map((o) => o.experience))}.indexOf(k) >= 0) location.replace('${base}' + k + '/'); })();</script>` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -642,7 +665,7 @@ ${HEADER}<main id="main">
       <p class="detail-lead" id="lead" hidden></p>${cls ? `
       <p class="detail-lead">${tbc(cls.description)}</p>` : ''}
       ${ownerStrip(p, b, '#business')}
-      ${hub ? '' : '<ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"></ul>'}
+      ${hub ? '' : `<ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);">${recX ? recX.facts.map((f) => `<li>${tbc(f)}</li>`).join('') : ''}</ul>`}
       <div class="detail-gallery${p.photos?.mode === 'stock' ? ' demo-photos' : ''}" id="detailGallery"${hub ? ' style="margin-top:var(--s-5);"' : ''}>
         ${gal}
       </div>
@@ -795,9 +818,13 @@ ${HEADER}<main id="main">
 
       <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
         <h2 id="h-overview">Overview</h2>
-        <p class="prose">${tbc(p.description)}</p>${hub ? '' : `
+        <p class="prose">${tbc(rec ? rec.description : p.description)}</p>${rec ? `
+        <h3>Key facts</h3>
+        <dl class="know-details" id="keyFacts">
+          ${factLines(rec).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n          ')}
+        </dl>` : ''}${hub ? '' : `
         <h3>What's included</h3>
-        <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;"></ul>`}
+        <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;">${recX ? (recX.included ?? []).map((t) => `<li style="display:flex;gap:8px;"><span aria-hidden="true">&check;</span><span>${tbc(t)}</span></li>`).join('') : ''}</ul>`}
       </section>
 
       <section id="know" role="tabpanel" aria-labelledby="h-know tab-know" tabindex="0" hidden>
@@ -807,7 +834,7 @@ ${HEADER}<main id="main">
           ${know}
         </dl>
         <h3 id="h-cancellation">Cancellation</h3>
-        <p class="prose prose--info" id="policy"></p>
+        <p class="prose prose--info" id="policy">${open ? tbc(config.cancellation) : ''}</p>
       </section>
 
       <section id="how" role="tabpanel" aria-labelledby="h-how tab-how" tabindex="0" hidden>
@@ -1083,12 +1110,17 @@ for (const f of files) {
   const base = baseOf(d.business);
   const out = join(repo, base, 'index.html');
   if (!existsSync(dirname(out))) mkdirSync(dirname(out), { recursive: true });
+  // A page open to crawlers can't carry a placeholder: they'd copy it as a fact.
+  const checked = (html) => {
+    if (d.business.open_to_crawlers && /\[(TO CONFIRM|PERMISSION NEEDED)/.test(html)) throw new Error(`${slug}: page open to crawlers still has a placeholder`);
+    return html;
+  };
   if (d.page.class_pages) {
-    writeFileSync(out, page(d, { hub: true }));
+    writeFileSync(out, checked(page(d, { hub: true })));
     for (const o of d.page.options) {
       const c = join(repo, base, o.experience, 'index.html');
       if (!existsSync(dirname(c))) mkdirSync(dirname(c), { recursive: true });
-      writeFileSync(c, page(narrowTo(d, o.experience), { cls: o.experience }));
+      writeFileSync(c, checked(page(narrowTo(d, o.experience), { cls: o.experience })));
     }
     // Classes taken off the listing (page.options_hidden, Sui's request, 30 Oct 2026)
     // keep their address as a redirect to the listing, so shared links still land.
@@ -1099,7 +1131,7 @@ for (const f of files) {
     }
     console.log(`Built ${base} and ${d.page.options.length} class pages${d.page.options_hidden?.length ? `, ${d.page.options_hidden.length} redirects` : ''}`);
   } else {
-    writeFileSync(out, page(d));
+    writeFileSync(out, checked(page(d)));
     console.log(`Built ${base}`);
   }
   // A listing that moved off /demo/b/ leaves a redirect there, so old links (and
