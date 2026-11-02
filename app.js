@@ -1710,3 +1710,29 @@ window.addEventListener('resize', setHeaderOffset);
   }
 })();
 
+// Homepage visits, one per page load, sent to the Worker's count (POST /site/track). No
+// personal data: a random id and a host name. Nothing for team visits (?team=1, remembered
+// for the session), the same rule and the same visitor id as the listing pages.
+(function () {
+  if (location.pathname !== '/' && location.pathname !== '/index.html') return;
+  var q = new URLSearchParams(location.search);
+  var team = q.get('team') === '1';
+  try { if (team) sessionStorage.setItem('th_team', '1'); team = team || sessionStorage.getItem('th_team') === '1'; } catch (e) {}
+  if (team) return;
+  var visitor = null;
+  try { visitor = localStorage.getItem('th_demo_visitor'); } catch (e) {}
+  if (!visitor || !/^[A-Za-z0-9-]{8,64}$/.test(visitor)) {
+    visitor = (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()).replace(/[^A-Za-z0-9-]/g, '');
+    try { localStorage.setItem('th_demo_visitor', visitor); } catch (e) {}
+  }
+  var source = q.get('utm_source');
+  if (!source || !/^[a-z0-9._-]{1,100}$/i.test(source)) {
+    source = 'direct';
+    try { if (document.referrer) { var h = new URL(document.referrer).hostname; if (h && h !== location.hostname) source = h; } } catch (e) {}
+  }
+  var api = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
+  try {
+    fetch(api + '/site/track', { method: 'POST', headers: { 'content-type': 'text/plain;charset=UTF-8' }, keepalive: true,
+      body: JSON.stringify({ page: 'home', visitor: visitor, source: source.toLowerCase() }) }).catch(function () {});
+  } catch (e) {}
+})();
