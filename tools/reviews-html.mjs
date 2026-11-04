@@ -3,20 +3,23 @@
 // real reviews are loaded. Never write placeholder reviews, ratings or names here.
 //
 // reviews: { place_name, rating, count, write_url, items: [{ author, date: 'YYYY-MM-DD', rating, text }] }
+// Only text is required. Reviews a business passes on without the reviewer's name, date or
+// stars (Indigo Woodworks, 4 Nov 2026) show "Google review" as the source and leave the rest
+// out. Summary stars, count and Write a review show only when given.
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const stars = (n) => `<span class="stars" style="--rating:${Number(n)}" role="img" aria-label="${Number(n)} out of 5"></span>`;
 
 export function renderReviews(r, slug = 'business') {
   if (!r || !Array.isArray(r.items) || !r.items.length) return '';
-  if (!/^https:\/\//.test(r.write_url ?? '')) throw new Error(`${slug}: reviews.write_url must be an https link`);
+  if (r.write_url != null && !/^https:\/\//.test(r.write_url)) throw new Error(`${slug}: reviews.write_url must be an https link`);
   for (const x of r.items) {
-    if (!x.author || !x.text || !(x.rating >= 1 && x.rating <= 5)) throw new Error(`${slug}: each review needs author, text and a 1 to 5 rating`);
+    if (!x.text || (x.rating != null && !(x.rating >= 1 && x.rating <= 5))) throw new Error(`${slug}: each review needs text, and any rating must be 1 to 5`);
   }
   const items = r.items.map((x) => `
           <li class="review">
-            <div class="review__head"><span class="review__author">${esc(x.author)}</span><span class="review__src">Google</span></div>
-            <p class="review__date">${esc(x.date ?? '')}</p>
-            ${stars(x.rating)}
+            <div class="review__head">${x.author ? `<span class="review__author">${esc(x.author)}</span><span class="review__src">Google</span>` : '<span class="review__author">Google review</span>'}</div>${x.date ? `
+            <p class="review__date">${esc(x.date)}</p>` : ''}${x.rating ? `
+            ${stars(x.rating)}` : ''}
             <p class="review__text">${esc(x.text)}</p>
             <button type="button" class="review__more" hidden>Read more</button>
           </li>`).join('');
@@ -26,9 +29,9 @@ export function renderReviews(r, slug = 'business') {
         <div class="reviews__layout">
           <div class="reviews__sum">
             <p class="reviews__name">${esc(r.place_name)}</p>
-            ${stars(r.rating)}
-            <p class="reviews__count">${Number(r.count)} Google review${Number(r.count) === 1 ? '' : 's'}</p>
-            <a class="reviews__write" href="${esc(r.write_url)}" target="_blank" rel="noopener">Write a review</a>
+${r.rating ? `            ${stars(r.rating)}
+` : ''}${r.count ? `            <p class="reviews__count">${Number(r.count)} Google review${Number(r.count) === 1 ? '' : 's'}</p>
+` : ''}${r.write_url ? `            <a class="reviews__write" href="${esc(r.write_url)}" target="_blank" rel="noopener">Write a review</a>` : ''}
           </div>
           <div class="reviews__wrap">
             <button type="button" class="reviews__nav reviews__nav--prev" aria-label="Previous reviews" disabled>&lsaquo;</button>
