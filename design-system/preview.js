@@ -53,7 +53,7 @@
   /* Pause / Play on the hero example, a stand-in for the video toggle on the home hero. */
   document.querySelectorAll('[data-hero-pause-demo]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      btn.textContent = btn.textContent === 'Pause' ? 'Play' : 'Pause';
+      btn.textContent = btn.textContent === 'Pause video' ? 'Play video' : 'Pause video';
     });
   });
 

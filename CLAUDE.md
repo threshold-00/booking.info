@@ -28,6 +28,7 @@ Salty Cowboy Bali is the first listed business.
 ├── assets/                       # images, booking-flow.mp4, og-image.png, favicon.svg
 │   └── leaflet/                  # vendored Leaflet for the map
 ├── demo/phones/                  # live demo phone iframes (on for-business page)
+├── design-system/                # internal brand system, noindex and unlinked: index.html (design system), brand.css (the bar both pages share), tone-of-voice/ (tone of voice for ads, social and campaigns: private, excluded in .git/info/exclude, never pushed, Ro 4 Nov 2026)
 ├── llms.txt                      # AI/LLM site summary
 ├── CNAME                         # getrealdays.com
 ├── robots.txt                    # allows all, hides sitev2/, demo/phones/ and demo/b/, points at sitemap

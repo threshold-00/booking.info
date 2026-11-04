@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RealDays design system preview</title>
+<title>RealDays brand system: design system</title>
 <meta name="robots" content="noindex,nofollow" />
 <link rel="canonical" href="/design-system/" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" />
 <link rel="stylesheet" href="/assets/tokens.css?v=2cf6efff" />
 <link rel="stylesheet" href="/assets/components.css?v=861a24d9" />
+<link rel="stylesheet" href="/design-system/brand.css" />
 <style>
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/neuehaas-600.woff2') format('woff2')}
@@ -18,6 +19,8 @@
   html,body{margin:0;background:var(--paper)}
   body{font-family:var(--display);color:var(--ink);font-size:16px;line-height:1.5}
   html{scroll-behavior:smooth}
+  /* .btn sets position:relative after .skip-link in components.css, which left the hidden skip link in the flow (a 48px gap above the toolbar). Keep it out of the flow. */
+  .skip-link.btn{position:absolute}
   .ds-reduced-motion,html.ds-reduced-motion{scroll-behavior:auto!important}
   .ds-reduced-motion *,.ds-reduced-motion *::before,.ds-reduced-motion *::after{animation-duration:0.001ms!important;transition-duration:0.001ms!important}
 
@@ -73,6 +76,37 @@
   .ds-diagram__box--map{background:var(--paper);border-style:solid;border-color:var(--ink);color:var(--ink)}
   .ds-diagram__box--scrim{background:var(--ink);opacity:.4;border:0}
   .ds-placeholder{display:flex;align-items:center;justify-content:center;padding:var(--s-4);border:var(--bw) dashed var(--line-ui);background:var(--panel);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--ink-2);text-align:center}
+
+  /* Stand-ins for live rules that components.css does not carry yet (copied from styles.css, 4 Nov 2026).
+     Remove each one once components.css mirrors it. */
+  .rd .fn-reset{position:relative;align-self:flex-end;margin-bottom:2px;height:36px;padding:2px 0 0;border:0;background:none;color:var(--ink);font:400 var(--t-label)/18px var(--mono);letter-spacing:var(--ls-label);text-transform:uppercase;white-space:nowrap;cursor:pointer}
+  .rd .fn-reset::before{content:"";position:absolute;inset:-6px}
+  @media (hover:hover){.rd .fn-reset:not(:disabled):hover{text-decoration:underline;text-underline-offset:4px}}
+  .rd .fn-reset:disabled{color:var(--ink-disabled);cursor:default}
+  .rd .fn-reset:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  .filter-nav.is-stuck .fn-reset{align-self:center;margin-bottom:0}
+  .rd .section-count{margin:var(--s-1) 0 0;color:var(--ink-2)}
+  .ds-header-demo .nav-toggle{display:none}
+  @media (max-width:640px){.ds-header-demo #siteNav{display:none}.ds-header-demo .nav-toggle{display:inline-flex}}
+  .card.ds-greyed{opacity:.55;filter:grayscale(1);transition:opacity var(--dur) var(--ease-out),filter var(--dur) var(--ease-out)}
+  .card.ds-greyed:hover,.card.ds-greyed:focus-within{opacity:.85;filter:grayscale(.4)}
+  .notice-bar{padding-block:var(--s-4) var(--s-5);background:var(--ink);color:var(--paper);border-top:var(--bw) solid var(--ink);box-shadow:none}
+  .notice-bar__in{flex-direction:column;flex-wrap:nowrap;align-items:center;justify-content:center;gap:var(--s-2);text-align:center}
+  .notice-bar p{flex:none;color:var(--paper)}
+  .notice-bar .notice-bar__ask{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--s-3)}
+  .notice-bar__state{display:flex;flex-direction:column;align-items:center;gap:var(--s-2)}
+  .rd .notice-bar .btn--on-dark{height:var(--control-h-sm);min-height:var(--control-h-sm);padding:0 var(--s-3);font-size:var(--t-label)}
+  .rd .notice-bar .btn--on-dark::before{inset:-10px -4px}
+  .page-nav{display:flex;gap:28px;overflow-x:auto;scrollbar-width:none;box-shadow:inset 0 calc(-1 * var(--bw)) 0 var(--line);background:var(--paper)}
+  .page-nav [role="tab"]{font:var(--w-regular) var(--t-title)/1.3 var(--display);flex:none;min-height:44px;display:inline-flex;align-items:center;padding:0 0 12px;margin-top:12px;color:var(--ink-2);background:none;border:0;border-bottom:var(--bw-strong) solid transparent;white-space:nowrap;cursor:pointer}
+  .page-nav [role="tab"]:hover{color:var(--ink)}
+  .page-nav [role="tab"][aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+  .page-nav [role="tab"]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  .detail-content h3{font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);line-height:1.3;margin:var(--s-6) 0 var(--s-3)}
+  .detail-content dl{display:grid;gap:var(--s-4);margin:0;max-width:35em}
+  .detail-content dt{font:500 var(--t-label)/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 var(--s-1)}
+  .detail-content dd{margin:0;font-family:var(--display);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
+  .detail-content .know-details dd{color:var(--text-info)}
 </style>
 
 </head>
@@ -80,6 +114,13 @@
 <a href="#main" class="skip-link btn btn--lg" style="width:auto;">Skip to content</a>
 
 <div class="ds-toggles">
+  <nav class="ds-brand" aria-label="Brand system">
+    <span class="ds-brand__name">RealDays brand system</span>
+    <ul class="ds-brand__pages">
+      <li><a class="chip" href="/design-system/" aria-current="page">01 Design system</a></li>
+      <li><a class="chip" href="/design-system/tone-of-voice/">02 Tone of voice</a></li>
+    </ul>
+  </nav>
   <div class="ds-toggle-group">
     <label class="ds-radio"><input type="checkbox" id="ds-reduced-motion" /> Preview reduced motion</label>
   </div>
@@ -90,7 +131,7 @@
 
     <section class="ds-section" id="tokens">
       <div class="ds-index"><span class="index">[01]</span><h2>Tokens</h2></div>
-      <p class="ds-section__intro">Colour, type, spacing, radius, border, shadow, layers, motion and breakpoints. Everything below reads from /assets/tokens.css, which mirrors the body.rd layer of the live styles.css. Update both together. Last synced to live getrealdays.com on 26 Oct 2026.</p>
+      <p class="ds-section__intro">Colour, type, spacing, radius, border, shadow, layers, motion and breakpoints. Everything below reads from /assets/tokens.css, which mirrors the body.rd layer of the live styles.css. Update both together. Last synced to live getrealdays.com on 4 Nov 2026.</p>
 
       <h3 class="t-title">Colour</h3>
       <p class="ds-section__intro">Ink, paper and greys only: there is no accent colour (green retired 22 Oct 2026). Hover is grey: --color-hover behind ink text on paper surfaces (chips, menus, light buttons on dark), --color-hover-dark on filled ink buttons and the map pin. Links go ink and underline on hover. Success and status are ink text with an icon (&check;), never a colour. Hover is never the only focus cue: :focus-visible is always a 2px ink outline (paper on ink).</p>
@@ -128,7 +169,7 @@
         <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
         <tbody>
           <tr><td>--control-h</td><td>40px</td><td>buttons, chips, selects, rail arrows, currency picker</td></tr>
-          <tr><td>--control-h-sm</td><td>24px</td><td>Demo tag, jump links</td></tr>
+          <tr><td>--control-h-sm</td><td>24px</td><td>card tag, jump links, the notice bar's Link them and Close, Write a review</td></tr>
           <tr><td>--control-px</td><td>16px</td><td>side padding on buttons and selects</td></tr>
           <tr><td>chip--sm</td><td>32px (padding 6px 10px)</td><td>sub-chips</td></tr>
           <tr><td>tap target</td><td>44px</td><td>::before inset -4px 0 on .btn and .chip, so the visual size stays 40px</td></tr>
@@ -154,7 +195,7 @@
       <div style="display:flex;gap:var(--s-5);align-items:flex-end;flex-wrap:wrap;margin-bottom:var(--s-5);">
         <div><div style="width:72px;height:72px;background:var(--panel);border:var(--bw) solid var(--line);border-radius:var(--r-control);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">0</div><p class="label" style="margin:var(--s-2) 0 0;">Square</p></div>
         <div><div style="width:72px;height:72px;background:var(--ink);border-radius:var(--r-panel);"></div><p class="label" style="margin:var(--s-2) 0 0;">6px panel</p></div>
-        <div><div style="padding:var(--s-3) 0;"><span class="tag">Demo</span></div><p class="label" style="margin:var(--s-2) 0 0;">999px tag</p></div>
+        <div><div style="padding:var(--s-3) 0;"><span class="tag">Pending...</span></div><p class="label" style="margin:var(--s-2) 0 0;">999px tag</p></div>
         <div><div style="width:40px;height:40px;background:var(--ink);border-radius:var(--r-round);"></div><p class="label" style="margin:var(--s-2) 0 0;">50% avatar</p></div>
         <div style="width:1px;height:40px;background:var(--ink);"></div>
         <div style="width:2px;height:40px;background:var(--ink);"></div>
@@ -165,7 +206,7 @@
         <tbody>
           <tr><td>--r-control</td><td>0</td><td>everything by default</td></tr>
           <tr><td>--r-panel</td><td>6px</td><td>the hero search panel</td></tr>
-          <tr><td>--r-pill</td><td>999px</td><td>the Demo tag on cards</td></tr>
+          <tr><td>--r-pill</td><td>999px</td><td>the card tag ("Pending..." on homepage cards since 26 Oct 2026; "Demo" on the demo pages' photo placeholder)</td></tr>
           <tr><td>--r-round</td><td>50%</td><td>avatars (the founder photo, 40px)</td></tr>
           <tr><td>--bw / --bw-strong</td><td>1px / 2px</td><td>borders / focus ring</td></tr>
           <tr><td>--bullet</td><td>8 &times; 8px square</td><td>.eyebrow</td></tr>
@@ -272,20 +313,23 @@
       </div>
 
       <h3 class="t-title">Header and nav</h3>
-      <p class="ds-section__intro">.site-header is sticky at z 20, paper at 92% with an 8px backdrop blur and a 1px --line bottom border. The logo sits on the container's left edge: Neue Haas 600, 22px on a 36px line, -.01em (plain text "RealDays." for now, see Wordmark and favicon). #siteNav is right-aligned (margin-left:auto) and never wraps: links are mono 400, 12px on an 18px line, uppercase, .96px tracking, 30px apart, ink-3. A 1px underline marks the active page and the hover; it is transparent when inactive so the height never changes. #currencySelect ("AUD $") is 40px high, square, with the same 12px / 400 / .96px type. Under 641px the nav collapses to the burger.</p>
-      <header class="site-header" style="position:static;margin-bottom:var(--s-6);border:var(--bw) solid var(--line);">
+      <p class="ds-section__intro">.site-header is sticky at z 20, paper at 92% with an 8px backdrop blur and a 1px --line bottom border. The logo sits on the container's left edge: Neue Haas 600, 22px on a 36px line, -.01em (plain text "RealDays." for now, see Wordmark and favicon). #siteNav is right-aligned (margin-left:auto) and never wraps: links are mono 400, 12px on an 18px line, uppercase, .96px tracking, 30px apart, ink-3. A 1px underline marks the active page and the hover; it is transparent when inactive so the height never changes. #currencySelect ("AUD $") is 40px high, square, with the same 12px / 400 / .96px type. Under 641px the nav collapses to the burger (resize to see; the example's burger does not open, see Mobile menu).</p>
+      <header class="site-header ds-header-demo" style="position:static;margin-bottom:var(--s-6);border:var(--bw) solid var(--line);">
         <div class="bar">
           <a href="#" class="logo">RealDays.</a>
           <nav class="nav" id="siteNav" aria-label="Main (example)">
             <a href="#" class="navlink on" aria-current="page">For customers</a>
             <a href="#" class="navlink">For businesses</a>
             <label for="currencySelect" class="sr-only">Currency</label>
-            <select id="currencySelect" aria-label="Currency">
+            <span class="select-wrap"><select id="currencySelect" class="currency-select" aria-label="Currency">
               <option value="AUD">AUD $</option>
               <option value="USD">USD $</option>
               <option value="IDR">IDR Rp</option>
-            </select>
+            </select></span>
           </nav>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu (example)">
+            <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
       </header>
 
@@ -293,7 +337,7 @@
       <p class="ds-section__intro">.hero-search on the homepage hero: max-width 680px, padding 24px (16px under 641px), gap 16px, radius 6px (--r-panel), fill rgba(243,242,238,.12) (--tint-hover-dark). Square 40px selects (.pill-select; the name is old, they are square) with a mono label above, and a "Go" .btn--on-dark. The list opens over the page, absolutely positioned so nothing moves, and shows five options (5 &times; 40px) before it scrolls inside. It sets the same filters as the filter bar.</p>
       <div style="position:relative;padding:var(--s-6) var(--s-5);margin-bottom:var(--s-6);background:var(--ink);" class="on-dark">
         <form class="hero-search" action="#" onsubmit="return false;" aria-label="Find an experience (example)">
-          <div class="hero-search__field"><label class="label" for="ds-hero-what">What</label><select id="ds-hero-what" class="select pill-select"><option>Anything</option><option>Horse riding</option><option>Clay</option></select></div>
+          <div class="hero-search__field"><label class="label" for="ds-hero-what">What</label><select id="ds-hero-what" class="select pill-select"><option>Anything</option><option>Horse riding</option><option>Clay</option><option>Sea life</option><option>Surfing</option><option>Woodworks</option><option>Fashion</option><option>Biking</option><option>Flying</option></select></div>
           <div class="hero-search__field"><label class="label" for="ds-hero-where">Where</label><select id="ds-hero-where" class="select pill-select"><option>Anywhere</option><option>Victoria</option><option>Bali</option></select></div>
           <div class="hero-search__field"><label class="label" for="ds-hero-who">Situation</label><select id="ds-hero-who" class="select pill-select"><option>Anyone</option><option>Solo</option><option>Duo</option><option>Group (3+ ppl)</option></select></div>
           <button type="submit" class="btn btn--on-dark">Go</button>
@@ -301,7 +345,7 @@
       </div>
 
       <h3 class="t-title">Filter bar, expanded and stuck</h3>
-      <p class="ds-section__intro">#filterNav.filter-nav sits inside #filterSlot, which keeps the full height so nothing jumps when the bar sticks. Expanded: labelled rows, .chip groups (What, then the horse sub-chips, then Situation), .fn-help under Situation, then Where, How long and Sort by, with View on map at the far right from 768px. app.js adds .is-stuck once the full filters have scrolled behind the header. Stuck: position fixed, top var(--header-h,85px), z 15, a 55px row from 768px, shadow 0 1px 0 var(--line), 0 6px 16px rgba(23,23,26,.08). The stuck row from 768px is the .fn-compact dropdowns What (multi-select), Situation, Where and How long (single-select), then Sort by, then View on map (margin-left:auto). Each trigger reads "Name: value". Under 768px the stuck bar is one row: Filters, Sort by and a map control. Both states are shown as static examples.</p>
+      <p class="ds-section__intro">#filterNav.filter-nav sits inside #filterSlot, which keeps the full height so nothing jumps when the bar sticks. Expanded: labelled rows, .chip groups (What: Anything, Horse riding, Clay, Sea life, Surfing, Woodworks, Fashion, Biking, Flying; then the horse sub-chips Rides, Photoshoots and Lessons; then Situation), .fn-help under Situation, then Where, How long, Sort by and [Reset] (.fn-reset, see below), with View on map at the far right from 768px. app.js adds .is-stuck once the full filters have scrolled behind the header. Stuck: position fixed, top var(--header-h,85px), z 15, a 55px row from 768px, shadow 0 1px 0 var(--line), 0 6px 16px rgba(23,23,26,.08). The stuck row from 768px is the .fn-compact dropdowns What (multi-select), Situation, Where and How long (single-select), then Sort by, then [Reset], then View on map (margin-left:auto). Each trigger reads "Name: value". Under 768px the stuck bar is one row: Filters (.fn-filters, shown only there), Sort by and "Map" (the "View on" part, .fn-map-label, is hidden); [Reset] is hidden in that row. Both states are shown as static examples.</p>
       <p class="label" style="margin:0 0 var(--s-2);">Expanded</p>
       <div class="filter-slot" style="margin-bottom:var(--s-5);">
         <div class="filter-nav" style="border:var(--bw) solid var(--line);">
@@ -316,10 +360,15 @@
                     <button type="button" class="chip" aria-pressed="false">Clay</button>
                     <button type="button" class="chip" aria-pressed="false">Sea life</button>
                     <button type="button" class="chip" aria-pressed="false">Surfing</button>
+                    <button type="button" class="chip" aria-pressed="false">Woodworks</button>
+                    <button type="button" class="chip" aria-pressed="false">Fashion</button>
+                    <button type="button" class="chip" aria-pressed="false">Biking</button>
+                    <button type="button" class="chip" aria-pressed="false">Flying</button>
                   </div>
                   <div class="chip-list" role="group" aria-label="Horse experiences (example)" style="margin-top:var(--s-2);">
                     <button type="button" class="chip chip--sm" aria-pressed="true">All horse (11)</button>
                     <button type="button" class="chip chip--sm" aria-pressed="false">Rides (2)</button>
+                    <button type="button" class="chip chip--sm" aria-pressed="false">Photoshoots (4)</button>
                     <button type="button" class="chip chip--sm" aria-pressed="false">Lessons (5)</button>
                   </div>
                 </div>
@@ -345,6 +394,7 @@
                 <div class="fn-group fn-sort">
                   <span class="fn-select"><button type="button" class="fn-text" aria-label="Sort by (example)"><span>Sort by: Recommended</span></button></span>
                 </div>
+                <button type="button" class="fn-reset" disabled>[Reset]</button>
                 <button type="button" class="fn-map" aria-label="View on map (example)"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
               </div>
             </div>
@@ -362,6 +412,7 @@
                 <div class="dd"><button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="false"><span class="dd__label">Where:</span> Victoria</button></div>
                 <div class="dd"><button type="button" class="dd__btn" aria-haspopup="listbox" aria-expanded="false"><span class="dd__label">How long:</span> Don't mind</button></div>
                 <div class="fn-sort"><span class="fn-select"><button type="button" class="fn-text"><span>Sort by: Recommended</span></button></span></div>
+                <button type="button" class="fn-reset">[Reset]</button>
                 <button type="button" class="fn-map" style="margin-left:auto;"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button>
               </div>
             </div>
@@ -389,6 +440,15 @@
         <div><span class="ds-state-label">Sort by, focus-visible</span><span style="display:block;width:148px;"><button type="button" class="fn-text" style="outline:2px solid var(--focus);outline-offset:2px;"><span>Sort by: Recommended</span></button></span></div>
         <div><span class="ds-state-label">View on map</span><button type="button" class="fn-map"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button></div>
         <div><span class="ds-state-label">View on map, hover</span><button type="button" class="fn-map" style="border-bottom-color:var(--ink);"><span>View on map</span><svg class="icon-arrow-ne" width="9" height="8" viewBox="0 0 8.76989 7.63636" aria-hidden="true" focusable="false" style="transform:rotate(-45deg)"><path d="M4.9517 7.63636L4.29545 6.98864L6.99716 4.28693H0V3.34943H6.99716L4.29545 0.65625L4.9517 0L8.76989 3.81818L4.9517 7.63636Z" fill="currentColor"/></svg></button></div>
+      </div>
+
+      <h3 class="t-title">[Reset]</h3>
+      <p class="ds-section__intro">.fn-reset (#resetFilters, added 26 Oct 2026): a bracketed mono label after Sort by, in the same style as the Situation helper. 12px on an 18px line, uppercase, .08em, ink, 36px high with no box and no border, and a -6px ::before for the tap area. It is disabled (--ink-disabled) until a filter or a sort other than Recommended is on. Clicking it clears every filter, puts Sort by back to Recommended and announces "Filters reset." with the new count. Hover underlines it, offset 4px; focus is the 2px outline, offset 2px. It is centred in the stuck row from 768px and hidden in the stuck row under 768px. The Clear filters link in the empty state stays as it is.</p>
+      <div class="ds-states" style="margin-bottom:var(--s-6);">
+        <div><span class="ds-state-label">Disabled (nothing on)</span><button type="button" class="fn-reset" disabled>[Reset]</button></div>
+        <div><span class="ds-state-label">Live</span><button type="button" class="fn-reset">[Reset]</button></div>
+        <div><span class="ds-state-label">Hover</span><button type="button" class="fn-reset" style="text-decoration:underline;text-underline-offset:4px;">[Reset]</button></div>
+        <div><span class="ds-state-label">Focus-visible</span><button type="button" class="fn-reset" style="outline:2px solid var(--focus);outline-offset:2px;">[Reset]</button></div>
       </div>
 
       <h3 class="t-title">Situation helper</h3>
@@ -473,7 +533,7 @@
       </div>
 
       <h3 class="t-title">Inputs</h3>
-      <p class="ds-section__intro">The live input is the sign-up one (see Contact block): a bottom border only, 1px, 40px high, padding 8px 0, mono 16px, with a .label above it, and a square 20px checkbox. The boxed .field input below is still used by the showcase handover pages, so it stays; it is square and 40px.</p>
+      <p class="ds-section__intro">The live input is the sign-up one (see Contact block): a bottom border only, 1px, 40px high, padding 8px 0, mono 16px, with a .label above it. The founding partner tick box went with the founding partner offer (26 Oct 2026), so there is no checkbox on live. The boxed .field input below is still used by the showcase handover pages, so it stays; it is square and 40px.</p>
       <div class="band-dark on-dark" style="padding:var(--s-5);max-width:480px;margin-bottom:var(--s-5);">
         <form class="signup-form" onsubmit="return false;">
           <label><span class="label">Business name</span><input type="text" name="ds-business" autocomplete="off" /></label>
@@ -487,22 +547,22 @@
       </form>
 
       <h3 class="t-title">Labels</h3>
-      <p class="ds-section__intro">.label is the shared 12px mono caps (400, .08em). .eyebrow is a label with a square 8px ink bullet. .tag is the Demo tag: 24px high, padding 2px 10px, 1px --line-ui, 999px, ink-2. .badge is a square 1px ink "Example" label.</p>
+      <p class="ds-section__intro">.label is the shared 12px mono caps (400, .08em). .eyebrow is a label with a square 8px ink bullet. .tag is the card tag ("Pending..." on homepage cards, "Demo" on the photo placeholder): 24px high, padding 2px 10px, 1px --line-ui, 999px, ink-2. .badge is a square 1px ink "Example" label.</p>
       <div class="ds-states" style="margin-bottom:var(--s-6);">
         <div><span class="eyebrow">For businesses</span></div>
         <div style="background:var(--ink);padding:var(--s-3);" class="on-dark"><span class="eyebrow" style="margin:0;">On dark</span></div>
-        <div><span class="tag">Demo</span></div>
+        <div><span class="tag">Pending...</span></div>
         <div><span class="badge">Example</span></div>
       </div>
 
       <h3 class="t-title">Cards</h3>
-      <p class="ds-section__intro">One shell for experiences and businesses (.card inside .card-grid). Anatomy, in order: the photo (.card__media, 211:158, square under 768px, scales to 1.03 on hover unless reduced motion), then .card__body at 16px padding (12px under 768): .card__tag holding the Demo .tag; .card__title (17px, 600, line-height 1.25, two lines of height kept); .card__loc (Neue Haas 14px, ink-3, e.g. "90 min &middot; Salty Seas Surf School &middot; Victoria"); .card__desc (14px, ink-2, hidden under 768px); and the price row (.card__meta.card__row, pinned to the bottom with a hairline above it) holding .card__price (14px, 600, left-aligned, "From $180 AUD"). The border is 1px --line, paper fill, ink on hover. On live .card__meta is the name of the price row, not a category line. The empty state is .card--empty: a solid border, panel photo, ink-3 text, for a spot waiting to be filled.</p>
+      <p class="ds-section__intro">One shell for experiences and businesses (.card inside .card-grid). Anatomy, in order: the photo (.card__media, 211:158, square under 768px, scales to 1.03 on hover unless reduced motion), then .card__body at 16px padding (12px under 768): .card__tag holding the .tag, which reads "Pending..." on cards for businesses whose listing is not live yet (live listings and Salty Cowboy carry no tag; it read "Demo" until 26 Oct 2026); .card__title (17px, 600, line-height 1.25, two lines of height kept); .card__loc (Neue Haas 14px, ink-3, e.g. "90 min &middot; Salty Seas Surf School &middot; Victoria"); .card__desc (14px, ink-2, hidden under 768px); and the price row (.card__meta.card__row, pinned to the bottom with a hairline above it) holding .card__price (14px, 600, left-aligned, "From $180 AUD"). The border is 1px --line, paper fill, ink on hover. On live .card__meta is the name of the price row, not a category line. On live the whole card is the link (a.card.sc-card); this library draws it as article.card with a .card__link overlay. Greyed (since 26 Oct 2026): in the homepage's "New experiences loading..." grid, a Pending card (one that links to a /demo/b/ page and has no data-live) sits at opacity .55 and grayscale 1, going to .85 and grayscale .4 on hover or focus, over --dur. The empty state is .card--empty: a solid border, panel photo, ink-3 text, for a spot waiting to be filled.</p>
       <div class="ds-grid" style="margin-bottom:var(--s-6);grid-template-columns:repeat(auto-fill,minmax(211px,1fr));">
-        <article class="card">
-          <a class="card__link" href="#" aria-label="Private surf lesson at Inverloch Surf Beach"></a>
-          <div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" /></div>
+        <article class="card ds-greyed">
+          <a class="card__link" href="#" aria-label="Demo: Private surf lesson at Inverloch Surf Beach, Salty Seas Surf School"></a>
+          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-standing-up-800.avif" /><img src="/assets/img/demo/salty-seas/card-standing-up-800.webp" alt="A surfer in a green rash vest standing up on a soft board in a small wave" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
-            <p class="card__tag"><span class="tag">Demo</span></p>
+            <p class="card__tag"><span class="tag">Pending...</span></p>
             <h4 class="card__title">Private surf lesson at Inverloch Surf Beach</h4>
             <p class="card__loc">90 min &middot; Salty Seas Surf School &middot; Victoria</p>
             <p class="card__desc">A lesson just for you, or bring friends for $80 each.</p>
@@ -539,9 +599,9 @@
       </div>
 
       <h3 class="t-title">Card grid</h3>
-      <p class="ds-section__intro">.card-grid is repeat(var(--cards-per-row),minmax(0,1fr)): five across from 1200px, three from 768px, two on phones, with a 16px column gap (--grid-gap) and a 24px row gap (--row-gap). The maximum is five per row, never six. A grid marked data-mobile-cap shows 12 cards up to 820px, then "See all experiences" (.card-cap-more) adds .is-expanded. Resize to see 5, 3 and 2 across; at 1440px it is five.</p>
+      <p class="ds-section__intro">.card-grid is repeat(var(--cards-per-row),minmax(0,1fr)): five across from 1200px, three from 768px, two on phones, with a 16px column gap (--grid-gap) and a 24px row gap (--row-gap). The maximum is five per row, never six. A grid marked data-mobile-cap shows 12 cards up to 820px, then "See all experiences" (.card-cap-more) adds .is-expanded. Resize to see 5, 3 and 2 across; at 1440px it is five. On the homepage the capped grid is #browseGrid, headed "New experiences loading..." (the greyed Pending cards); its heading turns to "All experiences" once a filter is on, and cards marked data-live, which already show in the New in rails above, join it only then.</p>
       <div class="card-grid" data-mobile-cap id="dsCardGrid" style="margin-bottom:var(--s-3);">
-        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><div class="card__body"><p class="card__tag"><span class="tag">Demo</span></p><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p><div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A relaxed guided ride along the beach and through rice fields.</p><div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div></div></article>
         <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Private dressage lesson</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">One-to-one dressage in the arena.</p><div class="card__meta card__row"><p class="card__price">From $290 AUD</p></div></div></article>
         <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">3-day Horse Whisperer course</h4><p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">Three days of groundwork.</p><div class="card__meta card__row"><p class="card__price">From $2,250 AUD</p></div></div></article>
         <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Horse grooming class</h4><p class="card__loc">90 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">Learn to groom with the stable manager.</p><div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div></div></article>
@@ -558,26 +618,27 @@
       <button type="button" class="card-cap-more" style="margin-bottom:var(--s-6);" onclick="document.getElementById('dsCardGrid').classList.add('is-expanded');this.hidden=true;">See all 13 experiences</button>
 
       <h3 class="t-title">Card rail</h3>
-      <p class="ds-section__intro">.card-rail is a sideways-scrolling row ("Good for a first go", "Just added") inside the container. Each card is --card-w wide, the same as one cell of the five-across grid, and snaps to the start. .rail-head holds the title and the 40px square .rail-btn arrows, which hide under 768px.</p>
-      <div class="rail-head" style="max-width:var(--container);"><p class="label" style="margin:0;">Good for a first go</p><div class="rail-nav"><button type="button" class="rail-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="rail-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+      <p class="ds-section__intro">The homepage groups (since 27 Oct 2026, replacing "Good for a first go" and "Just added"), in order: "New in Melbourne" and "New in regional Victoria", each a one-row .card-grid; "New in Bali", a .card-rail; then the "New experiences loading..." grid (see Card grid). Every group has a .rail-head: an h2.section-title over a .section-count label ("3 experiences", ink-2, 4px below). .card-rail is a sideways-scrolling row inside the container. Each card is --card-w wide, the same as one cell of the five-across grid, and snaps to the start. Its .rail-head adds the 40px square .rail-btn arrows (16px chevrons, 1.5px stroke); the arrow that can't move is hidden with visibility, so the other never shifts, and both hide under 768px. With any filter on, all the New in groups hide. styles.css also has .card-rail--rows (three rows, filled a column at a time, added 27 Oct 2026 for New in Victoria), but no page uses it now.</p>
+      <div class="rail-head" style="max-width:var(--container);"><div><h4 class="section-title">New in Bali</h4><p class="section-count label">6 experiences</p></div><div class="rail-nav"><button type="button" class="rail-btn" aria-label="Previous" style="visibility:hidden;"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" class="rail-btn" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button></div></div>
       <div class="card-rail" style="margin-bottom:var(--s-6);">
         <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/beach-ride.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Guided horse ride through rice fields to the beach</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A relaxed guided ride along the beach.</p><div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div></div></article>
         <article class="card"><div class="card__media"><img src="/assets/salty-cowboy/gallery-beach-1.jpg" alt="" /></div><div class="card__body"><h4 class="card__title">Private dressage lesson</h4><p class="card__loc">60 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">One-to-one dressage in the arena.</p><div class="card__meta card__row"><p class="card__price">From $290 AUD</p></div></div></article>
         <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Horse grooming class</h4><p class="card__loc">90 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">Learn to groom with the stable manager.</p><div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div></div></article>
         <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Insta ride to the beach</h4><p class="card__loc">45 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A short ride for photos.</p><div class="card__meta card__row"><p class="card__price">From $50 AUD</p></div></div></article>
-        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Sunset beach ride</h4><p class="card__loc">90 min &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A ride along the sand at golden hour.</p><div class="card__meta card__row"><p class="card__price">From $200 AUD</p></div></div></article>
+        <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Join Up: natural horsemanship lesson, no riding</h4><p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p><p class="card__desc">A hands-on lesson in natural horsemanship, learning to earn a horse's trust.</p><div class="card__meta card__row"><p class="card__price">From $250 AUD</p></div></div></article>
         <article class="card"><div class="card__media"></div><div class="card__body"><h4 class="card__title">Sixth card, past the edge</h4><p class="card__loc">Scrolls into view</p><p class="card__desc">Scroll sideways.</p><div class="card__meta card__row"><p class="card__price">From $175 AUD</p></div></div></article>
       </div>
 
       <h3 class="t-title">FAQ</h3>
       <p class="ds-section__intro">.faq-list (border-top 1px --line) holding .faq-item native details: 24px above and below each item, the summary in Neue Haas 17px / 400 / line-height 1.3, a "+" (open: "&minus;") in a 16px mono column in ink-3, and the answer at 16px ink-2, 62ch at most.</p>
+      <p class="ds-section__intro">The questions below are from the live homepage FAQ. Pricing questions belong only in the /for-business/ FAQ ("What does it cost?"), never in a customer FAQ.</p>
       <div class="faq-list" style="margin-bottom:var(--s-6);">
-        <details class="faq-item" open><summary>How does RealDays make money?</summary><p>Free to join, and the first month is free. After that, businesses pay a 12% fee, including GST and card fees, only on bookings made through RealDays. There's no subscription and no setup fee.</p></details>
-        <details class="faq-item"><summary>Is there live availability?</summary><p>Not yet. You book through the business's own system; RealDays doesn't hold a live calendar.</p></details>
+        <details class="faq-item" open><summary>Do I need an account to book?</summary><p>No. Pick a date on the experience page and send a booking request with your name and email. The business confirms within 24 hours, and we email you either way. A few businesses take bookings on WhatsApp instead.</p></details>
+        <details class="faq-item"><summary>How is this different from Viator or GetYourGuide?</summary><p>Big travel sites list thousands of experiences. RealDays lists fewer places on purpose. Every experience is chosen with care, run by the people who started it.</p></details>
       </div>
 
       <h3 class="t-title">Hero photo</h3>
-      <p class="ds-section__intro">One pattern shared by the homepage (#top) and /for-business/ (#intro): a full-bleed photo, optional eyebrow, the h1 at --t-display (40 to 72px) in Neue Haas 600, and .hero-sub in mono caps at --t-label. The homepage h1 sits at line-height 1.18 and .01em; the business hero h1 at -.01em. The credit hangs bottom-right (.hero-credit, 12px mono caps, 65% paper, a 1px underline on the link). On the homepage the video's Pause / Play (.hero-pause) takes the credit's place: 12px mono caps, a 1px underline, a 44px tap area. Live sets .hero-pause tracking at .1em, not the .08em of the label scale. Vertically centred below 640px (resize to see).</p>
+      <p class="ds-section__intro">.hero-photo is the homepage hero (#top) only: a full-bleed looping video over a still poster (a portrait cut under 641px; it stays on the still under reduced motion), a scrim, the h1 at --t-display (40 to 72px) in Neue Haas 600 at line-height 1.18 and .01em, .hero-sub in mono caps at --t-label, then the hero search panel. /for-business/ does not use it: see Business hero below. The video's "Pause video" / "Play video" (.hero-pause) sits bottom-right: 12px mono caps, 65% paper, a 1px underline, a 44px tap area. Live sets .hero-pause tracking at .1em, not the .08em of the label scale. .hero-credit (a photo credit in the same spot) is still in the CSS but no live page uses it now. Vertically centred below 640px (resize to see). The example uses a still photo in place of the video.</p>
       <div class="hero-photo" style="min-height:280px;display:flex;align-items:center;justify-content:center;padding:var(--s-8) var(--gutter);margin-bottom:var(--s-6);">
         <picture>
           <source srcset="/assets/photos/coastline-2400.webp" type="image/webp" />
@@ -585,19 +646,17 @@
         </picture>
         <div class="hero-scrim"></div>
         <div class="hero-inner">
-          <span class="eyebrow" style="justify-content:center;color:var(--paper);">For businesses</span>
-          <h3 class="hero-h1" style="font-family:var(--display);font-weight:var(--w-strong);color:var(--paper);">Run your own experience? List with RealDays.</h3>
-          <p class="hero-sub">Get found by people looking for experiences like yours, and keep the booking system you already use.</p>
+          <h3 class="hero-h1" style="font-family:var(--display);font-weight:var(--w-strong);color:var(--paper);">Something you'll actually remember doing.</h3>
+          <p class="hero-sub">Unique experiences, run by the local people who started them.</p>
         </div>
-        <p class="hero-credit">Photo by <a href="https://unsplash.com/@nisarga_1993">Nisarga Ekbote</a> on <a href="https://unsplash.com/photos/lFbXVpPgS0E">Unsplash</a></p>
-      </div>
-      <p class="label" style="margin:0 0 var(--s-2);">Pause / Play, on the video hero</p>
-      <div class="hero-photo" style="min-height:120px;margin-bottom:var(--s-6);background:var(--ink);">
-        <button type="button" class="hero-pause" data-hero-pause-demo>Pause</button>
+        <button type="button" class="hero-pause" data-hero-pause-demo>Pause video</button>
       </div>
 
+      <h3 class="t-title">Business hero</h3>
+      <p class="ds-section__intro">.biz-hero is the /for-business/ hero (#intro): no full-bleed photo. A 12-column .grid with copy and photo on one horizontal centre line: the copy in columns 1 to 8 (with 48px of right padding from 1024px, added 27 Oct 2026), the photo in columns 9 to 12, stacked under 1024px. The copy is the h1 at --t-display, line-height --lh-tight, -.01em, balanced; .biz-hero__lede at --t-body, ink-2, --measure wide; a "Get listed" .btn--primary; then the Jump to nav (.jump). The photo (.biz-hero__media) is 7:6, at most min(560px, 70vh) tall (440px under 1024px, 280px under 768px), with its credit as a .label figcaption under it in ink-3. Copy on live since 27 Oct 2026: "We list experiences because we think they're cool." and "If you also think your experience is cool, we'd like to hear from you." The section has its own padding (--section-y) and a hairline under it. These rules are in styles.css only, so there is no rendered example here.</p>
+
       <h3 class="t-title">Contact block and founder caption</h3>
-      <p class="ds-section__intro">The dark band at the foot of /for-business/ (.band-dark.on-dark). A 12-column .grid: copy in columns 1 to 5, the form in columns 7 to 12 (stacked under 1024px). The copy has the "For businesses" eyebrow, a .section-title, then .signup-founder: a 40px greyscale round photo (an avatar, so the one rounded shape here), a .label "You'll speak directly with Ro" and, on the next line, "[RealDays founder]" in square brackets. The form has four fields (Business name, Your name, Phone, Email) and a square "Get listed" button (44px high, 116px wide at least). Inputs are a bottom border only, 40px, mono 16px.</p>
+      <p class="ds-section__intro">The dark band at the foot of /for-business/ (#interested, "Have a question or want to get listed?") and of the homepage (#get-listed, "Want to get listed as a business?"), .band-dark.on-dark. A 12-column .grid: copy in columns 1 to 5, the form in columns 7 to 12 (stacked under 1024px). The copy has the "For businesses" eyebrow, a .section-title, then .signup-founder: a 40px greyscale round photo (an avatar, so the one rounded shape here), a .label "You'll speak directly with Ro" and, on the next line, "[RealDays founder]" in square brackets. The form has four fields (Business name, Your name, Phone, Email) and a square "Get listed" button (44px high, 116px wide at least). Inputs are a bottom border only, 40px, mono 16px.</p>
       <section class="band-dark on-dark" style="padding:var(--s-8) 0;margin-bottom:var(--s-6);">
         <div class="container grid">
           <div class="c-1-5">
@@ -624,10 +683,24 @@
       </section>
 
       <h3 class="t-title">Notice bar</h3>
-      <p class="ds-section__intro">.notice-bar (#moreSoon on the homepage): a full-width bar along the bottom at z 16. It has no close button and shows on every load. app.js measures it, sets --notice-h and pads the page by that height so the footer is never hidden behind it, and lifts the floating CTA above it. Note: the notice bar text on live is mono caps and runs to several lines on phones. That breaks the rule that multi-line copy is Neue Haas in sentence case, and it is shown here as live has it.</p>
-      <div class="notice-bar" style="position:static;margin-bottom:var(--s-6);" role="note">
+      <p class="ds-section__intro">.notice-bar (#moreSoon on the homepage): a full-width bar fixed along the bottom at z 16, ink with paper text since 27 Oct 2026, a 1px ink top border and no shadow. Padding 16px above and 24px (plus the safe area) below. Everything is centred in one column, 8px apart: the line "We're still adding experiences, so there's more on the way. Stay tuned." then .notice-bar__ask, "Know someone that runs a cool experience?" with a small "Link them" .btn--on-dark (24px high, 12px side padding, a -10px -4px ::before for the tap area). Link them copies the /for-business/ address and swaps the bar to its second state (.notice-bar__state, #noticeDone): "Link copied to clipboard." (role status) with a Close button, which puts the first state back. The bar itself has no close button and shows on every load. app.js measures it, sets --notice-h and adds body.has-notice, which pads the page by that height so the footer is never hidden behind it and lifts the floating CTA to --notice-h plus 24px (16px at 820px and under). Note: the text is mono caps and runs to several lines on phones. That breaks the rule that multi-line copy is Neue Haas in sentence case, and it is shown here as live has it.</p>
+      <p class="label" style="margin:0 0 var(--s-2);">Default</p>
+      <div class="notice-bar" style="position:static;margin-bottom:var(--s-4);" role="region" aria-label="More experiences on the way (example)">
         <div class="container notice-bar__in" style="padding-inline:var(--s-5);">
-          <p>We're still adding experiences, so there's more on the way. Stay tuned.</p>
+          <div class="notice-bar__state">
+            <p>We're still adding experiences, so there's more on the way. Stay tuned.</p>
+            <p class="notice-bar__ask">Know someone that runs a cool experience?
+              <button type="button" class="btn--on-dark">Link them</button></p>
+          </div>
+        </div>
+      </div>
+      <p class="label" style="margin:0 0 var(--s-2);">After Link them</p>
+      <div class="notice-bar" style="position:static;margin-bottom:var(--s-6);" role="region" aria-label="Link copied (example)">
+        <div class="container notice-bar__in" style="padding-inline:var(--s-5);">
+          <div class="notice-bar__state">
+            <p class="notice-bar__ask">Link copied to clipboard.
+              <button type="button" class="btn--on-dark">Close</button></p>
+          </div>
         </div>
       </div>
 
@@ -669,14 +742,15 @@
         </div>
       </div>
       <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.float-cta</h4>
-      <p class="ds-section__intro">The floating button, bottom right (24px; 16px on phones) at z 50 with --shadow-float. It fades in once the hero is off screen and hides over the contact section (app.js).</p>
+      <p class="ds-section__intro">The floating button, bottom right (24px; 16px on phones) at z 50 with --shadow-float. It fades in once the hero is off screen and hides over the contact section (app.js). On the homepage body.has-notice lifts it above the notice bar, to --notice-h plus 24px (plus 16px at 820px and under).</p>
       <div style="margin-bottom:var(--s-5);"><button type="button" class="btn float-cta" style="position:static;">Get listed</button></div>
       <h4 class="t-title" style="margin:var(--s-5) 0 var(--s-2);">.jump</h4>
-      <p class="ds-section__intro">The "Jump to" nav under the /for-business/ hero: a label, then links with a square 8px ink bullet, wrapping in a row. Links are ink-2, ink with an underline on hover.</p>
+      <p class="ds-section__intro">The "Jump to" nav under the /for-business/ hero: a label, then links with a square 8px ink bullet, wrapping in a row. Links are ink-2, ink with an underline on hover. Live links: Our why, Ambitions, How does it work?, Pricing, FAQ ("What RealDays is" was removed on 27 Oct 2026).</p>
       <ul class="jump label" style="margin:0 0 var(--s-5);">
         <li class="jump__label" aria-hidden="true">Jump to</li>
-        <li><a href="#">What RealDays is</a></li>
         <li><a href="#">Our why</a></li>
+        <li><a href="#">Ambitions</a></li>
+        <li><a href="#">How does it work?</a></li>
         <li><a href="#">Pricing</a></li>
         <li><a href="#">FAQ</a></li>
       </ul>
@@ -797,7 +871,7 @@
       </div>
 
       <h3 class="t-title" style="margin-top:var(--s-6);">Demo banner</h3>
-      <p class="ds-section__intro">.demo-strip: full width, black, above the site header on every hidden /demo/b/ business demo, in the site banner style: white Chivo Mono caps at 12px, one line in every booking mode (cut short with an ellipsis on a screen too narrow for it). It can't be dismissed. The copy is set by booking mode: sandbox (Stripe test mode) gives the test card, demo says no card is needed, link says the book buttons go to the business's own site, off says bookings aren't taken. The booking panel doesn't repeat the test card.</p>
+      <p class="ds-section__intro">.demo-strip: full width, black, above the site header on every hidden /demo/b/ business demo, in the site banner style: white Chivo Mono caps at 12px, one line in every booking mode (cut short with an ellipsis on a screen too narrow for it). It can't be dismissed. The copy is set by booking mode: sandbox (Stripe test mode) gives the test card, demo says no card is needed, link says the book buttons go to the business's own site, off says bookings aren't taken. The booking panel doesn't repeat the test card. Listings open to crawlers (live, at their own address, such as /indigo-woodworks/) carry no demo banner and no Demo flag.</p>
       <div class="demo-strip demo-strip--sandbox" role="note" style="margin-bottom:var(--s-2);">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>
       <div class="demo-strip" role="note" style="margin-bottom:var(--s-2);">Demo. Try a booking, no card needed</div>
       <div class="demo-strip" role="note" style="margin-bottom:var(--s-6);">Demo. Bookings are not taken</div>
@@ -872,6 +946,31 @@
       </ul>
       </div>
 
+      <h3 class="t-title">Page tabs</h3>
+      <p class="ds-section__intro">.page-nav on every experience page (Salty Cowboy, the demos and the live listings): a role="tablist" row under the gallery, sticky under the header at z 10, scrolling sideways with a 24px fade at the right edge and a 1px --line underneath. Tabs are Neue Haas 400 at --t-title, ink-2, 44px high, 28px apart; the selected tab is ink with a 2px ink underline. The tabs are Overview, Good to know, How booking works and The business, plus Getting there (added 27 Oct 2026) when the data file has page.getting_there: an intro, one block per place (name, address, notes, an "Open in Google Maps" link) and a list of general notes. The rules are in styles.css only; the example uses a stand-in copy of them, not sticky.</p>
+      <div class="page-nav" role="tablist" aria-label="On this page (example)" style="max-width:720px;margin-bottom:var(--s-6);">
+        <button type="button" role="tab" aria-selected="true" tabindex="0">Overview</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">Good to know</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">How booking works</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">The business</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">Getting there</button>
+      </div>
+
+      <h3 class="t-title">Key facts</h3>
+      <p class="ds-section__intro">#keyFacts, a dl.know-details under the Overview copy, headed "Key facts" (h3), on listings open to crawlers only (31 Oct 2026: Indigo Woodworks, Peachy Keen Ceramics, Suigeneris Atelier and Aysha Hansen). Built by tools/listing-record.mjs from the data file's record section, one record per experience, so the page, the JSON-LD and experiences.json say the same thing. The lines, in order, each only when it has a confirmed value: Price, Duration, Days and times, Group size, Private groups, Location, Run by, Experience, Minimum age, Skill level, What to bring, Book ahead, Cancellation, Weather, Booking, then Last checked (the date and what it was checked against). A fact nobody has confirmed stays null and the line is left out; there are no [TO CONFIRM] lines on an open page. Each line is a dt in 12px mono caps, weight 500, .1em, ink, 4px above a dd in Neue Haas at --t-body, line-height 1.6, in body ink (--text-info, see Info text); the lines are 16px apart and 35em wide at most. The same dl style carries the Good to know details. The example shows some of the lines from the live Indigo Woodworks milking stool page as checked on 31 Oct 2026.</p>
+      <div class="detail-content" style="margin-bottom:var(--s-6);">
+        <h3 style="margin-top:0;">Key facts</h3>
+        <dl class="know-details">
+          <div><dt>Price</dt><dd>$600 AUD per person</dd></div>
+          <div><dt>Duration</dt><dd>2 full days, Saturday and Sunday</dd></div>
+          <div><dt>Group size</dt><dd>Small groups, numbers strictly limited</dd></div>
+          <div><dt>Location</dt><dd>Indigo Valley, North East Victoria, VIC</dd></div>
+          <div><dt>Run by</dt><dd>Andy Hooke, Indigo Woodworks</dd></div>
+          <div><dt>Skill level</dt><dd>No experience needed</dd></div>
+          <div><dt>Last checked</dt><dd>31 Oct 2026, against the business's own website</dd></div>
+        </dl>
+      </div>
+
       <h3 class="t-title">Photo placeholder</h3>
       <p class="ds-section__intro">.photo-placeholder: same box and aspect ratio as the photo slot, until a business gives written permission for its own photos. Business name in Neue Haas 600, "Photos coming soon" in mono caps, plus the Demo pill.</p>
       <div class="photo-placeholder" role="img" aria-label="Photos coming soon" style="max-width:640px;">
@@ -881,7 +980,7 @@
       </div>
 
       <h3 class="t-title">Google reviews</h3>
-      <p class="ds-section__intro">.reviews (6.23): a summary tile (business name, ink stars, "N Google reviews", Write a review) beside a sideways rail of review cards: author, "Google" source label, date, stars, text cut at five lines with Read more where it overflows. Arrows from 768px, swipe on phones. Stars are ink, not yellow: no accent colour, and no Google logo or profile photos. The block comes from the Google Places data (rating, count, write-review link, reviews) in the business's data file under <code>reviews</code>, built by tools/reviews-html.mjs onto every experience page. It renders nothing when a business has no reviews data, so there are never placeholder or invented reviews. The specimen below is labelled sample text only.</p>
+      <p class="ds-section__intro">.reviews (6.23): a summary tile (business name, ink stars, "N Google reviews", Write a review) beside a sideways rail of review cards: author, "Google" source label, date, stars, text cut at five lines with Read more where it overflows. Arrows from 768px, swipe on phones. Stars are ink, not yellow: no accent colour, and no Google logo or profile photos. The block comes from the Google Places data (rating, count, write-review link, reviews) in the business's data file under <code>reviews</code>, built by tools/reviews-html.mjs onto every experience page. It renders nothing when a business has no reviews data, so there are never placeholder or invented reviews; as of 4 Nov 2026 no business has reviews data, so no live page shows the block yet. detail.js shows Read more only where the text is cut off (it becomes Show less when open) and steps the rail one card at a time. The specimen below is labelled sample text only.</p>
 
       <section class="reviews" style="margin-top:0;margin-bottom:var(--s-6);" aria-labelledby="h-reviews">
         <h2 id="h-reviews" class="t-title">Google reviews</h2>

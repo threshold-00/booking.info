@@ -1,0 +1,10 @@
+/* Brand system bar, shared by /design-system/ and /design-system/tone-of-voice/.
+   Sits inside .ds-toggles: the brand name, then one chip per page (aria-current marks this page). */
+.ds-brand{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4);margin-right:auto}
+.ds-brand__name{font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);line-height:1.2}
+.ds-brand__pages{display:flex;flex-wrap:wrap;gap:var(--s-2);margin:0;padding:0;list-style:none}
+.ds-brand__pages .chip{text-decoration:none}
+.ds-brand__pages .chip[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (hover:hover){.ds-brand__pages .chip:not([aria-current="page"]):hover{background:var(--color-hover);border-color:var(--ink)}}
+/* components.css puts .btn after .skip-link, so the hidden skip link would sit in the flow and push the bar down. */
+.skip-link.btn{position:absolute}
