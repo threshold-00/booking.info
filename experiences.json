@@ -3,7 +3,7 @@
   "description": "Experiences listed on RealDays, run by the local people who started them. Null means not confirmed.",
   "url": "https://getrealdays.com/experiences.json",
   "last_updated": null,
-  "count": 18,
+  "count": 19,
   "experiences": [
     {
       "id": "aysha-hansen/perfume-workshop",
@@ -217,7 +217,7 @@
           "label": "Sunday Sessions",
           "currency": "AUD",
           "unit": "person",
-          "amount": 140
+          "amount": 130
         }
       ],
       "private_group_price": null,
@@ -238,11 +238,71 @@
       "booking_mode": "click_out",
       "booking_note": "Book and pay on Peachy Keen Ceramics' own site.",
       "reviews": null,
-      "last_verified": "2026-10-31",
+      "last_verified": "2026-11-05",
       "verified_against": "the business's own website",
-      "url": "https://getrealdays.com/peachy-keen-ceramics/",
+      "url": "https://getrealdays.com/peachy-keen-ceramics/sunday-sessions/",
       "book_url": "https://www.peachykeenceramics.com.au/product/sunday-sessions/CKY26BU2D3GNTV6EE755ES6U?utm_source=realdays&utm_medium=listing&utm_campaign=peachy-keen-ceramics",
       "image": "https://getrealdays.com/assets/img/demo/peachy-keen-ceramics/card-slab-800.webp"
+    },
+    {
+      "id": "peachy-keen-ceramics/ring-workshop",
+      "name": "Carve your own ring, cast in sterling silver",
+      "summary": "Design and carve a ring in jeweller's wax, then have it cast in sterling silver, in a two-hour workshop in Mount Eliza.",
+      "description": "The Darling Objects lost wax ring workshop at Peachy Keen Ceramics, a home studio in Mount Eliza on the Mornington Peninsula. You learn to work with jeweller's wax, then design, carve and shape your own ring. No jewellery experience is needed, and you don't need to arrive with a design idea: they help you work it out. Once your ring is finished it is sent off for casting, and Holly, the studio jeweller, polishes it ready to wear. All wax, tools and workshop materials are included, with sterling silver casting (up to 10g of silver) in the $280 price. You can choose solid 9ct gold or bronze instead, with any extra metal cost charged by weight. The studio address is sent by email after you book.",
+      "category": "workshop",
+      "tags": [
+        "jewellery",
+        "ring making",
+        "lost wax casting",
+        "silver",
+        "hands-on",
+        "beginners",
+        "take home what you make"
+      ],
+      "business": "Peachy Keen Ceramics",
+      "run_by": "Caitlin",
+      "running_since": null,
+      "running_note": null,
+      "locality": "Mount Eliza",
+      "region": "Mornington Peninsula",
+      "state": "VIC",
+      "country": "AU",
+      "full_address": null,
+      "address_note": "A private home studio. The address comes by email once you book.",
+      "lat": -38.189,
+      "lng": 145.092,
+      "location_precision": "suburb",
+      "offers": [
+        {
+          "label": "Lost wax silver ring workshop",
+          "currency": "AUD",
+          "unit": "person",
+          "amount": 280
+        }
+      ],
+      "private_group_price": null,
+      "group_min": null,
+      "group_max": null,
+      "group_note": "Limited spots",
+      "private_bookings": null,
+      "duration_minutes": 120,
+      "duration_days": null,
+      "duration_text": "2 hours",
+      "days_and_times": "Sunday 13 Dec 2026, 12 to 2pm",
+      "lead_time": null,
+      "age_min": null,
+      "skill": "No experience needed",
+      "what_to_bring": null,
+      "cancellation": "Cancel 7 days or more before for a full refund. Between 48 hours and 7 days there's no refund, but you get a studio credit or one chance to reschedule. Under 48 hours there's no refund, credit or reschedule.",
+      "weather": null,
+      "booking_mode": "click_out",
+      "booking_note": "Book and pay on Peachy Keen Ceramics' own site.",
+      "reviews": null,
+      "last_verified": "2026-11-05",
+      "verified_against": "the business's own website",
+      "url": "https://getrealdays.com/peachy-keen-ceramics/ring-workshop/",
+      "book_url": "https://www.peachykeenceramics.com.au/product/lost-wax-ring-making-workshop/WV3CK34UITJN55PJ2WTLBI3O?utm_source=realdays&utm_medium=listing&utm_campaign=peachy-keen-ceramics",
+      "image": "https://getrealdays.com/assets/img/demo/peachy-keen-ceramics/card-ring-800.webp"
     },
     {
       "id": "suigeneris-atelier/couple-pencil-case",
