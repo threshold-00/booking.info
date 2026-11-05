@@ -82,6 +82,7 @@ function footer(base) {
         <a href="${base}for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
         <a href="${base}#faq" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">FAQ</a>
         <a href="${base}for-business/#interested" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Contact</a>
+        <a href="https://www.instagram.com/realdays.experiences/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;" target="_blank" rel="noopener" aria-label="RealDays on Instagram, @realdays.experiences">Instagram</a>
       </nav>
     </div>
   </footer>`;

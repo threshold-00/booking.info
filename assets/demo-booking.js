@@ -70,6 +70,10 @@
     return p.mon === r.mon ? p.wd + ' ' + p.d + ' to ' + r.wd + ' ' + r.d + ' ' + r.mon : p.wd + ' ' + p.d + ' ' + p.mon + ' to ' + r.wd + ' ' + r.d + ' ' + r.mon;
   }
   function clock(t) { var h = +t.slice(0, 2), m = t.slice(3, 5); return (h % 12 || 12) + (m === '00' ? '' : ':' + m) + (h < 12 ? 'am' : 'pm'); }
+  // Request a date (Worker 0010): the customer asks for a day and the business sets the
+  // time, so a slot's time is never shown.
+  function asksDay() { return !!(state.meta && state.meta.date_request); }
+  function at(s) { return asksDay() ? 'time to be set' : clock(s.time_local); }
   function api(method, path, body) {
     return fetch(API + path, { method: method, headers: { 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
@@ -202,6 +206,7 @@
   function tixTotal() { return tickets().reduce(function (t, p) { return t + (state.tix[p.key] || 0) * (p.seats_per_unit || 1); }, 0); }
   function renderParty() {
     var T = tickets();
+    $('party').hidden = false;
     if (T) {
       if (state.tixFor !== state.key) { state.tix = {}; T.forEach(function (p, i) { state.tix[p.key] = i ? 0 : 1; }); state.tixFor = state.key; }
       list($('party'), T, '<div class="bp-row"><p class="bp-label"></p><div class="stepper" role="group"><button type="button" data-d="-1">&minus;</button><output aria-live="polite"></output><button type="button" data-d="1">+</button></div></div>').forEach(function (row, i) {
@@ -225,6 +230,8 @@
     } else {
       $('party').innerHTML = '<div class="bp-row"><p class="bp-label"></p><div class="stepper" role="group"><button type="button" id="minus" disabled>&minus;</button><output id="people" aria-live="polite">1</output><button type="button" id="plus">+</button></div></div>';
       text($('party').querySelector('.bp-label'), C.party.label);
+      // One person per booking (e.g. one passenger per flight): no stepper to show.
+      $('party').hidden = !!(state.meta && state.meta.people_max === 1);
       $('party').querySelector('.stepper').setAttribute('aria-label', 'Number of ' + C.party.many);
       $('minus').setAttribute('aria-label', 'One fewer ' + C.party.one);
       $('plus').setAttribute('aria-label', 'One more ' + C.party.one);
@@ -294,16 +301,16 @@
       lines: [[money(m.price_cents) + ' × ' + party(n), money(m.price_cents * n)]] };
   }
 
-  // A gift card (demo, Ro 27 Oct 2026) pays for one flight in full: the one on the card.
-  // Anyone else in the party pays the usual price.
+  // A gift card (demo, Ro 27 Oct 2026) pays for one flight, up to the value on the card:
+  // a longer flight than the card pays the difference. Anyone else in the party pays the
+  // usual price.
   function withGift(qt) {
     var g = state.gift;
     if (!qt || !g) return qt;
-    var n = state.people, each = Math.round(qt.total / n);
-    qt.lines = [[g.label, money(g.price_cents)]]
-      .concat(n > 1 ? [[money(each) + ' × ' + party(n - 1), money(each * (n - 1))]] : [])
-      .concat([['Gift card ' + g.code, '−' + money(g.price_cents)]]);
-    qt.total = each * (n - 1);
+    var n = state.people, each = Math.round(qt.total / n), off = Math.min(g.price_cents, each);
+    qt.lines = qt.lines
+      .concat([['Gift card ' + g.code + ' (' + g.label + ')', '−' + money(off)]]);
+    qt.total = qt.total - off;
     qt.gift = g.code;
     return qt;
   }
@@ -348,7 +355,7 @@
     $('bookingCta').disabled = !qt || OFF;
     if (!qt) return;
     var s = state.slot;
-    $('chosen').textContent = (labelFor(state.key) + ' · ' + range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local) + ' · ' + party(state.people));
+    $('chosen').textContent = (labelFor(state.key) + ' · ' + range(s.date_local, s.end_date_local) + ', ' + at(s) + ' · ' + party(state.people));
     summaryRows($('summary'), qt.lines, qt);
   }
   function labelFor(key) { var o = C.options.filter(function (x) { return x.experience === key; })[0]; return (state.meta && state.meta.experience_name) || (o ? o.label : key); }
@@ -381,11 +388,11 @@
     $('dates').innerHTML = show.map(function (d, i) {
       var ss = seen[d], open = ss.filter(function (s) { return s.places_left > 0; }), s0 = ss[0], p = parts(d);
       var n = days(s0.date_local, s0.end_date_local);
-      var note = !open.length ? 'Full' : ss.length > 1 ? open.length + (open.length > 1 ? ' times' : ' time') + ' available' : clock(s0.time_local) + (s0.places_left <= 3 ? ', ' + s0.places_left + ' left' : '');
+      var note = !open.length ? 'Full' : asksDay() ? '' : ss.length > 1 ? open.length + (open.length > 1 ? ' times' : ' time') + ' available' : clock(s0.time_local) + (s0.places_left <= 3 ? ', ' + s0.places_left + ' left' : '');
       var label = n > 1 ? range(s0.date_local, s0.end_date_local) : p.wd + ' ' + p.d + ' ' + p.mon;
       // A date range goes on two lines: the dates, then the sessions and time.
-      return '<button type="button" class="date-opt' + (n > 1 ? ' date-opt--range' : '') + '" data-d="' + d + '" aria-pressed="' + (state.date === d) + '" aria-label="' + label + ', ' + note + '"' + (open.length ? '' : ' disabled') + '>'
-        + '<span>' + label + '</span>' + (n > 1 ? '<span class="date-opt__meta"><small>' + span(s0) + '</small><small>' + note + '</small></span>' : '<small>' + note + '</small>') + '</button>';
+      return '<button type="button" class="date-opt' + (n > 1 ? ' date-opt--range' : '') + '" data-d="' + d + '" aria-pressed="' + (state.date === d) + '" aria-label="' + label + (note ? ', ' + note : '') + '"' + (open.length ? '' : ' disabled') + '>'
+        + '<span>' + label + '</span>' + (n > 1 ? '<span class="date-opt__meta"><small>' + span(s0) + '</small><small>' + note + '</small></span>' : note ? '<small>' + note + '</small>' : '') + '</button>';
     }).join('');
     $('moreDates').hidden = byDate.length <= state.shown;
     state.byDate = seen;
@@ -401,6 +408,10 @@
   }
   function pickSlot(s) {
     state.slot = s;
+    if (asksDay()) {
+      $('timesNote').textContent = range(s.date_local, s.end_date_local) + ', time to be set.';
+      showError($('err'), ''); render(); return;
+    }
     var dur = s.date_local !== s.end_date_local && (state.meta.sessions_per_booking || 1) > 1
       ? clock(s.time_local) + (/sessions/.test(span(s)) ? ' each session, ' : ' each day, ') + span(s)
       : clock(s.time_local) + ' to ' + clock(s.end_time_local);
@@ -487,7 +498,7 @@
   function howSteps(m) {
     var steps = [
       ['Choose, then add your details', NOCARD ? 'In a live booking you then add your card on a secure Stripe page. It\'s held, not charged. This demo skips that step.' : 'Then add your card on a secure Stripe page. It\'s held, not charged.'],
-      [BIZ + ' confirms within ' + m.response_hours + ' hours', 'Once they confirm, the payment is taken. If they can\'t, the hold is released and you\'re not charged.'],
+      [BIZ + ' confirms within ' + m.response_hours + ' hours', 'Once they confirm, the payment is taken. If they can\'t, the hold is released and you\'re not charged.' + (m.date_request ? ' They\'ll call or text you to set the time.' : '')],
       ['Turn up on the day', 'Everything you need to know is in your confirmation email.']
     ];
     if (m.deposit_pct) steps.splice(2, 0, ['Booking more than ' + m.balance_due_hours_before_start + ' hours ahead? It\'s a ' + m.deposit_pct + '% deposit', 'The balance is due ' + m.balance_due_hours_before_start + ' hours before the start. We email you a link to pay it a few days before.']);
@@ -555,6 +566,8 @@
       if (seq !== state.loadSeq) return;
       if (r.status !== 200) { $('dates').innerHTML = ''; showError($('err'), r.body.message || 'Dates could not be loaded.'); return; }
       var m = state.meta = r.body; state.slots = m.slots;
+      text($('datesLabel'), asksDay() ? 'Choose a day' : 'Choose a date');
+      text($('calTitle'), asksDay() ? 'Choose a day' : 'Choose a date');
       stickyFrom(X().pricing === 'tickets' && (m.prices || []).length ? Math.min.apply(null, m.prices.map(function (p) { return p.price_cents; })) : m.price_cents);
       rich($('policy'), cancelLine(m.cancellation_policy));
       $('policyHold').textContent = 'Your card is held, not charged, until ' + BIZ + ' confirms, within ' + m.response_hours + ' hours. If they can\'t confirm, the hold is released.';
@@ -727,7 +740,7 @@
         try {
           var s = state.slot;
           sessionStorage.setItem('th_bk_' + r.body.booking.ref, JSON.stringify({ key: state.key, title: labelFor(state.key),
-            when: range(s.date_local, s.end_date_local) + ', ' + clock(s.time_local), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '' }));
+            when: range(s.date_local, s.end_date_local) + ', ' + at(s), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '' }));
         } catch (e2) {}
         if (state.gift) giftUsed(state.gift.code, r.body.booking.ref);
         location.href = r.body.checkout_url; return;
@@ -950,6 +963,10 @@
     if (err) return false;
     state.gift = g;
     if (g.experience !== state.key && KEYS.indexOf(g.experience) >= 0) choose(g.experience);
+    // A card for one flight length picks that length when the lengths are price add-ons.
+    (C.addons || []).forEach(function (a) {
+      if (!a.toggle && a.options.some(function (o) { return o[0] === g.option; })) { state.addons[a.list] = g.option; renderGroups(); }
+    });
     $('giftForm').hidden = true; $('giftToggle').hidden = true; $('giftOn').hidden = false;
     text($('giftOnText'), 'Gift card ' + g.code + ' applied: ' + g.label + (g.to ? ', for ' + g.to : '') + '.');
     render();

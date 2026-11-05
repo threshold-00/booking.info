@@ -153,6 +153,7 @@ const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28
       <span style="color:var(--ink);">&copy; 2026 RealDays</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="/for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
+        <a href="https://www.instagram.com/realdays.experiences/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;" target="_blank" rel="noopener" aria-label="RealDays on Instagram, @realdays.experiences">Instagram</a>
       </nav>
     </div>
   </footer>
@@ -859,7 +860,7 @@ ${FOOTER}</div>
   ${hub ? '<a href="#classes" class="btn" id="stickyCta">See the classes</a>' : mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=4f5d8b01"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=1f7a8ab7"></script>
 <script src="/app.js?v=fbb49315"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
