@@ -195,6 +195,8 @@
   }
 
   // ── Party: a stepper, or "Just me / Flights for Two" ──
+  // The smallest group the experience takes (e.g. "raise a group of 3"), from people_min.
+  function minPeople() { return Math.max(1, X().people_min || 1); }
   function maxPeople() {
     var m = state.meta; if (!m) return 1;
     var cap = Math.min(m.capacity_per_session || 1, m.people_max || 99);
@@ -208,7 +210,7 @@
     var T = tickets();
     $('party').hidden = false;
     if (T) {
-      if (state.tixFor !== state.key) { state.tix = {}; T.forEach(function (p, i) { state.tix[p.key] = i ? 0 : 1; }); state.tixFor = state.key; }
+      if (state.tixFor !== state.key) { state.tix = {}; T.forEach(function (p, i) { state.tix[p.key] = Math.max(p.units_min || 0, i ? 0 : 1); }); state.tixFor = state.key; }
       list($('party'), T, '<div class="bp-row"><p class="bp-label"></p><div class="stepper" role="group"><button type="button" data-d="-1">&minus;</button><output aria-live="polite"></output><button type="button" data-d="1">+</button></div></div>').forEach(function (row, i) {
         var p = T[i], b = row.querySelectorAll('button');
         text(row.firstChild, p.label + ', ' + money(p.price_cents));
@@ -247,12 +249,12 @@
       [].forEach.call($('party').children, function (row, i) {
         var p = T[i], k = p.key, b = row.querySelectorAll('button'), spu = p.seats_per_unit || 1;
         row.querySelector('output').textContent = state.tix[k];
-        b[0].disabled = state.tix[k] <= 0 || n - spu < 1;
+        b[0].disabled = state.tix[k] <= (p.units_min || 0) || n - spu < minPeople();
         b[1].disabled = n + spu > max || (p.units_max != null && state.tix[k] >= p.units_max);
       });
       return;
     }
-    state.people = Math.max(1, Math.min(state.people, max));
+    state.people = Math.max(Math.min(minPeople(), max), Math.min(state.people, max));
     if (C.party.mode === 'pair') {
       if (state.people < 2) state.pairPart = '';
       [].forEach.call($('party').querySelectorAll('.opt'), function (b) {
@@ -261,7 +263,7 @@
       });
     } else {
       $('people').textContent = state.people;
-      $('minus').disabled = state.people <= 1;
+      $('minus').disabled = state.people <= minPeople();
       $('plus').disabled = state.people >= max;
     }
   }

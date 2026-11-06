@@ -577,7 +577,7 @@ function page(d, view = {}) {
   const experiences = Object.fromEntries(
     Object.entries(p.experiences).filter(([k]) => !hidden.has(k)).map(([k, x]) => {
       const e = d.experiences.find((y) => y.key === k);
-      return [k, { ...x, good_to_know: e?.good_to_know ?? [], ...(mode === 'link' ? { book_url: outbound(e?.external_book_url ?? p.book_url, slug) } : {}) }];
+      return [k, { ...x, good_to_know: e?.good_to_know ?? [], ...(e?.people_min > 1 ? { people_min: e.people_min } : {}), ...(mode === 'link' ? { book_url: outbound(e?.external_book_url ?? p.book_url, slug) } : {}) }];
     }),
   );
   const config = {
@@ -860,7 +860,7 @@ ${FOOTER}</div>
   ${hub ? '<a href="#classes" class="btn" id="stickyCta">See the classes</a>' : mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=1f7a8ab7"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=d1efa4eb"></script>
 <script src="/app.js?v=fbb49315"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
