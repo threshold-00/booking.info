@@ -27,7 +27,10 @@ const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').
 const tbc = (s) => esc(s).replace(/\[(TO CONFIRM|PERMISSION NEEDED)[^\]]*\]/g, (m) => `<span class="tbc">${m}</span>`);
 const imgUrl = (src, w) => `${src}?fm=jpg&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=${w}`;
 const utm = (u) => `${u}?utm_source=threshold&amp;utm_medium=referral`;
-const MODES = ['sandbox', 'demo', 'link', 'live', 'off'];
+// request (Ro, 6 Nov 2026): a real business taking real requests with no payment on
+// RealDays. No demo banner or flag. The Worker emails each request to the business
+// (REQUEST_ONLY_SLUGS), who confirms and takes payment directly.
+const MODES = ['sandbox', 'demo', 'request', 'link', 'live', 'off'];
 
 // {age_min:<experience>} in page copy comes from that experience's age_min, so the
 // number lives in one place in the data file.
@@ -164,6 +167,7 @@ const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28
 // Checkout for a demo business with no Stripe test account).
 function bannerFor(b) {
   const mode = b.booking_mode ?? 'off';
+  if (mode === 'request') return '';
   if (mode === 'sandbox') return '<div class="demo-strip demo-strip--sandbox" role="note">Demo. Test card <span class="demo-strip__card">4242 4242 4242 4242</span></div>';
   if (mode === 'demo') return '<div class="demo-strip" role="note">Demo. Try a booking, no card needed</div>';
   if (mode === 'link') return `<div class="demo-strip" role="note">Demo page for ${esc(b.name)}. Not live yet. Availability and booking are on the business's own website.</div>`;
@@ -563,7 +567,7 @@ function page(d, view = {}) {
   const rec = recKey ? recordFor(d, recKey) : null;
   const recX = recKey ? p.experiences[recKey] : null;
   const pageUrl = `https://getrealdays.com${base}${cls ? `${cls.key}/` : ''}`;
-  const pageTitle = `${live ? '' : 'Demo: '}${cls ? `${esc(cls.name)}, ` : open ? `${esc(rec?.name ?? p.headline)}, ` : ''}${esc(b.name)} | RealDays`;
+  const pageTitle = `${live || b.booking_mode === 'request' ? '' : 'Demo: '}${cls ? `${esc(cls.name)}, ` : open ? `${esc(rec?.name ?? p.headline)}, ` : ''}${esc(b.name)} | RealDays`;
   const pageDesc = open ? esc(rec?.summary ?? d.record.summary) : '';
   // booking_mode: sandbox (Stripe test mode, demo banner always on), off (no online
   // booking), live (not built: the booking service is test-only, so it's refused).
@@ -661,7 +665,7 @@ ${HEADER}<main id="main">
 
   <div class="container detail-layout">
     <div class="detail-head">
-      ${live || b.show_demo_flag === false ? '' : '<p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>'}
+      ${live || b.show_demo_flag === false || b.booking_mode === 'request' ? '' : '<p class="demo-flag"><span class="demo-flag__tag">Demo</span><span class="demo-flag__text">No real booking is made</span></p>'}
       <h1>${esc(cls ? cls.name : p.headline)}</h1>
       <p class="detail-lead" id="lead" hidden></p>${cls ? `
       <p class="detail-lead">${tbc(cls.description)}</p>` : ''}
@@ -738,7 +742,7 @@ ${HEADER}<main id="main">
           <div class="bp-decision">
             <button type="button" class="btn" id="bookingCta" disabled>Continue to book</button>
           </div>
-          <p class="bp-note" style="margin-top:var(--s-2);">You won't be charged yet.</p>${p.gift ? `
+          <p class="bp-note" style="margin-top:var(--s-2);">${mode === 'request' ? 'Nothing is charged on RealDays.' : "You won't be charged yet."}</p>${p.gift ? `
           <p class="bp-giftbuy">Giving it as a gift? <a href="/demo/b/${slug}/gift/" class="navlink">Buy a gift card</a></p>` : ''}
         </div>
 
@@ -767,8 +771,8 @@ ${HEADER}<main id="main">
           <div id="riders"></div>
           <div id="questions"></div>
           <div class="bp-summary" id="summary" aria-live="polite"></div>
-          <button type="submit" class="btn" id="requestBtn">${mode === 'demo' ? 'Send request' : 'Continue to payment'}</button>
-          <p class="bp-under">${mode === 'demo' ? "Demo: the card step is skipped. In a live booking you'd add your card next, held, not charged." : "Next, add your card. It's held, not charged."}</p>
+          <button type="submit" class="btn" id="requestBtn">${mode === 'demo' || mode === 'request' ? 'Send request' : 'Continue to payment'}</button>
+          <p class="bp-under">${mode === 'request' ? `Your name, email and mobile go to ${esc(b.name)} so they can contact you. They confirm your place and arrange payment directly.` : mode === 'demo' ? "Demo: the card step is skipped. In a live booking you'd add your card next, held, not charged." : "Next, add your card. It's held, not charged."}</p>
 
           <div class="bp-policy">
             <p id="policyHold"></p>
@@ -860,8 +864,8 @@ ${FOOTER}</div>
   ${hub ? '<a href="#classes" class="btn" id="stickyCta">See the classes</a>' : mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=d1efa4eb"></script>
-<script src="/app.js?v=fbb49315"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=d84d30a1"></script>
+<script src="/app.js?v=f5b80173"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>
@@ -1088,7 +1092,7 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <script type="application/json" id="gift-config">${json}</script>
 <script src="/assets/demo-gift.js?v=c42f0cc4"></script>
-<script src="/app.js?v=fbb49315"></script>
+<script src="/app.js?v=f5b80173"></script>
 </body>
 </html>
 `;
@@ -1114,6 +1118,7 @@ for (const f of files) {
   // A page open to crawlers can't carry a placeholder: they'd copy it as a fact.
   const checked = (html) => {
     if (d.business.open_to_crawlers && /\[(TO CONFIRM|PERMISSION NEEDED)/.test(html)) throw new Error(`${slug}: page open to crawlers still has a placeholder`);
+    if (d.business.booking_mode === 'request' && /\[(TO CONFIRM|PERMISSION NEEDED)/.test(html)) throw new Error(`${slug}: a page taking real requests still has a placeholder`);
     return html;
   };
   if (d.page.class_pages) {

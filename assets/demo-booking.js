@@ -17,7 +17,10 @@
   var OFF = C.booking_mode === 'off';
   // link: listing only. "Check availability" goes to the business's own website.
   var LINK = C.booking_mode === 'link';
-  var NOCARD = C.booking_mode === 'demo'; // full flow, the Worker skips the card step
+  // request (Ro, 6 Nov 2026): a real business taking requests with no payment on RealDays.
+  // The Worker emails the request to the business, who confirms and takes payment directly.
+  var REQ = C.booking_mode === 'request';
+  var NOCARD = C.booking_mode === 'demo' || REQ; // full flow, the Worker skips the card step
   var $ = function (id) { return document.getElementById(id); };
   var q = new URLSearchParams(location.search);
   var KEYS = C.options.map(function (o) { return o.experience; });
@@ -498,7 +501,11 @@
     return lines.join(' ');
   }
   function howSteps(m) {
-    var steps = [
+    var steps = REQ ? [
+      ['Choose, then send your request', 'It goes straight to ' + BIZ + '. Nothing is charged on RealDays.'],
+      [BIZ + ' contacts you within ' + m.response_hours + ' hours', 'They confirm your place and arrange payment with you directly.'],
+      ['Turn up on the day', 'They\'ll tell you everything you need to know.']
+    ] : [
       ['Choose, then add your details', NOCARD ? 'In a live booking you then add your card on a secure Stripe page. It\'s held, not charged. This demo skips that step.' : 'Then add your card on a secure Stripe page. It\'s held, not charged.'],
       [BIZ + ' confirms within ' + m.response_hours + ' hours', 'Once they confirm, the payment is taken. If they can\'t, the hold is released and you\'re not charged.' + (m.date_request ? ' They\'ll call or text you to set the time.' : '')],
       ['Turn up on the day', 'Everything you need to know is in your confirmation email.']
@@ -572,7 +579,7 @@
       text($('calTitle'), asksDay() ? 'Choose a day' : 'Choose a date');
       stickyFrom(X().pricing === 'tickets' && (m.prices || []).length ? Math.min.apply(null, m.prices.map(function (p) { return p.price_cents; })) : m.price_cents);
       rich($('policy'), cancelLine(m.cancellation_policy));
-      $('policyHold').textContent = 'Your card is held, not charged, until ' + BIZ + ' confirms, within ' + m.response_hours + ' hours. If they can\'t confirm, the hold is released.';
+      $('policyHold').textContent = REQ ? 'No payment is taken on RealDays. ' + BIZ + ' contacts you within ' + m.response_hours + ' hours to confirm your place and arrange payment.' : 'Your card is held, not charged, until ' + BIZ + ' confirms, within ' + m.response_hours + ' hours. If they can\'t confirm, the hold is released.';
       rich($('policyCancel'), cancelLine(m.cancellation_policy));
       howSteps(m);
       renderGroups();
@@ -761,13 +768,14 @@
   }
   var result = q.get('result'), ref = q.get('ref');
   if (result === 'requested' && ref) {
-    done('Reference ' + ref, 'Request sent', NOCARD ? 'Demo booking, so no card was taken. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.' : 'Your card is held, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.');
+    done('Reference ' + ref, 'Request sent', REQ ? 'Your request has gone to ' + BIZ + '. They\'ll contact you within 24 hours to confirm your place and arrange payment. Nothing has been charged. RealDays doesn\'t send a confirmation email, so keep your reference.' : NOCARD ? 'Demo booking, so no card was taken. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.' : 'Your card is held, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.');
     booked(ref);
     $('doneBack').hidden = true; // they're already on the business's page
     var once = 'th_done_' + ref, fresh = true;
     try { fresh = !sessionStorage.getItem(once); sessionStorage.setItem(once, '1'); } catch (e) {}
     if (fresh) track('booking_completed');
     var box = $('demoBox');
+    if (!REQ) { // a real request has no "see the business's side" demo
     box.hidden = false;
     box.innerHTML = '<p></p><a class="btn-ghost" href="#"></a>';
     text(box.querySelector('p'), 'Demo: in the real thing, ' + BIZ + ' gets this request by text and email. Try their side now.');
@@ -779,6 +787,7 @@
         else { text(box.querySelector('p'), 'That demo link has expired. Make a new test booking to try again.'); a.remove(); }
       });
     };
+    }
   } else if (result === 'cancelled') {
     done('Not booked yet', 'Payment not finished', 'You left the payment page before finishing, so nothing was charged. Your places are held for a few more minutes if you want to try again.');
   } else if (result === 'balance_paid' && ref) {
