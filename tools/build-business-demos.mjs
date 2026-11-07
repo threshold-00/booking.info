@@ -851,7 +851,7 @@ ${HEADER}<main id="main">
         <h2 id="h-business">Meet the business</h2>
         <p class="card-title" style="margin:0 0 var(--s-2);">${esc(b.name)}</p>
         ${about}
-${live ? '' : `        <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
+${live || d.business.booking_mode === 'request' ? '' : `        <p class="prose" style="margin:0;">A real listing would tell the owner's story here, in their words.</p>
 `}      </section>${gettingThere(p.getting_there)}${renderReviews(b.reviews, slug)}${cls ? `
       <p class="more-classes"><a href="${base}#classes" class="btn-ghost">More classes from ${esc(p.studio_name ?? b.name)}</a></p>` : ''}
     </div>

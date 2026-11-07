@@ -148,7 +148,7 @@
       <h1 class="hero-h1 hero-h1--lg">Something you'll actually remember doing.</h1>
       <p class="hero-sub label">Unique experiences, run by the local people who started them.</p>
       <form class="hero-search" id="heroSearch" action="#browse" role="search" aria-label="Find an experience">
-        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="sealife">Sea life</option><option value="surf">Surfing</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="bike">Biking</option><option value="flying">Flying</option></select></div>
+        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="sealife">Sea life</option><option value="surf">Surfing</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="bike">Biking</option><option value="flying">Flying</option><option value="food">Food</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWhere">Where</label><select id="heroWhere" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option><option value="bali">Bali</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWho">Situation</label><select id="heroWho" class="location-select pill-select"><option value="">Anyone</option><option value="solo">Solo</option><option value="duo">Duo</option><option value="group">Group (3+ ppl)</option></select></div>
         <button type="submit" class="btn--on-dark">Go</button>
@@ -176,6 +176,7 @@
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="fashion">Fashion</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="bike">Biking</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="flying">Flying</button>
+              <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="food">Food</button>
             </div>
             <div class="chip-list" id="horseSub" hidden role="group" aria-label="Horse experiences">
               <button type="button" class="chip chip--sm sub-chip" aria-pressed="true" data-type="">All horse (11)</button>
@@ -439,7 +440,7 @@
           <button type="button" id="clearFilters" class="link-btn">Clear filters</button>
         </div>
         <div class="card-grid" id="browseGrid" data-mobile-cap>
-        <a class="card sc-card" data-live href="/demo/b/elizabeth-peddey/?x=summer-cooking" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Wednesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="" data-situation="solo duo group" data-sort-aud="720" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne lunch wine" data-duration="720" data-days="4">
+        <a class="card sc-card" data-live href="/demo/b/elizabeth-peddey/?x=summer-cooking" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Wednesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="720" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne lunch wine" data-duration="720" data-days="4">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/elizabeth-peddey/class-800.avif" /><img src="/assets/img/demo/elizabeth-peddey/class-800.webp" alt="Students in green aprons preparing leafy greens together at a kitchen bench" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Cook Mediterranean summer food over four Wednesdays</h3>
