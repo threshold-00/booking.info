@@ -217,10 +217,6 @@
           <input type="text" name="business_name" id="f_business" autocomplete="organization" maxlength="120" required />
           <span class="err" data-err="business_name"></span>
         </label>
-        <label>ABN
-          <input type="text" name="abn" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="11 digits" required />
-          <span class="err" data-err="abn"></span>
-        </label>
         <label>Your full name
           <input type="text" name="name" autocomplete="name" maxlength="80" required />
           <span class="err" data-err="name"></span>
@@ -241,15 +237,14 @@
         <span class="err" data-err="agree"></span>
         <button type="submit" id="signBtn">Sign the terms</button>
         <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
-        <p class="note">Pressing Sign the terms is your signature. We keep your details, the version you signed, the time, and a coded record of your internet connection as a record of it. See our <a href="/privacy/">privacy policy</a>.</p>
+        <p class="note">Pressing Sign the terms is your signature, and we email you a copy. We keep your details, the version you signed, the time, and a coded record of your internet connection as a record of it. See our <a href="/privacy/">privacy policy</a>.</p>
       </form>
       <div class="done" id="done" hidden tabindex="-1">
         <h3><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><polyline points="4 12 10 18 20 6"/></svg>Signed. Thank you.</h3>
-        <p>We've recorded your signature and let Ro know. Save a copy for your records: it prints these terms with your signature details.</p>
+        <p>We've emailed a copy of the terms to <strong id="d_email"></strong>, with your signature details. You can also save a copy here.</p>
         <dl>
           <dt>Reference</dt><dd id="d_ref"></dd>
           <dt>Business</dt><dd id="d_business"></dd>
-          <dt>ABN</dt><dd id="d_abn"></dd>
           <dt>Signed by</dt><dd id="d_name"></dd>
           <dt>Signed</dt><dd id="d_at"></dd>
           <dt>Version</dt><dd>7 November 2026</dd>
@@ -296,13 +291,6 @@
     });
     if (first && first.focus) first.focus();
   }
-  function abnOk(v) {
-    var d = v.replace(/[\s-]/g, '');
-    if (!/^\d{11}$/.test(d) || d[0] === '0') return false;
-    var w = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19], s = 0;
-    for (var i = 0; i < 11; i++) s += (Number(d[i]) - (i === 0 ? 1 : 0)) * w[i];
-    return s % 89 === 0;
-  }
 
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
@@ -312,7 +300,6 @@
     var data = {
       version: VERSION,
       business_name: f.business_name.value.trim(),
-      abn: f.abn.value.trim(),
       name: f.name.value.trim(),
       role: f.role.value.trim(),
       email: f.email.value.trim(),
@@ -321,7 +308,6 @@
     };
     var p = {};
     if (!data.business_name) p.business_name = 'Add your business name.';
-    if (!abnOk(data.abn)) p.abn = "That ABN doesn't look right. It's 11 digits.";
     if (!data.name) p.name = 'Add your full name.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) p.email = 'Add your email address.';
     if (!data.agree) p.agree = 'Tick the box to agree to the terms.';
@@ -339,7 +325,7 @@
         var at = new Date(res.b.accepted_at);
         document.getElementById('d_ref').textContent = res.b.ref;
         document.getElementById('d_business').textContent = data.business_name;
-        document.getElementById('d_abn').textContent = data.abn.replace(/\D/g, '').replace(/^(\d{2})(\d{3})(\d{3})(\d{3})$/, '$1 $2 $3 $4');
+        document.getElementById('d_email').textContent = data.email;
         document.getElementById('d_name').textContent = data.name + (data.role ? ', ' + data.role : '');
         document.getElementById('d_at').textContent = at.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne', dateStyle: 'long', timeStyle: 'short' }) + ', Melbourne time';
         form.hidden = true;
