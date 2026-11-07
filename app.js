@@ -144,6 +144,7 @@ var exploreMap = (function () {
     { business: 'Phoenix Pottery', emoji: '🏺', place: 'Fitzroy', region: 'mornington', lat: -37.7985, lng: 144.9772 },
     { business: 'simétrie', emoji: '🧵', place: 'Brunswick', region: 'mornington', lat: -37.7667, lng: 144.9600 },
     { business: 'Adventure Flight Co', emoji: '✈️', place: 'Moorabbin Airport', region: 'mornington', lat: -37.9758, lng: 145.1022 },
+    { business: 'Elizabeth Peddey School of Cookery', emoji: '🍋', place: 'Elwood', region: 'mornington', lat: -37.8830, lng: 144.9880 },
     { business: 'Suigeneris Atelier', emoji: '🧵', place: 'Mulgrave', region: 'mornington', lat: -37.9280, lng: 145.1740 }, // Mulgrave's centre: the studio address is private
     { business: 'Peachy Keen Ceramics', emoji: '🏺', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
     { business: 'Aysha Hansen', emoji: '🧴', place: 'Newtown, Geelong', region: 'mornington', lat: -38.1560, lng: 144.3370 },

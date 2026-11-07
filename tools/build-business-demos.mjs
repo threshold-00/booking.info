@@ -865,7 +865,7 @@ ${FOOTER}</div>
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
 ${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=d84d30a1"></script>
-<script src="/app.js?v=f5b80173"></script>
+<script src="/app.js?v=fcb00014"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>
@@ -1092,7 +1092,7 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <script type="application/json" id="gift-config">${json}</script>
 <script src="/assets/demo-gift.js?v=c42f0cc4"></script>
-<script src="/app.js?v=f5b80173"></script>
+<script src="/app.js?v=fcb00014"></script>
 </body>
 </html>
 `;
