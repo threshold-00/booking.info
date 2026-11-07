@@ -3,14 +3,21 @@
 // data/business-layer/<slug>.json and carries its settings in #demo-config.
 // Prices, dates, places, questions and the cancellation policy come from the
 // test booking service; the Worker works out the real total, never this page.
-// Stripe test mode only. Demo traffic is tracked (never as demand); team
+// Stripe test mode, except booking_mode "live" (a real business taking real card bookings
+// on the live booking service, 7 Nov 2026). Demo traffic is tracked (never as demand); team
 // visits with ?team=1 are not tracked for the rest of the browser session.
 (function () {
   var cfgEl = document.getElementById('demo-config');
   if (!cfgEl) return;
   var C = JSON.parse(cfgEl.textContent);
-  // Local Worker when previewing on localhost, the test booking service otherwise.
-  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
+  // live (7 Nov 2026): a real business, real card bookings on the live booking service.
+  var LIVE = C.booking_mode === 'live';
+  // Local Worker when previewing on localhost; otherwise the live booking service for a live
+  // page and the test one for everything else. Page views are always counted on the test
+  // service, where every business's counts are kept.
+  var LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  var TRACK_API = LOCAL ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
+  var API = LOCAL ? 'http://127.0.0.1:8787' : LIVE ? 'https://api.getrealdays.com' : TRACK_API;
   var SLUG = C.slug, TZ = C.timezone, BIZ = C.business;
   // booking_mode (data file): sandbox takes test bookings; off shows the page only.
   // Pages built before booking_mode carry none and keep working as they did.
@@ -48,7 +55,7 @@
     if (TEAM) return;
     try {
       // text/plain keeps it a simple request, so it still goes out as the page leaves for Stripe.
-      fetch(API + '/demo/track', { method: 'POST', headers: { 'content-type': 'text/plain;charset=UTF-8' }, keepalive: true,
+      fetch(TRACK_API + '/demo/track', { method: 'POST', headers: { 'content-type': 'text/plain;charset=UTF-8' }, keepalive: true,
         body: JSON.stringify({ business: SLUG, event: event, visitor: VISITOR, source: SOURCE, experience: state.key }) }).catch(function () {});
     } catch (e) {}
   }
@@ -775,7 +782,7 @@
     try { fresh = !sessionStorage.getItem(once); sessionStorage.setItem(once, '1'); } catch (e) {}
     if (fresh) track('booking_completed');
     var box = $('demoBox');
-    if (!REQ) { // a real request has no "see the business's side" demo
+    if (!REQ && !LIVE) { // a real booking has no "see the business's side" demo
     box.hidden = false;
     box.innerHTML = '<p></p><a class="btn-ghost" href="#"></a>';
     text(box.querySelector('p'), 'Demo: in the real thing, ' + BIZ + ' gets this request by text and email. Try their side now.');
@@ -872,7 +879,7 @@
       : status === 'declined' ? 'Declined. The hold on their card is released and they aren\'t charged.'
       : 'This request is ' + status.replace(/_/g, ' ') + '.';
     var canToken = q.get('can');
-    if (status === 'confirmed' && $('bizDemoBox') && ((dep && balToken) || canToken)) {
+    if (!LIVE && status === 'confirmed' && $('bizDemoBox') && ((dep && balToken) || canToken)) {
       var box = $('bizDemoBox');
       box.hidden = false;
       box.innerHTML = '<p></p>';
