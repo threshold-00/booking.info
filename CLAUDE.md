@@ -80,6 +80,8 @@ npx browser-sync start --server --files "index.html, case-study.html, styles.css
 - **Floating CTA** (`#floatCta`) shows once the hero is off screen.
 - **Homepage notice** (`#moreSoon`): a full-width cookie-style bar along the bottom ("We're still adding experiences...") that can't be closed (no button, Ro, 26 Oct 2026) and shows on every load. app.js sets `--notice-h` to its height and adds `has-notice` to the body, which pads the page by that much so the footer is never hidden behind it and lifts the floating CTA above it.
 - **Map cards** (popup on desktop, floating sheet inside the gutters at 820px and under) carry a "Book now" button to the experience page beside the price.
+- **Privacy policy** (`/privacy/`, Ro, 7 Nov 2026): what the site and booking service collect and who sees it, linked from the homepage and /for-business/ footers and in the sitemap. Update it when the site starts collecting something new.
+- **Business terms** (`/for-business/terms/`, Ro, 7 Nov 2026): the agreement a business signs online, styled after the info deck, noindex and unlinked (Ro sends it, `?for=Business%20Name`). The text is Ro's private draft in `~/Documents/RealDays/docs/legal/`; a change to the wording is a new version (date on the page and in the Worker's `TERMS_VERSIONS`). Fee terms in it are the public ones only.
 - **Salty Cowboy** is approved, live and bookable, "From $50 AUD" on card, pin and schema.
 
 ## Pricing

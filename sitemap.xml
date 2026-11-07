@@ -119,4 +119,10 @@
   <url><loc>https://getrealdays.com/suigeneris-atelier/card-holder/</loc></url>
   <url><loc>https://getrealdays.com/suigeneris-atelier/bakery-charm/</loc></url>
 <!-- open-listings:end -->
+  <url>
+    <loc>https://getrealdays.com/privacy/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>

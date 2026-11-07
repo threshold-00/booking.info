@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Business terms | RealDays</title>
+<meta name="description" content="The agreement between RealDays and the businesses it lists: bookings, payments, fees, cancellations and how to sign." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../../styles.css?v=7b958919" />
+<link rel="canonical" href="https://getrealdays.com/for-business/terms/" />
+<link rel="icon" href="../../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
+<!-- Business terms, signed online (Ro, 7 Nov 2026). Styled after the info deck
+     (threshold-00/realdays-info): wordmark cover, square eyebrows, big Neue Haas headings.
+     The text is docs/legal/business-terms-draft-2026-11-07.md in Ro's folder. Changing a
+     word means a new version: a new date here and in TERMS_VERSIONS (workers/api/src/routes/terms.ts).
+     ?for=Business%20Name fills the cover and the form, as on the deck. -->
+<style>
+  .terms-page{--measure:44em}
+  .terms-cover{min-height:min(88vh,820px);display:flex;flex-direction:column;justify-content:space-between;padding:var(--s-8) 0 var(--s-6);border-bottom:var(--bw,1px) solid var(--line)}
+  .terms-cover .wordmark{font-family:var(--display);font-weight:600;font-size:clamp(3.5rem,2rem + 7vw,9rem);line-height:.9;letter-spacing:-.02em;margin:0}
+  .terms-cover .cover-line{font-family:var(--display);font-weight:600;font-size:var(--t-headline);line-height:1.1;margin:var(--s-5) 0 0;max-width:18em;text-wrap:balance}
+  .terms-cover .for{margin:var(--s-5) 0 0}
+  .terms-cover .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s-3);margin-top:var(--s-8)}
+  .eyebrow{display:flex;align-items:center;gap:var(--s-3);margin:0 0 var(--s-5);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase}
+  .eyebrow::before{content:"";flex:none;width:8px;height:8px;background:var(--ink)}
+  .block{padding:var(--s-9) 0;border-bottom:1px solid var(--line)}
+  .block h2.big{font-family:var(--display);font-weight:600;font-size:var(--t-headline);line-height:1.1;margin:0 0 var(--s-6);max-width:16em;text-wrap:balance}
+  .short{display:grid;gap:0;margin:0;padding:0;list-style:none;max-width:var(--measure)}
+  .short li{display:grid;grid-template-columns:2.5em 1fr;gap:var(--s-3);padding:var(--s-4) 0;border-top:1px solid var(--line);font-size:var(--t-title);line-height:1.5}
+  .short li:last-child{border-bottom:1px solid var(--line)}
+  .short .n{font-family:var(--mono);font-size:var(--t-label);padding-top:.3em}
+  .note{margin:var(--s-4) 0 0;color:var(--ink-2);max-width:var(--measure)}
+  .terms{max-width:var(--measure);font-size:var(--t-body);line-height:1.6}
+  .terms .parties{font-size:var(--t-title);color:var(--ink);margin:0 0 var(--s-3)}
+  .terms .term{padding-top:var(--s-6)}
+  .terms h2{font-family:var(--display);font-weight:600;font-size:var(--t-subhead);line-height:1.2;margin:0 0 var(--s-3);display:flex;gap:var(--s-3)}
+  .terms h2 .num{flex:none;width:calc(3.2rem - var(--s-3));font-family:var(--mono);font-weight:400;font-size:var(--t-label);padding-top:.55em}
+  .terms p{display:grid;grid-template-columns:3.2em 1fr;margin:0 0 var(--s-3);color:var(--ink-2)}
+  .terms p:not(:has(.num)){display:block}
+  .terms p .num{font-family:var(--mono);font-size:var(--t-label);color:var(--ink);padding-top:.3em}
+  .terms strong{color:var(--ink);font-weight:600}
+  .terms a,.note a,.done a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+  .sign-form[hidden],.done[hidden]{display:none}
+  .sign-form{display:grid;gap:var(--s-4);max-width:32em}
+  .sign-form label{display:grid;gap:var(--s-1);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase}
+  .sign-form input[type=text],.sign-form input[type=email]{height:44px;padding:0 var(--s-3);border:1px solid var(--line-ui,rgba(23,23,26,.5));border-radius:0;background:var(--panel);color:var(--ink);font:400 var(--t-body)/1.2 var(--display);text-transform:none;letter-spacing:0}
+  .sign-form input:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+  .sign-form .agree{display:grid;grid-template-columns:20px 1fr;gap:var(--s-3);align-items:start;font-family:var(--display);font-size:var(--t-body);letter-spacing:0;text-transform:none;line-height:1.5}
+  .sign-form .agree input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink)}
+  .sign-form .err{min-height:0;color:var(--ink);font-family:var(--display);font-size:var(--t-small);letter-spacing:0;text-transform:none}
+  .sign-form .err:empty{display:none}
+  .sign-form .err::before{content:"! ";font-family:var(--mono)}
+  .sign-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .sign-form button{justify-self:start;height:44px;padding:0 var(--s-5);border:0;border-radius:0;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;cursor:pointer}
+  .sign-form button:hover{background:var(--color-hover-dark)}
+  .sign-form button[disabled]{opacity:.6;cursor:progress}
+  .form-msg{margin:0;font-size:var(--t-small)}
+  .form-msg:empty{display:none}
+  .done{max-width:32em}
+  .done h3{font-family:var(--display);font-weight:600;font-size:var(--t-headline);line-height:1.1;margin:0 0 var(--s-4);display:flex;align-items:center;gap:var(--s-3)}
+  .done dl{display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-5);margin:var(--s-5) 0}
+  .done dt{font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;padding-top:.2em}
+  .done dd{margin:0}
+  .done button{height:44px;padding:0 var(--s-5);border:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;cursor:pointer}
+  .done button:hover{background:var(--color-hover)}
+  @media print{
+    .site-header,.no-print,footer{display:none!important}
+    .terms-cover{min-height:0;padding-top:0}
+    .block{padding:var(--s-6) 0}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body class="rd terms-page">
+<div>
+  <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
+    <div class="bar" style="display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:calc(var(--container) + 2 * var(--gutter));margin:0 auto;">
+      <a href="../../" class="logo">RealDays.</a>
+      <a href="#sign" class="label navlink no-print">Sign the terms</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="terms-cover" aria-label="Cover">
+      <div>
+        <p class="eyebrow">Business terms</p>
+        <h1 class="wordmark">RealDays.</h1>
+        <p class="cover-line">How we work together, and how you get paid.</p>
+        <p class="for label" id="coverFor" hidden></p>
+      </div>
+      <div class="foot label">
+        <span>Version 7 November 2026</span>
+        <span>getrealdays.com · rowena@getrealdays.com</span>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="shortHead">
+      <p class="eyebrow">The short version</p>
+      <h2 class="big" id="shortHead">Five things to know before you read the rest.</h2>
+      <ol class="short">
+        <li><span class="n">01</span><span>A customer books and their card is held. You accept or decline within 24 hours, and the card is only charged when you accept.</span></li>
+        <li><span class="n">02</span><span>We send your money the day after the experience. Stripe pays it into your bank on its normal schedule.</span></li>
+        <li><span class="n">03</span><span>Your first month costs only Stripe's card fee. After that it's 12% of each booking made through RealDays, including GST, and that covers the card fee.</span></li>
+        <li><span class="n">04</span><span>Your own cancellation policy applies when a customer cancels. If you cancel, the customer gets a full refund and you cover that booking's card fee.</span></li>
+        <li><span class="n">05</span><span>No lock-in. Either of us can end the agreement at any time.</span></li>
+      </ol>
+      <p class="note">This summary is here to help. The terms below are what you agree to.</p>
+    </section>
+
+    <section class="block" aria-labelledby="termsHead">
+      <p class="eyebrow">The terms</p>
+      <h2 class="big" id="termsHead">RealDays business terms</h2>
+      <div class="terms">
+        <p class="parties">These terms are an agreement between you, the business listed on RealDays, and Rowena Louise Baulch, trading as RealDays (ABN 90 522 324 404), email <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a> ("RealDays", "we", "us").</p>
+        <p>They apply from the day you sign them below.</p>
+      <section class="term" id="s1" aria-labelledby="t1">
+        <h2 id="t1"><span class="num">1</span>What RealDays does</h2>
+        <p><span class="num">1.1</span><span>RealDays lists your experiences on getrealdays.com, takes booking requests and payments from customers, and sends you your share.</span></p>
+        <p><span class="num">1.2</span><span>You run the experience. The contract for the experience is between you and the customer. RealDays isn't a party to it and doesn't run, supervise or guarantee it.</span></p>
+        <p><span class="num">1.3</span><span>There's no lock-in and no exclusivity. You can list your experiences elsewhere too.</span></p>
+      </section>
+      <section class="term" id="s2" aria-labelledby="t2">
+        <h2 id="t2"><span class="num">2</span>Your listing</h2>
+        <p><span class="num">2.1</span><span>You give us the details for your page: what the experience is, prices, times, group sizes, what's included, location, age or fitness requirements, and your cancellation policy. You confirm the page is accurate before it goes live, and tell us when anything changes.</span></p>
+        <p><span class="num">2.2</span><span>We may edit your wording for length, layout and clarity, but we won't change prices, times or your cancellation policy without asking you.</span></p>
+        <p><span class="num">2.3</span><span>You own your photos, logo and words, or have permission to use them. You let RealDays use them on your page and to promote your listing on RealDays (for example on our homepage, social media and ads) while you're listed, and you can ask us to remove any of them.</span></p>
+        <p><span class="num">2.4</span><span>You set your own prices. They are the prices customers pay. RealDays adds no booking fee or surcharge for the customer.</span></p>
+      </section>
+      <section class="term" id="s3" aria-labelledby="t3">
+        <h2 id="t3"><span class="num">3</span>Bookings</h2>
+        <p><span class="num">3.1</span><span>A customer books on your page and pays by card through Stripe. The card is held, not charged, and the place is held for them.</span></p>
+        <p><span class="num">3.2</span><span>We email you each request with Accept and Decline buttons. If you accept, the card is charged and the booking is confirmed to you both. If you decline, or don't answer within [24] hours, the hold is released and the customer isn't charged.</span></p>
+        <p><span class="num">3.3</span><span>You only accept a booking you can honour, and keep your availability on RealDays up to date so customers can't book times you can't run.</span></p>
+        <p><span class="num">3.4</span><span>We share the customer's name, email, mobile and booking answers with you so you can run the booking.</span></p>
+      </section>
+      <section class="term" id="s4" aria-labelledby="t4">
+        <h2 id="t4"><span class="num">4</span>Payments</h2>
+        <p><span class="num">4.1</span><span><strong>RealDays collects payment as your agent.</strong> When a customer pays RealDays for your booking, that counts as the customer paying you. If we fail to send you your share, that's a matter between you and RealDays, not the customer.</span></p>
+        <p><span class="num">4.2</span><span>Payments are processed by Stripe. To receive them you set up a Stripe Express account from the link we send and accept Stripe's Connected Account Agreement (<a href="https://stripe.com/au/legal/connect-account" target="_blank" rel="noopener">stripe.com/au/legal/connect-account</a>), which forms part of these terms. Your business name appears on the customer's card statement.</span></p>
+        <p><span class="num">4.3</span><span><strong>When you're paid.</strong> We send your share to your Stripe account at about 6am Melbourne time on the day after the experience. Stripe then pays it into your bank on its normal schedule, usually within a few business days. For a course of several weekly classes, we send it the day after the first class.</span></p>
+        <p><span class="num">4.4</span><span>We take card bookings up to 80 days before the experience. We hold the customer's money until we send your share, so a refund before the experience never comes out of your bank account.</span></p>
+        <p><span class="num">4.5</span><span>If your Stripe account can't receive money (for example Stripe needs more details from you), we hold your share, tell you, and send it once Stripe allows.</span></p>
+      </section>
+      <section class="term" id="s5" aria-labelledby="t5">
+        <h2 id="t5"><span class="num">5</span>Fees</h2>
+        <p><span class="num">5.1</span><span><strong>First month:</strong> from the day your listing goes live, for one month, you pay only Stripe's card fee on each booking (currently about 1.7% + A$0.30 on an Australian card, and more on overseas cards). It's taken off what we send you.</span></p>
+        <p><span class="num">5.2</span><span><strong>After that:</strong> a fee of 12% of the booking price, including GST, on bookings made through RealDays. It covers the card fee, so you don't pay both. It's taken off what we send you. For example, on a A$120 booking we send you A$105.60.</span></p>
+        <p><span class="num">5.3</span><span>There's no subscription, setup fee or listing fee.</span></p>
+        <p><span class="num">5.4</span><span>The 12% is worked out on the full booking price, before any discount code or gift card.</span></p>
+        <p><span class="num">5.5</span><span>If we've agreed different fees with you in writing, those apply instead of 5.1 and 5.2.</span></p>
+        <p><span class="num">5.6</span><span>RealDays is registered for GST. Ask us any time for a tax invoice for our fees, and we'll send it within 28 days. You're responsible for the GST and tax on your own sales.</span></p>
+        <p><span class="num">5.7</span><span>We'll give you at least 60 days' written notice of any change to our fees. You can leave without penalty before it starts.</span></p>
+      </section>
+      <section class="term" id="s6" aria-labelledby="t6">
+        <h2 id="t6"><span class="num">6</span>Cancellations and refunds</h2>
+        <p><span class="num">6.1</span><span><strong>When a customer cancels</strong>, your cancellation policy, as shown on your page when they booked, decides any refund. An admin or cancellation fee only applies if it was in the policy the customer saw. We process the refund through Stripe.</span></p>
+        <p><span class="num">6.2</span><span><strong>When you cancel</strong> a booking, for any reason including weather or not enough people, the customer is offered another date or a full refund. If they're refunded, Stripe's card fee on that booking comes off your next payout.</span></p>
+        <p><span class="num">6.3</span><span>If you cancel one class of a multi-week course, you offer a make-up class or refund that class.</span></p>
+        <p><span class="num">6.4</span><span>Nothing in these terms limits a customer's rights under the Australian Consumer Law, and nothing in your cancellation policy can either.</span></p>
+      </section>
+      <section class="term" id="s7" aria-labelledby="t7">
+        <h2 id="t7"><span class="num">7</span>Disputes and chargebacks</h2>
+        <p><span class="num">7.1</span><span>If a customer disputes a payment for a booking with you, RealDays answers the dispute with Stripe. Please send us anything that shows the booking went ahead.</span></p>
+        <p><span class="num">7.2</span><span>RealDays' Stripe account is charged first. If the bank decides in the customer's favour, for any reason, including fraud, you carry the cost: the disputed amount isn't paid to you, or, if it has already been paid to you, it's taken back from your Stripe account. Stripe's dispute fee (currently A$25) is also yours, and comes off your next payout.</span></p>
+        <p><span class="num">7.3</span><span>Anything you owe RealDays (a card fee, a dispute fee, or money we couldn't take back) comes off your next payouts until it's repaid. If no payouts are due within 30 days, you agree to pay it to us within 14 days of our invoice. RealDays may choose to cover a case.</span></p>
+      </section>
+      <section class="term" id="s8" aria-labelledby="t8">
+        <h2 id="t8"><span class="num">8</span>Your responsibilities</h2>
+        <p><span class="num">8.1</span><span>You run each experience as described on your page, safely, and in line with any law, licence or permit that applies to it.</span></p>
+        <p><span class="num">8.2</span><span>You hold public liability insurance of at least A$10 million that covers the experiences you list, and show us a certificate if we ask.</span></p>
+        <p><span class="num">8.3</span><span>You're responsible for your customers' safety during the experience, and for any waiver, safety briefing or age or health check it needs.</span></p>
+        <p><span class="num">8.4</span><span>You use customers' details only to run their booking. You don't add them to marketing lists unless they agree to it themselves, and you keep their details secure.</span></p>
+        <p><span class="num">8.5</span><span>You deal with customers fairly, and you comply with the Australian Consumer Law.</span></p>
+      </section>
+      <section class="term" id="s9" aria-labelledby="t9">
+        <h2 id="t9"><span class="num">9</span>RealDays' responsibilities</h2>
+        <p><span class="num">9.1</span><span>We keep your listing and booking system running, send booking emails, process payments and refunds, and send your share as set out in clause 4.</span></p>
+        <p><span class="num">9.2</span><span>We use customers' and your details as set out in our privacy policy (<a href="/privacy/">getrealdays.com/privacy</a>).</span></p>
+        <p><span class="num">9.3</span><span>We'll tell you promptly if a booking, payment or dispute needs your attention.</span></p>
+      </section>
+      <section class="term" id="s10" aria-labelledby="t10">
+        <h2 id="t10"><span class="num">10</span>Liability</h2>
+        <p><span class="num">10.1</span><span>You're responsible for the experiences you run. You agree to cover RealDays for any claim, loss or cost that arises from an experience you run, from your listing being inaccurate, or from your breach of these terms, except to the extent RealDays caused it.</span></p>
+        <p><span class="num">10.2</span><span>RealDays isn't liable for indirect loss, such as lost profits or lost bookings, including when the website or Stripe is unavailable.</span></p>
+        <p><span class="num">10.3</span><span>RealDays' total liability to you under these terms is limited to the fees you paid RealDays in the 12 months before the claim, plus any of your share we haven't yet sent you.</span></p>
+        <p><span class="num">10.4</span><span>Nothing in these terms excludes rights that can't be excluded under the Australian Consumer Law.</span></p>
+      </section>
+      <section class="term" id="s11" aria-labelledby="t11">
+        <h2 id="t11"><span class="num">11</span>Ending the agreement</h2>
+        <p><span class="num">11.1</span><span>Either of us can end this agreement at any time, straight away, by email.</span></p>
+        <p><span class="num">11.2</span><span>RealDays can pause or remove your listing straight away if you seriously breach these terms, if there's a safety concern, or if Stripe closes your account.</span></p>
+        <p><span class="num">11.3</span><span>Bookings already confirmed when the agreement ends still go ahead, unless we agree otherwise, and you're paid for them under these terms.</span></p>
+      </section>
+      <section class="term" id="s12" aria-labelledby="t12">
+        <h2 id="t12"><span class="num">12</span>Changes to these terms</h2>
+        <p><span class="num">12.1</span><span>We may update these terms. We'll email you at least 30 days before a change takes effect (60 days for fees, clause 5.7). If you don't agree, you can end the agreement before then without penalty.</span></p>
+      </section>
+      <section class="term" id="s13" aria-labelledby="t13">
+        <h2 id="t13"><span class="num">13</span>General</h2>
+        <p><span class="num">13.1</span><span>These terms are governed by the law of Victoria, Australia.</span></p>
+        <p><span class="num">13.2</span><span>If we disagree, we'll first try to sort it out by talking. Either of us can then go to the courts of Victoria.</span></p>
+        <p><span class="num">13.3</span><span>These terms, Stripe's Connected Account Agreement and any written fee agreement between us are the whole agreement.</span></p>
+      </section>
+      </div>
+    </section>
+
+    <section class="block" id="sign" aria-labelledby="signHead">
+      <p class="eyebrow">Sign</p>
+      <h2 class="big" id="signHead">Agree to these terms</h2>
+      <form class="sign-form no-print" id="signForm" novalidate>
+        <label>Business name
+          <input type="text" name="business_name" id="f_business" autocomplete="organization" maxlength="120" required />
+          <span class="err" data-err="business_name"></span>
+        </label>
+        <label>ABN
+          <input type="text" name="abn" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="11 digits" required />
+          <span class="err" data-err="abn"></span>
+        </label>
+        <label>Your full name
+          <input type="text" name="name" autocomplete="name" maxlength="80" required />
+          <span class="err" data-err="name"></span>
+        </label>
+        <label>Your role
+          <input type="text" name="role" autocomplete="organization-title" maxlength="60" placeholder="For example, Owner" />
+          <span class="err" data-err="role"></span>
+        </label>
+        <label>Your email
+          <input type="email" name="email" autocomplete="email" maxlength="254" required />
+          <span class="err" data-err="email"></span>
+        </label>
+        <label class="hp" aria-hidden="true">Company website <input type="text" name="company_url" tabindex="-1" autocomplete="off" /></label>
+        <label class="agree">
+          <input type="checkbox" name="agree" required />
+          <span>I've read the RealDays business terms (version 7 November 2026), I agree to them on behalf of this business, and I'm authorised to sign for it.</span>
+        </label>
+        <span class="err" data-err="agree"></span>
+        <button type="submit" id="signBtn">Sign the terms</button>
+        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+        <p class="note">Pressing Sign the terms is your signature. We keep your details, the version you signed, the time, and a coded record of your internet connection as a record of it. See our <a href="/privacy/">privacy policy</a>.</p>
+      </form>
+      <div class="done" id="done" hidden tabindex="-1">
+        <h3><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><polyline points="4 12 10 18 20 6"/></svg>Signed. Thank you.</h3>
+        <p>We've recorded your signature and let Ro know. Save a copy for your records: it prints these terms with your signature details.</p>
+        <dl>
+          <dt>Reference</dt><dd id="d_ref"></dd>
+          <dt>Business</dt><dd id="d_business"></dd>
+          <dt>ABN</dt><dd id="d_abn"></dd>
+          <dt>Signed by</dt><dd id="d_name"></dd>
+          <dt>Signed</dt><dd id="d_at"></dd>
+          <dt>Version</dt><dd>7 November 2026</dd>
+        </dl>
+        <button type="button" class="no-print" id="printBtn">Save a copy</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container label">
+    <span>&copy; 2026 RealDays</span>
+    <nav aria-label="Footer">
+      <a href="../" class="navlink">For businesses</a>
+      <a href="../../privacy/" class="navlink">Privacy</a>
+      <a href="mailto:rowena@getrealdays.com" class="navlink">Contact</a>
+    </nav>
+  </div>
+  </footer>
+</div>
+<script>
+(function () {
+  var VERSION = '2026-11-07';
+  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
+  var form = document.getElementById('signForm');
+  var btn = document.getElementById('signBtn');
+  var msg = document.getElementById('formMsg');
+
+  // ?for=Business%20Name fills the cover and the form, as on the info deck.
+  var forName = (new URLSearchParams(location.search).get('for') || '').trim().slice(0, 120);
+  if (forName) {
+    var c = document.getElementById('coverFor');
+    c.textContent = 'Prepared for ' + forName; c.hidden = false;
+    document.getElementById('f_business').value = forName;
+  }
+
+  function clearErrs() { form.querySelectorAll('[data-err]').forEach(function (e) { e.textContent = ''; }); msg.textContent = ''; }
+  function showErrs(p) {
+    var first = null;
+    Object.keys(p).forEach(function (k) {
+      var e = form.querySelector('[data-err="' + k + '"]'); if (e) e.textContent = p[k];
+      var i = form.elements[k]; if (i && !first) first = i;
+      if (i && i.setAttribute) i.setAttribute('aria-invalid', 'true');
+    });
+    if (first && first.focus) first.focus();
+  }
+  function abnOk(v) {
+    var d = v.replace(/[\s-]/g, '');
+    if (!/^\d{11}$/.test(d) || d[0] === '0') return false;
+    var w = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19], s = 0;
+    for (var i = 0; i < 11; i++) s += (Number(d[i]) - (i === 0 ? 1 : 0)) * w[i];
+    return s % 89 === 0;
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    clearErrs();
+    form.querySelectorAll('[aria-invalid]').forEach(function (i) { i.removeAttribute('aria-invalid'); });
+    var f = form.elements;
+    var data = {
+      version: VERSION,
+      business_name: f.business_name.value.trim(),
+      abn: f.abn.value.trim(),
+      name: f.name.value.trim(),
+      role: f.role.value.trim(),
+      email: f.email.value.trim(),
+      agree: f.agree.checked,
+      company_url: f.company_url.value
+    };
+    var p = {};
+    if (!data.business_name) p.business_name = 'Add your business name.';
+    if (!abnOk(data.abn)) p.abn = "That ABN doesn't look right. It's 11 digits.";
+    if (!data.name) p.name = 'Add your full name.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) p.email = 'Add your email address.';
+    if (!data.agree) p.agree = 'Tick the box to agree to the terms.';
+    if (Object.keys(p).length) { showErrs(p); return; }
+
+    btn.disabled = true; btn.textContent = 'Signing...';
+    fetch(API + '/terms/accept', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (b) { return { ok: r.ok, b: b }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.b.ok) {
+          if (res.b.problems) showErrs(res.b.problems);
+          msg.textContent = res.b.message || 'Something went wrong. Please try again.';
+          return;
+        }
+        var at = new Date(res.b.accepted_at);
+        document.getElementById('d_ref').textContent = res.b.ref;
+        document.getElementById('d_business').textContent = data.business_name;
+        document.getElementById('d_abn').textContent = data.abn.replace(/\D/g, '').replace(/^(\d{2})(\d{3})(\d{3})(\d{3})$/, '$1 $2 $3 $4');
+        document.getElementById('d_name').textContent = data.name + (data.role ? ', ' + data.role : '');
+        document.getElementById('d_at').textContent = at.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne', dateStyle: 'long', timeStyle: 'short' }) + ', Melbourne time';
+        form.hidden = true;
+        var d = document.getElementById('done'); d.hidden = false; d.focus();
+      })
+      .catch(function () { msg.textContent = "We couldn't reach RealDays. Check your connection and try again."; })
+      .then(function () { btn.disabled = false; btn.textContent = 'Sign the terms'; });
+  });
+
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+})();
+</script>
+</body>
+</html>
