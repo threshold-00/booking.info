@@ -38,7 +38,32 @@
   .terms{max-width:var(--measure);font-size:var(--t-body);line-height:1.6}
   .terms .parties{font-size:var(--t-title);color:var(--ink);margin:0 0 var(--s-3)}
   .terms .term{padding-top:var(--s-6)}
+  .expect-h{font-family:var(--display);font-weight:600;font-size:var(--t-subhead);line-height:1.2;margin:var(--s-7) 0 var(--s-3)}
+  .expect-h:first-of-type{margin-top:0}
+  .expect-cols{margin-top:var(--s-7)}
+  .expect-cols .expect-h{margin-top:0}
+  @media (max-width:1023px){.expect-cols > div + div .expect-h{margin-top:var(--s-4)}}
+  .expect-intro{max-width:var(--measure);margin:0 0 var(--s-5);font-size:var(--t-title);line-height:1.5}
+  .mail-cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
+  .mail-who{margin:0 0 var(--s-2)}
+  .mail-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+  .mail-list li{display:grid;grid-template-columns:11em 1fr;gap:var(--s-3);padding:var(--s-3) 0;border-bottom:1px solid var(--line);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
+  .mail-list b{font-family:var(--mono);font-weight:400;font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;color:var(--ink);padding-top:.25em}
+  .expect-list{list-style:none;margin:0;padding:0;max-width:var(--measure);border-top:1px solid var(--ink)}
+  .expect-list li{padding:var(--s-3) 0;border-bottom:1px solid var(--line);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
+  .expect-list b{color:var(--ink);font-weight:600}
+  @media (max-width:1023px){.mail-cols{grid-template-columns:1fr}}
+  @media (max-width:640px){.mail-list li{grid-template-columns:1fr;gap:var(--s-1)}}
   .terms-scroll{max-height:max(360px,calc(100svh - 200px));overflow-y:auto;overscroll-behavior:contain;margin:var(--s-4) 0 0;padding:0 var(--s-5) var(--s-6);border:1px solid var(--line-ui,rgba(23,23,26,.5));background:var(--panel)}
+  .terms-cover{min-height:0}
+  .cover-photo{display:block;width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;object-position:50% 40%;margin:var(--s-7) 0 0;background:var(--panel)}
+  .terms-cover .foot a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+  @media (max-width:767px){.cover-photo{aspect-ratio:4/3;margin-top:var(--s-6)}}
+  .terms-scroll::-webkit-scrollbar{width:14px}
+  .terms-scroll::-webkit-scrollbar-track{background:var(--paper);border-left:1px solid var(--line)}
+  .terms-scroll::-webkit-scrollbar-thumb{background:var(--ink-2);border:3px solid var(--paper);border-left-width:4px;min-height:48px}
+  .terms-scroll::-webkit-scrollbar-thumb:hover{background:var(--ink)}
+  @supports not selector(::-webkit-scrollbar){.terms-scroll{scrollbar-width:auto;scrollbar-color:var(--ink-2) var(--paper)}}
   .terms-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
   .terms .terms-scroll-hint{margin:var(--s-3) 0 0;font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;color:var(--ink-2)}
   @media (max-width:640px){.terms-scroll{padding:0 var(--s-4) var(--s-5)}}
@@ -98,6 +123,7 @@
   @media print{
     .site-header,.no-print,footer{display:none!important}
     .terms-cover{min-height:0;padding-top:0}
+    .cover-photo{display:none}
     .block{padding:var(--s-6) 0}
     .terms-scroll{max-height:none;overflow:visible;border:0;padding:0;background:none}
     .terms-scroll-hint{display:none}
@@ -122,8 +148,10 @@
         <p class="cover-line">How we work together, and how you get paid.</p>
         <p class="for label" id="coverFor" hidden></p>
       </div>
+      <img class="cover-photo" src="../../assets/img/terms/friends-1200.webp" srcset="../../assets/img/terms/friends-1200.webp 1200w, ../../assets/img/terms/friends-2400.webp 2400w" sizes="(min-width:1440px) 1344px, 100vw" width="2400" height="1600" alt="Four friends laughing together outdoors in the late afternoon sun" fetchpriority="high" />
       <div class="foot label">
         <span>Version 7 November 2026</span>
+        <span>Photo: <a href="https://unsplash.com/photos/three-men-and-one-woman-laughing-during-daytime-e3OUQGT9bWU" target="_blank" rel="noopener">Helena Lopes on Unsplash</a></span>
         <span>getrealdays.com · rowena@getrealdays.com</span>
       </div>
     </section>
@@ -153,6 +181,64 @@
       </ol>
       <p class="lockin"><b>No lock-in.</b> You can end the agreement at any time.</p>
       <p class="note">This summary is here to help. The terms below are what you agree to.</p>
+    </section>
+
+    <section class="block" aria-labelledby="expectHead">
+      <p class="eyebrow">What to expect</p>
+      <h2 class="big" id="expectHead">Emails, payments and marketing.</h2>
+
+      <h3 class="expect-h">The emails</h3>
+      <p class="expect-intro">Every booking email comes from RealDays, with your business name and one of your own photos at the top. Replies come to us, and we pass on anything that's for you.</p>
+      <div class="mail-cols">
+        <div>
+          <p class="label mail-who">You get</p>
+          <ul class="mail-list">
+            <li><b>New booking request</b><span>The booking, the customer's contact details, and an Accept or decline button.</span></li>
+            <li><b>Confirmed</b><span>Once you accept: the customer's details and the day you'll be paid.</span></li>
+            <li><b>Payout sent</b><span>The day after the experience: what we've sent you, and the fee taken off.</span></li>
+            <li><b>Refund</b><span>If a customer cancels and gets money back under your policy.</span></li>
+            <li><b>You cancelled</b><span>A record when you cancel a booking.</span></li>
+            <li><b>Only if needed</b><span>When Stripe needs more details before we can pay you, or a customer's bank disputes a payment.</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="label mail-who">Your customer gets</p>
+          <ul class="mail-list">
+            <li><b>Request sent</b><span>Their card is held, not charged, and you'll confirm within 24 hours.</span></li>
+            <li><b>Confirmed</b><span>When and where, what to know before they come, your cancellation policy, and a link to cancel.</span></li>
+            <li><b>Not booked</b><span>If you decline or don't answer in time. They aren't charged.</span></li>
+            <li><b>Cancelled</b><span>If you cancel, with their refund.</span></li>
+            <li><b>Refund</b><span>If they cancel and get money back.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mail-cols expect-cols">
+        <div>
+      <h3 class="expect-h">Payments and Stripe</h3>
+      <ul class="expect-list">
+        <li><b>Who Stripe is.</b> Stripe is one of the world's biggest payment companies, used by businesses such as Uber and Shopify. It handles every card payment, so your details and your customers' are kept secure. RealDays never sees card or bank account numbers.</li>
+        <li><b>Setting up.</b> You open a Stripe account through RealDays in about ten minutes, with your ABN, your bank details and ID. That's where your money goes.</li>
+        <li><b>Holding the money.</b> When you accept a booking, the customer's card is charged and we hold the money until the day after the experience. Then we send it to you, and Stripe pays it into your bank.</li>
+        <li><b>Refunds.</b> We process every refund through Stripe. Because the money is held until after the experience, a refund before then never comes out of your bank.</li>
+        <li><b>Disputes.</b> If a customer's bank queries a charge, we answer it with Stripe and ask you for anything that shows the booking went ahead. Because every booking is one you accepted, they're rare. Clause 7 sets out who pays if the bank sides with the customer.</li>
+        <li><b>On their statement.</b> Your business name appears on the customer's card statement.</li>
+      </ul>
+
+        </div>
+        <div>
+      <h3 class="expect-h">Marketing</h3>
+      <ul class="expect-list">
+        <li><b>It takes time.</b> We're starting by getting the basics right. In full transparency, we expect it to take around 6 to 8 months to see meaningful growth.</li>
+        <li><b>Search and AI.</b> RealDays is built to show up when people search for what to do, or ask an AI assistant, and to send them to your page.</li>
+        <li><b>Social and ads.</b> Collab posts with you, and targeted ads that reach people near you.</li>
+        <li><b>Emails.</b> We only email customers about new experiences if they've asked to hear about them.</li>
+        <li><b>Your numbers.</b> Every click we send to your page is counted, and you get the number each month.</li>
+        <li><b>Your photos and words.</b> We use them on your page and to promote your listing, and you can ask us to remove any of them (clause 2.3).</li>
+      </ul>
+        </div>
+      </div>
+      <p class="note">This section is here to help. The terms below are what you agree to.</p>
     </section>
 
     <section class="block" aria-labelledby="termsHead">
