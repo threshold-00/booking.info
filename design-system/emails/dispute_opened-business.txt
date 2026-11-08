@@ -1,0 +1,6 @@
+Subject: Payment disputed: TH-7K2QX9, $240
+
+Sam's bank is disputing $240 paid for Pottery Wheel Taster Class on Sat 5 Dec 2026, 11am. RealDays answers the dispute with Stripe.
+While it's open, your payout for this booking is held.
+Please reply with anything that shows the booking went ahead: messages, a sign-in sheet, photos.
+Reference: TH-7K2QX9

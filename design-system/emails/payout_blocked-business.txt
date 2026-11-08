@@ -1,0 +1,6 @@
+Subject: Action needed to get paid for TH-7K2QX9
+
+The money for Sam's booking of Pottery Wheel Taster Class on Sat 5 Dec 2026, 11am is ready to send, but your Stripe account can't receive it yet.
+Finish setting up your Stripe account here: https://connect.stripe.com/setup/e/acct_x/abc
+We try again every day, so it goes as soon as your account is ready.
+Reference: TH-7K2QX9
