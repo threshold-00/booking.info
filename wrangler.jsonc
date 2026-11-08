@@ -1,0 +1,9 @@
+// Cloudflare preview of the static site (Worker "booking-info", Ro, 8 Nov 2026).
+// GitHub Pages still serves getrealdays.com; this only gives each branch a preview link.
+{
+  "name": "booking-info",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "." },
+  "preview_urls": true,
+  "workers_dev": true
+}
