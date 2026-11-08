@@ -1720,7 +1720,8 @@ window.addEventListener('resize', setHeaderOffset);
   var q = new URLSearchParams(location.search);
   var team = q.get('team') === '1';
   try { if (team) sessionStorage.setItem('th_team', '1'); team = team || sessionStorage.getItem('th_team') === '1'; } catch (e) {}
-  if (team) return;
+  // Cloudflare Pages branch previews (*.pages.dev) are team visits too.
+  if (team || /\.pages\.dev$/.test(location.hostname)) return;
   var visitor = null;
   try { visitor = localStorage.getItem('th_demo_visitor'); } catch (e) {}
   if (!visitor || !/^[A-Za-z0-9-]{8,64}$/.test(visitor)) {

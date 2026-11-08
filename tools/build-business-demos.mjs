@@ -872,8 +872,8 @@ ${FOOTER}</div>
   ${hub ? '<a href="#classes" class="btn" id="stickyCta">See the classes</a>' : mode === 'link' ? '<a href="#book" class="btn" id="stickyCta">Check availability</a>' : '<a href="#book" class="btn">Choose a date</a>'}
 </aside>
 <script type="application/json" id="demo-config">${json}</script>
-${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=aefbb5d0"></script>
-<script src="/app.js?v=fcb00014"></script>
+${mode === 'link' ? '<script src="/assets/booking/track.js?v=1a5b125d"></script>\n' : ''}<script src="/assets/demo-booking.js?v=f4d884a8"></script>
+<script src="/app.js?v=a3895ca8"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
 </body>
 </html>
@@ -1100,7 +1100,7 @@ ${HEADER}<main id="main">
 ${FOOTER}</div>
 <script type="application/json" id="gift-config">${json}</script>
 <script src="/assets/demo-gift.js?v=c42f0cc4"></script>
-<script src="/app.js?v=fcb00014"></script>
+<script src="/app.js?v=a3895ca8"></script>
 </body>
 </html>
 `;
