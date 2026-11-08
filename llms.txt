@@ -26,11 +26,15 @@ Owner-run horse rescue and riding centre in Bali, run by Simone. 11 experiences:
 - [Horse Whisperer course](https://getrealdays.com/bali/salty-cowboy/horse-whisperer-course/)
 
 <!-- open-listings:start -->
-## Workshops and classes in Victoria, Australia
+## Experiences in Victoria, Australia
 - [All experiences as JSON](https://getrealdays.com/experiences.json): one record per experience. Null means not confirmed.
 - [Workshops and classes in Victoria](https://getrealdays.com/workshops/)
 - [Workshops and classes in Melbourne](https://getrealdays.com/melbourne/)
 - [Workshops in regional Victoria](https://getrealdays.com/regional-victoria/)
+
+### Adventure Flight Co, Barwon Heads
+High-G aerobatic flights in an ex-military warbird from Barwon Heads and Moorabbin airports, just you and the pilot.
+- [Warbird aerobatic flight](https://getrealdays.com/adventure-flight-co/): $365 to $695 AUD per person, 15, 25 or 35 minutes in the air. Loop, roll and spin in an ex-military Nanchang CJ-6A warbird, with just you and the pilot.
 
 ### Aysha Hansen, Newtown, Geelong
 Perfume workshops in Newtown, Geelong, run by perfumer Aysha Hansen.
