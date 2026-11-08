@@ -7,13 +7,14 @@
 //   node tools/stamp-assets.mjs
 //
 // Run it after changing any file below and before committing. It rewrites the
-// tracked HTML pages and the generator templates (tools/build-*.mjs), so rebuilt
+// tracked HTML pages and the generator templates (tools/build-*.mjs here, and the
+// business builders in the private repo, ../private/tools, Ro 8 Nov 2026), so rebuilt
 // pages keep the stamp.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { dirname, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -48,7 +49,14 @@ const ref = new RegExp(`([/"}])(${names.join('|')})(\\?v=[0-9a-f]+)?"`, 'g');
 
 const files = execFileSync('git', ['ls-files', '*.html', 'tools/build-*.mjs'], { cwd: repo, encoding: 'utf8' })
   .split('\n')
-  .filter(Boolean);
+  .filter(Boolean)
+  .filter((f) => existsSync(resolve(repo, f)));
+
+// The business builders live in the private repo (REALDAYS_PRIVATE, or ../private).
+const priv = resolve(process.env.REALDAYS_PRIVATE || join(repo, '../private'), 'tools');
+if (existsSync(priv)) {
+  for (const f of readdirSync(priv)) if (/^build-.*\.mjs$/.test(f)) files.push(join(priv, f));
+}
 
 let changed = 0;
 for (const f of files) {

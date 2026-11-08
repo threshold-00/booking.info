@@ -179,13 +179,13 @@
   .gift-card__body{padding:var(--s-4) var(--s-5) var(--s-5);display:flex;flex-direction:column;gap:var(--s-2)}
   .gift-card__brand{margin:0 0 var(--s-2);display:flex;justify-content:space-between;gap:var(--s-3);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-2)}
   .gift-card__brand b{font-family:var(--display);font-size:16px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--paper)}
-  .gift-card__what{margin:0;font-family:var(--display);font-size:24px;line-height:1.15;font-weight:500}
-  .gift-card__biz{margin:0;font-family:var(--display);font-size:14px;color:var(--paper-2)}
+  .gift-card__what{margin:0;font-family:var(--display);font-size:24px;line-height:1.2;font-weight:500}
+  .gift-card__biz{margin:0;font-family:var(--display);font-size:14px;line-height:1.45;color:var(--paper-2)}
   .gift-card__msg{margin:var(--s-2) 0 0;font-family:var(--display);font-size:15px;line-height:1.45}
   .gift-card__meta{margin:var(--s-3) 0 0;padding-top:var(--s-3);border-top:1px solid var(--line-dark);display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
-  .gift-card__meta dt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-3)}
-  .gift-card__meta dd{margin:2px 0 0;font-family:var(--display);font-size:15px;overflow-wrap:anywhere}
-  .gift-card__meta .gift-card__code{font-family:var(--mono);letter-spacing:.06em}
+  .gift-card__meta dt{font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-3)}
+  .gift-card__meta dd{margin:4px 0 0;font-family:var(--display);font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+  .gift-card__meta .gift-card__code{font-family:var(--mono);line-height:1.5;letter-spacing:.06em}
   .gift-msg textarea{display:block;width:100%;min-height:88px;font-size:16px;line-height:1.4;padding:6px 0 11px;resize:vertical}
   .gift-msg textarea:focus{outline:none;border-bottom:2px solid var(--ink);padding-bottom:10px}
   #giftCta{width:100%;justify-content:center;min-height:48px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.02em}
@@ -205,9 +205,17 @@
     .gift-card__photo{aspect-ratio:16/9;min-height:0}
   }
 
-  /* The RealDays card has no photo: the amount is the picture. */
-  .gift-card--value{grid-template-columns:1fr}
-  .gift-card--value .gift-card__what{font-size:56px;line-height:1;letter-spacing:-.01em}
+  /* The RealDays card: the chosen design's photo, and the amount large. */
+  .gift-card--value .gift-card__what{font-size:56px;line-height:1.05;letter-spacing:-.01em}
+  .gift-card__credit{position:absolute;left:0;right:0;bottom:0;margin:0;padding:var(--s-5) var(--s-3) var(--s-2);background:linear-gradient(to top,rgba(23,23,26,.72),rgba(23,23,26,0));font-family:var(--mono);font-size:11px;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--paper)}
+  .gift-designs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-2)}
+  .gift-design{display:flex;flex-direction:column;gap:6px;padding:0;border:0;background:none;cursor:pointer;text-align:left;color:var(--ink)}
+  .gift-design img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;outline:1px solid var(--line);outline-offset:-1px}
+  .gift-design span{font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+  .gift-design[aria-pressed=true] img{outline:3px solid var(--ink);outline-offset:-3px}
+  .gift-design[aria-pressed=true] span{color:var(--ink)}
+  .gift-design:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  @media (max-width:820px){.gift-card--value .gift-card__what{font-size:40px}}
   .gift-other{display:flex;align-items:baseline;gap:6px}
   .gift-other span{font-family:var(--display);font-size:16px}
   .gift-other input{flex:1;min-width:0}
@@ -224,6 +232,7 @@
       <a href="/index.html#top" class="logo">RealDays.</a>
       <nav class="nav" id="siteNav" aria-label="Main">
         <a href="/#browse" class="navlink">Browse experiences</a>
+        <a href="/gift-cards/" class="navlink on" aria-current="page">Gift cards</a>
         <a href="/for-business/" class="btn-ghost">For businesses</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
@@ -246,6 +255,13 @@
       <p class="detail-lead">A RealDays gift card, to spend on experiences run by the local people who started them: a pottery class, a horse ride, a surf lesson. They choose what and when.</p>
 
       <figure class="gift-card gift-card--value" id="giftCard" aria-label="Your gift card">
+        <div class="gift-card__photo">
+          <picture>
+            <source type="image/avif" id="gcSrc" srcset="/assets/img/gift-cards/woodwork-800.avif" />
+            <img id="gcImg" src="/assets/img/gift-cards/woodwork-800.webp" width="800" height="1000" alt="A woodwork class at the bench in a timber workshop" fetchpriority="high" />
+          </picture>
+          <p class="gift-card__credit" id="gcCredit">Photo: Andy Hooke, Indigo Woodworks</p>
+        </div>
         <div class="gift-card__body">
           <p class="gift-card__brand"><b>RealDays.</b><span>Gift card</span></p>
           <p class="gift-card__what" id="gcWhat"></p>
@@ -283,6 +299,14 @@
       <div id="gForm">
         <div id="gStep1">
           <div class="bp-block" style="margin-top:0;">
+            <p class="bp-label" id="designLabel">Design</p>
+            <div class="gift-designs" id="designs" role="group" aria-labelledby="designLabel">
+              <button type="button" class="gift-design" data-design="woodwork" aria-pressed="true"><picture><source type="image/avif" srcset="/assets/img/gift-cards/woodwork-240.avif" /><img src="/assets/img/gift-cards/woodwork-240.webp" width="240" height="300" alt="" /></picture><span>Woodwork</span></button>
+              <button type="button" class="gift-design" data-design="glass" aria-pressed="false"><picture><source type="image/avif" srcset="/assets/img/gift-cards/glass-240.avif" /><img src="/assets/img/gift-cards/glass-240.webp" width="240" height="300" alt="" /></picture><span>Glass</span></button>
+              <button type="button" class="gift-design" data-design="surf" aria-pressed="false"><picture><source type="image/avif" srcset="/assets/img/gift-cards/surf-240.avif" /><img src="/assets/img/gift-cards/surf-240.webp" width="240" height="300" alt="" /></picture><span>Surf</span></button>
+            </div>
+          </div>
+          <div class="bp-block">
             <p class="bp-label" id="optLabel">Amount</p>
             <div class="opt-list gift-amounts" id="choices" role="group" aria-labelledby="optLabel">
               <button type="button" class="opt opt--chip" data-cents="5000" aria-pressed="false"><span>$50</span></button>
@@ -381,7 +405,7 @@
       <section aria-labelledby="h-how">
         <h2 id="h-how">How it works</h2>
         <ol class="steps">
-          <li><span class="n">1</span><span><b>Choose an amount and write the card</b><span class="prose" style="display:block;">Send it to yourself to print or forward, or straight to them on the day you pick.</span></span></li>
+          <li><span class="n">1</span><span><b>Choose a design and an amount, and write the card</b><span class="prose" style="display:block;">Send it to yourself to print or forward, or straight to them on the day you pick.</span></span></li>
           <li><span class="n">2</span><span><b>Pay</b><span class="prose" style="display:block;">In a live purchase you'd pay by card. This preview skips that step.</span></span></li>
           <li><span class="n">3</span><span><b>They choose the experience</b><span class="prose" style="display:block;">Anything booked through RealDays, any time in the next 3 years. They add the code when they book.</span></span></li>
         </ol>
@@ -416,8 +440,8 @@
     </div>
   </footer>
 </div>
-<script type="application/json" id="gift-config">{"kind":"value","timezone":"Australia/Melbourne","prefix":"RD","amounts":[5000,10000,15000,20000,30000,50000],"default_index":1,"min_cents":2500,"max_cents":100000,"valid_years":3,"book_url":"/#browse"}</script>
-<script src="/assets/demo-gift.js?v=03d11deb"></script>
-<script src="/app.js?v=2a17d4f8"></script>
+<script type="application/json" id="gift-config">{"kind":"value","timezone":"Australia/Melbourne","prefix":"RD","amounts":[5000,10000,15000,20000,30000,50000],"default_index":1,"min_cents":2500,"max_cents":100000,"valid_years":3,"book_url":"/#browse","dir":"/assets/img/gift-cards/","designs":[{"key":"woodwork","label":"Woodwork","alt":"A woodwork class at the bench in a timber workshop","credit":"Andy Hooke, Indigo Woodworks","href":"/indigo-woodworks/"},{"key":"glass","label":"Glass","alt":"Molten glass on a blowpipe at the mouth of a glowing furnace","credit":"Gordon Studio Glassblowers","href":"/demo/b/gordon-studio/"},{"key":"surf","label":"Surf","alt":"A surfer standing up on a wave in a green rash vest","credit":"Salty Seas Surf School","href":"/demo/b/salty-seas/"}]}</script>
+<script src="/assets/demo-gift.js?v=e3e0b424"></script>
+<script src="/app.js?v=4d14eb3d"></script>
 </body>
 </html>

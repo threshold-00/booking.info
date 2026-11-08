@@ -13,7 +13,7 @@
   var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var ERR_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>';
   var VALUE = G.kind === 'value';
-  var state = { opt: VALUE ? null : G.options[0], cents: VALUE ? G.amounts[G.default_index || 0] : 0, other: false, to: 'me', card: null };
+  var state = { opt: VALUE ? null : G.options[0], cents: VALUE ? G.amounts[G.default_index || 0] : 0, other: false, design: VALUE ? G.designs[0] : null, to: 'me', card: null };
   function price() { return VALUE ? state.cents : state.opt.price_cents; }
 
   function money(c) { return '$' + (c / 100).toLocaleString('en-AU', { minimumFractionDigits: c % 100 ? 2 : 0, maximumFractionDigits: 2 }); }
@@ -66,6 +66,21 @@
       if (state.other) { var c = readOther(); state.cents = isNaN(c) ? 0 : c; $('otherAmount').focus(); }
       else state.cents = +b.dataset.cents;
       preview(); total();
+    };
+  });
+  // The card's design: one of G.designs, shown on the card as it's chosen.
+  function designOf(key) { return G.designs.filter(function (d) { return d.key === key; })[0] || G.designs[0]; }
+  function showDesign(d) {
+    $('gcSrc').srcset = G.dir + d.key + '-800.avif';
+    $('gcImg').src = G.dir + d.key + '-800.webp';
+    $('gcImg').alt = d.alt;
+    text($('gcCredit'), 'Photo: ' + d.credit);
+  }
+  if (VALUE) [].forEach.call($('designs').querySelectorAll('.gift-design'), function (b) {
+    b.onclick = function () {
+      state.design = designOf(b.dataset.design);
+      [].forEach.call($('designs').children, function (x) { x.setAttribute('aria-pressed', x === b); });
+      showDesign(state.design);
     };
   });
   if (VALUE) $('otherAmount').addEventListener('input', function () {
@@ -138,7 +153,7 @@
       ['fromName', $('fromName').value.trim() ? '' : 'Add your name for the card']
     ]);
     if (!ok) return;
-    text($('chosen'), what(state.opt) + ' · ' + (them ? 'emailed to ' + $('toName').value.trim() + ', ' + dayDate(on) : 'emailed to you'));
+    text($('chosen'), what(state.opt) + (VALUE ? ', ' + state.design.label : '') + ' · ' + (them ? 'emailed to ' + $('toName').value.trim() + ', ' + dayDate(on) : 'emailed to you'));
     var rows = [[what(state.opt), money(price())], ['Valid until', longDate(addYears(t0, G.valid_years))]];
     $('summary').innerHTML = rows.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b>Total</b><b></b></div>';
     rows.forEach(function (r, i) { text($('summary').children[i].children[0], r[0]); text($('summary').children[i].children[1], r[1]); });
@@ -158,7 +173,7 @@
     var them = state.to === 'them';
     var card = state.card = {
       code: newCode(), label: what(state.opt),
-      ...(VALUE ? { kind: 'value', business: '*', value_cents: state.cents, balance_cents: state.cents }
+      ...(VALUE ? { kind: 'value', business: '*', value_cents: state.cents, balance_cents: state.cents, design: state.design.key }
         : { business: G.slug, experience: G.experience, option: state.opt.key, price_cents: state.opt.price_cents }),
       to: $('toName').value.trim(), to_email: them ? $('toEmail').value.trim() : '', send_on: them ? $('sendOn').value : t0,
       from: $('fromName').value.trim(), message: $('message').value.trim(), buyer_email: $('buyerEmail').value.trim(),
