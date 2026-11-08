@@ -38,6 +38,11 @@
   .terms{max-width:var(--measure);font-size:var(--t-body);line-height:1.6}
   .terms .parties{font-size:var(--t-title);color:var(--ink);margin:0 0 var(--s-3)}
   .terms .term{padding-top:var(--s-6)}
+  .terms-scroll{max-height:max(360px,calc(100svh - 200px));overflow-y:auto;overscroll-behavior:contain;margin:var(--s-4) 0 0;padding:0 var(--s-5) var(--s-6);border:1px solid var(--line-ui,rgba(23,23,26,.5));background:var(--panel)}
+  .terms-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .terms .terms-scroll-hint{margin:var(--s-3) 0 0;font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;color:var(--ink-2)}
+  @media (max-width:640px){.terms-scroll{padding:0 var(--s-4) var(--s-5)}}
+
   .terms h2{font-family:var(--display);font-weight:600;font-size:var(--t-subhead);line-height:1.2;margin:0 0 var(--s-3);display:flex;gap:var(--s-3)}
   .terms h2 .num{flex:none;width:calc(3.2rem - var(--s-3));font-family:var(--mono);font-weight:400;font-size:var(--t-label);padding-top:.55em}
   .terms p{display:grid;grid-template-columns:3.2em 1fr;margin:0 0 var(--s-3);color:var(--ink-2)}
@@ -45,6 +50,25 @@
   .terms p .num{font-family:var(--mono);font-size:var(--t-label);color:var(--ink);padding-top:.3em}
   .terms strong{color:var(--ink);font-weight:600}
   .terms a,.note a,.done a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+  .journey{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+  .journey li{position:relative;padding:var(--s-5) var(--s-4) 0 0;border-top:1px solid var(--ink)}
+  .journey li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;background:var(--ink)}
+  .journey .who{display:block;margin:0 0 var(--s-2);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;color:var(--ink-2)}
+  .journey h3{font-family:var(--display);font-weight:600;font-size:var(--t-title);line-height:1.3;margin:0 0 var(--s-2)}
+  .journey p{margin:0;font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
+  .lockin{margin:var(--s-7) 0 0;padding:var(--s-4) 0 0;border-top:1px solid var(--ink);max-width:var(--measure);font-family:var(--display);font-size:var(--t-title);line-height:1.5}
+  .lockin b{font-weight:600}
+  .journey .fork{display:grid;gap:var(--s-2);margin:var(--s-3) 0 0}
+  .journey .fork p{margin:0;padding:var(--s-2) var(--s-3);background:var(--panel)}
+  .journey .fork b{display:block;font-family:var(--mono);font-weight:400;font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;color:var(--ink)}
+  @media (max-width:1023px){.journey{grid-template-columns:repeat(3,1fr);row-gap:var(--s-7)}}
+  @media (max-width:640px){
+    .journey{grid-template-columns:1fr;row-gap:0;border-left:1px solid var(--ink);margin-left:4px}
+    .journey li{border-top:0;padding:0 0 var(--s-6) var(--s-5)}
+    .journey li:last-child{padding-bottom:0}
+    .journey li::before{top:4px;left:-5px}
+  }
+  @media print{.journey{grid-template-columns:repeat(3,1fr);row-gap:var(--s-6)}}
   .sign-form[hidden],.done[hidden]{display:none}
   .sign-form{display:grid;gap:var(--s-4);max-width:32em}
   .sign-form label{display:grid;gap:var(--s-1);font-family:var(--mono);font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase}
@@ -72,6 +96,8 @@
     .site-header,.no-print,footer{display:none!important}
     .terms-cover{min-height:0;padding-top:0}
     .block{padding:var(--s-6) 0}
+    .terms-scroll{max-height:none;overflow:visible;border:0;padding:0;background:none}
+    .terms-scroll-hint{display:none}
     body{background:#fff}
   }
 </style>
@@ -101,14 +127,28 @@
 
     <section class="block" aria-labelledby="shortHead">
       <p class="eyebrow">The short version</p>
-      <h2 class="big" id="shortHead">Five things to know before you read the rest.</h2>
-      <ol class="short">
-        <li><span class="n">01</span><span>A customer books and their card is held. You accept or decline within 24 hours, and the card is only charged when you accept.</span></li>
-        <li><span class="n">02</span><span>We send your money the day after the experience. Stripe pays it into your bank on its normal schedule.</span></li>
-        <li><span class="n">03</span><span>Your first month costs only Stripe's card fee. After that it's 12% of each booking made through RealDays, including GST, and that covers the card fee.</span></li>
-        <li><span class="n">04</span><span>Your own cancellation policy applies when a customer cancels. If you cancel, the customer gets a full refund and you cover that booking's card fee.</span></li>
-        <li><span class="n">05</span><span>No lock-in. Either of us can end the agreement at any time.</span></li>
+      <h2 class="big" id="shortHead">From a customer booking to money in your bank.</h2>
+      <ol class="journey">
+        <li><span class="who">Customer</span><h3>1. They book</h3><p>They choose a date, time and number of people on your RealDays page and add their card. It's held, not charged.</p></li>
+        <li><span class="who">You</span><h3>2. You get an email</h3><p>It has the booking details, the customer's contact details, and an Accept or decline button. The customer gets an email saying their request is in.</p></li>
+        <li><span class="who">You</span><h3>3. You answer within 24 hours</h3>
+          <div class="fork">
+            <p><b>Accept</b>The card is charged and you both get a confirmation.</p>
+            <p><b>Decline or no answer</b>The hold is released and the customer isn't charged.</p>
+          </div></li>
+        <li><span class="who">You</span><h3>4. You run the experience</h3>
+          <div class="fork">
+            <p><b>If the customer cancels</b>Your own cancellation policy decides any refund, and we process it.</p>
+            <p><b>If you cancel</b>The customer gets a full refund, and you cover that booking's card fee.</p>
+          </div></li>
+        <li><span class="who">RealDays</span><h3>5. We send your money</h3><p>At about 6am the day after, to your Stripe account, less the fee. We email you the amount.</p>
+          <div class="fork">
+            <p><b>First month</b>Only Stripe's card fee.</p>
+            <p><b>After that</b>12% of each booking made through RealDays, including GST. It covers the card fee.</p>
+          </div></li>
+        <li><span class="who">Stripe</span><h3>6. It reaches your bank</h3><p>Stripe pays it into your bank account on its normal schedule, usually within a few business days.</p></li>
       </ol>
+      <p class="lockin"><b>No lock-in.</b> You can end the agreement at any time.</p>
       <p class="note">This summary is here to help. The terms below are what you agree to.</p>
     </section>
 
@@ -118,6 +158,7 @@
       <div class="terms">
         <p class="parties">These terms are an agreement between you, the business listed on RealDays, and Rowena Louise Baulch, trading as RealDays (ABN 90 522 324 404), email <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a> ("RealDays", "we", "us").</p>
         <p>They apply from the day you sign them below.</p>
+        <div class="terms-scroll" id="termsScroll" tabindex="0" role="region" aria-label="The terms, sections 1 to 13 (scroll to read them all)">
       <section class="term" id="s1" aria-labelledby="t1">
         <h2 id="t1"><span class="num">1</span>What RealDays does</h2>
         <p><span class="num">1.1</span><span>RealDays lists your experiences on getrealdays.com, takes booking requests and payments from customers, and sends you your share.</span></p>
@@ -206,6 +247,8 @@
         <p><span class="num">13.2</span><span>If we disagree, we'll first try to sort it out by talking. Either of us can then go to the courts of Victoria.</span></p>
         <p><span class="num">13.3</span><span>These terms, Stripe's Connected Account Agreement and any written fee agreement between us are the whole agreement.</span></p>
       </section>
+        </div>
+        <p class="terms-scroll-hint">Scroll inside the box to read all 13 sections.</p>
       </div>
     </section>
 
@@ -274,12 +317,16 @@
   var btn = document.getElementById('signBtn');
   var msg = document.getElementById('formMsg');
 
-  // ?for=Business%20Name fills the cover and the form, as on the info deck.
-  var forName = (new URLSearchParams(location.search).get('for') || '').trim().slice(0, 120);
-  if (forName) {
+  // ?for=Business%20Name fills the cover and the form, as on the info deck. &to=Person
+  // adds who it's for to the cover only (Ro, 8 Nov 2026: Kristine signs for StudioMade),
+  // so the signer still types their own full name.
+  var qs = new URLSearchParams(location.search);
+  var forName = (qs.get('for') || '').trim().slice(0, 120);
+  var toName = (qs.get('to') || '').trim().slice(0, 80);
+  if (forName || toName) {
     var c = document.getElementById('coverFor');
-    c.textContent = 'Prepared for ' + forName; c.hidden = false;
-    document.getElementById('f_business').value = forName;
+    c.textContent = 'Prepared for ' + [toName, forName].filter(Boolean).join(', '); c.hidden = false;
+    if (forName) document.getElementById('f_business').value = forName;
   }
 
   function clearErrs() { form.querySelectorAll('[data-err]').forEach(function (e) { e.textContent = ''; }); msg.textContent = ''; }
