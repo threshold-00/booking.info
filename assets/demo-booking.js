@@ -42,6 +42,8 @@
   function rid() { return (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()).replace(/[^A-Za-z0-9-]/g, ''); }
   var TEAM = q.get('team') === '1';
   try { if (TEAM) sessionStorage.setItem('th_team', '1'); TEAM = TEAM || sessionStorage.getItem('th_team') === '1'; } catch (e) {}
+  // Cloudflare previews (*.pages.dev, *.workers.dev) are team visits too.
+  if (/\.(pages|workers)\.dev$/.test(location.hostname)) TEAM = true;
   var VISITOR = null;
   try { VISITOR = localStorage.getItem('th_demo_visitor'); } catch (e) {}
   if (!VISITOR || !/^[A-Za-z0-9-]{8,64}$/.test(VISITOR)) { VISITOR = rid(); try { localStorage.setItem('th_demo_visitor', VISITOR); } catch (e) {} }
