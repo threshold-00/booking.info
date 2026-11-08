@@ -152,12 +152,12 @@
           ]
         }
       ],
-      "basis": "one person per horse",
+      "basis": "1 horse per model",
       "overview": "A static shoot for fashion, pre-wedding or personal sessions, along a 900m route through the rice fields to the beach. Time starts when you leave the stables. Out of respect for local culture, please no swimwear. Share your outfit plans with Simone beforehand.",
       "goodToKnow": [
         {
           "label": "Group size",
-          "value": "One person per horse"
+          "value": "1 horse per model"
         },
         {
           "label": "Format",
@@ -212,7 +212,7 @@
         },
         {
           "file": "gallery-ricefield-2.jpg",
-          "alt": "Rider leading a horse through the rice terraces"
+          "alt": "Model leading a horse through the rice terraces"
         }
       ],
       "cardDesc": "A styled photoshoot with a groomed horse along the beach and rice fields.",
