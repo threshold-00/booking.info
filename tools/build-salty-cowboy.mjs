@@ -196,7 +196,6 @@ function cardMini(a, base) {
           <div class="card__body">
             <h3 class="card__title">${esc(a.title)}</h3>
             <p class="card__loc">${esc(a.durations[0].label)} &middot; Salty Cowboy &middot; Bali</p>
-            <p class="card__desc">${esc(a.cardDesc)}</p>
             <div class="card__meta card__row"><p class="card__price" data-price-idr="${price}" data-price-prefix="From"></p></div>
           </div>
         </a>`;

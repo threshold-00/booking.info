@@ -362,13 +362,12 @@
     document.querySelectorAll('[data-biz]').forEach(function (el) { el.textContent = name; });
     document.title = 'Demo account: ' + X.name + ' | ' + name + ' | RealDays';
     $('more').innerHTML = Object.keys(EXPERIENCES).filter(function (k) { return k !== key; }).map(function (k) {
-      return '<a class="card" href="?x=' + k + '" style="display:block;"><div class="card__media"><img src="https://images.unsplash.com/photo-1497219055242-93359eeed651?fm=jpg&q=70&auto=format&fit=crop&w=800" alt="" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;" /></div><div class="card__body"><h3 class="card__title"></h3><p class="card__loc"></p><p class="card__desc"></p></div></a>';
+      return '<a class="card" href="?x=' + k + '" style="display:block;"><div class="card__media"><img src="https://images.unsplash.com/photo-1497219055242-93359eeed651?fm=jpg&q=70&auto=format&fit=crop&w=800" alt="" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;" /></div><div class="card__body"><h3 class="card__title"></h3><p class="card__loc"></p></div></a>';
     }).join('');
     [].forEach.call($('more').children, function (a) {
       var e = EXPERIENCES[a.getAttribute('href').slice(3)];
       text(a.querySelector('.card__title'), e.name);
       text(a.querySelector('.card__loc'), e.short + ' \u00b7 ' + name + ' \u00b7 Victoria');
-      text(a.querySelector('.card__desc'), e.blurb);
     });
     $('moreSection').hidden = !$('more').children.length;
   }
