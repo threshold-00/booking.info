@@ -318,14 +318,17 @@
   // A gift card (demo, Ro 27 Oct 2026) pays for one flight, up to the value on the card:
   // a longer flight than the card pays the difference. Anyone else in the party pays the
   // usual price.
+  // A RealDays gift card (kind "value", Ro 8 Nov 2026) is money towards any booking made
+  // through RealDays: it takes up to its balance off the total, and what's left stays on it.
   function withGift(qt) {
     var g = state.gift;
     if (!qt || !g) return qt;
-    var n = state.people, each = Math.round(qt.total / n), off = Math.min(g.price_cents, each);
+    var n = state.people, each = Math.round(qt.total / n);
+    var off = g.kind === 'value' ? Math.min(g.balance_cents, qt.total) : Math.min(g.price_cents, each);
     qt.lines = qt.lines
       .concat([['Gift card ' + g.code + ' (' + g.label + ')', '−' + money(off)]]);
     qt.total = qt.total - off;
-    qt.gift = g.code;
+    qt.gift = g.code; qt.giftOff = off;
     return qt;
   }
 
@@ -758,9 +761,9 @@
         try {
           var s = state.slot;
           sessionStorage.setItem('th_bk_' + r.body.booking.ref, JSON.stringify({ key: state.key, title: labelFor(state.key),
-            when: range(s.date_local, s.end_date_local) + ', ' + at(s), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '' }));
+            when: range(s.date_local, s.end_date_local) + ', ' + at(s), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '', giftOff: qt.giftOff || 0 }));
         } catch (e2) {}
-        if (state.gift) giftUsed(state.gift.code, r.body.booking.ref);
+        if (state.gift) giftUsed(state.gift.code, r.body.booking.ref, qt.giftOff || 0);
         location.href = r.body.checkout_url; return;
       }
       sending = false; $('requestBtn').textContent = NOCARD ? 'Send request' : 'Continue to payment';
@@ -824,7 +827,7 @@
     var total = typeof b.total === 'number' ? b.total : Math.round(parseFloat(String(b.total).replace(/[^0-9.]/g, '')) * 100);
     summaryRows(box, rows, { total: total, deposit: b.deposit, balance: b.balance, due: b.due });
     box.children[0].children[0].style.fontWeight = '600';
-    if (b.gift) $('doneText').textContent = 'Demo booking, paid with gift card ' + b.gift + '. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.';
+    if (b.gift) $('doneText').textContent = 'Demo booking, ' + (b.total > 0 && b.giftOff ? 'with ' + money(b.giftOff) + ' off from gift card ' + b.gift : 'paid with gift card ' + b.gift) + '. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.';
     else if (b.deposit) $('doneText').textContent = 'Your card is held for the ' + money(b.deposit) + ' deposit, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.';
     box.hidden = false;
     $('doneKnow').hidden = !knowList($('doneKnowList'), C.experiences[b.key].good_to_know);
@@ -966,17 +969,21 @@
 
   // ── Gift cards (demo): a code from the gift card page, kept in this browser ──
   function giftGet(code) { try { return JSON.parse(localStorage.getItem('th_gift_' + code) || 'null'); } catch (e) { return null; } }
-  function giftUsed(code, bookingRef) {
+  function giftUsed(code, bookingRef, off) {
     var g = giftGet(code); if (!g) return;
-    g.status = 'used'; g.ref = bookingRef;
+    if (g.kind === 'value') {
+      g.balance_cents = Math.max(0, g.balance_cents - off);
+      g.uses = (g.uses || []).concat([{ ref: bookingRef, cents: off }]);
+      if (!g.balance_cents) { g.status = 'used'; g.ref = bookingRef; }
+    } else { g.status = 'used'; g.ref = bookingRef; }
     try { localStorage.setItem('th_gift_' + code, JSON.stringify(g)); } catch (e) {}
   }
   function giftToday() { try { return new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } }
   function applyGift(raw) {
     var code = String(raw || '').toUpperCase().replace(/\s+/g, ''), g = code ? giftGet(code) : null;
     var err = !code ? 'Add the code from your gift card'
-      : !g || g.business !== SLUG ? 'We can\'t find that code. In this demo, a gift card only works in the browser it was bought in.'
-      : g.status === 'used' ? 'This gift card has been used, for booking ' + g.ref + '.'
+      : !g || (g.kind !== 'value' && g.business !== SLUG) ? 'We can\'t find that code. In this demo, a gift card only works in the browser it was bought in.'
+      : g.status === 'used' ? (g.kind === 'value' ? 'This gift card has been spent. Its last booking was ' + g.ref + '.' : 'This gift card has been used, for booking ' + g.ref + '.')
       : g.valid_until < giftToday() ? 'This gift card ran out on ' + g.valid_until.split('-').reverse().join('/') + '.'
       : '';
     setFieldError('giftCode', err);
@@ -988,7 +995,9 @@
       if (!a.toggle && a.options.some(function (o) { return o[0] === g.option; })) { state.addons[a.list] = g.option; renderGroups(); }
     });
     $('giftForm').hidden = true; $('giftToggle').hidden = true; $('giftOn').hidden = false;
-    text($('giftOnText'), 'Gift card ' + g.code + ' applied: ' + g.label + (g.to ? ', for ' + g.to : '') + '.');
+    text($('giftOnText'), g.kind === 'value'
+      ? 'Gift card ' + g.code + ' applied: ' + money(g.balance_cents) + ' to spend' + (g.to ? ', for ' + g.to : '') + '.' + (C.gift.sandbox ? ' Demo: Stripe\'s test checkout still shows the full price.' : '')
+      : 'Gift card ' + g.code + ' applied: ' + g.label + (g.to ? ', for ' + g.to : '') + '.');
     render();
     return true;
   }
