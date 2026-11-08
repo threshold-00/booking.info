@@ -16,7 +16,7 @@
 <link rel="icon" href="../../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <!-- Business terms, signed online (Ro, 7 Nov 2026). Styled after the info deck
      (threshold-00/realdays-info): wordmark cover, square eyebrows, big Neue Haas headings.
-     The text is docs/legal/business-terms-draft-2026-11-07.md in Ro's folder. Changing a
+     The text is legal/business-terms-2026-11-08.md in the private repo (~/Documents/RealDays/private). Changing a
      word means a new version: a new date here and in TERMS_VERSIONS (workers/api/src/routes/terms.ts).
      ?for=Business%20Name fills the cover and the form, as on the deck. -->
 <style>
@@ -40,20 +40,14 @@
   .terms .term{padding-top:var(--s-6)}
   .expect-h{font-family:var(--display);font-weight:600;font-size:var(--t-subhead);line-height:1.2;margin:var(--s-7) 0 var(--s-3)}
   .expect-h:first-of-type{margin-top:0}
-  .expect-cols{margin-top:var(--s-7)}
+  .expect-cols{margin-top:0}
   .expect-cols .expect-h{margin-top:0}
   @media (max-width:1023px){.expect-cols > div + div .expect-h{margin-top:var(--s-4)}}
-  .expect-intro{max-width:var(--measure);margin:0 0 var(--s-5);font-size:var(--t-title);line-height:1.5}
   .mail-cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
-  .mail-who{margin:0 0 var(--s-2)}
-  .mail-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
-  .mail-list li{display:grid;grid-template-columns:11em 1fr;gap:var(--s-3);padding:var(--s-3) 0;border-bottom:1px solid var(--line);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
-  .mail-list b{font-family:var(--mono);font-weight:400;font-size:var(--t-label);letter-spacing:var(--ls-label,.08em);text-transform:uppercase;color:var(--ink);padding-top:.25em}
   .expect-list{list-style:none;margin:0;padding:0;max-width:var(--measure);border-top:1px solid var(--ink)}
   .expect-list li{padding:var(--s-3) 0;border-bottom:1px solid var(--line);font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
   .expect-list b{color:var(--ink);font-weight:600}
   @media (max-width:1023px){.mail-cols{grid-template-columns:1fr}}
-  @media (max-width:640px){.mail-list li{grid-template-columns:1fr;gap:var(--s-1)}}
   .terms-scroll{max-height:max(360px,calc(100svh - 200px));overflow-y:auto;overscroll-behavior:contain;margin:var(--s-4) 0 0;padding:0 var(--s-5) var(--s-6);border:1px solid var(--line-ui,rgba(23,23,26,.5));background:var(--panel)}
   .terms-cover{min-height:0}
   .cover-photo{display:block;width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;object-position:50% 40%;margin:var(--s-7) 0 0;background:var(--panel)}
@@ -150,7 +144,7 @@
       </div>
       <img class="cover-photo" src="../../assets/img/terms/friends-1200.webp" srcset="../../assets/img/terms/friends-1200.webp 1200w, ../../assets/img/terms/friends-2400.webp 2400w" sizes="(min-width:1440px) 1344px, 100vw" width="2400" height="1600" alt="Four friends laughing together outdoors in the late afternoon sun" fetchpriority="high" />
       <div class="foot label">
-        <span>Version 7 November 2026</span>
+        <span>Version 8 November 2026</span>
         <span>Photo: <a href="https://unsplash.com/photos/three-men-and-one-woman-laughing-during-daytime-e3OUQGT9bWU" target="_blank" rel="noopener">Helena Lopes on Unsplash</a></span>
         <span>getrealdays.com · rowena@getrealdays.com</span>
       </div>
@@ -185,33 +179,7 @@
 
     <section class="block" aria-labelledby="expectHead">
       <p class="eyebrow">What to expect</p>
-      <h2 class="big" id="expectHead">Emails, payments and marketing.</h2>
-
-      <h3 class="expect-h">The emails</h3>
-      <p class="expect-intro">Every booking email comes from RealDays, with your business name and one of your own photos at the top. Replies come to us, and we pass on anything that's for you.</p>
-      <div class="mail-cols">
-        <div>
-          <p class="label mail-who">You get</p>
-          <ul class="mail-list">
-            <li><b>New booking request</b><span>The booking, the customer's contact details, and an Accept or decline button.</span></li>
-            <li><b>Confirmed</b><span>Once you accept: the customer's details and the day you'll be paid.</span></li>
-            <li><b>Payout sent</b><span>The day after the experience: what we've sent you, and the fee taken off.</span></li>
-            <li><b>Refund</b><span>If a customer cancels and gets money back under your policy.</span></li>
-            <li><b>You cancelled</b><span>A record when you cancel a booking.</span></li>
-            <li><b>Only if needed</b><span>When Stripe needs more details before we can pay you, or a customer's bank disputes a payment.</span></li>
-          </ul>
-        </div>
-        <div>
-          <p class="label mail-who">Your customer gets</p>
-          <ul class="mail-list">
-            <li><b>Request sent</b><span>Their card is held, not charged, and you'll confirm within 24 hours.</span></li>
-            <li><b>Confirmed</b><span>When and where, what to know before they come, your cancellation policy, and a link to cancel.</span></li>
-            <li><b>Not booked</b><span>If you decline or don't answer in time. They aren't charged.</span></li>
-            <li><b>Cancelled</b><span>If you cancel, with their refund.</span></li>
-            <li><b>Refund</b><span>If they cancel and get money back.</span></li>
-          </ul>
-        </div>
-      </div>
+      <h2 class="big" id="expectHead">Payments and marketing.</h2>
 
       <div class="mail-cols expect-cols">
         <div>
@@ -220,8 +188,8 @@
         <li><b>Who Stripe is.</b> Stripe is one of the world's biggest payment companies, used by businesses such as Uber and Shopify. It handles every card payment, so your details and your customers' are kept secure. RealDays never sees card or bank account numbers.</li>
         <li><b>Setting up.</b> You open a Stripe account through RealDays in about ten minutes, with your ABN, your bank details and ID. That's where your money goes.</li>
         <li><b>Holding the money.</b> When you accept a booking, the customer's card is charged and we hold the money until the day after the experience. Then we send it to you, and Stripe pays it into your bank.</li>
-        <li><b>Refunds.</b> We process every refund through Stripe. Because the money is held until after the experience, a refund before then never comes out of your bank.</li>
-        <li><b>Disputes.</b> If a customer's bank queries a charge, we answer it with Stripe and ask you for anything that shows the booking went ahead. Because every booking is one you accepted, they're rare. Clause 7 sets out who pays if the bank sides with the customer.</li>
+        <li><b>Refunds.</b> We process every refund through Stripe within 5 business days. Because the money is held until after the experience, a refund before then never comes out of your bank.</li>
+        <li><b>Disputes.</b> If a customer's bank queries a charge, we answer it with Stripe and ask you for anything that shows the booking went ahead. Because every booking is one you accepted, they're rare. RealDays pays Stripe's dispute fee.</li>
         <li><b>On their statement.</b> Your business name appears on the customer's card statement.</li>
       </ul>
 
@@ -264,7 +232,7 @@
       <section class="term" id="s3" aria-labelledby="t3">
         <h2 id="t3"><span class="num">3</span>Bookings</h2>
         <p><span class="num">3.1</span><span>A customer books on your page and pays by card through Stripe. The card is held, not charged, and the place is held for them.</span></p>
-        <p><span class="num">3.2</span><span>We email you each request with Accept and Decline buttons. If you accept, the card is charged and the booking is confirmed to you both. If you decline, or don't answer within [24] hours, the hold is released and the customer isn't charged.</span></p>
+        <p><span class="num">3.2</span><span>We email you each request with Accept and Decline buttons. If you accept, the card is charged and the booking is confirmed to you both. If you decline, or don't answer within 24 hours, the hold is released and the customer isn't charged.</span></p>
         <p><span class="num">3.3</span><span>You only accept a booking you can honour, and keep your availability on RealDays up to date so customers can't book times you can't run.</span></p>
         <p><span class="num">3.4</span><span>We share the customer's name, email, mobile and booking answers with you so you can run the booking.</span></p>
       </section>
@@ -289,7 +257,7 @@
       </section>
       <section class="term" id="s6" aria-labelledby="t6">
         <h2 id="t6"><span class="num">6</span>Cancellations and refunds</h2>
-        <p><span class="num">6.1</span><span><strong>When a customer cancels</strong>, your cancellation policy, as shown on your page when they booked, decides any refund. An admin or cancellation fee only applies if it was in the policy the customer saw. We process the refund through Stripe.</span></p>
+        <p><span class="num">6.1</span><span><strong>When a customer cancels</strong>, your cancellation policy, as shown on your page when they booked, decides any refund. An admin or cancellation fee only applies if it was in the policy the customer saw. We process the refund through Stripe within 5 business days.</span></p>
         <p><span class="num">6.2</span><span><strong>When you cancel</strong> a booking, for any reason including weather or not enough people, the customer is offered another date or a full refund. If they're refunded, Stripe's card fee on that booking comes off your next payout.</span></p>
         <p><span class="num">6.3</span><span>If you cancel one class of a multi-week course, you offer a make-up class or refund that class.</span></p>
         <p><span class="num">6.4</span><span>Nothing in these terms limits a customer's rights under the Australian Consumer Law, and nothing in your cancellation policy can either.</span></p>
@@ -297,8 +265,8 @@
       <section class="term" id="s7" aria-labelledby="t7">
         <h2 id="t7"><span class="num">7</span>Disputes and chargebacks</h2>
         <p><span class="num">7.1</span><span>If a customer disputes a payment for a booking with you, RealDays answers the dispute with Stripe. Please send us anything that shows the booking went ahead.</span></p>
-        <p><span class="num">7.2</span><span>RealDays' Stripe account is charged first. If the bank decides in the customer's favour, for any reason, including fraud, you carry the cost: the disputed amount isn't paid to you, or, if it has already been paid to you, it's taken back from your Stripe account. Stripe's dispute fee (currently A$25) is also yours, and comes off your next payout.</span></p>
-        <p><span class="num">7.3</span><span>Anything you owe RealDays (a card fee, a dispute fee, or money we couldn't take back) comes off your next payouts until it's repaid. If no payouts are due within 30 days, you agree to pay it to us within 14 days of our invoice. RealDays may choose to cover a case.</span></p>
+        <p><span class="num">7.2</span><span>RealDays' Stripe account is charged first. If the bank decides in the customer's favour, for any reason, including fraud, you carry the cost: the disputed amount isn't paid to you, or, if it has already been paid to you, it's taken back from your Stripe account. RealDays pays Stripe's dispute fee (currently A$25).</span></p>
+        <p><span class="num">7.3</span><span>Anything you owe RealDays (a card fee, or money we couldn't take back) comes off your next payouts until it's repaid. If no payouts are due within 30 days, you agree to pay it to us within 14 days of our invoice. RealDays may choose to cover a case.</span></p>
       </section>
       <section class="term" id="s8" aria-labelledby="t8">
         <h2 id="t8"><span class="num">8</span>Your responsibilities</h2>
@@ -365,7 +333,7 @@
         <label class="hp" aria-hidden="true">Company website <input type="text" name="company_url" tabindex="-1" autocomplete="off" /></label>
         <label class="agree">
           <input type="checkbox" name="agree" required />
-          <span>I've read the RealDays business terms (version 7 November 2026), I agree to them on behalf of this business, and I'm authorised to sign for it.</span>
+          <span>I've read the RealDays business terms (version 8 November 2026), I agree to them on behalf of this business, and I'm authorised to sign for it.</span>
         </label>
         <span class="err" data-err="agree"></span>
         <button type="submit" id="signBtn">Sign the terms</button>
@@ -380,7 +348,7 @@
           <dt>Business</dt><dd id="d_business"></dd>
           <dt>Signed by</dt><dd id="d_name"></dd>
           <dt>Signed</dt><dd id="d_at"></dd>
-          <dt>Version</dt><dd>7 November 2026</dd>
+          <dt>Version</dt><dd>8 November 2026</dd>
         </dl>
         <button type="button" class="no-print" id="printBtn">Save a copy</button>
       </div>
@@ -401,7 +369,7 @@
 </div>
 <script>
 (function () {
-  var VERSION = '2026-11-07';
+  var VERSION = '2026-11-08';
   var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://127.0.0.1:8787' : 'https://api-test.getrealdays.com';
   var form = document.getElementById('signForm');
   var btn = document.getElementById('signBtn');
