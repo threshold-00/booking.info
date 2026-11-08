@@ -156,6 +156,8 @@ const FOOTER = `  <footer style="border-top:1px solid var(--line);padding-top:28
       <span style="color:var(--ink);">&copy; 2026 RealDays</span>
       <nav aria-label="Footer" style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="/for-business/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">For businesses</a>
+        <a href="/privacy/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Privacy</a>
+        <a href="/booking-terms/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;">Booking terms</a>
         <a href="https://www.instagram.com/realdays.experiences/" class="navlink" style="display:inline-flex;align-items:center;min-height:44px;" target="_blank" rel="noopener" aria-label="RealDays on Instagram, @realdays.experiences">Instagram</a>
       </nav>
     </div>
