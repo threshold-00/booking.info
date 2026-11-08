@@ -48,6 +48,9 @@
   .terms p{display:grid;grid-template-columns:3.2em 1fr;margin:0 0 var(--s-3);color:var(--ink-2)}
   .terms p:not(:has(.num)){display:block}
   .terms p .num{font-family:var(--mono);font-size:var(--t-label);color:var(--ink);padding-top:.3em}
+  .terms p.aside{margin-top:calc(-1 * var(--s-1))}
+  .terms p.aside > span:last-child{font-size:var(--t-small)}
+  @media print{.terms p.aside{display:none}}
   .terms strong{color:var(--ink);font-weight:600}
   .terms a,.note a,.done a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
   .journey{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:0}
@@ -191,6 +194,7 @@
         <h2 id="t5"><span class="num">5</span>Fees</h2>
         <p><span class="num">5.1</span><span><strong>First month:</strong> from the day your listing goes live, for one month, you pay only Stripe's card fee on each booking (currently about 1.7% + A$0.30 on an Australian card, and more on overseas cards). It's taken off what we send you.</span></p>
         <p><span class="num">5.2</span><span><strong>After that:</strong> a fee of 12% of the booking price, including GST, on bookings made through RealDays. It covers the card fee, so you don't pay both. It's taken off what we send you. For example, on a A$120 booking we send you A$105.60.</span></p>
+        <p class="aside"><span class="num" aria-hidden="true"></span><span><a href="/for-business/#pricing" target="_blank" rel="noopener">See how our fee compares with the bigger booking platforms</a> (opens in a new tab).</span></p>
         <p><span class="num">5.3</span><span>There's no subscription, setup fee or listing fee.</span></p>
         <p><span class="num">5.4</span><span>The 12% is worked out on the full booking price, before any discount code or gift card.</span></p>
         <p><span class="num">5.5</span><span>If we've agreed different fees with you in writing, those apply instead of 5.1 and 5.2.</span></p>
