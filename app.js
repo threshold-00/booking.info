@@ -1672,46 +1672,6 @@ window.addEventListener('resize', setHeaderOffset);
   });
 })();
 
-// Homepage: a notice along the bottom that more experiences are coming. It can't be closed
-// (Ro, 26 Oct 2026) and shows on every load. The page gets bottom padding equal to the bar's
-// height, so the last lines of the footer are never hidden behind it, and the floating
-// button rides above it.
-(function () {
-  var bar = document.getElementById('moreSoon');
-  if (!bar) return;
-  function size() { document.documentElement.style.setProperty('--notice-h', bar.offsetHeight + 'px'); }
-  document.body.classList.add('has-notice');
-  size();
-  window.addEventListener('resize', size);
-  if (window.ResizeObserver) new ResizeObserver(size).observe(bar);
-
-  // "Link them" copies the for-business page address and swaps the bar to a confirmation;
-  // Close puts the bar back as it was.
-  var share = document.getElementById('shareBiz'), closeBtn = document.getElementById('shareBizClose');
-  var main = document.getElementById('noticeMain'), done = document.getElementById('noticeDone');
-  function show(copied) {
-    main.hidden = copied; done.hidden = !copied;
-    size();
-    (copied ? closeBtn : share).focus();
-  }
-  if (share && closeBtn && main && done) {
-    share.addEventListener('click', function () {
-      var url = location.origin + '/for-business/';
-      function ok() { show(true); }
-      function fallback() {
-        var t = document.createElement('textarea');
-        t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
-        document.body.appendChild(t); t.select();
-        try { document.execCommand('copy'); ok(); } catch (e) { window.prompt('Copy this link', url); }
-        document.body.removeChild(t);
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, fallback);
-      else fallback();
-    });
-    closeBtn.addEventListener('click', function () { show(false); });
-  }
-})();
-
 // Homepage visits, one per page load, sent to the Worker's count (POST /site/track). No
 // personal data: a random id and a host name. Nothing for team visits (?team=1, remembered
 // for the session), the same rule and the same visitor id as the listing pages.
