@@ -780,7 +780,7 @@ ${HEADER}<main id="main">
           <div id="questions"></div>
           <div class="bp-summary" id="summary" aria-live="polite"></div>
           <button type="submit" class="btn" id="requestBtn">${mode === 'demo' || mode === 'request' ? 'Send request' : 'Continue to payment'}</button>
-          <p class="bp-under">${mode === 'request' ? `Your name, email and mobile go to ${esc(b.name)} so they can contact you. They confirm your place and arrange payment directly.` : mode === 'demo' ? "Demo: the card step is skipped. In a live booking you'd add your card next, held, not charged." : "Next, add your card. It's held, not charged."}</p>
+          <p class="bp-under">${mode === 'request' ? `Your name, email and mobile go to ${esc(b.name)} so they can contact you. They confirm your place and arrange payment directly.` : mode === 'demo' ? "Demo: the card step is skipped. In a live booking you'd add your card next, held, not charged." : mode === 'live' ? `Next, add your card. It's held, not charged. By booking you agree to the <a href="/booking-terms/">booking terms</a>.` : "Next, add your card. It's held, not charged."}</p>
 
           <div class="bp-policy">
             <p id="policyHold"></p>
