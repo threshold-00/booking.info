@@ -1164,3 +1164,9 @@ html.is-map-locked{overflow:hidden}
 .reviews__nav--prev{left:calc(var(--s-3) * -1)}.reviews__nav--next{right:calc(var(--s-3) * -1)}
 .reviews__nav:disabled{opacity:.3;cursor:default}
 @media (min-width:768px){.reviews__layout{grid-template-columns:200px 1fr;gap:var(--s-6)}.reviews__nav{display:block}}
+
+/* Gift cards hidden for now (Ro, 9 Nov 2026, until Stripe's account review and the GST and ASIC
+   answers are in): every link to /gift-cards/, the "Buy a gift card" line and the gift card
+   field in booking panels. Delete this rule to bring them back. The page stays at /gift-cards/
+   (noindex) for testing with ?gift_test=1. */
+a[href*="gift-cards/"],.bp-giftbuy,#giftBox{display:none !important}
