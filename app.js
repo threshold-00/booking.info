@@ -795,7 +795,9 @@ var mapPanel = (function () {
 
   var shown = cards.length;
   function render() {
-    var active = hasActiveFilters();
+    // A price sort counts as active too: the rails hide and every card joins the one sorted list,
+    // otherwise the rail cards (most of the priced ones) never move.
+    var active = hasActiveFilters() || state.sort !== 'recommended';
     if (rails) rails.hidden = active;
     shown = 0;
     cards.forEach(function (card) {
@@ -1067,8 +1069,8 @@ var mapPanel = (function () {
   if (sortSelect) sortSelect.addEventListener('change', function () {
     state.sort = SORTS.indexOf(sortSelect.value) >= 0 ? sortSelect.value : 'recommended';
     writeURL(false);
+    render();
     applySort(true);
-    syncReset();
   });
   // [Reset] clears every filter and puts Sort by back to Recommended.
   if (resetBtn) resetBtn.addEventListener('click', function () {

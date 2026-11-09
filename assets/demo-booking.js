@@ -322,13 +322,27 @@
   // through RealDays: it takes up to its balance off the total, and what's left stays on it.
   function withGift(qt) {
     var g = state.gift;
-    if (!qt || !g) return qt;
+    if (!qt || !g || g.api) return qt;
     var n = state.people, each = Math.round(qt.total / n);
     var off = g.kind === 'value' ? Math.min(g.balance_cents, qt.total) : Math.min(g.price_cents, each);
     qt.lines = qt.lines
       .concat([['Gift card ' + g.code + ' (' + g.label + ')', '−' + money(off)]]);
     qt.total = qt.total - off;
     qt.gift = g.code; qt.giftOff = off;
+    return qt;
+  }
+
+  // A real RealDays gift card (Ro, 9 Nov 2026, lib/gift-cards.ts in the booking service) pays
+  // the first payment, the deposit or the full price, as far as it goes; the card pays the
+  // rest. The Worker works it out the same way; this only shows it.
+  function withApiGift(qt) {
+    var g = state.gift;
+    if (!qt || !g || !g.api) return qt;
+    var first = qt.deposit || qt.total, off = Math.min(g.balance_cents, first);
+    qt.lines = qt.lines.concat([['Gift card ' + g.code, '−' + money(off)]]);
+    if (qt.deposit) { qt.full = qt.total; qt.deposit = qt.deposit - off; qt.total = qt.total - off; }
+    else qt.total = qt.total - off;
+    qt.gift = g.code; qt.giftOff = off; qt.giftApi = true; qt.payNow = first - off;
     return qt;
   }
 
@@ -354,19 +368,19 @@
   }
   function summaryRows(box, lines, qt) {
     var rows = lines.slice();
-    if (qt.deposit) rows.push(['Total', money(qt.total)]);
-    box.innerHTML = rows.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b></b><b></b></div>' + (qt.deposit ? '<div class="row later"></div>' : '');
+    if (qt.deposit || (qt.giftApi && qt.balance)) rows.push(['Total', money(qt.full || qt.total)]);
+    box.innerHTML = rows.map(function () { return '<div class="row"><span></span><span></span></div>'; }).join('') + '<div class="row"><b></b><b></b></div>' + (qt.deposit || (qt.giftApi && qt.balance) ? '<div class="row later"></div>' : '');
     rows.forEach(function (r, i) { text(box.children[i].children[0], r[0]); text(box.children[i].children[1], r[1]); });
     var last = box.children[rows.length];
-    text(last.children[0], NOCARD ? 'Total' : qt.deposit ? 'Deposit now (held, not charged)' : 'Total (held, not charged)');
-    text(last.children[1], money(qt.deposit || qt.total));
-    if (qt.deposit) text(box.lastChild, 'Balance ' + money(qt.balance) + ' due by ' + qt.due + '. We\'ll email you a link to pay it.');
+    text(last.children[0], qt.giftApi ? (qt.payNow ? (NOCARD ? 'To pay' : (qt.balance ? 'Rest of the deposit' : 'On your card') + ' (held, not charged)') : 'Nothing to pay by card') : NOCARD ? 'Total' : qt.deposit ? 'Deposit now (held, not charged)' : 'Total (held, not charged)');
+    text(last.children[1], money(qt.giftApi ? qt.payNow : qt.deposit || qt.total));
+    if (qt.deposit || (qt.giftApi && qt.balance)) text(box.lastChild, 'Balance ' + money(qt.balance) + ' due by ' + qt.due + '. We\'ll email you a link to pay it.');
   }
 
   function render() {
     if (!state.meta) return;
     syncParty();
-    var qt = state.slot ? withDeposit(withGift(quote())) : null;
+    var qt = state.slot ? withApiGift(withDeposit(withGift(quote()))) : null;
     $('total').hidden = !qt;
     if (qt) $('totalValue').textContent = money(qt.total);
     $('bookingCta').disabled = !qt || OFF;
@@ -744,13 +758,14 @@
     if (sending) return;
     var first = checkFields();
     if (first) { $(first).focus(); return; }
-    var qt = withDeposit(withGift(quote()));
+    var qt = withApiGift(withDeposit(withGift(quote())));
     var body = { business: SLUG, experience: state.key, starts_at: state.slot.starts_at,
       customer: { name: $('name').value.trim(), email: $('email').value.trim(), phone: $('phone').value.trim() },
       screening_answers: composed(), attribution: { landing_path: location.pathname, utm_source: q.get('utm_source') || null } };
     if (qt.units) body.units = qt.units; else body.party_size = state.people;
     Object.keys(state.answers).forEach(function (k) { body.screening_answers[k] = state.answers[k]; });
     (state.questions || []).forEach(function (x, i) { body.screening_answers[x.key] = answer(i); });
+    if (state.gift && state.gift.api) body.gift_code = state.gift.code;
     body.idempotency_key = idem(body);
     sending = true; $('requestBtn').textContent = NOCARD ? 'Sending...' : 'Taking you to payment...';
     showError($('err'), '');
@@ -761,13 +776,14 @@
         try {
           var s = state.slot;
           sessionStorage.setItem('th_bk_' + r.body.booking.ref, JSON.stringify({ key: state.key, title: labelFor(state.key),
-            when: range(s.date_local, s.end_date_local) + ', ' + at(s), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '', giftOff: qt.giftOff || 0 }));
+            when: range(s.date_local, s.end_date_local) + ', ' + at(s), party: party(state.people), lines: qt.lines, total: qt.total, deposit: qt.deposit || 0, balance: qt.balance || 0, due: qt.due || '', gift: qt.gift || '', giftOff: qt.giftOff || 0, giftApi: !!qt.giftApi, payNow: qt.payNow || 0 }));
         } catch (e2) {}
-        if (state.gift) giftUsed(state.gift.code, r.body.booking.ref, qt.giftOff || 0);
+        if (state.gift && !state.gift.api) giftUsed(state.gift.code, r.body.booking.ref, qt.giftOff || 0);
         location.href = r.body.checkout_url; return;
       }
       sending = false; $('requestBtn').textContent = NOCARD ? 'Send request' : 'Continue to payment';
-      if (r.status === 409) { state.slot = null; step(1); loadDates(); }
+      if (r.status === 409 && /^gift_/.test(r.body.error || '')) { state.gift = null; $('giftOn').hidden = true; $('giftToggle').hidden = false; render(); }
+      else if (r.status === 409) { state.slot = null; step(1); loadDates(); }
       showError($('err'), r.body.message || 'Something went wrong. Please try again.');
     }).catch(function () { sending = false; $('requestBtn').textContent = NOCARD ? 'Send request' : 'Continue to payment'; showError($('err'), 'The booking service is not reachable right now.'); });
   });
@@ -827,7 +843,8 @@
     var total = typeof b.total === 'number' ? b.total : Math.round(parseFloat(String(b.total).replace(/[^0-9.]/g, '')) * 100);
     summaryRows(box, rows, { total: total, deposit: b.deposit, balance: b.balance, due: b.due });
     box.children[0].children[0].style.fontWeight = '600';
-    if (b.gift) $('doneText').textContent = 'Demo booking, ' + (b.total > 0 && b.giftOff ? 'with ' + money(b.giftOff) + ' off from gift card ' + b.gift : 'paid with gift card ' + b.gift) + '. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.';
+    if (b.gift && b.giftApi) $('doneText').textContent = (b.payNow ? money(b.giftOff) + ' is held on your gift card ' + b.gift + ' and ' + money(b.payNow) + ' on your card, not charged. ' : money(b.giftOff) + ' is held on your gift card ' + b.gift + '. ') + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, it all goes back.';
+    else if (b.gift) $('doneText').textContent = 'Demo booking, ' + (b.total > 0 && b.giftOff ? 'with ' + money(b.giftOff) + ' off from gift card ' + b.gift : 'paid with gift card ' + b.gift) + '. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way.';
     else if (b.deposit) $('doneText').textContent = 'Your card is held for the ' + money(b.deposit) + ' deposit, not charged. ' + BIZ + ' will confirm within 24 hours, and we\'ll email you either way. If they can\'t take you, the hold is released and you won\'t be charged.';
     box.hidden = false;
     $('doneKnow').hidden = !knowList($('doneKnowList'), C.experiences[b.key].good_to_know);
@@ -979,8 +996,22 @@
     try { localStorage.setItem('th_gift_' + code, JSON.stringify(g)); } catch (e) {}
   }
   function giftToday() { try { return new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } }
+  // A real RealDays gift card: checked with the booking service, which also caps how
+  // many codes can be tried.
+  function applyApiGift(code) {
+    $('giftApply').disabled = true;
+    api('GET', '/gift-cards/check?code=' + encodeURIComponent(code)).then(function (r) {
+      $('giftApply').disabled = false;
+      if (r.status !== 200) { setFieldError('giftCode', (r.body && r.body.message && r.body.error !== 'not_found' ? r.body.message : 'We can\'t find that code. Check it against your gift card email.')); return; }
+      state.gift = { api: true, kind: 'value', code: r.body.code, balance_cents: r.body.balance_cents, label: money(r.body.balance_cents) };
+      $('giftForm').hidden = true; $('giftToggle').hidden = true; $('giftOn').hidden = false;
+      text($('giftOnText'), 'Gift card ' + r.body.code + ' applied: ' + money(r.body.balance_cents) + ' to spend. It pays ' + (state.meta && state.meta.deposit_pct ? 'the deposit' : 'the price') + ' as far as it goes, and the rest stays on the card.');
+      render();
+    }).catch(function () { $('giftApply').disabled = false; setFieldError('giftCode', 'The booking service is not reachable right now.'); });
+  }
   function applyGift(raw) {
     var code = String(raw || '').toUpperCase().replace(/\s+/g, ''), g = code ? giftGet(code) : null;
+    if (code && !g && C.gift && C.gift.api) { applyApiGift(code); return false; }
     var err = !code ? 'Add the code from your gift card'
       : !g || (g.kind !== 'value' && g.business !== SLUG) ? 'We can\'t find that code. In this demo, a gift card only works in the browser it was bought in.'
       : g.status === 'used' ? (g.kind === 'value' ? 'This gift card has been spent. Its last booking was ' + g.ref + '.' : 'This gift card has been used, for booking ' + g.ref + '.')

@@ -225,7 +225,7 @@
 </style>
 </head>
 <body>
-<div class="demo-strip" role="note">Preview. Nothing is charged</div>
+<div class="demo-strip" role="note" id="giftStrip">Preview. Nothing is charged</div>
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);">
@@ -250,7 +250,7 @@
 
   <div class="container detail-layout">
     <div class="detail-head">
-      <p class="demo-flag"><span class="demo-flag__tag">Preview</span><span class="demo-flag__text">Nothing is charged or sent</span></p>
+      <p class="demo-flag" id="giftFlag"><span class="demo-flag__tag">Preview</span><span class="demo-flag__text">Nothing is charged or sent</span></p>
       <h1>Give them a day to remember</h1>
       <p class="detail-lead">A RealDays gift card, to spend on experiences run by the local people who started them: a pottery class, a cooking class, a horse ride. They choose what and when.</p>
 
@@ -297,6 +297,7 @@
 
     <aside class="booking-panel" id="book" aria-label="Buy a gift card">
       <div id="gForm">
+        <p class="bp-error" id="gErr" role="alert" hidden></p>
         <div id="gStep1">
           <div class="bp-block" style="margin-top:0;">
             <p class="bp-label" id="designLabel">Design</p>
@@ -381,7 +382,7 @@
           </div>
           <div class="bp-summary" id="summary" aria-live="polite"></div>
           <button type="submit" class="btn" id="requestBtn">Buy gift card</button>
-          <p class="bp-under">Preview: the card step is skipped. In a live purchase you'd pay by card next.</p>
+          <p class="bp-under" id="buyUnder">Preview: the card step is skipped. In a live purchase you'd pay by card next.</p>
         </form>
       </div>
 
@@ -391,7 +392,7 @@
         <p class="prose" id="doneText" style="margin:0 0 var(--s-4);"></p>
         <div class="bp-summary" id="doneSummary"></div>
         <a class="btn-ghost" href="/#browse">Browse experiences</a>
-        <div class="demo-box">
+        <div class="demo-box" id="giftDemoBox">
           <p>Preview: in the real thing you'd pay by card, RealDays holds the money, and each business is paid the day after the experience the card is spent on. Now try it as the person getting it: in this preview the code works in this browser only.</p>
           <div class="resp-actions" style="margin-top:0;">
             <button type="button" class="btn-ghost" id="seeEmail">See the email they get</button>
@@ -411,15 +412,15 @@
         </ol>
       </section>
 
-      <section style="margin-top:var(--s-7);" aria-labelledby="h-terms">
+      <section style="margin-top:var(--s-7);" aria-labelledby="h-terms" id="terms">
         <h2 id="h-terms">Good to know</h2>
         <ul class="gift-terms">
           <li>Valid for 3 years from the day it's bought. The date is on the card.</li>
           <li>Spend it on any experience booked through RealDays, all at once or over several bookings. What you don't spend stays on the card.</li>
-          <li>If the experience costs more than the card, you pay the rest by card when you book.</li>
+          <li>If the experience costs more than the card, you pay the rest by card when you book. When a booking takes a deposit, the card pays the deposit and the balance is paid by card later.</li>
           <li>No fees to buy it or use it.</li>
           <li>Some listings are booked on the business's own website. Those can't take a RealDays gift card.</li>
-          <li>If a business cancels, the amount goes back on the card.</li>
+          <li>If a business cancels, or can't take your booking, the amount goes back on the card. If you cancel, whatever the booking's cancellation policy refunds goes back on the card.</li>
           <li>Anyone with the code can use it, so keep it safe. A lost or stolen code can't be replaced.</li>
           <li>Gift cards can't be refunded for a change of mind or swapped for cash. Your rights under Australian Consumer Law still apply, and any refund goes back to the person who bought the card.</li>
         </ul>
@@ -440,8 +441,8 @@
     </div>
   </footer>
 </div>
-<script type="application/json" id="gift-config">{"kind":"value","timezone":"Australia/Melbourne","prefix":"RD","amounts":[5000,10000,15000,20000,30000,50000],"default_index":1,"min_cents":2500,"max_cents":100000,"valid_years":3,"book_url":"/#browse","dir":"/assets/img/gift-cards/","designs":[{"key":"woodwork","label":"Woodwork","alt":"A woodwork class at the bench in a timber workshop","credit":"Andy Hooke, Indigo Woodworks","href":"/indigo-woodworks/"},{"key":"clay","label":"Clay","alt":"Hands shaping a slab of clay over a wooden mould","credit":"Caitlin, Peachy Keen Ceramics","href":"/peachy-keen-ceramics/"},{"key":"cooking","label":"Cooking","alt":"A cook stirring greens in a steaming pan at the stove","credit":"Elizabeth Peddey School of Cookery","href":"/demo/b/elizabeth-peddey/"}]}</script>
-<script src="/assets/demo-gift.js?v=e3e0b424"></script>
-<script src="/app.js?v=d804a015"></script>
+<script type="application/json" id="gift-config">{"kind":"value","sales":"off","timezone":"Australia/Melbourne","prefix":"RD","amounts":[5000,10000,15000,20000,30000,50000],"default_index":1,"min_cents":2500,"max_cents":100000,"valid_years":3,"book_url":"/#browse","dir":"/assets/img/gift-cards/","designs":[{"key":"woodwork","label":"Woodwork","alt":"A woodwork class at the bench in a timber workshop","credit":"Andy Hooke, Indigo Woodworks","href":"/indigo-woodworks/"},{"key":"clay","label":"Clay","alt":"Hands shaping a slab of clay over a wooden mould","credit":"Caitlin, Peachy Keen Ceramics","href":"/peachy-keen-ceramics/"},{"key":"cooking","label":"Cooking","alt":"A cook stirring greens in a steaming pan at the stove","credit":"Elizabeth Peddey School of Cookery","href":"/demo/b/elizabeth-peddey/"}]}</script>
+<script src="/assets/demo-gift.js?v=215d9ffc"></script>
+<script src="/app.js?v=c79da241"></script>
 </body>
 </html>
