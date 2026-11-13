@@ -1701,3 +1701,14 @@ window.addEventListener('resize', setHeaderOffset);
       body: JSON.stringify({ page: 'home', visitor: visitor, source: source.toLowerCase() }) }).catch(function () {});
   } catch (e) {}
 })();
+
+// Meta Pixel (Ro, 13 Nov 2026): assets/meta-pixel.js decides whether it runs (real visitors,
+// customer pages on getrealdays.com only) and sends the events. Loaded once, after the page.
+(function () {
+  if (window.RealDaysPixel || document.querySelector('script[data-rd-pixel]')) return;
+  var s = document.createElement('script');
+  s.src = '/assets/meta-pixel.js?v=1';
+  s.async = true;
+  s.setAttribute('data-rd-pixel', '');
+  document.head.appendChild(s);
+})();

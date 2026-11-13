@@ -53,6 +53,14 @@
     try { if (document.referrer) { var h = new URL(document.referrer).hostname; if (h && h !== location.hostname) return h; } } catch (e) {}
     return 'direct';
   })();
+  // Meta Pixel events (assets/meta-pixel.js, Ro 13 Nov 2026). Queued until the Pixel loads;
+  // it drops them itself on demo pages and off getrealdays.com. Never personal data.
+  function px(kind, name, params, eventId) {
+    if (TEAM) return;
+    var a = [kind, name, params || {}, eventId];
+    if (window.RealDaysPixel && window.RealDaysPixel.loaded) window.RealDaysPixel.apply(null, a);
+    else (window._rdpx = window._rdpx || []).push(a);
+  }
   function track(event) {
     if (TEAM) return;
     try {
@@ -575,6 +583,7 @@
     if (TEAM || !e.currentTarget.target) return;
     if (window.ThresholdTrack) window.ThresholdTrack.track('outbound_click', { business_slug: SLUG, experience_id: state.key });
     track('outbound_click');
+    px('trackCustom', 'OutboundBookingClick', { business: SLUG, experience: state.key });
   }
   if (LINK) { $('bookingCta').addEventListener('click', outboundClick); $('stickyCta').addEventListener('click', outboundClick); }
 
@@ -772,6 +781,7 @@
     api('POST', '/requests', body).then(function (r) {
       if (r.body.checkout_url) {
         track('checkout_start');
+        px('track', 'InitiateCheckout', { content_ids: [SLUG], content_type: 'product', currency: 'AUD' });
         // For the screen after Stripe: what was booked, and its Good to know.
         try {
           var s = state.slot;
@@ -801,7 +811,11 @@
     $('doneBack').hidden = true; // they're already on the business's page
     var once = 'th_done_' + ref, fresh = true;
     try { fresh = !sessionStorage.getItem(once); sessionStorage.setItem(once, '1'); } catch (e) {}
-    if (fresh) track('booking_completed');
+    if (fresh) {
+      track('booking_completed');
+      // Same event id as the booking service's Conversions API Lead, so Meta counts it once.
+      px('track', 'Lead', { content_ids: [SLUG], content_type: 'product', currency: 'AUD' }, 'lead-' + ref);
+    }
     var box = $('demoBox');
     if (!REQ && !LIVE) { // a real booking has no "see the business's side" demo
     box.hidden = false;
@@ -829,6 +843,7 @@
     cancelView(q.get('cancel'));
   } else {
     track('page_view');
+    px('track', 'ViewContent', { content_ids: [SLUG], content_type: 'product', content_name: BIZ, content_category: LINK ? 'book_on_business_site' : 'book_on_realdays' });
   }
 
   // Booking summary, then Good to know, on the screen after Stripe.
