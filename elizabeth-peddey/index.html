@@ -255,7 +255,7 @@
       
     </div>
 
-    <aside class="booking-panel" id="book" aria-label="Book">
+    <aside class="booking-panel" id="book" aria-label="Check availability">
       <div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
@@ -263,106 +263,15 @@
             <div class="opt-list" id="choices" role="group" aria-label="Class"></div>
             <p class="bp-lead" id="panelLead" hidden></p>
           </div>
-          <div id="groups"></div>
-          <div class="bp-block">
-            <p class="bp-label" id="datesLabel">Choose a date</p>
-            <div class="date-list" id="dates"><p class="bp-note">Loading dates...</p></div>
-            <button type="button" class="bp-more" id="moreDates" aria-haspopup="dialog" hidden>More dates</button>
-            <dialog class="bp-cal" id="calendar" aria-labelledby="calTitle">
-              <div class="bp-cal__top">
-                <p class="bp-label" id="calTitle">Choose a date</p>
-                <button type="button" class="bp-cal__close" id="calClose" aria-label="Close">&times;</button>
-              </div>
-              <div class="bp-cal__head">
-                <button type="button" class="bp-cal__nav" id="calPrev" aria-label="Previous month">&larr;</button>
-                <p class="bp-cal__month" id="calMonth" aria-live="polite"></p>
-                <button type="button" class="bp-cal__nav" id="calNext" aria-label="Next month">&rarr;</button>
-              </div>
-              <div class="bp-cal__week" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
-              <div class="bp-cal__grid" id="calGrid"></div>
-              <p class="bp-note bp-cal__note">Dates with a dot are open.</p>
-            </dialog>
-            <p class="bp-note" id="filterHint" style="margin-top:var(--s-2);" hidden></p>
-            <div class="bp-block" id="timesBlock" hidden>
-              <p class="bp-label">Choose a time</p>
-              <div class="time-list" id="times"></div>
-            </div>
-            <p class="bp-note" id="timesNote" style="margin-top:var(--s-2);"></p>
-            <p class="bp-note" id="datesNote" style="margin-top:4px;"></p>
-          </div>
-
-          <div id="party"></div>
+          <p class="bp-note" id="datesNote" style="margin-top:var(--s-3);"></p>
           <ul class="bp-notes" id="notes"></ul>
-          <div class="bp-total" id="total" aria-live="polite" hidden><span>Total</span><b id="totalValue"></b></div>
           <div class="bp-decision">
-            <button type="button" class="btn" id="bookingCta" disabled>Continue to book</button>
+            <a class="btn" id="bookingCta" href="#" target="_blank" rel="noopener">Check availability on website</a>
           </div>
-          <p class="bp-note" style="margin-top:var(--s-2);">You won't be charged yet.</p>
+          <p class="bp-note" id="linkNote" style="margin-top:var(--s-2);"></p>
         </div>
-
-        <form id="step2" novalidate hidden>
-          <p class="bp-steplabel">Step 2 of 2</p>
-          <div class="bp-chosen"><span id="chosen"></span><button type="button" class="bp-change" id="change">Change</button></div>
-
-          <div class="bp-field" id="f-name">
-            <label for="name">Full name</label>
-            <input id="name" name="name" autocomplete="name" aria-describedby="name-err" />
-            <p class="bp-field-error" id="name-err" hidden></p>
-          </div>
-          <div class="bp-field" id="f-email">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="email-err" />
-            <p class="bp-field-error" id="email-err" hidden></p>
-          </div>
-          <div class="bp-field" id="f-phone">
-            <label for="phone">Mobile</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="phone-hint phone-err" />
-            <p class="bp-hint" id="phone-hint">So Elizabeth Peddey School of Cookery can reach you on the day.</p>
-            <p class="bp-field-error" id="phone-err" hidden></p>
-          </div>
-          <p class="bp-note" id="pickup" style="margin:0 0 var(--s-4);" hidden></p>
-
-          <div id="riders"></div>
-          <div id="questions"></div>
-          <div class="bp-summary" id="summary" aria-live="polite"></div>
-          <button type="submit" class="btn" id="requestBtn">Continue to payment</button>
-          <p class="bp-under">Next, add your card. It's held, not charged. By booking you agree to the <a href="/booking-terms/">booking terms</a>.</p>
-
-          <div class="bp-policy">
-            <p id="policyHold"></p>
-            <p id="policyCancel"></p>
-          </div>
-        </form>
         <p class="bp-error" id="err" hidden></p>
         
-      </div>
-
-      <div id="bpDone" class="bp-done" hidden>
-        <p class="bp-label" id="doneLabel"></p>
-        <h2 id="doneTitle"></h2>
-        <p class="prose" id="doneText" style="margin:0 0 var(--s-4);"></p>
-        <div class="bp-summary" id="doneSummary" hidden></div>
-        <div class="know-list__wrap" id="doneKnow" hidden>
-          <h3 class="know-list__title">Good to know</h3>
-          <ul class="know-list" id="doneKnowList"></ul>
-        </div>
-        <button type="button" class="btn" id="doneBtn" hidden style="width:100%;margin-bottom:var(--s-3);"></button>
-        <p class="bp-error" id="doneErr" hidden></p>
-        <a class="btn-ghost" id="doneBack" href="./">Back to Elizabeth Peddey School of Cookery</a>
-        <div class="demo-box" id="demoBox" hidden></div>
-      </div>
-
-      <div id="bpBiz" hidden>
-        <p class="bp-label">What Elizabeth Peddey School of Cookery sees</p>
-        <h2 style="font-size:28px;line-height:1.1;margin:var(--s-2) 0 var(--s-3);">New booking request</h2>
-        <div class="bp-summary" id="reqBox"></div>
-        <div class="resp-actions" id="respActions" hidden>
-          <button type="button" class="btn" data-act="accept">Accept</button>
-          <button type="button" class="btn-ghost" data-act="decline">Decline</button>
-        </div>
-        <p class="bp-note" id="respNote" style="margin-top:var(--s-3);"></p>
-        <p class="bp-error" id="respErr" hidden></p>
-        <div class="demo-box" id="bizDemoBox" hidden></div>
       </div>
     </aside>
 
@@ -390,7 +299,7 @@
           <div><dt>Price</dt><dd>$720 for the 4-week block, or $185 for a single class, including GST.</dd></div>
           <div><dt>Level</dt><dd>An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.</dd></div>
           <div><dt>Age</dt><dd>18 and over. Wine is served.</dd></div>
-          <div><dt>Payment</dt><dd>By card when you book. It's held, not charged, until Elizabeth accepts your booking, usually within 24 hours.</dd></div>
+          <div><dt>Payment</dt><dd>Book directly with Elizabeth by email or WhatsApp. She confirms your place and arranges payment with you.</dd></div>
           <div><dt>Location</dt><dd>Elizabeth's kitchen, 15 Meredith Street, Elwood VIC 3184.</dd></div>
           <div><dt>Group size</dt><dd>Small groups of 4 to 6.</dd></div>
           <div><dt>What's included</dt><dd>The recipes, a glass of wine and snacks on arrival, and a sit-down meal of what you've cooked together. The 4-week block also comes with an apron to keep.</dd></div>
@@ -429,9 +338,10 @@
 </div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
   <span class="t-small" id="stickyPrice"></span>
-  <a href="#book" class="btn">Choose a date</a>
+  <a href="#book" class="btn" id="stickyCta">Check availability</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"elizabeth-peddey","business":"Elizabeth Peddey School of Cookery","booking_mode":"live","timezone":"Australia/Melbourne","phone":null,"party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"summer-cooking","label":"Wednesdays, 11am: 4 weeks","sub":"From 11 Nov, $720"},{"experience":"summer-cooking-wed-single","label":"Wednesdays, 11am: 1 class","sub":"Choose a date, $185"}],"experiences":{"summer-cooking":{"durationMinutes":720,"durationDays":4,"facts":["4 Wednesdays, 11am to 2pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["An apron to keep and the recipes","A glass of wine and snacks on arrival","A sit-down lunch of what you've cooked"],"notes":[],"dates_note":"Wednesdays 11 Nov to 2 Dec, 11am to 2pm, as listed on Elizabeth's site.","good_to_know":["The 4-week block is 4 classes, one a week, on Wednesdays from 11am to 2pm.","An apron to keep comes with the 4-week block.","You can book a single class instead, $185.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","Each class ends at the table, eating what the group has cooked, with a glass of wine.","Your card is held when you book, and charged only once Elizabeth accepts your booking."]},"summer-cooking-tue":{"durationMinutes":720,"durationDays":4,"facts":["4 Tuesdays, 6pm to 9pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["An apron to keep and the recipes","A glass of wine and snacks on arrival","A sit-down meal of what you've cooked"],"notes":[],"dates_note":"Tuesdays 17 Nov to 8 Dec, 6pm to 9pm, as listed on Elizabeth's site.","good_to_know":["The 4-week block is 4 classes, one a week, on Tuesdays from 6pm to 9pm.","An apron to keep comes with the 4-week block.","You can book a single class instead, $185.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","Each class ends at the table, eating what the group has cooked, with a glass of wine.","Your card is held when you book, and charged only once Elizabeth accepts your booking."]},"summer-cooking-wed-single":{"durationMinutes":180,"facts":["1 Wednesday class, 11am to 2pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["The recipes","A glass of wine and snacks on arrival","A sit-down lunch of what you've cooked"],"notes":[],"dates_note":"Any Wednesday from 11 Nov to 2 Dec, 11am to 2pm, as listed on Elizabeth's site.","good_to_know":["One class, Wednesdays 11am to 2pm. Choose the date.","Aprons to keep come with the 4-week block, not single classes.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","The class ends at the table, eating what the group has cooked, with a glass of wine.","Your card is held when you book, and charged only once Elizabeth accepts your booking."]},"summer-cooking-tue-single":{"durationMinutes":180,"facts":["1 Tuesday class, 6pm to 9pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["The recipes","A glass of wine and snacks on arrival","A sit-down meal of what you've cooked"],"notes":[],"dates_note":"Any Tuesday from 17 Nov to 8 Dec, 6pm to 9pm, as listed on Elizabeth's site.","good_to_know":["One class, Tuesdays 6pm to 9pm. Choose the date.","Aprons to keep come with the 4-week block, not single classes.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","The class ends at the table, eating what the group has cooked, with a glass of wine.","Your card is held when you book, and charged only once Elizabeth accepts your booking."]}},"addons":[],"riders":null,"pickup":null,"price_basis":null,"gift":null}</script>
+<script type="application/json" id="demo-config">{"slug":"elizabeth-peddey","business":"Elizabeth Peddey School of Cookery","booking_mode":"link","timezone":"Australia/Melbourne","phone":null,"party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"summer-cooking","label":"Wednesdays, 11am: 4 weeks","sub":"From 11 Nov, $720"},{"experience":"summer-cooking-wed-single","label":"Wednesdays, 11am: 1 class","sub":"Choose a date, $185"}],"experiences":{"summer-cooking":{"durationMinutes":720,"durationDays":4,"facts":["4 Wednesdays, 11am to 2pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["An apron to keep and the recipes","A glass of wine and snacks on arrival","A sit-down lunch of what you've cooked"],"notes":[],"dates_note":"Wednesdays 11 Nov to 2 Dec, 11am to 2pm, as listed on Elizabeth's site.","good_to_know":["The 4-week block is 4 classes, one a week, on Wednesdays from 11am to 2pm.","An apron to keep comes with the 4-week block.","You can book a single class instead, $185.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","Each class ends at the table, eating what the group has cooked, with a glass of wine.","Book directly with Elizabeth by email or WhatsApp. She confirms your place and arranges payment with you."],"book_url":"https://elizabethpeddey.com.au/booking/?utm_source=realdays&utm_medium=listing&utm_campaign=elizabeth-peddey"},"summer-cooking-tue":{"durationMinutes":720,"durationDays":4,"facts":["4 Tuesdays, 6pm to 9pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["An apron to keep and the recipes","A glass of wine and snacks on arrival","A sit-down meal of what you've cooked"],"notes":[],"dates_note":"Tuesdays 17 Nov to 8 Dec, 6pm to 9pm, as listed on Elizabeth's site.","good_to_know":["The 4-week block is 4 classes, one a week, on Tuesdays from 6pm to 9pm.","An apron to keep comes with the 4-week block.","You can book a single class instead, $185.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","Each class ends at the table, eating what the group has cooked, with a glass of wine.","Your card is held when you book, and charged only once Elizabeth accepts your booking."],"book_url":"https://elizabethpeddey.com.au/booking/?utm_source=realdays&utm_medium=listing&utm_campaign=elizabeth-peddey"},"summer-cooking-wed-single":{"durationMinutes":180,"facts":["1 Wednesday class, 11am to 2pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["The recipes","A glass of wine and snacks on arrival","A sit-down lunch of what you've cooked"],"notes":[],"dates_note":"Any Wednesday from 11 Nov to 2 Dec, 11am to 2pm, as listed on Elizabeth's site.","good_to_know":["One class, Wednesdays 11am to 2pm. Choose the date.","Aprons to keep come with the 4-week block, not single classes.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","The class ends at the table, eating what the group has cooked, with a glass of wine.","Book directly with Elizabeth by email or WhatsApp. She confirms your place and arranges payment with you."],"book_url":"https://elizabethpeddey.com.au/booking/?utm_source=realdays&utm_medium=listing&utm_campaign=elizabeth-peddey"},"summer-cooking-tue-single":{"durationMinutes":180,"facts":["1 Tuesday class, 6pm to 9pm","Groups of 4 to 6","Intermediate","Elwood"],"included":["The recipes","A glass of wine and snacks on arrival","A sit-down meal of what you've cooked"],"notes":[],"dates_note":"Any Tuesday from 17 Nov to 8 Dec, 6pm to 9pm, as listed on Elizabeth's site.","good_to_know":["One class, Tuesdays 6pm to 9pm. Choose the date.","Aprons to keep come with the 4-week block, not single classes.","An intermediate class, for cooks who already know their way around a kitchen. Not ideal for absolute beginners.","For ages 18 and over, as wine is served.","The class ends at the table, eating what the group has cooked, with a glass of wine.","Your card is held when you book, and charged only once Elizabeth accepts your booking."],"book_url":"https://elizabethpeddey.com.au/booking/?utm_source=realdays&utm_medium=listing&utm_campaign=elizabeth-peddey"}},"addons":[],"riders":null,"pickup":null,"price_basis":null,"gift":null,"cancellation":"Classes and courses are non-refundable but fully transferable. To transfer your place, email Elizabeth at elizabeth@elizabethpeddey.com.au.","contact":null}</script>
+<script src="/assets/booking/track.js?v=1a5b125d"></script>
 <script src="/assets/demo-booking.js?v=1bda68ae"></script>
 <script src="/app.js?v=d720c532"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
