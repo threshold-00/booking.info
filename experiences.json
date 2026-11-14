@@ -3,7 +3,7 @@
   "description": "Experiences listed on RealDays, run by the local people who started them. Null means not confirmed.",
   "url": "https://getrealdays.com/experiences.json",
   "last_updated": null,
-  "count": 20,
+  "count": 21,
   "experiences": [
     {
       "id": "adventure-flight-co/aerobatic-flight",
@@ -157,6 +157,71 @@
       "url": "https://getrealdays.com/aysha-hansen/",
       "book_url": "https://www.ayshahansen.com/products/perfume-workshop?utm_source=realdays&utm_medium=listing&utm_campaign=aysha-hansen",
       "image": "https://getrealdays.com/assets/img/demo/aysha-hansen/card-workshop-800.webp"
+    },
+    {
+      "id": "elizabeth-peddey/summer-cooking",
+      "name": "Mediterranean Summer Cooking, Wednesdays",
+      "summary": "Four weekly Mediterranean cooking classes in a small group, each ending with lunch at the table.",
+      "description": "Mediterranean Summer Cooking with Elizabeth Peddey, in her kitchen in Elwood, Melbourne. It's an intermediate program, for cooks who already know their way around a kitchen and want to be inspired. Four weekly hands-on classes on Wednesdays from 11am to 2pm, 11 November to 2 December 2026, in groups of 4 to 6. Book the 4-week block, which comes with an apron to keep, or single classes. Each class starts with a glass of wine and snacks, and ends at the table eating what the group has cooked. You take home the recipes. Elizabeth has a Master's in Gastronomy from Le Cordon Bleu and the University of Adelaide. For ages 18 and over, as wine is served.",
+      "category": "class",
+      "tags": [
+        "cooking",
+        "cooking class",
+        "Mediterranean",
+        "hands-on",
+        "small groups",
+        "intermediate"
+      ],
+      "business": "Elizabeth Peddey School of Cookery",
+      "run_by": "Elizabeth Peddey",
+      "running_since": null,
+      "running_note": null,
+      "locality": "Elwood",
+      "region": "Melbourne",
+      "state": "VIC",
+      "country": "AU",
+      "full_address": "15 Meredith Street, Elwood VIC 3184",
+      "address_note": null,
+      "lat": -37.883,
+      "lng": 144.988,
+      "location_precision": "suburb",
+      "offers": [
+        {
+          "label": "Mediterranean Summer Cooking, 4 Wednesdays",
+          "currency": "AUD",
+          "unit": "person",
+          "amount": 720
+        },
+        {
+          "label": "Mediterranean Summer Cooking, single Wednesday class",
+          "currency": "AUD",
+          "unit": "person",
+          "amount": 185
+        }
+      ],
+      "private_group_price": null,
+      "group_min": 4,
+      "group_max": 6,
+      "group_note": "Small groups of 4 to 6.",
+      "private_bookings": "Private classes are a separate booking. Ask Elizabeth.",
+      "duration_minutes": 180,
+      "duration_days": null,
+      "duration_text": "3-hour classes, one a week for 4 weeks, or a single class",
+      "days_and_times": "Wednesdays 11am to 2pm, 11 November to 2 December 2026",
+      "lead_time": null,
+      "age_min": 18,
+      "skill": "Intermediate. For cooks who already know their way around a kitchen; not ideal for absolute beginners.",
+      "what_to_bring": null,
+      "cancellation": "Classes and courses are non-refundable but fully transferable. To transfer your place, email Elizabeth at elizabeth@elizabethpeddey.com.au.",
+      "weather": null,
+      "booking_mode": "click_out",
+      "booking_note": "Book directly with Elizabeth by email or WhatsApp, from her website. She confirms your place and arranges payment.",
+      "reviews": null,
+      "last_verified": "2026-11-14",
+      "verified_against": "the business's own website",
+      "url": "https://getrealdays.com/elizabeth-peddey/",
+      "book_url": "https://elizabethpeddey.com.au/booking/?utm_source=realdays&utm_medium=listing&utm_campaign=elizabeth-peddey",
+      "image": "https://getrealdays.com/assets/img/demo/elizabeth-peddey/class-800.webp"
     },
     {
       "id": "indigo-woodworks/milking-stool",
