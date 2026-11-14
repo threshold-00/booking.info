@@ -3,8 +3,100 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow" />
-<title>StudioMade by Darren McGinn | RealDays</title>
+<title>Pottery Wheel Taster Class, StudioMade by Darren McGinn | RealDays</title>
+<meta name="description" content="Two hours on the pottery wheel in a small class, with 2 of your pieces glazed and fired." />
+<link rel="canonical" href="https://getrealdays.com/studiomade/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="RealDays" />
+<meta property="og:url" content="https://getrealdays.com/studiomade/" />
+<meta property="og:title" content="Pottery Wheel Taster Class, StudioMade by Darren McGinn | RealDays" />
+<meta property="og:description" content="Two hours on the pottery wheel in a small class, with 2 of your pieces glazed and fired." />
+<meta property="og:image" content="https://getrealdays.com/assets/img/demo/studiomade/wheel-800.webp" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://getrealdays.com/studiomade/",
+      "name": "Pottery Wheel Taster Class",
+      "dateModified": "2026-11-15",
+      "mainEntity": {
+        "@id": "https://getrealdays.com/studiomade/#experience"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "RealDays",
+          "item": "https://getrealdays.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "StudioMade by Darren McGinn",
+          "item": "https://getrealdays.com/studiomade/"
+        }
+      ]
+    },
+    {
+      "@type": "TouristTrip",
+      "@id": "https://getrealdays.com/studiomade/#experience",
+      "name": "Pottery Wheel Taster Class",
+      "description": "Two hours on the pottery wheel in a small class, with 2 of your pieces glazed and fired.",
+      "url": "https://getrealdays.com/studiomade/",
+      "image": [
+        "https://getrealdays.com/assets/img/demo/studiomade/wheel-800.webp"
+      ],
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "StudioMade by Darren McGinn",
+        "url": "https://getrealdays.com/studiomade/",
+        "sameAs": "https://studiomadebydarrenmcginn.com/",
+        "founder": {
+          "@type": "Person",
+          "name": "Darren McGinn"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "StudioMade, 15 Holyrood Ave, Newtown VIC 3220",
+          "addressLocality": "Newtown, Geelong",
+          "addressRegion": "VIC",
+          "addressCountry": "AU"
+        }
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Newtown, Geelong",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "StudioMade, 15 Holyrood Ave, Newtown VIC 3220",
+          "addressLocality": "Newtown, Geelong",
+          "addressRegion": "VIC",
+          "addressCountry": "AU"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -38.152,
+          "longitude": 144.334
+        }
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Pottery Wheel Taster Class",
+          "price": "120.00",
+          "priceCurrency": "AUD",
+          "url": "https://studiomadebydarrenmcginn.com/product/taster-classes/?utm_source=realdays&utm_medium=listing&utm_campaign=studiomade"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -197,7 +289,7 @@
         <img src="/assets/img/demo/studiomade/avatar-96.png" alt="" width="40" height="40" style="width:40px;height:40px;flex:none;border:1px solid var(--line);background:var(--panel);box-sizing:border-box;object-fit:contain;padding:3px;">
         <span>Run by Darren &middot; StudioMade by Darren McGinn</span>
       </a>
-      <ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"></ul>
+      <ul class="fact-row fact-row--ink" id="facts" style="margin:var(--s-4) 0 var(--s-5);"><li>2 hours</li><li>No more than 6 per tutor</li><li>2 pieces glazed and fired</li><li>Newtown, Geelong</li></ul>
       <div class="detail-gallery" id="detailGallery">
         <div class="gallery-header gallery-header--5" data-count="5">
         <div class="gallery-header__track" role="region" tabindex="0" aria-label="Photos of StudioMade by Darren McGinn">
@@ -254,7 +346,7 @@
       
     </div>
 
-    <aside class="booking-panel" id="book" aria-label="Book">
+    <aside class="booking-panel" id="book" aria-label="Check availability">
       <div id="bpForm">
         <div id="step1">
           <div class="bp-block" style="margin-top:0;">
@@ -262,109 +354,18 @@
             <div class="opt-list" id="choices" role="group" aria-label="Class"></div>
             <p class="bp-lead" id="panelLead" hidden></p>
           </div>
-          <div id="groups"></div>
-          <div class="bp-block">
-            <p class="bp-label" id="datesLabel">Choose a date</p>
-            <div class="date-list" id="dates"><p class="bp-note">Loading dates...</p></div>
-            <button type="button" class="bp-more" id="moreDates" aria-haspopup="dialog" hidden>More dates</button>
-            <dialog class="bp-cal" id="calendar" aria-labelledby="calTitle">
-              <div class="bp-cal__top">
-                <p class="bp-label" id="calTitle">Choose a date</p>
-                <button type="button" class="bp-cal__close" id="calClose" aria-label="Close">&times;</button>
-              </div>
-              <div class="bp-cal__head">
-                <button type="button" class="bp-cal__nav" id="calPrev" aria-label="Previous month">&larr;</button>
-                <p class="bp-cal__month" id="calMonth" aria-live="polite"></p>
-                <button type="button" class="bp-cal__nav" id="calNext" aria-label="Next month">&rarr;</button>
-              </div>
-              <div class="bp-cal__week" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
-              <div class="bp-cal__grid" id="calGrid"></div>
-              <p class="bp-note bp-cal__note">Dates with a dot are open.</p>
-            </dialog>
-            <p class="bp-note" id="filterHint" style="margin-top:var(--s-2);" hidden></p>
-            <div class="bp-block" id="timesBlock" hidden>
-              <p class="bp-label">Choose a time</p>
-              <div class="time-list" id="times"></div>
-            </div>
-            <p class="bp-note" id="timesNote" style="margin-top:var(--s-2);"></p>
-            <p class="bp-note" id="datesNote" style="margin-top:4px;"></p>
-          </div>
-
-          <div id="party"></div>
+          <p class="bp-note" id="datesNote" style="margin-top:var(--s-3);"></p>
           <ul class="bp-notes" id="notes"></ul>
-          <div class="bp-total" id="total" aria-live="polite" hidden><span>Total</span><b id="totalValue"></b></div>
           <div class="bp-decision">
-            <button type="button" class="btn" id="bookingCta" disabled>Continue to book</button>
+            <a class="btn" id="bookingCta" href="#" target="_blank" rel="noopener">Check availability on website</a>
           </div>
-          <p class="bp-note" style="margin-top:var(--s-2);">You won't be charged yet.</p>
+          <p class="bp-note" id="linkNote" style="margin-top:var(--s-2);"></p>
         </div>
-
-        <form id="step2" novalidate hidden>
-          <p class="bp-steplabel">Step 2 of 2</p>
-          <div class="bp-chosen"><span id="chosen"></span><button type="button" class="bp-change" id="change">Change</button></div>
-
-          <div class="bp-field" id="f-name">
-            <label for="name">Full name</label>
-            <input id="name" name="name" autocomplete="name" aria-describedby="name-err" />
-            <p class="bp-field-error" id="name-err" hidden></p>
-          </div>
-          <div class="bp-field" id="f-email">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="email-err" />
-            <p class="bp-field-error" id="email-err" hidden></p>
-          </div>
-          <div class="bp-field" id="f-phone">
-            <label for="phone">Mobile</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="phone-hint phone-err" />
-            <p class="bp-hint" id="phone-hint">So StudioMade by Darren McGinn can reach you on the day.</p>
-            <p class="bp-field-error" id="phone-err" hidden></p>
-          </div>
-          <p class="bp-note" id="pickup" style="margin:0 0 var(--s-4);" hidden></p>
-
-          <div id="riders"></div>
-          <div id="questions"></div>
-          <div class="bp-summary" id="summary" aria-live="polite"></div>
-          <button type="submit" class="btn" id="requestBtn">Continue to payment</button>
-          <p class="bp-under">Next, add your card. It's held, not charged. By booking you agree to the <a href="/booking-terms/">booking terms</a>.</p>
-
-          <div class="bp-policy">
-            <p id="policyHold"></p>
-            <p id="policyCancel"></p>
-          </div>
-        </form>
         <p class="bp-error" id="err" hidden></p>
         <div class="bp-ask">
           <p class="bp-label">Also from StudioMade by Darren McGinn</p>
-          <ul><li><b>Gift voucher for 2.</b> Just the 2 of us: a 2-hour pottery class for two people, glazing and firing included. Bought on StudioMade's website, then you arrange the date with them. <a href="https://studiomadebydarrenmcginn.com/product/just-the-2-of-us/?utm_source=realdays&amp;utm_medium=listing&amp;utm_campaign=studiomade" target="_blank" rel="noopener">Buy the voucher</a></li></ul>
+          <ul><li><b>Gift vouchers.</b> Give a pottery class. Just the 2 of us is a 2-hour class for two people ($375), or a flexible voucher covers any class or the studio shop. No expiry date; the person you give it to books their own date with StudioMade. <a href="https://studiomadebydarrenmcginn.com/pottery-class-gift-voucher/?utm_source=realdays&amp;utm_medium=listing&amp;utm_campaign=studiomade" target="_blank" rel="noopener">Buy a gift voucher</a></li></ul>
         </div>
-      </div>
-
-      <div id="bpDone" class="bp-done" hidden>
-        <p class="bp-label" id="doneLabel"></p>
-        <h2 id="doneTitle"></h2>
-        <p class="prose" id="doneText" style="margin:0 0 var(--s-4);"></p>
-        <div class="bp-summary" id="doneSummary" hidden></div>
-        <div class="know-list__wrap" id="doneKnow" hidden>
-          <h3 class="know-list__title">Good to know</h3>
-          <ul class="know-list" id="doneKnowList"></ul>
-        </div>
-        <button type="button" class="btn" id="doneBtn" hidden style="width:100%;margin-bottom:var(--s-3);"></button>
-        <p class="bp-error" id="doneErr" hidden></p>
-        <a class="btn-ghost" id="doneBack" href="./">Back to StudioMade by Darren McGinn</a>
-        <div class="demo-box" id="demoBox" hidden></div>
-      </div>
-
-      <div id="bpBiz" hidden>
-        <p class="bp-label">What StudioMade by Darren McGinn sees</p>
-        <h2 style="font-size:28px;line-height:1.1;margin:var(--s-2) 0 var(--s-3);">New booking request</h2>
-        <div class="bp-summary" id="reqBox"></div>
-        <div class="resp-actions" id="respActions" hidden>
-          <button type="button" class="btn" data-act="accept">Accept</button>
-          <button type="button" class="btn-ghost" data-act="decline">Decline</button>
-        </div>
-        <p class="bp-note" id="respNote" style="margin-top:var(--s-3);"></p>
-        <p class="bp-error" id="respErr" hidden></p>
-        <div class="demo-box" id="bizDemoBox" hidden></div>
       </div>
     </aside>
 
@@ -378,9 +379,25 @@
 
       <section id="overview" role="tabpanel" aria-labelledby="h-overview tab-overview" tabindex="0">
         <h2 id="h-overview">Overview</h2>
-        <p class="prose">StudioMade is a working pottery studio in Newtown, Geelong, run by Darren McGinn. Its taster classes are two hours on the wheel with no more than 6 people per tutor: a tour of the wheel house and kiln room, a lesson in wedging clay, then centring, pulling and throwing, including a breakfast cup with a handle. Glazing and firing of 2 finished pieces is included.</p>
+        <p class="prose">A pottery wheel taster class at StudioMade, Darren McGinn's working studio in Newtown, Geelong. Two hours, no more than 6 people per tutor: a tour of the wheel house and kiln room, a lesson in wedging clay, then centring, pulling and throwing, including a breakfast cup with a handle. Glazing and firing of 2 finished pieces is included, ready to collect in about 2 to 4 weeks. $120 a person including GST. No experience needed; children over 8 are welcome with an adult who is also booked in.</p>
+        <h3>Key facts</h3>
+        <dl class="know-details" id="keyFacts">
+          <div><dt>Price</dt><dd>$120 AUD per person</dd></div>
+          <div><dt>Duration</dt><dd>2 hours</dd></div>
+          <div><dt>Days and times</dt><dd>Saturdays 10am to 12pm: 21 and 28 November, 5 and 12 December 2026</dd></div>
+          <div><dt>Group size</dt><dd>No more than 6 people per tutor.</dd></div>
+          <div><dt>Private groups</dt><dd>Private sessions for 2, parties, family and work groups. Ask StudioMade.</dd></div>
+          <div><dt>Location</dt><dd>StudioMade, 15 Holyrood Ave, Newtown VIC 3220</dd></div>
+          <div><dt>Run by</dt><dd>Darren McGinn, StudioMade by Darren McGinn</dd></div>
+          <div><dt>Minimum age</dt><dd>8 years</dd></div>
+          <div><dt>Skill level</dt><dd>Beginner. No experience needed.</dd></div>
+          <div><dt>What to bring</dt><dd>A long apron or a towel for your lap. Closed shoes are a must; short sleeves and trimmed nails work best.</dd></div>
+          <div><dt>Cancellation</dt><dd>No refunds or make-up classes for a change of mind, illness or anything else unforeseen. If StudioMade cancels, for example when a class doesn't reach its minimum, you get a full refund or a move to another class.</dd></div>
+          <div><dt>Booking</dt><dd>Book and pay on StudioMade's own website. Gift vouchers are sold there too.</dd></div>
+          <div><dt>Last checked</dt><dd>15 Nov 2026, against the business's own website</dd></div>
+        </dl>
         <h3>What's included</h3>
-        <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;"></ul>
+        <ul class="prose" id="included" style="margin:0;padding:0;list-style:none;display:grid;gap:8px;"><li style="display:flex;gap:8px;"><span aria-hidden="true">&check;</span><span>A tour of the wheel house and kiln room</span></li><li style="display:flex;gap:8px;"><span aria-hidden="true">&check;</span><span>Clay, tools and equipment</span></li><li style="display:flex;gap:8px;"><span aria-hidden="true">&check;</span><span>Help centring, pulling and throwing</span></li><li style="display:flex;gap:8px;"><span aria-hidden="true">&check;</span><span>Glazing and firing of 2 finished pieces</span></li></ul>
       </section>
 
       <section id="know" role="tabpanel" aria-labelledby="h-know tab-know" tabindex="0" hidden>
@@ -396,10 +413,10 @@
           <div><dt>Collecting your pieces</dt><dd>Ready in about 2 to 4 weeks. StudioMade texts you when they're fired, then you have 4 weeks to collect them. Postage can be arranged before then.</dd></div>
           <div><dt>Dates</dt><dd>Saturdays, 10am to 12pm.</dd></div>
           <div><dt>Private groups</dt><dd>Private sessions for 2, parties, family and work groups, including hand building. Ask StudioMade.</dd></div>
-          <div><dt>Cancellation</dt><dd>No refunds or make-up classes for a change of mind, illness or anything else unforeseen. If StudioMade cancels, for example when a class doesn't reach its minimum, you get a full refund or a move to another class.</dd></div>
+          <div><dt>Gift vouchers</dt><dd>Sold on StudioMade's website: Just the 2 of us, a 2-hour class for two ($375), or a flexible voucher for any class or the studio shop. No expiry date.</dd></div>
         </dl>
         <h3 id="h-cancellation">Cancellation</h3>
-        <p class="prose prose--info" id="policy"></p>
+        <p class="prose prose--info" id="policy">No refunds or make-up classes for a change of mind, illness or anything else unforeseen. If StudioMade cancels, for example when a class doesn't reach its minimum, you get a full refund or a move to another class.</p>
       </section>
 
       <section id="how" role="tabpanel" aria-labelledby="h-how tab-how" tabindex="0" hidden>
@@ -431,9 +448,10 @@
 </div>
 <aside class="mobile-sticky-bar" id="mobileStickyBar" aria-label="Booking summary">
   <span class="t-small" id="stickyPrice"></span>
-  <a href="#book" class="btn">Choose a date</a>
+  <a href="#book" class="btn" id="stickyCta">Check availability</a>
 </aside>
-<script type="application/json" id="demo-config">{"slug":"studiomade","business":"StudioMade by Darren McGinn","booking_mode":"live","timezone":"Australia/Melbourne","phone":null,"party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"taster-wheel","label":"Wheel taster","sub":"$120"}],"experiences":{"taster-wheel":{"durationMinutes":120,"facts":["2 hours","No more than 6 per tutor","2 pieces glazed and fired","Newtown, Geelong"],"included":["A tour of the wheel house and kiln room","Clay, tools and equipment","Help centring, pulling and throwing","Glazing and firing of 2 finished pieces"],"notes":[],"dates_note":"Saturdays, 10am to 12pm, as listed on StudioMade's site.","good_to_know":["Children over 8 are welcome with an adult who is also booked in.","Bring a long apron or a towel for your lap. Wear closed shoes (a must), short sleeves and trimmed nails.","Your 2 glazed and fired pieces are ready in about 2 to 4 weeks. StudioMade texts you, then you have 4 weeks to collect them."]}},"addons":[],"riders":null,"pickup":null,"price_basis":null,"gift":null}</script>
+<script type="application/json" id="demo-config">{"slug":"studiomade","business":"StudioMade by Darren McGinn","booking_mode":"link","timezone":"Australia/Melbourne","phone":null,"party":{"label":"People","one":"person","many":"people"},"options":[{"experience":"taster-wheel","label":"Wheel taster","sub":"$120"}],"experiences":{"taster-wheel":{"durationMinutes":120,"facts":["2 hours","No more than 6 per tutor","2 pieces glazed and fired","Newtown, Geelong"],"included":["A tour of the wheel house and kiln room","Clay, tools and equipment","Help centring, pulling and throwing","Glazing and firing of 2 finished pieces"],"notes":[],"dates_note":"Saturdays, 10am to 12pm: 21 and 28 November, 5 and 12 December 2026, as listed on StudioMade's site. Pick your date there.","good_to_know":["Children over 8 are welcome with an adult who is also booked in.","Bring a long apron or a towel for your lap. Wear closed shoes (a must), short sleeves and trimmed nails.","Your 2 glazed and fired pieces are ready in about 2 to 4 weeks. StudioMade texts you, then you have 4 weeks to collect them."],"book_url":"https://studiomadebydarrenmcginn.com/product/taster-classes/?utm_source=realdays&utm_medium=listing&utm_campaign=studiomade"}},"addons":[],"riders":null,"pickup":null,"price_basis":null,"gift":null,"cancellation":"No refunds or make-up classes for a change of mind, illness or anything else unforeseen. If StudioMade cancels, for example when a class doesn't reach its minimum, you get a full refund or a move to another class.","contact":null}</script>
+<script src="/assets/booking/track.js?v=1a5b125d"></script>
 <script src="/assets/demo-booking.js?v=1bda68ae"></script>
 <script src="/app.js?v=d720c532"></script>
 <script src="/assets/detail.js?v=9d402d14" defer></script>
