@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=bf6e4cf3" />
+<link rel="stylesheet" href="../styles.css?v=487deaf7" />
 <link rel="canonical" href="https://getrealdays.com/privacy/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -77,7 +77,7 @@
   <main class="policy">
     <div class="container">
       <h1>Privacy policy</h1>
-      <p class="label updated">Updated 13 November 2026</p>
+      <p class="label updated">Updated 15 November 2026</p>
 
       <div class="prose">
         <p class="lead">RealDays (getrealdays.com) is run by Rowena Baulch, trading as RealDays (ABN 90 522 324 404). This page explains what personal information we collect, why, who sees it, and what you can ask us to do with it. We follow the Australian Privacy Principles.</p>
@@ -85,9 +85,11 @@
         <h2>What we collect</h2>
         <ul>
           <li><strong>When you book or send a request:</strong> your name, email, mobile, the experience, date and number of people, and your answers to any questions the business asks, such as your experience level.</li>
+          <li><strong>When you book a last-minute spot:</strong> your name and email, the spot and how many places. You then pay by card on Stripe's secure page.</li>
+          <li><strong>When you join our last-minute list:</strong> your email address and the details in <a href="#last-minute-list">The last-minute list</a> below.</li>
           <li><strong>When you pay:</strong> card payments are handled by Stripe. We never see or store your card number. Stripe tells us whether the payment went through, and gives us a reference for it.</li>
           <li><strong>When you get in touch or ask to list your business:</strong> whatever you send us, such as your name, email, business name and phone number.</li>
-          <li><strong>If you list a business with us:</strong> your contact details, ABN and listing. When you sign our business terms online, we keep a record of the signature: your name, role and email, the time, your browser, and a coded version of your internet address. You set up your payouts with Stripe, which holds your bank and identity details. We only see what Stripe tells us about your account, such as whether it can take payments.</li>
+          <li><strong>If you list a business with us:</strong> your contact details, ABN and listing. When you sign our business terms online, we keep a record of the signature: your name, role and email, the time, your browser, and a coded version of your internet address. If you offer last-minute spots, your dashboard keeps the class address and arrival instructions, your answer about photos, and, with your permission, the summary and photo we read from a page on your own website. You set up your payouts with Stripe, which holds your bank and identity details. We only see what Stripe tells us about your account, such as whether it can take payments.</li>
           <li><strong>When you visit the site:</strong> we count visits and clicks so we know what's working. Your browser keeps a random ID for this (no name or contact details), and we record the page and the website or campaign that sent you. We don't use Google Analytics.</li>
           <li><strong>Our ads on Facebook and Instagram:</strong> we use the Meta Pixel on our customer pages. It tells Meta which pages you visit and whether you click through to book, so we can see which of our ads work and show them to people likely to be interested. Meta may link this to your Facebook or Instagram account and use cookies to do it. When you make a booking request, or a business confirms it, we also tell Meta about it, with your email address and phone number scrambled (hashed) first so Meta can only match them to an account it already knows. We never send Meta your name, your answers or your payment details. You can turn off ads based on this in your Facebook or Instagram ad settings, or block cookies in your browser.</li>
         </ul>
@@ -95,6 +97,7 @@
         <h2>Why we use it</h2>
         <ul>
           <li>To make and manage your booking: send it to the business, take payment, send confirmations and process any refund.</li>
+          <li>To send you the weekly last-minute list, if you join it.</li>
           <li>To answer you when you contact us.</li>
           <li>To stop spam and fraud.</li>
           <li>To keep the records tax law asks for.</li>
@@ -110,7 +113,16 @@
         </ul>
 
         <h2>Emails we send</h2>
-        <p>We email you about your booking. We only send anything else if you ask for it, for example by asking to hear about new dates for an experience, and every one of those emails has a link to stop them.</p>
+        <p>We email you about your booking. We only send anything else if you ask for it, for example by joining our last-minute list or asking to hear about new dates for an experience, and every one of those emails has a link to stop them.</p>
+
+        <h2 id="last-minute-list">The last-minute list</h2>
+        <p>If you join our list, we send one email a week with live last-minute spots. You can unsubscribe any time.</p>
+        <ul>
+          <li><strong>What we keep:</strong> your email address, when you joined, the exact wording you agreed to, and a one-way coded version (a hash) of the internet address you joined from, not the address itself. We keep these to show you agreed to hear from us, as the Spam Act 2003 requires.</li>
+          <li><strong>Who sends it:</strong> RealDays, from spots@news.getrealdays.com, sent through Resend.</li>
+          <li><strong>Unsubscribing:</strong> every email has a one-click unsubscribe link. After you use it, we keep your address only marked as unsubscribed, so we never email you again unless you join again.</li>
+          <li><strong>When you book a spot:</strong> you can tick "Send me last-minute spots" (it starts unticked). If you tick it, you join the list in the same way. Emails about your booking are separate, and still arrive if you've unsubscribed from the list.</li>
+        </ul>
 
         <h2>How long we keep it</h2>
         <p>We keep booking and payment records for as long as Australian tax law requires, usually five years. We keep enquiries as long as we need them to help you, and visit counts while they're useful.</p>
@@ -131,6 +143,16 @@
   </main>
 
   <footer>
+    <!-- "Get last-minute spots first" (Ro, 15 Nov 2026): joins the booking service's list (app.js). The consent line is stored word for word, so keep it as it is. -->
+    <div class="container footer-spots on-dark" id="spots-list">
+      <h2 class="footer-spots__title">Get last-minute spots first</h2>
+      <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+        <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
+        <button type="submit" class="btn">Join the list</button>
+        <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+        <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
     <div class="container label">
     <span>&copy; 2026 RealDays</span>
     <nav aria-label="Footer">
@@ -143,6 +165,6 @@
   </div>
   </footer>
 </div>
-<script src="../app.js?v=d720c532"></script>
+<script src="../app.js?v=5c269cf9"></script>
 </body>
 </html>

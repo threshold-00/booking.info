@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=bf6e4cf3" />
+<link rel="stylesheet" href="../styles.css?v=487deaf7" />
 <link rel="stylesheet" href="../assets/leaflet/leaflet.css" />
 <link rel="canonical" href="https://getrealdays.com/mornington-peninsula/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
@@ -139,11 +139,6 @@
         <a href="/#browse" class="navlink">Browse experiences</a>
         <a href="/gift-cards/" class="navlink">Gift cards</a>
         <a href="/for-business/" class="btn-ghost" style="padding:9px 16px;min-height:44px;align-items:center;">For businesses</a>
-        <span class="select-wrap menu-only"><label for="currencySelectMenu" class="sr-only">Currency</label><select id="currencySelectMenu" class="currency-select">
-          <option value="AUD">AUD</option>
-          <option value="USD">USD</option>
-          <option value="IDR">IDR</option>
-        </select></span>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -385,13 +380,22 @@
     <div class="split" style="border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:48px;">
       <p style="display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:0;"><span style="width:9px;height:9px;background:var(--ink);flex:none;"></span>Related</p>
       <div style="display:flex;flex-wrap:wrap;gap:16px;">
-        <a href="../bali/" class="btn-ghost hov" style="padding:11px 20px;min-height:44px;align-items:center;">Things to do in Bali</a>
         <a href="../for-business/" class="btn-ghost hov" style="padding:11px 20px;min-height:44px;align-items:center;">List your business</a>
       </div>
     </div>
   </section>
 
   <footer style="border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--ink-3);">
+    <!-- "Get last-minute spots first" (Ro, 15 Nov 2026): joins the booking service's list (app.js). The consent line is stored word for word, so keep it as it is. -->
+    <div class="container footer-spots on-dark" id="spots-list">
+      <h2 class="footer-spots__title">Get last-minute spots first</h2>
+      <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+        <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
+        <button type="submit" class="btn">Join the list</button>
+        <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+        <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
     <span style="color:var(--ink);">© 2026 RealDays</span>
     <nav style="display:flex;gap:20px;flex-wrap:wrap;">
@@ -425,6 +429,6 @@
   });
 })();
 </script>
-<script src="../app.js?v=d720c532"></script>
+<script src="../app.js?v=5c269cf9"></script>
 </body>
 </html>

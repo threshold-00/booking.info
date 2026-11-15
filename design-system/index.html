@@ -168,7 +168,7 @@
       <table class="ds-table" style="margin-bottom:var(--s-7);">
         <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
         <tbody>
-          <tr><td>--control-h</td><td>40px</td><td>buttons, chips, selects, rail arrows, currency picker</td></tr>
+          <tr><td>--control-h</td><td>40px</td><td>buttons, chips, selects, rail arrows</td></tr>
           <tr><td>--control-h-sm</td><td>24px</td><td>card tag, jump links, the notice bar's Link them and Close, Write a review</td></tr>
           <tr><td>--control-px</td><td>16px</td><td>side padding on buttons and selects</td></tr>
           <tr><td>chip--sm</td><td>32px (padding 6px 10px)</td><td>sub-chips</td></tr>
@@ -306,26 +306,20 @@
         <div><span class="ds-state-label">Sub chip (32px)</span><button class="chip chip--sm" aria-pressed="false">Rides (2)</button></div>
         <div><span class="ds-state-label">Option (radio)</span>
           <div role="radiogroup" aria-label="Duration" style="display:flex;gap:var(--s-2);">
-            <button class="chip--option" role="radio" aria-checked="true">1 hr<span class="chip--option__price">IDR 1,600,000</span></button>
-            <button class="chip--option" role="radio" aria-checked="false">1.5 hr<span class="chip--option__price">IDR 2,200,000</span></button>
+            <button class="chip--option" role="radio" aria-checked="true">1 hr<span class="chip--option__price">$160</span></button>
+            <button class="chip--option" role="radio" aria-checked="false">1.5 hr<span class="chip--option__price">$220</span></button>
           </div>
         </div>
       </div>
 
       <h3 class="t-title">Header and nav</h3>
-      <p class="ds-section__intro">.site-header is sticky at z 20, paper at 92% with an 8px backdrop blur and a 1px --line bottom border. The logo sits on the container's left edge: Neue Haas 600, 22px on a 36px line, -.01em (plain text "RealDays." for now, see Wordmark and favicon). #siteNav is right-aligned (margin-left:auto) and never wraps: links are mono 400, 12px on an 18px line, uppercase, .96px tracking, 30px apart, ink-3. A 1px underline marks the active page and the hover; it is transparent when inactive so the height never changes. #currencySelect ("AUD $") is 40px high, square, with the same 12px / 400 / .96px type. Under 641px the nav collapses to the burger (resize to see; the example's burger does not open, see Mobile menu).</p>
+      <p class="ds-section__intro">.site-header is sticky at z 20, paper at 92% with an 8px backdrop blur and a 1px --line bottom border. The logo sits on the container's left edge: Neue Haas 600, 22px on a 36px line, -.01em (plain text "RealDays." for now, see Wordmark and favicon). #siteNav is right-aligned (margin-left:auto) and never wraps: links are mono 400, 12px on an 18px line, uppercase, .96px tracking, 30px apart, ink-3. A 1px underline marks the active page and the hover; it is transparent when inactive so the height never changes. There is no currency picker: prices are in Australian dollars only (Ro, 15 Nov 2026). Under 641px the nav collapses to the burger (resize to see; the example's burger does not open, see Mobile menu).</p>
       <header class="site-header ds-header-demo" style="position:static;margin-bottom:var(--s-6);border:var(--bw) solid var(--line);">
         <div class="bar">
           <a href="#" class="logo">RealDays.</a>
           <nav class="nav" id="siteNav" aria-label="Main (example)">
             <a href="#" class="navlink on" aria-current="page">For customers</a>
             <a href="#" class="navlink">For businesses</a>
-            <label for="currencySelect" class="sr-only">Currency</label>
-            <span class="select-wrap"><select id="currencySelect" class="currency-select" aria-label="Currency">
-              <option value="AUD">AUD $</option>
-              <option value="USD">USD $</option>
-              <option value="IDR">IDR Rp</option>
-            </select></span>
           </nav>
           <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu (example)">
             <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -761,7 +755,7 @@
       <div class="view-tabs" role="tablist" aria-label="View (example)" style="margin-bottom:var(--s-6);"><button type="button" class="view-tab" role="tab" aria-selected="true" tabindex="0"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="1.5" width="5" height="5"/><rect x="9.5" y="1.5" width="5" height="5"/><rect x="1.5" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/></svg>Grid</button><button type="button" class="view-tab" role="tab" aria-selected="false" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 15s5-5.1 5-8.6A5 5 0 0 0 3 6.4C3 9.9 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.8"/></svg>Map</button><span class="view-tabs__line" aria-hidden="true" style="width:55px;"></span></div>
 
       <h3 class="t-title">Mobile menu</h3>
-      <p class="ds-section__intro">Under 641px the burger (.nav-toggle, 44px) opens .nav.is-open, a full-screen paper panel at z 19 that holds only .menu-panel (app.js builds it). Two groups, Explore (Browse experiences, FAQ) and For businesses (List your business, Talk to us). Each group has a 12px mono label (.menu-group__label, ink-3) over Neue Haas 22px links on 52px rows with a divider. Then the currency select, full width, 44px, 16px text; changing it updates every price and is remembered, like the desktop select.</p>
+      <p class="ds-section__intro">Under 641px the burger (.nav-toggle, 44px) opens .nav.is-open, a full-screen paper panel at z 19 that holds only .menu-panel (app.js builds it). Two groups, Explore (Browse experiences, FAQ) and For businesses (List your business, Talk to us). Each group has a 12px mono label (.menu-group__label, ink-3) over Neue Haas 22px links on 52px rows with a divider.</p>
       <div class="menu-panel" style="max-width:390px;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);">
         <div class="menu-group">
           <p class="menu-group__label" id="ds-menu-explore">Explore</p>
@@ -776,14 +770,6 @@
             <li><a href="#">List your business</a></li>
             <li><a href="#">Talk to us</a></li>
           </ul>
-        </div>
-        <div class="menu-currency">
-          <label class="menu-group__label" for="ds-menu-currency">Currency</label>
-          <select id="ds-menu-currency" class="select">
-            <option value="AUD">AUD</option>
-            <option value="USD">USD</option>
-            <option value="IDR">IDR</option>
-          </select>
         </div>
       </div>
 
@@ -837,23 +823,11 @@
       </div>
 
       <h3 class="t-title">Comparison table</h3>
-      <p class="ds-section__intro">.compare-table, on /for-business/ only. A real table with a caption and column and row headers. The corner cell reads "How we compare" (with a footnote mark), the rate column is centred with a hairline between the columns, and RealDays' row comes first with its name and rate in 600 and no fill. The figures are competitor rates as checked on 21 Oct 2026, with the footnote; there are no "cheaper" or "save" claims. .compare-note is the footnote in small ink-3 text, with the asterisks it refers to. The phone frame shows the live table.</p>
-      <table class="compare-table" style="margin-bottom:0;">
-        <caption class="sr-only">Commission compared (example)</caption>
-        <thead><tr><th scope="col">How we compare**</th><th scope="col">Commission</th></tr></thead>
-        <tbody>
-          <tr class="compare-table__ours"><th scope="row">RealDays</th><td><strong>12% incl. card fees</strong></td></tr>
-          <tr><th scope="row">Airbnb Experiences</th><td>20%*</td></tr>
-          <tr><th scope="row">GetYourGuide</th><td>25%*</td></tr>
-          <tr><th scope="row">Viator</th><td>25%*</td></tr>
-        </tbody>
-      </table>
-      <p class="compare-note" style="margin-bottom:var(--s-5);">*Excludes card fees. **Airbnb says it typically charges 20%. GetYourGuide and Viator don't publish a rate; 25% is an estimate from their supplier terms and investor reports. Sources checked 21 Oct 2026. Rates vary by business and can change.</p>
-      <iframe src="/for-business/#pricing" title="Comparison table on a phone" width="375" height="760" loading="lazy" style="display:block;max-width:100%;border:var(--bw) solid var(--line);margin-bottom:var(--s-6);"></iframe>
+      <p class="ds-section__intro">Retired (Ro, 14 Nov 2026). The commission comparison came off /for-business/ with the business pricing: no business prices, fees or percentages appear on the public site, so don't bring this table back. The .compare-table styles stay in styles.css for now.</p>
 
       <h3 class="t-title">Banner</h3>
       <div class="banner" style="margin-bottom:var(--s-2);" role="note">Salty Cowboy is approved, live and bookable.</div>
-      <div class="banner banner--light" role="note">First month free. Then 12% on the bookings we bring you.</div>
+      <div class="banner banner--light" role="note">Free to join. You only pay when we bring you customers.</div>
 
       <h3 class="t-title">Breadcrumb</h3>
       <p class="ds-section__intro">12px mono caps on one line. The current page truncates with an ellipsis when it doesn't fit (on the demos, the business name at 375px).</p>

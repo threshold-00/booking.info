@@ -22,9 +22,9 @@ window.ThCurrency = (function () {
   var DEFAULT_CURRENCY = 'AUD';
   var RATE_MAX_AGE = 1000 * 60 * 60 * 6; // refetch at most every 6 hours
 
-  function getCurrency() {
-    try { return localStorage.getItem(CURRENCY_KEY) || DEFAULT_CURRENCY; } catch (e) { return DEFAULT_CURRENCY; }
-  }
+  // Australian dollars only (Ro, 15 Nov 2026): the currency menu is gone, so an old
+  // USD or IDR choice saved in the browser is ignored.
+  function getCurrency() { return DEFAULT_CURRENCY; }
   function setCurrency(c) {
     try { localStorage.setItem(CURRENCY_KEY, c); } catch (e) { /* ignore */ }
     render();
@@ -135,23 +135,13 @@ var exploreMap = (function () {
   // business: the cards' data-business. emoji: shown in the pin, for the activity.
   // only: card ?x= keys, when one business has activities in two places.
   var pins = [
-    { business: 'Gordon Studio Glassblowers', emoji: '🔥', place: 'Red Hill', region: 'mornington', lat: -38.3726, lng: 145.0218 },
-    { business: 'Heathcote Bike Hire', emoji: '🚲', place: 'Heathcote', region: 'mornington', lat: -36.9220, lng: 144.7080 },
-    { business: 'Salty Seas Surf School', emoji: '🏄', place: 'Inverloch', region: 'mornington', lat: -38.6475, lng: 145.7390 },
-    { business: 'Spring Creek Horse Rides', emoji: '🐴', place: 'Bellbrae, near Torquay', region: 'mornington', lat: -38.3375, lng: 144.2533 },
     { business: 'Indigo Woodworks', emoji: '🪵', place: 'Indigo Valley', region: 'mornington', lat: -36.0860, lng: 146.8480 },
-    { business: 'Moonraker Dolphin Swims', emoji: '🐬', place: 'Sorrento Pier', region: 'mornington', lat: -38.3390, lng: 144.7430 },
-    { business: 'Phoenix Pottery', emoji: '🏺', place: 'Fitzroy', region: 'mornington', lat: -37.7985, lng: 144.9772 },
-    { business: 'simétrie', emoji: '🧵', place: 'Brunswick', region: 'mornington', lat: -37.7667, lng: 144.9600 },
     { business: 'Adventure Flight Co', emoji: '✈️', place: 'Moorabbin Airport', region: 'mornington', lat: -37.9758, lng: 145.1022 },
     { business: 'Elizabeth Peddey School of Cookery', emoji: '🍋', place: 'Elwood', region: 'mornington', lat: -37.8830, lng: 144.9880 },
     { business: 'Suigeneris Atelier', emoji: '🧵', place: 'Mulgrave', region: 'mornington', lat: -37.9280, lng: 145.1740 }, // Mulgrave's centre: the studio address is private
     { business: 'Peachy Keen Ceramics', emoji: '🏺', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
     { business: 'Aysha Hansen', emoji: '🧴', place: 'Newtown, Geelong', region: 'mornington', lat: -38.1560, lng: 144.3370 },
-    { business: 'StudioMade by Darren McGinn', emoji: '🏺', place: 'Newtown, Geelong', region: 'mornington', lat: -38.1505, lng: 144.3295 }, // Newtown, near Holyrood Ave: suburb level until confirmed
-    { business: 'East Coast Kayaking', emoji: '🛶', place: 'Melbourne city, on the Yarra', region: 'mornington', lat: -37.8210, lng: 144.9640, only: ['city-day', 'city-twilight'] },
-    { business: 'East Coast Kayaking', emoji: '🛶', place: 'Sandringham', region: 'mornington', lat: -37.9510, lng: 145.0010, only: ['bayside', 'point-nepean', 'phillip-island'] },
-    { business: 'Salty Cowboy', emoji: '🐴', place: 'Bali', region: 'bali', lat: -8.6500, lng: 115.2167 }
+    { business: 'StudioMade by Darren McGinn', emoji: '🏺', place: 'Newtown, Geelong', region: 'mornington', lat: -38.1505, lng: 144.3295 } // Newtown, near Holyrood Ave: suburb level until confirmed
   ];
 
   // Activities per pin, from the cards in the results grid (each card is there once).
@@ -306,9 +296,8 @@ var exploreMap = (function () {
     window.addEventListener('resize', function () { map.invalidateSize(); });
   }
 
-  // Only pins with a matching card. The view fits the chosen location's pins; with All
-  // locations it fits Victoria (where most businesses are), or Bali when nothing in
-  // Victoria matches.
+  // Only pins with a matching card, fitted to them; Victoria when none match. (Bali came
+  // off the site, Ro, 14 Nov 2026.)
   function draw() {
     if (!map || !mapEl.offsetWidth) return;
     close();
@@ -317,11 +306,11 @@ var exploreMap = (function () {
       var on = activities(o.pin).length > 0;
       if (on) { o.marker.addTo(map); shown.push(o.pin); } else o.marker.remove();
     });
-    var r = region || (shown.some(function (p) { return p.region === 'mornington'; }) ? 'mornington' : 'bali');
+    var r = region || 'mornington';
     var points = shown.filter(function (p) { return p.region === r; }).map(function (p) { return [p.lat, p.lng]; });
     if (points.length === 1) map.setView(points[0], 10);
     else if (points.length) map.fitBounds(L.latLngBounds(points), { padding: [30, 30], maxZoom: 10 });
-    else map.setView(r === 'bali' ? [-8.65, 115.2167] : [-37.8, 145.0], 8);
+    else map.setView([-37.8, 145.0], 8);
   }
 
   return {
@@ -372,12 +361,6 @@ var exploreMap = (function () {
     box.appendChild(ul);
     panel.appendChild(box);
   });
-  var cur = document.createElement('div');
-  cur.className = 'menu-currency';
-  cur.innerHTML = '<label class="menu-group__label" for="currencySelectNav">Currency</label>' +
-    '<span class="select-wrap"><select id="currencySelectNav" class="currency-select">' +
-    '<option value="AUD">AUD</option><option value="USD">USD</option><option value="IDR">IDR</option></select></span>';
-  panel.appendChild(cur);
   nav.appendChild(panel);
 })();
 
@@ -663,7 +646,7 @@ var mapPanel = (function () {
 })();
 
 // Homepage browse (#browse): the filter nav (What and Situation chips, horse sub-chips,
-// Where, How long and Sort by), the "New in Victoria" and "New in Bali" rails and the greyed group below them. Filters
+// Where, How long and Sort by), the Last-minute spots, Melbourne and regional Victoria rails and the grid below them. Filters
 // combine with AND logic on the cards in #browseGrid, never navigate, and live in the URL
 // (?cat=&sub=&who=&location=&duration=&sort=&map=1), so a refresh or the back button
 // brings them back. With any filter on, the rails hide and only matching cards show.
@@ -677,6 +660,7 @@ var mapPanel = (function () {
   var chipRow = $('chipRow'), horseSub = $('horseSub');
   var locationSelect = $('locationSelect'), durationSelect = $('durationSelect'), sortSelect = $('sortSelect');
   var allTitle = $('allTitle');
+  var resultsEl = grid.closest('.results');
   var resetBtn = $('resetFilters');
   var countEl = $('browseCount'), statusEl = $('browseStatus'), emptyEl = $('browseEmpty'), clearBtn = $('clearFilters');
   var capBtn = document.querySelector('.card-cap-more[aria-controls="browseGrid"]');
@@ -704,7 +688,7 @@ var mapPanel = (function () {
 
   // state.cat: the selected What chips (OR'd together); empty means Anything.
   var state = { cat: [], sub: '', who: '', region: '', duration: '', sort: 'recommended', map: false };
-  var LOCATIONS = { victoria: 'mornington', bali: 'bali' };
+  var LOCATIONS = { victoria: 'mornington' };
   var DURATIONS = ['1h', '1-5h', 'full-day', 'multi-day'];
   var WHO = ['solo', 'duo', 'group'];
   var SORTS = (window.SORT_OPTIONS || []).map(function (o) { return o.value; });
@@ -788,8 +772,7 @@ var mapPanel = (function () {
 
   function countLabel(n) {
     var label = n === 1 ? '1 experience' : n + ' experiences';
-    if (state.region === 'bali') label += ' in Bali';
-    else if (state.region === 'mornington') label += ' in Victoria, Australia';
+    if (state.region === 'mornington') label += ' in Victoria, Australia';
     return label;
   }
 
@@ -802,12 +785,14 @@ var mapPanel = (function () {
     shown = 0;
     cards.forEach(function (card) {
       var match = cardMatches(card);
-      // Cards in the New in Victoria and New in Bali rails (data-live) leave the grid until a filter is on.
+      // Cards in the rails (data-live) leave the grid until a filter is on.
       var inRail = !active && card.hasAttribute('data-live');
       card.hidden = !match || inRail;
       if (match && !inRail) shown++;
     });
     syncReset();
+    // With every card in a rail, the grid below has nothing to show until a filter is on.
+    if (resultsEl) resultsEl.hidden = !active && shown === 0;
     if (allTitle) allTitle.textContent = active ? 'All experiences' : 'New experiences loading...';
     if (countEl) countEl.textContent = countLabel(shown);
     if (emptyEl) emptyEl.hidden = !(active && shown === 0);
@@ -1670,6 +1655,129 @@ window.addEventListener('resize', setHeaderOffset);
       var heading = section && section.querySelector('h2[tabindex="-1"]');
       // After the browser's own jump, which would otherwise reset focus.
       if (heading) setTimeout(function () { heading.focus({ preventScroll: true }); }, 0);
+    });
+  });
+})();
+
+// The booking service for last-minute spots and the list (Ro, 15 Nov 2026): this Mac's
+// local service when previewing, the test service on Cloudflare previews or with
+// ?spots_test=1, the live one everywhere else.
+function realdaysSpotsApi() {
+  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return 'http://127.0.0.1:8787';
+  if (/\.(pages|workers)\.dev$/.test(location.hostname) || /[?&]spots_test=1(&|$)/.test(location.search)) return 'https://api-test.getrealdays.com';
+  return 'https://api.getrealdays.com';
+}
+
+// Last-minute spots (Ro, 15 Nov 2026): the first rail on the homepage, from the booking
+// service's public feed, GET /spots/live.json (soonest first, at most 12). The rail shows
+// only when at least one spot is live; with none, a failed fetch or no answer within 5
+// seconds, nothing shows. Each card opens the spot's own page on the booking service.
+// Businesses type the class names, so every value goes in as text. Like the other rails it
+// sits in #browseRails, so it hides while a filter is on.
+// Ro, 15 Nov 2026: a "Last minute deal" pill on the photo, only when the business has
+// cut the price (usual price above the spot price), and "3 places left" on each card
+// (the business sets how many places it offers).
+var SPOT_PILL = true;
+var SPOT_PLACES_LEFT = true;
+(function () {
+  var section = document.getElementById('railSpotsSection'), grid = document.getElementById('railSpots');
+  if (!section || !grid || !window.fetch || !window.URL) return;
+  var api = realdaysSpotsApi(), origin = new URL(api).origin;
+  // Links and photos only from the booking service itself.
+  function own(u) {
+    try { var x = new URL(u); return x.origin === origin ? x.href : null; } catch (e) { return null; }
+  }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  // "$130" and "$170" become 130 and 170; anything unreadable counts as no discount.
+  function amount(t) { var n = parseFloat(String(t || '').replace(/[^0-9.]/g, '')); return isFinite(n) ? n : null; }
+  function discounted(s) { var p = amount(s.price), u = amount(s.usual_price); return p != null && u != null && u > p; }
+  function card(s) {
+    var href = own(s.url);
+    if (!href || !s.class_name) return null;
+    var a = el('a', 'card sc-card spot-card');
+    a.href = href;
+    a.setAttribute('aria-label', s.class_name + (s.business_name ? ', ' + s.business_name : '') + ', last-minute spot');
+    var media = el('div', 'card__media');
+    if (SPOT_PILL && discounted(s)) media.appendChild(el('span', 'tag spot-pill', 'Last minute deal'));
+    var photo = s.photo_url && own(s.photo_url);
+    if (photo) {
+      var img = el('img');
+      img.src = photo; img.alt = s.class_name; img.loading = 'lazy'; img.decoding = 'async';
+      img.style.cssText = 'display:block;width:100%;height:100%;object-fit:cover;';
+      media.appendChild(img);
+    }
+    a.appendChild(media);
+    var body = el('div', 'card__body');
+    body.appendChild(el('h3', 'card__title', s.class_name));
+    var when = [s.day, s.time].filter(Boolean).join(', ');
+    body.appendChild(el('p', 'card__loc', [when, s.business_name, s.suburb].filter(Boolean).join(' · ')));
+    if (SPOT_PLACES_LEFT && s.places_left > 0) body.appendChild(el('p', 'label spot-left', s.places_left === 1 ? '1 place left' : s.places_left + ' places left'));
+    var row = el('div', 'card__meta card__row'), price = el('p', 'card__price');
+    if (s.price) {
+      price.appendChild(document.createTextNode(s.price + ' per person'));
+      if (s.usual_price && s.usual_price !== s.price) {
+        price.appendChild(document.createTextNode(', usually '));
+        price.appendChild(el('s', null, s.usual_price));
+      }
+    }
+    row.appendChild(price);
+    body.appendChild(row);
+    a.appendChild(body);
+    return a;
+  }
+
+  var late = false;
+  var ctrl = window.AbortController ? new AbortController() : null;
+  var timer = setTimeout(function () { late = true; if (ctrl) ctrl.abort(); }, 5000);
+  fetch(api + '/spots/live.json', ctrl ? { signal: ctrl.signal } : {})
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      clearTimeout(timer);
+      if (late || !data || !Array.isArray(data.spots)) return;
+      var cards = data.spots.map(card).filter(Boolean);
+      if (!cards.length) return;
+      cards.forEach(function (c) { grid.appendChild(c); });
+      var total = Math.max(+data.count || 0, cards.length);
+      var countEl = document.getElementById('railSpotsCount');
+      if (countEl) countEl.textContent = total === 1 ? '1 spot' : total + ' spots';
+      var all = document.getElementById('railSpotsAll'), list = own(data.list_url);
+      if (all && list && total > cards.length) { all.href = list; all.hidden = false; }
+      section.hidden = false;
+    })
+    .catch(function () { clearTimeout(timer); });
+})();
+
+// "Get last-minute spots first" (Ro, 15 Nov 2026): posts the email to the booking
+// service's list, POST /subscribe with { email }. Without JavaScript the form posts as a
+// normal form and the booking service answers with its own page.
+(function () {
+  var forms = document.querySelectorAll('form[data-subscribe]');
+  if (!forms.length || !window.fetch) return;
+  var api = realdaysSpotsApi();
+  [].forEach.call(forms, function (form) {
+    form.action = api + '/subscribe';
+    var input = form.querySelector('input[type="email"]'), status = form.querySelector('.form-status'), btn = form.querySelector('button[type="submit"]');
+    function say(t) { if (status) status.textContent = t; }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (input.value || '').trim();
+      if (!email || !input.checkValidity()) { say('Check the email address and try again.'); input.focus(); return; }
+      btn.disabled = true;
+      say('Sending...');
+      fetch(api + '/subscribe', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: email }) })
+        .then(function (r) {
+          if (r.status === 200 || r.status === 201) { say("You're on the list."); input.value = ''; }
+          else if (r.status === 400) say('Check the email address and try again.');
+          else if (r.status === 429) say('Please try again in a few minutes.');
+          else say("That didn't send. Try again.");
+        })
+        .catch(function () { say("That didn't send. Try again."); })
+        .then(function () { btn.disabled = false; });
     });
   });
 })();

@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="facebook-domain-verification" content="j9t60finxr5gzvf8meoi1mbrgpwsfx" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Things to do in Victoria, Australia and Bali | RealDays</title>
-<meta name="description" content="Unique experiences run by the local people who started them. In Victoria, Australia and Bali." />
+<title>Things to do in Victoria, Australia | RealDays</title>
+<meta name="description" content="Unique experiences run by the local people who started them. In Victoria, Australia." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=bf6e4cf3" />
+<link rel="stylesheet" href="styles.css?v=487deaf7" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -20,14 +20,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="RealDays" />
 <meta property="og:url" content="https://getrealdays.com/" />
-<meta property="og:title" content="Things to do in Victoria, Australia and Bali | RealDays" />
-<meta property="og:description" content="Unique experiences run by the local people who started them. In Victoria, Australia and Bali." />
+<meta property="og:title" content="Things to do in Victoria, Australia | RealDays" />
+<meta property="og:description" content="Unique experiences run by the local people who started them. In Victoria, Australia." />
 <meta property="og:image" content="https://getrealdays.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Things to do in Victoria, Australia and Bali | RealDays" />
-<meta name="twitter:description" content="Unique experiences run by the local people who started them. In Victoria, Australia and Bali." />
+<meta name="twitter:title" content="Things to do in Victoria, Australia | RealDays" />
+<meta name="twitter:description" content="Unique experiences run by the local people who started them. In Victoria, Australia." />
 <meta name="twitter:image" content="https://getrealdays.com/assets/og-image.png" />
 <script type="application/ld+json">
 {
@@ -63,7 +63,7 @@
           "name": "What is RealDays?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them, in Victoria, Australia and Bali."
+            "text": "RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them, in Victoria, Australia."
           }
         },
         {
@@ -121,12 +121,6 @@
         <a href="./" class="navlink on" aria-current="page">For customers</a>
         <a href="for-business/" class="navlink">For businesses</a>
         <a href="gift-cards/" class="btn--secondary">Gift cards</a>
-        <label for="currencySelect" class="sr-only">Currency</label>
-        <span class="select-wrap"><select id="currencySelect" class="currency-select" aria-label="Currency">
-          <option value="AUD">AUD $</option>
-          <option value="USD">USD $</option>
-          <option value="IDR">IDR Rp</option>
-        </select></span>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -150,8 +144,8 @@
       <h1 class="hero-h1 hero-h1--lg">Something you'll actually remember doing.</h1>
       <p class="hero-sub label">Unique experiences, run by the local people who started them.</p>
       <form class="hero-search" id="heroSearch" action="#browse" role="search" aria-label="Find an experience">
-        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="horse">Horse riding</option><option value="clay">Clay</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="flying">Flying</option><option value="food">Food</option></select></div>
-        <div class="hero-search__field"><label class="label" for="heroWhere">Where</label><select id="heroWhere" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option><option value="bali">Bali</option></select></div>
+        <div class="hero-search__field"><label class="label" for="heroWhat">What</label><select id="heroWhat" class="location-select pill-select"><option value="">Anything</option><option value="clay">Clay</option><option value="wood">Woodworks</option><option value="fashion">Fashion</option><option value="flying">Flying</option><option value="food">Food</option></select></div>
+        <div class="hero-search__field"><label class="label" for="heroWhere">Where</label><select id="heroWhere" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option></select></div>
         <div class="hero-search__field"><label class="label" for="heroWho">Situation</label><select id="heroWho" class="location-select pill-select"><option value="">Anyone</option><option value="solo">Solo</option><option value="duo">Duo</option><option value="group">Group (3+ ppl)</option></select></div>
         <button type="submit" class="btn--on-dark">Go</button>
       </form>
@@ -170,18 +164,11 @@
             <span class="label fn-label" id="experienceLabel">What</span>
             <div class="chip-list" id="chipRow" role="group" aria-labelledby="experienceLabel">
               <button type="button" class="chip cat-chip" aria-pressed="true" data-cat="">Anything</button>
-              <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="horse" aria-expanded="false" aria-controls="horseSub">Horse riding</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="clay">Clay</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="wood">Woodworks</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="fashion">Fashion</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="flying">Flying</button>
               <button type="button" class="chip cat-chip" aria-pressed="false" data-cat="food">Food</button>
-            </div>
-            <div class="chip-list" id="horseSub" hidden role="group" aria-label="Horse experiences">
-              <button type="button" class="chip chip--sm sub-chip" aria-pressed="true" data-type="">All horse (11)</button>
-              <button type="button" class="chip chip--sm sub-chip" aria-pressed="false" data-type="rides">Rides (2)</button>
-              <button type="button" class="chip chip--sm sub-chip" aria-pressed="false" data-type="photoshoots">Photoshoots (4)</button>
-              <button type="button" class="chip chip--sm sub-chip" aria-pressed="false" data-type="lessons">Lessons (5)</button>
             </div>
           </div>
           <div class="fn-group fn-who">
@@ -199,7 +186,7 @@
           <button type="button" class="btn--secondary fn-filters" id="filtersBtn">Filters</button>
           <div class="fn-group fn-where">
             <label class="label fn-label" for="locationSelect" id="locationLabel">Where</label>
-            <span class="select-wrap fn-select"><select id="locationSelect" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option><option value="bali">Bali</option></select></span>
+            <span class="select-wrap fn-select"><select id="locationSelect" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option></select></span>
           </div>
           <div class="fn-group fn-long">
             <label class="label fn-label" for="durationSelect" id="durationLabel">How long?</label>
@@ -219,12 +206,20 @@
 
     <div class="container section map-shift" id="browseResults">
       <div id="browseRails">
+      <!-- Last-minute spots (Ro, 15 Nov 2026): filled by app.js from the booking service's /spots/live.json, shown only when a spot is live. -->
+      <section class="rail" id="railSpotsSection" aria-labelledby="railSpotsTitle" hidden>
+        <div class="rail-head">
+          <div><h2 class="section-title" id="railSpotsTitle">Last-minute spots</h2><p class="section-count label" id="railSpotsCount"></p></div>
+          <a class="see-all" id="railSpotsAll" href="https://api.getrealdays.com/spots" hidden>See all</a>
+        </div>
+        <div class="card-grid" id="railSpots"></div>
+      </section>
       <section class="rail" aria-labelledby="railLiveTitle">
         <div class="rail-head">
           <div><h2 class="section-title" id="railLiveTitle">New in Melbourne</h2><p class="section-count label">5 experiences</p></div>
         </div>
         <div class="card-grid" id="railLive">
-<a class="card sc-card" href="/elizabeth-peddey/" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery" data-duration="720" data-days="4">
+<a class="card sc-card" href="/elizabeth-peddey/" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/elizabeth-peddey/class-800.avif" /><img src="/assets/img/demo/elizabeth-peddey/class-800.webp" alt="Students in green aprons preparing leafy greens together at a kitchen bench" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Cook Mediterranean summer food over four Wednesdays</h3>
@@ -232,7 +227,7 @@
             <div class="card__meta card__row"><p class="card__price">From $185 AUD</p></div>
           </div>
         </a>
-<a class="card sc-card" href="/elizabeth-peddey/tuesdays/" aria-label="Cook Mediterranean summer food over four Tuesdays, Elizabeth Peddey School of Cookery" data-duration="720" data-days="4">
+<a class="card sc-card" href="/elizabeth-peddey/tuesdays/" aria-label="Cook Mediterranean summer food over four Tuesdays, Elizabeth Peddey School of Cookery">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/elizabeth-peddey/dinner-800.avif" /><img src="/assets/img/demo/elizabeth-peddey/dinner-800.webp" alt="The class seated at a long table, sharing the dishes they cooked" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Cook Mediterranean summer food over four Tuesdays</h3>
@@ -304,7 +299,7 @@
             <div class="card__meta card__row"><p class="card__price">$130 AUD</p></div>
           </div>
         </a>
-<a class="card sc-card" href="/studiomade/" aria-label="Throw a cup on the pottery wheel in two hours, StudioMade by Darren McGinn" data-duration="120">
+<a class="card sc-card" href="/studiomade/" aria-label="Throw a cup on the pottery wheel in two hours, StudioMade by Darren McGinn">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/studiomade/wheel-800.avif" /><img src="/assets/img/demo/studiomade/wheel-800.webp" alt="Hands shaping a clay pot on the wheel with a rib tool" width="800" height="492" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Throw a cup on the pottery wheel in two hours</h3>
@@ -330,102 +325,6 @@
         </a>
         </div>
       </section>
-      <section class="rail" aria-labelledby="railBaliTitle">
-        <div class="rail-head">
-          <div><h2 class="section-title" id="railBaliTitle">New in Bali</h2><p class="section-count label">11 experiences</p></div>
-          <div class="rail-nav"><button type="button" class="rail-btn" data-rail="railBali" data-dir="-1" aria-label="Previous" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" class="rail-btn" data-rail="railBali" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button></div>
-        </div>
-        <div class="card-rail" id="railBali">
-<a class="card sc-card" href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="160" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="270" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides" data-duration="120">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/insta-ride.jpg" alt="Rider on a horse pausing for a photo on the way to the beach" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
-          <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo" data-sort-aud="175" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-beach.jpg" alt="Groomed horse posed on the beach for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-1.jpg" alt="Horse and model on the beach at sunset" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-2.jpg" alt="Close up of a horse on the beach during a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-1.jpg" alt="Horse walking through rice fields on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-2.jpg" alt="Rider leading a horse through the rice terraces" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo" data-sort-aud="125" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/grooming.jpg" alt="Stable manager teaching a grooming class with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Horse grooming class with the stable manager</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo" data-sort-aud="250" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/join-up.jpg" alt="Trainer working with a horse in a Join Up natural horsemanship lesson" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="175" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-stable.jpg" alt="Western-style stable backdrop with horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse standing in the stable photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-2.jpg" alt="Model posed with a horse in the stable backdrop" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-3.jpg" alt="Close up of a horse in the stable photoshoot area" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-4.jpg" alt="Western saddle and tack on display in the stable photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
-          <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="175" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-paddock-card.jpg" alt="Green paddock with grazing horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-1.jpg" alt="Horses grazing in the green paddock" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-2.jpg" alt="Paddock photoshoot backdrop with horses in the distance" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-3.jpg" alt="Grazing horse in the paddock photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-4.jpg" alt="Green paddock with horses and a mountain view" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
-          <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo" data-sort-aud="290" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons" data-duration="50">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/dressage.jpg" alt="Rider and horse in a private dressage lesson in the arena" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Private dressage lesson</h3>
-          <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="450" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-cottages.jpg" alt="Rustic wooden cottage exterior used for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-1.jpg" alt="Interior of the rustic wooden cottage photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-2.jpg" alt="Wooden cottage photoshoot backdrop with natural light" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-3.jpg" alt="Detail of the cottage interior used for photoshoots" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-4.jpg" alt="Rustic cottage photoshoot corner with wooden furniture" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
-          <p class="card__loc">3 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="group" data-sort-aud="600" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/group-clinic.jpg" alt="Group leadership and trust clinic with horses" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
-          <p class="card__loc">1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-<a class="card sc-card" href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo" data-sort-aud="2250" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons" data-duration="600" data-days="3">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/horse-whisperer.jpg" alt="Horse Whisperer course participants working with a horse" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">3-day Horse Whisperer course</h3>
-          <p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        </div>
-      </section>
       </div>
 
       <section class="results" aria-labelledby="allTitle">
@@ -443,7 +342,7 @@
           <button type="button" id="clearFilters" class="link-btn">Clear filters</button>
         </div>
         <div class="card-grid" id="browseGrid" data-mobile-cap>
-        <a class="card sc-card" data-live href="/elizabeth-peddey/" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Wednesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne lunch wednesday wine" data-duration="720" data-days="4">
+        <a class="card sc-card" data-live href="/elizabeth-peddey/" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Wednesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne lunch wednesday wine">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/elizabeth-peddey/class-800.avif" /><img src="/assets/img/demo/elizabeth-peddey/class-800.webp" alt="Students in green aprons preparing leafy greens together at a kitchen bench" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Cook Mediterranean summer food over four Wednesdays</h3>
@@ -451,7 +350,7 @@
             <div class="card__meta card__row"><p class="card__price">From $185 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" data-live href="/elizabeth-peddey/tuesdays/" aria-label="Cook Mediterranean summer food over four Tuesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Tuesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne evening dinner tuesday wine" data-duration="720" data-days="4">
+        <a class="card sc-card" data-live href="/elizabeth-peddey/tuesdays/" aria-label="Cook Mediterranean summer food over four Tuesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Tuesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne evening dinner tuesday wine">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/elizabeth-peddey/dinner-800.avif" /><img src="/assets/img/demo/elizabeth-peddey/dinner-800.webp" alt="The class seated at a long table, sharing the dishes they cooked" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Cook Mediterranean summer food over four Tuesdays</h3>
@@ -499,24 +398,6 @@
             <div class="card__meta card__row"><p class="card__price">From $850 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/gordon-studio/?x=hands-on" aria-label="Demo: Blow your own glass in a family hot shop, Gordon Studio Glassblowers" data-title="Blow your own glass in a family hot shop" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="" data-situation="solo duo group" data-sort-aud="500" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing workshop hands-on red hill" data-duration="390">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/gordon-studio/hot-shop-800.avif" /><img src="/assets/img/demo/gordon-studio/hot-shop-800.webp" alt="Two glassblowers turning a glowing piece of glass on a blowpipe at the bench in the Gordon Studio hot shop" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Blow your own glass in a family hot shop</h3>
-            <p class="card__loc">Full day &middot; Gordon Studio Glassblowers &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $500 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/gordon-studio/?x=watch" aria-label="Demo: Friday night with the glassblowers, Gordon Studio Glassblowers" data-title="Friday night with the glassblowers" data-business="Gordon Studio Glassblowers" data-region="mornington" data-cat="" data-situation="solo duo group" data-sort-aud="70" data-type="" data-rank="0" data-keywords="demo gordon studio glass glassblowing friday night wine cheese red hill" data-duration="180">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/gordon-studio/friday-night-800.avif" /><img src="/assets/img/demo/gordon-studio/friday-night-800.webp" alt="Visitors seated around the hot shop floor watching the glassblowers work on a Friday night" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Friday night with the glassblowers</h3>
-            <p class="card__loc">3 hr &middot; Gordon Studio Glassblowers &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $70 AUD</p></div>
-          </div>
-        </a>
         <a class="card sc-card" data-live href="/adventure-flight-co/" aria-label="Loop, roll and spin in a warbird over Melbourne, Adventure Flight Co" data-title="Loop, roll and spin in a warbird over Melbourne" data-business="Adventure Flight Co" data-region="mornington" data-cat="flying" data-situation="solo" data-sort-aud="365" data-type="" data-rank="0" data-keywords="adventure flight co aerobatic flight warbird plane flying loop roll spin moorabbin barwon heads melbourne combat nanchang" data-duration="15">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/adventure-flight-co/card-cockpit-800.avif" /><img src="/assets/img/demo/adventure-flight-co/card-cockpit-800.webp" alt="View from the back seat of a warbird, over the pilot's shoulder, with the Victorian coast far below" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
@@ -525,120 +406,12 @@
             <div class="card__meta card__row"><p class="card__price">From $365 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-2h" aria-label="Demo: E-bike the O'Keefe Rail Trail from Heathcote, Heathcote Bike Hire" data-title="E-bike the O'Keefe Rail Trail from Heathcote" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="bike" data-situation="solo duo group" data-sort-aud="25" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail okeefe" data-duration="480">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.avif" /><img src="/assets/img/demo/heathcote-bike-hire/ebike-trail-800.webp" alt="Two riders on fat-tyre e-bikes on a dirt trail through the bush" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">E-bike the O'Keefe Rail Trail from Heathcote</h3>
-            <p class="card__loc">1 hr to full day &middot; Heathcote Bike Hire &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $25 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/heathcote-bike-hire/?x=hire-full-day" aria-label="Demo: A full day on an e-bike in Heathcote wine country, Heathcote Bike Hire" data-title="A full day on an e-bike in Heathcote wine country" data-business="Heathcote Bike Hire" data-region="mornington" data-cat="bike" data-situation="solo duo group" data-sort-aud="200" data-type="" data-rank="0" data-keywords="demo heathcote bike hire e-bike ebike cycling rail trail wine winery vineyard pink cliffs full day" data-duration="480">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/heathcote-bike-hire/vineyard-800.avif" /><img src="/assets/img/demo/heathcote-bike-hire/vineyard-800.webp" alt="Rows of vines in a central Victorian vineyard" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">A full day on an e-bike in Heathcote wine country</h3>
-            <p class="card__loc">Full day &middot; Heathcote Bike Hire &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $200 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/salty-seas/?x=womens-group" aria-label="Demo: Women's surf group at Inverloch, Salty Seas Surf School" data-title="Women's surf group at Inverloch" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-situation="solo duo group" data-sort-aud="60" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast women womens group" data-duration="90">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-womens-group-800.avif" /><img src="/assets/img/demo/salty-seas/card-womens-group-800.webp" alt="A women's surf group in wetsuits and green rash vests standing on the beach with their boards" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Women's surf group at Inverloch</h3>
-            <p class="card__loc">1.5 hr &middot; Salty Seas Surf School &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $60 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/salty-seas/?x=private-lesson" aria-label="Demo: Private surf lesson at Inverloch Surf Beach, Salty Seas Surf School" data-title="Private surf lesson at Inverloch Surf Beach" data-business="Salty Seas Surf School" data-region="mornington" data-cat="surf" data-situation="solo duo group" data-sort-aud="180" data-type="" data-rank="0" data-keywords="demo salty seas surf school surfing lesson inverloch bass coast private beginner" data-duration="90">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/salty-seas/card-standing-up-800.avif" /><img src="/assets/img/demo/salty-seas/card-standing-up-800.webp" alt="A surfer in a green rash vest standing up on a soft board in a small wave" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Private surf lesson at Inverloch Surf Beach</h3>
-            <p class="card__loc">90 min &middot; Salty Seas Surf School &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $180 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-1h" aria-label="Demo: A one-hour trail ride through the bush near Torquay, Spring Creek Horse Rides" data-title="A one-hour trail ride through the bush near Torquay" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-situation="solo duo group" data-sort-aud="120" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways one hour beginner" data-duration="60">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/spring-creek-horse-rides/card-one-hour-800.avif" /><img src="/assets/img/demo/spring-creek-horse-rides/card-one-hour-800.webp" alt="A line of riders on a bush trail through the gum trees" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">A one-hour trail ride through the bush near Torquay</h3>
-            <p class="card__loc">1 hr &middot; Spring Creek Horse Rides &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $120 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/spring-creek-horse-rides/?x=trail-2h" aria-label="Demo: Two hours on horseback towards the Otways, Spring Creek Horse Rides" data-title="Two hours on horseback towards the Otways" data-business="Spring Creek Horse Rides" data-region="mornington" data-cat="horse" data-situation="solo duo group" data-sort-aud="160" data-type="rides" data-rank="0" data-keywords="demo spring creek horse rides horse riding trail ride bellbrae torquay otways two hour great otway national park" data-duration="120">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/spring-creek-horse-rides/card-two-hour-800.avif" /><img src="/assets/img/demo/spring-creek-horse-rides/card-two-hour-800.webp" alt="A group of riders lined up on a green paddock under a blue sky, with bush behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Two hours on horseback towards the Otways</h3>
-            <p class="card__loc">2 hr &middot; Spring Creek Horse Rides &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $160 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/moonraker-dolphin-swims/?x=dolphin-seal-swim" aria-label="Demo: Swim with wild dolphins and seals off Sorrento, Moonraker Dolphin Swims" data-title="Swim with wild dolphins and seals off Sorrento" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="sealife" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay dolphin seal swim" data-duration="180">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/moonraker-dolphin-swims/card-dolphins-800.avif" /><img src="/assets/img/demo/moonraker-dolphin-swims/card-dolphins-800.webp" alt="Bottlenose dolphins swimming together underwater" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Swim with wild dolphins and seals off Sorrento</h3>
-            <p class="card__loc">3 hr &middot; Moonraker Dolphin Swims &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $185 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/moonraker-dolphin-swims/?x=seal-seadragon-swim" aria-label="Demo: Swim with seals and weedy sea dragons, Moonraker Dolphin Swims" data-title="Swim with seals and weedy sea dragons" data-business="Moonraker Dolphin Swims" data-region="mornington" data-cat="sealife" data-situation="solo duo group" data-sort-aud="125" data-type="" data-rank="0" data-keywords="demo moonraker dolphin swims snorkel swim dolphins seals sorrento port phillip bay seal sea dragon swim" data-duration="120">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/moonraker-dolphin-swims/card-seal-swim-pier-800.avif" /><img src="/assets/img/demo/moonraker-dolphin-swims/card-seal-swim-pier-800.webp" alt="A snorkeller in clear water beside seals resting on a pier, with the Moonraker boat behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Swim with seals and weedy sea dragons</h3>
-            <p class="card__loc">2 hr &middot; Moonraker Dolphin Swims &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">From $125 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/phoenix-pottery/?x=beginner-wheel" aria-label="Demo: Learn the pottery wheel over an eight-week term, Phoenix Pottery" data-title="Learn the pottery wheel over an eight-week term" data-business="Phoenix Pottery" data-region="mornington" data-cat="clay" data-situation="solo duo group" data-sort-aud="" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy wheel throwing beginner" data-duration="1440" data-days="8">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/phoenix-pottery/card-studio-800.avif" /><img src="/assets/img/demo/phoenix-pottery/card-studio-800.webp" alt="Potters at the wheels and benches in the long Phoenix Pottery studio" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Learn the pottery wheel over an eight-week term</h3>
-            <p class="card__loc">8 weeks &middot; Phoenix Pottery &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">8-week term</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/phoenix-pottery/?x=handbuilding" aria-label="Demo: Handbuilding with clay over a term, Phoenix Pottery" data-title="Handbuilding with clay over a term" data-business="Phoenix Pottery" data-region="mornington" data-cat="clay" data-situation="solo duo group" data-sort-aud="" data-type="" data-rank="0" data-keywords="demo phoenix pottery ceramics clay class course fitzroy handbuilding" data-duration="1440" data-days="8">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/phoenix-pottery/card-glazed-pieces-800.avif" /><img src="/assets/img/demo/phoenix-pottery/card-glazed-pieces-800.webp" alt="Glazed vases, cups and a lidded jar lined up against a white brick wall" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Handbuilding with clay over a term</h3>
-            <p class="card__loc">8 weeks &middot; Phoenix Pottery &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">8-week term</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" data-live href="/studiomade/" aria-label="Throw a cup on the pottery wheel in two hours, StudioMade by Darren McGinn" data-title="Throw a cup on the pottery wheel in two hours" data-business="StudioMade by Darren McGinn" data-region="mornington" data-cat="clay" data-situation="solo duo group" data-sort-aud="120" data-type="" data-rank="0" data-keywords="studiomade darren mcginn pottery ceramics clay class taster wheel throwing geelong newtown" data-duration="120">
+        <a class="card sc-card" data-live href="/studiomade/" aria-label="Throw a cup on the pottery wheel in two hours, StudioMade by Darren McGinn" data-title="Throw a cup on the pottery wheel in two hours" data-business="StudioMade by Darren McGinn" data-region="mornington" data-cat="clay" data-situation="solo duo group" data-sort-aud="120" data-type="" data-rank="0" data-keywords="studiomade darren mcginn pottery ceramics clay class taster wheel throwing geelong newtown">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/studiomade/wheel-800.avif" /><img src="/assets/img/demo/studiomade/wheel-800.webp" alt="Hands shaping a clay pot on the wheel with a rib tool" width="800" height="492" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
             <h3 class="card__title">Throw a cup on the pottery wheel in two hours</h3>
             <p class="card__loc">2 hr &middot; StudioMade &middot; Victoria</p>
             <div class="card__meta card__row"><p class="card__price">$120 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/simetrie/?x=ravjul-charm" aria-label="Demo: Hand-stitch a leather bag charm in an evening, simétrie" data-title="Hand-stitch a leather bag charm in an evening" data-business="simétrie" data-region="mornington" data-cat="fashion" data-situation="solo duo group" data-sort-aud="120" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching bag charm ravjul beginner evening" data-duration="150">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/simetrie/card-ravjul-charms-800.avif" /><img src="/assets/img/demo/simetrie/card-ravjul-charms-800.webp" alt="Ravioli-shaped leather bag charms in soft colours" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Hand-stitch a leather bag charm in an evening</h3>
-            <p class="card__loc">2.5 hr &middot; simétrie &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">$120 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/simetrie/?x=card-wallet" aria-label="Demo: Make a saddle-stitched leather card wallet, simétrie" data-title="Make a saddle-stitched leather card wallet" data-business="simétrie" data-region="mornington" data-cat="fashion" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="demo simetrie leather bag making workshop brunswick hand stitching card wallet pisces" data-duration="270">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/simetrie/card-card-wallet-800.avif" /><img src="/assets/img/demo/simetrie/card-card-wallet-800.webp" alt="A finished red card wallet, saddle-stitched and stamped with a name" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Make a saddle-stitched leather card wallet</h3>
-            <p class="card__loc">4 hr &middot; simétrie &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">$185 AUD</p></div>
           </div>
         </a>
         <a class="card sc-card" data-live href="/peachy-keen-ceramics/sunday-sessions/" aria-label="Sunday afternoon in a ceramics studio, Peachy Keen Ceramics" data-title="Sunday afternoon in a ceramics studio" data-business="Peachy Keen Ceramics" data-region="mornington" data-cat="clay" data-situation="solo duo group" data-sort-aud="130" data-type="" data-rank="0" data-keywords="peachy keen ceramics pottery clay workshop mount eliza sunday session" data-duration="120">
@@ -665,112 +438,6 @@
             <div class="card__meta card__row"><p class="card__price">From $199 AUD</p></div>
           </div>
         </a>
-        <a class="card sc-card" href="/demo/b/east-coast-kayaking/?x=city-day" aria-label="Demo: Kayak the Yarra through the middle of Melbourne, East Coast Kayaking" data-title="Kayak the Yarra through the middle of Melbourne" data-business="East Coast Kayaking" data-region="mornington" data-cat="" data-situation="solo duo group" data-sort-aud="85" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne yarra city day" data-duration="90">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/east-coast-kayaking/card-city-day-800.avif" /><img src="/assets/img/demo/east-coast-kayaking/card-city-day-800.webp" alt="A group in yellow double kayaks on the Yarra with the Melbourne skyline behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Kayak the Yarra through the middle of Melbourne</h3>
-            <p class="card__loc">1.5 hr &middot; East Coast Kayaking &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">$85 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" href="/demo/b/east-coast-kayaking/?x=bayside" aria-label="Demo: Paddle the Bayside coast from Sandringham, East Coast Kayaking" data-title="Paddle the Bayside coast from Sandringham" data-business="East Coast Kayaking" data-region="mornington" data-cat="sealife" data-situation="solo duo group" data-sort-aud="145" data-type="" data-rank="0" data-keywords="demo east coast kayaking sea kayak tour paddle melbourne bayside sandringham port phillip bay" data-duration="150">
-          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/east-coast-kayaking/card-bayside-800.avif" /><img src="/assets/img/demo/east-coast-kayaking/card-bayside-800.webp" alt="Paddlers in yellow kayaks on calm water off Sandringham, with yachts behind" width="800" height="534" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
-          <div class="card__body">
-            <p class="card__tag"><span class="tag">Pending...</span></p>
-            <h3 class="card__title">Paddle the Bayside coast from Sandringham</h3>
-            <p class="card__loc">2.5 hr &middot; East Coast Kayaking &middot; Victoria</p>
-            <div class="card__meta card__row"><p class="card__price">$145 AUD</p></div>
-          </div>
-        </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/beach-ride/" aria-label="Guided horse ride through rice fields to the beach" data-title="Guided horse ride through rice fields to the beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="160" data-type="rides" data-rank="1" data-keywords="salty cowboy horse bali rides" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/beach-ride.jpg" alt="Horse and rider on the beach with rice fields behind, Salty Cowboy Bali" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Guided horse ride through rice fields to the beach</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1600000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/insta-ride/" aria-label="Two-hour horse ride with photo stops, village to beach" data-title="Two-hour horse ride with photo stops, village to beach" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="270" data-type="rides" data-rank="2" data-keywords="salty cowboy horse bali rides" data-duration="120">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/insta-ride.jpg" alt="Rider on a horse pausing for a photo on the way to the beach" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Two-hour horse ride with photo stops, village to beach</h3>
-          <p class="card__loc">2 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2700000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/beach-photoshoot/" aria-label="Beach and rice field photoshoot with a groomed horse" data-title="Beach and rice field photoshoot with a groomed horse" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo" data-sort-aud="175" data-type="photoshoots" data-rank="3" data-keywords="salty cowboy horse bali photoshoots" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-beach.jpg" alt="Groomed horse posed on the beach for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-1.jpg" alt="Horse and model on the beach at sunset" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-beach-2.jpg" alt="Close up of a horse on the beach during a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-1.jpg" alt="Horse walking through rice fields on the way to the beach" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-ricefield-2.jpg" alt="Rider leading a horse through the rice terraces" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Beach and rice field photoshoot with a groomed horse</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/horse-grooming/" aria-label="Horse grooming class with the stable manager" data-title="Horse grooming class with the stable manager" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo" data-sort-aud="125" data-type="lessons" data-rank="4" data-keywords="salty cowboy horse bali lessons" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/grooming.jpg" alt="Stable manager teaching a grooming class with a horse" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Horse grooming class with the stable manager</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1250000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/join-up-lesson/" aria-label="Join Up: natural horsemanship lesson, no riding" data-title="Join Up: natural horsemanship lesson, no riding" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo" data-sort-aud="250" data-type="lessons" data-rank="5" data-keywords="salty cowboy horse bali lessons" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/join-up.jpg" alt="Trainer working with a horse in a Join Up natural horsemanship lesson" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Join Up: natural horsemanship lesson, no riding</h3>
-          <p class="card__loc">1-1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2500000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/stable-photoshoot/" aria-label="Western stable photoshoot with horses behind you" data-title="Western stable photoshoot with horses behind you" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="175" data-type="photoshoots" data-rank="6" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-stable.jpg" alt="Western-style stable backdrop with horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-1.jpg" alt="Horse standing in the stable photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-2.jpg" alt="Model posed with a horse in the stable backdrop" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-3.jpg" alt="Close up of a horse in the stable photoshoot area" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-stable-4.jpg" alt="Western saddle and tack on display in the stable photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Western stable photoshoot with horses behind you</h3>
-          <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/paddock-photoshoot/" aria-label="Green paddock photoshoot with grazing horses" data-title="Green paddock photoshoot with grazing horses" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="175" data-type="photoshoots" data-rank="7" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-paddock-card.jpg" alt="Green paddock with grazing horses for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-1.jpg" alt="Horses grazing in the green paddock" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-2.jpg" alt="Paddock photoshoot backdrop with horses in the distance" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-3.jpg" alt="Grazing horse in the paddock photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-paddock-4.jpg" alt="Green paddock with horses and a mountain view" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Green paddock photoshoot with grazing horses</h3>
-          <p class="card__loc">1-3 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="1750000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/dressage-masterclass/" aria-label="Private dressage lesson" data-title="Private dressage lesson" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo" data-sort-aud="290" data-type="lessons" data-rank="8" data-keywords="salty cowboy horse bali lessons" data-duration="50">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/dressage.jpg" alt="Rider and horse in a private dressage lesson in the arena" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Private dressage lesson</h3>
-          <p class="card__loc">50 min &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="2900000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/cottages-photoshoot/" aria-label="Rustic wooden cottage photoshoot (no horses)" data-title="Rustic wooden cottage photoshoot (no horses)" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo group" data-sort-aud="450" data-type="photoshoots" data-rank="9" data-keywords="salty cowboy horse bali photoshoots" data-duration="180">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/photo-cottages.jpg" alt="Rustic wooden cottage exterior used for a photoshoot" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-1.jpg" alt="Interior of the rustic wooden cottage photoshoot setting" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-2.jpg" alt="Wooden cottage photoshoot backdrop with natural light" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-3.jpg" alt="Detail of the cottage interior used for photoshoots" width="800" height="600" loading="lazy" decoding="async" /></div><div class="card__slide"><img src="assets/salty-cowboy/gallery-cottages-4.jpg" alt="Rustic cottage photoshoot corner with wooden furniture" width="800" height="600" loading="lazy" decoding="async" /></div></div><button class="card__nav card__nav--prev" type="button" aria-label="Previous photo">&lsaquo;</button><button class="card__nav card__nav--next" type="button" aria-label="Next photo">&rsaquo;</button><div class="card__dots" aria-hidden="true"></div><span class="sr-only" aria-live="polite"></span></div>
-        <div class="card__body">
-          <h3 class="card__title">Rustic wooden cottage photoshoot (no horses)</h3>
-          <p class="card__loc">3 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="4500000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/group-clinic/" aria-label="Leadership and trust clinic with horses, for groups" data-title="Leadership and trust clinic with horses, for groups" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="group" data-sort-aud="600" data-type="lessons" data-rank="10" data-keywords="salty cowboy horse bali lessons" data-duration="90">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/group-clinic.jpg" alt="Group leadership and trust clinic with horses" width="800" height="600" loading="lazy" decoding="async" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">Leadership and trust clinic with horses, for groups</h3>
-          <p class="card__loc">1.5 hr &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="6000000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
-        <a class="card sc-card" data-live href="/bali/salty-cowboy/horse-whisperer-course/" aria-label="3-day Horse Whisperer course" data-title="3-day Horse Whisperer course" data-business="Salty Cowboy" data-region="bali" data-cat="horse" data-situation="solo duo" data-sort-aud="2250" data-type="lessons" data-rank="11" data-keywords="salty cowboy horse bali lessons" data-duration="600" data-days="3">
-        <div class="card__media card__carousel"><div class="card__track"><div class="card__slide"><img src="assets/salty-cowboy/horse-whisperer.jpg" alt="Horse Whisperer course participants working with a horse" width="800" height="600" loading="lazy" decoding="async" style="object-position:center 15%;" /></div></div></div>
-        <div class="card__body">
-          <h3 class="card__title">3-day Horse Whisperer course</h3>
-          <p class="card__loc">3 days &middot; Salty Cowboy &middot; Bali</p>
-          <div class="card__meta card__row"><p class="card__price" data-price-idr="22500000" data-price-prefix="From"></p></div>
-        </div>
-      </a>
         </div>
         <button type="button" class="card-cap-more" aria-controls="browseGrid" aria-expanded="false">See all experiences</button>
       </section>
@@ -786,21 +453,6 @@
     <div id="exploreMap"></div>
   </aside>
 
-  <section id="new-on-threshold" class="map-shift" aria-labelledby="group-businesses" style="padding-bottom:var(--section-y);">
-    <div class="container">
-        <div class="rail-head"><h2 class="section-title" id="group-businesses">Meet the businesses</h2></div>
-        <div class="card-grid">
-          <a class="card" href="case-study.html">
-            <div class="card__media" style="background-image:url('assets/simone-horse.jpg');background-size:cover;background-position:center;"></div>
-            <div class="card__body">
-              <h3 class="card__title">Salty Cowboy</h3>
-              <p class="card__loc">Horse riding &middot; Bali</p>
-            </div>
-          </a>
-        </div>
-    </div>
-  </section>
-
 
   <section id="faq" class="faq-section map-shift" aria-labelledby="faqTitle">
     <div class="container">
@@ -808,7 +460,7 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary>What is RealDays?</summary>
-          <p>RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them, in Victoria, Australia and Bali.</p>
+          <p>RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them, in Victoria, Australia.</p>
         </details>
         <details class="faq-item">
           <summary>Is RealDays a travel agency or a booking platform?</summary>
@@ -861,6 +513,16 @@
   </section>
 
   <footer class="map-shift">
+    <!-- "Get last-minute spots first" (Ro, 15 Nov 2026): joins the booking service's list (app.js). The consent line is stored word for word, so keep it as it is. -->
+    <div class="container footer-spots on-dark" id="spots-list">
+      <h2 class="footer-spots__title">Get last-minute spots first</h2>
+      <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+        <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
+        <button type="submit" class="btn">Join the list</button>
+        <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+        <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
     <div class="container label">
     <span>&copy; 2026 RealDays</span>
     <nav aria-label="Footer">
@@ -877,6 +539,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=d720c532"></script>
+<script src="app.js?v=5c269cf9"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=bf6e4cf3" />
+<link rel="stylesheet" href="../styles.css?v=487deaf7" />
 <link rel="canonical" href="https://getrealdays.com/booking-terms/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -147,6 +147,16 @@
   </main>
 
   <footer>
+    <!-- "Get last-minute spots first" (Ro, 15 Nov 2026): joins the booking service's list (app.js). The consent line is stored word for word, so keep it as it is. -->
+    <div class="container footer-spots on-dark" id="spots-list">
+      <h2 class="footer-spots__title">Get last-minute spots first</h2>
+      <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+        <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
+        <button type="submit" class="btn">Join the list</button>
+        <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+        <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
     <div class="container label">
     <span>&copy; 2026 RealDays</span>
     <nav aria-label="Footer">
@@ -159,6 +169,6 @@
   </div>
   </footer>
 </div>
-<script src="../app.js?v=d720c532"></script>
+<script src="../app.js?v=5c269cf9"></script>
 </body>
 </html>
