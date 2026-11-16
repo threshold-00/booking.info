@@ -1097,6 +1097,17 @@ html.is-map-locked{overflow:hidden}
 .jump a{display:inline-flex;align-items:center;gap:var(--s-2);min-height:24px;color:var(--ink-2)}
 .jump a::before{content:"";width:8px;height:8px;background:var(--ink)}
 .jump a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+/* /for-business/ "How it works": three steps, each with a screenshot cropped to the same
+   frame (Ro, 16 Nov 2026). */
+.biz-how{border-top:var(--bw) solid var(--line)}
+.biz-how__title{margin:0 0 var(--s-6);font-size:var(--t-headline);line-height:1.1}
+.biz-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-6);margin:0;padding:0;list-style:none}
+.biz-step__shot{aspect-ratio:4/3;overflow:hidden;margin:0 0 var(--s-4);padding:var(--s-4) var(--s-4) 0;background:var(--panel);border:var(--bw) solid var(--line)}
+.biz-step__shot img{display:block;width:100%;height:auto;border:var(--bw) solid var(--line);box-shadow:0 8px 24px rgba(23,23,26,.08)}
+.biz-step__num{margin:0 0 var(--s-2);color:var(--ink-2)}
+.biz-step h3{margin:0 0 var(--s-2);font-size:var(--t-title);line-height:1.25}
+.biz-step p:last-child{margin:0;color:var(--ink-2);line-height:1.55}
+@media (max-width:900px){.biz-steps{grid-template-columns:minmax(0,1fr);gap:var(--s-7)}}
 /* /for-business/ hero: last-minute spots sign-up above the fold (Ro, 16 Nov 2026). */
 .biz-hero--spots{padding-block:var(--s-7)}
 .biz-hero--spots .grid{align-items:start}
