@@ -863,7 +863,7 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
 /* In a box (Ro, 16 Nov 2026), so it reads apart from the business block: at the top of the
    footer, or above "Want to get listed as a business?" on the pages that have it. The box is
    drawn on the gutters, so its content lines up with the rest of the page. */
-.container.footer-spots{position:relative;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);align-items:start!important;gap:var(--s-4) var(--s-6);font-size:var(--t-body,16px)!important;letter-spacing:normal;text-transform:none;padding:var(--s-6) calc(var(--gutter) + var(--s-6));margin-bottom:var(--s-7)}
+.container.footer-spots{position:relative;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);align-items:start!important;gap:var(--s-4) var(--s-6);font-size:var(--t-body,16px)!important;letter-spacing:normal;text-transform:none;padding:var(--s-6) calc(var(--gutter) + var(--s-6));margin-bottom:var(--s-9)}
 .container.footer-spots::before{content:"";position:absolute;inset:0 var(--gutter);border:1px solid rgba(243,242,238,.34);background:rgba(243,242,238,.05);pointer-events:none}
 .footer-spots>*{position:relative}
 .footer-spots .eyebrow{margin:0 0 var(--s-2)}
@@ -1201,6 +1201,7 @@ html.is-map-locked{overflow:hidden}
 /* FAQ, the same block on both pages */
 .rd .faq-section{padding-bottom:var(--section-y)}
 .rd .band-dark+.faq-section{padding-top:var(--section-y)}
+.rd #browse~#faq{padding-top:var(--s-8)} /* homepage: room between the last listings and the FAQ (Ro, 16 Nov 2026) */
 
 /* Homepage: experiences still loading onto RealDays sit greyed out below the New in Victoria and New in Bali rails.
    Cards marked data-live (Suigeneris, Indigo and the Bali listings) keep full colour. */
