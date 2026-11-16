@@ -3,27 +3,27 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>List your business on RealDays | Reach the right customers</title>
-<meta name="description" content="List your experience business on RealDays and get found by customers looking for something real." />
+<title>Fill your empty spots with RealDays | Last-minute spots for businesses</title>
+<meta name="description" content="Got empty spots in a class or session this week? Post them on RealDays at a last-minute price and we share them with customers. Free to join." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=487deaf7" />
+<link rel="stylesheet" href="../styles.css?v=f13dd9f6" />
 <link rel="canonical" href="https://getrealdays.com/for-business/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="RealDays" />
 <meta property="og:url" content="https://getrealdays.com/for-business/" />
-<meta property="og:title" content="List your business on RealDays | Reach the right customers" />
-<meta property="og:description" content="List your experience business on RealDays and get found by customers looking for something real." />
+<meta property="og:title" content="Fill your empty spots with RealDays | Last-minute spots for businesses" />
+<meta property="og:description" content="Got empty spots in a class or session this week? Post them on RealDays at a last-minute price and we share them with customers. Free to join." />
 <meta property="og:image" content="https://getrealdays.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="List your business on RealDays | Reach the right customers" />
-<meta name="twitter:description" content="List your experience business on RealDays and get found by customers looking for something real." />
+<meta name="twitter:title" content="Fill your empty spots with RealDays | Last-minute spots for businesses" />
+<meta name="twitter:description" content="Got empty spots in a class or session this week? Post them on RealDays at a last-minute price and we share them with customers. Free to join." />
 <meta name="twitter:image" content="https://getrealdays.com/assets/og-image.png" />
 <script type="application/ld+json">
 {
@@ -82,12 +82,53 @@
     </div>
   </header>
 
-  <section id="intro" class="biz-hero">
+  <!-- Last-minute spots first (Ro, 16 Nov 2026): the page leads with getting empty spots
+       promoted, and the sign-up form sits above the fold. The form posts to the booking
+       service's POST /auth/signup with spots: true (the same sign-up as
+       /dashboard/signup?spots=1), wired in app.js (form[data-spots-signup]). The fields carry
+       data-field, not name, so personal details never end up in a web address: without
+       JavaScript the button just opens the booking service's own sign-up page. -->
+  <section id="intro" class="biz-hero biz-hero--spots">
+    <div class="container grid">
+      <div class="c-1-5 biz-hero__copy">
+        <p class="label eyebrow">Last-minute spots</p>
+        <h1>Got empty spots this week? We’ll help fill them.</h1>
+        <p class="biz-hero__lede">Post a spare spot at a last-minute price. RealDays gives it its own page and shares it on our homepage, in our weekly email and on Instagram. Customers book and pay by card.</p>
+        <ul class="biz-hero__points label">
+          <li>Free to join, no monthly fee</li>
+          <li>You set the price and the places</li>
+          <li>Post a spot in a few minutes</li>
+        </ul>
+      </div>
+      <form class="c-7-12 biz-signup" id="spots-signup" data-spots-signup action="https://api.getrealdays.com/dashboard/signup" method="get" novalidate aria-labelledby="spotsSignupTitle">
+        <h2 class="biz-signup__title" id="spotsSignupTitle">Start posting your empty spots</h2>
+        <div class="biz-signup__fields">
+          <label><span class="label">Business name</span><input type="text" data-field="business_name" maxlength="80" autocomplete="organization" required /><small class="biz-signup__err" data-err="business_name"></small></label>
+          <label><span class="label">Your name</span><input type="text" data-field="name" maxlength="80" autocomplete="name" required /><small class="biz-signup__err" data-err="name"></small></label>
+          <label><span class="label">Email</span><input type="email" data-field="email" autocomplete="email" inputmode="email" required /><small class="biz-signup__err" data-err="email"></small></label>
+          <label><span class="label">Mobile</span><input type="tel" data-field="phone" autocomplete="tel" inputmode="tel" required /><small class="biz-signup__err" data-err="phone"></small></label>
+          <label><span class="label">Suburb or town</span><input type="text" data-field="region" maxlength="80" placeholder="e.g. Red Hill" required /><small class="biz-signup__err" data-err="region"></small></label>
+          <label><span class="label">State or territory</span><select data-field="state" required><option value="">Choose one</option><option value="act">ACT</option><option value="nsw">NSW</option><option value="nt">NT</option><option value="qld">QLD</option><option value="sa">SA</option><option value="tas">TAS</option><option value="vic">VIC</option><option value="wa">WA</option></select><small class="biz-signup__err" data-err="state"></small></label>
+          <label><span class="label">Your website (optional)</span><input type="text" data-field="website" inputmode="url" placeholder="yourbusiness.com.au" /><small class="biz-signup__err" data-err="website"></small></label>
+        </div>
+        <input type="text" data-field="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
+        <input type="hidden" name="spots" value="1" />
+        <div class="biz-signup__foot">
+          <p class="biz-signup__note">We’ll email you a link to log in and post your first spot. No passwords. <a href="https://api.getrealdays.com/dashboard/login" data-spots-login>Already signed up? Log in</a></p>
+          <button type="submit" class="btn--primary">Sign up</button>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="listing" class="section" aria-labelledby="listingTitle">
     <div class="container grid">
       <div class="c-1-8">
-        <h1>We list experiences because we think they’re cool.</h1>
+        <p class="label eyebrow">Get listed</p>
+        <h2 id="listingTitle">We list experiences because we think they’re cool.</h2>
         <p class="biz-hero__lede">If you also think your experience is cool, we’d like to hear from you.</p>
-        <a href="#interested" class="btn--primary">Get listed</a>
+        <a href="#interested" class="btn--secondary">Get listed</a>
         <nav aria-label="On this page">
           <ul class="jump label">
             <li class="jump__label" aria-hidden="true">Jump to</li>
@@ -183,7 +224,7 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary>What is RealDays?</summary>
-          <p>RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them, in Victoria, Australia.</p>
+          <p>RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them. We started in Victoria and now welcome businesses from anywhere in Australia.</p>
         </details>
         <details class="faq-item">
           <summary>How do I get listed?</summary>
@@ -256,11 +297,11 @@
   </footer>
 </div>
 
-<aside class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" id="businessStickyBar" aria-label="List your business">
-  <a href="#interested" class="btn">Get listed</a>
+<aside class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" id="businessStickyBar" aria-label="Post your empty spots">
+  <a href="#spots-signup" class="btn">Post your empty spots</a>
 </aside>
 <script src="../assets/rough.js"></script>
-<script src="../app.js?v=025d24c9"></script>
+<script src="../app.js?v=ac55bc27"></script>
 <script>
 document.querySelectorAll('[data-tier]').forEach(function(el){
   el.addEventListener('click', function(){

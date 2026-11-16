@@ -1843,6 +1843,85 @@ var SPOT_PLACES_LEFT = true;
   });
 })();
 
+
+// Last-minute spots sign-up on /for-business/ (Ro, 16 Nov 2026): posts the business's
+// details to the booking service's POST /auth/signup with spots: true, the same sign-up as
+// /dashboard/signup?spots=1, and the booking service emails a login link. When the booking
+// service asks for its person check (Turnstile, which only runs on its own pages) or can't
+// be reached, the business carries on there with the form filled in. The details go after
+// the # so they never reach a server log, and the dashboard clears them on arrival.
+(function () {
+  var form = document.querySelector('form[data-spots-signup]');
+  if (!form || !window.fetch) return;
+  var api = realdaysSpotsApi();
+  var signupPage = api + '/dashboard/signup?spots=1';
+  form.action = api + '/dashboard/signup';
+  var login = form.querySelector('[data-spots-login]');
+  if (login) login.href = api + '/dashboard/login';
+  var status = form.querySelector('.form-status'), btn = form.querySelector('button[type="submit"]');
+  var fields = form.querySelectorAll('[data-field]');
+  function say(t) { status.textContent = t; }
+  function clearErrors() { [].forEach.call(form.querySelectorAll('[data-err]'), function (el) { el.textContent = ''; }); }
+  function values() {
+    var v = {};
+    [].forEach.call(fields, function (el) { v[el.getAttribute('data-field')] = (el.value || '').trim(); });
+    return v;
+  }
+  function carryOn(v, why) {
+    var q = new URLSearchParams();
+    ['business_name', 'name', 'email', 'phone', 'region', 'state', 'website'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
+    say(why);
+    setTimeout(function () { location.href = signupPage + '#' + q.toString(); }, 1200);
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearErrors();
+    var v = values();
+    var first = null;
+    [].forEach.call(fields, function (el) {
+      if (el.required && !el.checkValidity()) {
+        var err = form.querySelector('[data-err="' + el.getAttribute('data-field') + '"]');
+        if (err) err.textContent = el.validity.typeMismatch ? 'Check this and try again.' : el.tagName === 'SELECT' ? 'Choose one to sign up.' : 'Add this to sign up.';
+        first = first || el;
+      }
+    });
+    if (first) { say(''); first.focus(); return; }
+    var body = { business_name: v.business_name, name: v.name, email: v.email, phone: v.phone, region: v.region, state: v.state, website: v.website, company_url: v.company_url, spots: true };
+    btn.disabled = true;
+    say('Sending...');
+    fetch(api + '/auth/signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { status: r.status, data: d }; }); })
+      .then(function (r) {
+        btn.disabled = false;
+        var d = r.data || {};
+        if (r.status === 200 || r.status === 201) {
+          form.classList.add('is-sent');
+          // 201: a new business. 200: the email already has an account, so the booking service
+          // sent a login link and says so in its own careful words.
+          say(r.status === 201 ? "You're signed up. Check your email for a link to log in and post your first spot. It works for 15 minutes." : (d.message || "Check your email. We've sent you a link to log in."));
+          status.setAttribute('tabindex', '-1');
+          status.focus();
+          return;
+        }
+        if (d.error === 'check_failed') return carryOn(v, 'One more step. Taking you to our sign-up page to finish...');
+        if (r.status === 400 && d.problems) {
+          var firstBad = null;
+          Object.keys(d.problems).forEach(function (k) {
+            var err = form.querySelector('[data-err="' + k + '"]');
+            if (err) err.textContent = d.problems[k];
+            firstBad = firstBad || form.querySelector('[data-field="' + k + '"]');
+          });
+          say('Please check the form.');
+          if (firstBad) firstBad.focus();
+          return;
+        }
+        if (r.status === 429) return say('Too many tries. Please try again in a few minutes.');
+        say(d.message || "That didn't send. Please try again.");
+      })
+      .catch(function () { btn.disabled = false; carryOn(v, "We couldn't reach our sign-up. Taking you to the sign-up page..."); });
+  });
+})();
+
 // Homepage visits, one per page load, sent to the Worker's count (POST /site/track). No
 // personal data: a random id and a host name. Nothing for team visits (?team=1, remembered
 // for the session), the same rule and the same visitor id as the listing pages.
