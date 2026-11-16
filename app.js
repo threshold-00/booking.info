@@ -1200,15 +1200,20 @@ var mapPanel = (function () {
   var slot = document.getElementById('filterSlot'), nav = document.getElementById('filterNav');
   var results = document.getElementById('browseResults');
   if (!slot || !nav || !results) return;
-  var stuck = false, ticking = false, stuckH = 56;
+  // From 768px the bar is always compact (Ro, 16 Nov 2026); phones keep the full filters
+  // until they scroll. .is-stuck is the compact look, .is-fixed pins it under the header.
+  var wide = window.matchMedia('(min-width:768px)');
+  var fixed = false, compact = null, ticking = false, stuckH = 56;
   function headerH() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
   function set(on) {
-    if (on === stuck) return;
-    if (on) slot.style.height = slot.offsetHeight + 'px';
-    nav.classList.toggle('is-stuck', on);
+    var c = on || wide.matches;
+    if (on === fixed && c === compact) return;
+    if (on && !fixed) slot.style.height = slot.offsetHeight + 'px';
+    nav.classList.toggle('is-stuck', c);
+    nav.classList.toggle('is-fixed', on);
     if (!on) slot.style.height = '';
-    else { stuckH = nav.offsetHeight; nav.setAttribute('data-stuck-h', stuckH); }
-    stuck = on;
+    if (c) { stuckH = nav.offsetHeight; nav.setAttribute('data-stuck-h', stuckH); }
+    fixed = on; compact = c;
     document.dispatchEvent(new CustomEvent('filternav:change'));
   }
   // The full filters are taller than the compact bar, so the bar only sticks once

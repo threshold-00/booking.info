@@ -872,6 +872,9 @@ footer .footer-spots .btn{background:var(--paper);color:var(--ink)!important}
    inside the centred container, like Airbnb's rows (Ro, 22 Oct 2026). */
 .rail-section{overflow-x:clip}
 .rail+.rail,.rail+.results{margin-top:var(--s-8)}
+/* The hidden Last-minute spots row leaves no space, and the list starts closer to the compact filter bar (Ro, 16 Nov 2026). */
+.rail[hidden]+.rail{margin-top:0}
+.rd #browseResults{padding-top:var(--s-7)}
 .rail-head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s-4);margin:0 0 var(--stack-heading)}
 .rail-nav{display:flex;gap:var(--s-2)}
 .rail-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:var(--control-h);height:var(--control-h);padding:0;border:var(--bw) solid var(--line-ui);border-radius:var(--r-control);background:transparent;color:var(--ink);cursor:pointer}
@@ -904,7 +907,9 @@ footer .footer-spots .btn{background:var(--paper);color:var(--ink)!important}
    in a compact form (app.js adds .is-stuck); its slot keeps the full height so nothing jumps. */
 .filter-slot{position:relative}
 .filter-nav{background:var(--panel);border-bottom:var(--bw) solid var(--line);padding-block:var(--s-5)}
-.filter-nav.is-stuck{position:fixed;top:var(--header-h,85px);left:0;right:0;z-index:var(--z-filter);padding-block:var(--s-3);box-shadow:var(--shadow-stuck)}
+/* .is-stuck is the compact look, always on from 768px (Ro, 16 Nov 2026); .is-fixed pins it under the header. */
+.filter-nav.is-stuck{padding-block:var(--s-3)}
+.filter-nav.is-fixed{position:fixed;top:var(--header-h,85px);left:0;right:0;z-index:var(--z-filter);box-shadow:var(--shadow-stuck)}
 @media (min-width:768px){.filter-nav.is-stuck{padding-block:0}}
 .fn-rows{display:flex;flex-direction:column;gap:var(--s-5)}
 .filter-nav.is-stuck .fn-rows{gap:var(--s-2)}
@@ -1018,7 +1023,7 @@ footer .footer-spots .btn{background:var(--paper);color:var(--ink)!important}
 @media (min-width:1024px){
   .map-panel{left:50%;right:auto;width:var(--map-w)}
   body.map-docked .map-shift,body.map-docked .filter-nav{margin-right:var(--map-w)}
-  body.map-docked .filter-nav.is-stuck{right:var(--map-w);margin-right:0}
+  body.map-docked .filter-nav.is-fixed{right:var(--map-w);margin-right:0}
   body.map-docked .map-shift.container,body.map-docked .map-shift .container,body.map-docked .filter-nav .container{max-width:none;margin-left:0;padding-inline:var(--gutter) var(--s-5)}
   body.map-docked .card-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
   body.map-docked .card-rail{margin-right:0;padding-right:0}
