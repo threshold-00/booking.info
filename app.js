@@ -1907,6 +1907,14 @@ var SPOT_PLACES_LEFT = true;
       .then(function (r) {
         btn.disabled = false;
         var d = r.data || {};
+        // A new business (201) may get a one-time continue_url that logs them straight into
+        // their class page, the confirm email arriving in the background (Business platform,
+        // 17 Nov 2026). Only follow it to the booking service's own address.
+        if (r.status === 201 && typeof d.continue_url === 'string') {
+          try {
+            if (new URL(d.continue_url).origin === new URL(api).origin) { say('Signed up. Taking you to add your class...'); location.href = d.continue_url; return; }
+          } catch (e) {}
+        }
         if (r.status === 200 || r.status === 201) {
           form.classList.add('is-sent');
           // 201: a new business. 200: the email already has an account, so the booking service
