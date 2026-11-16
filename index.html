@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=bd6ae1d3" />
+<link rel="stylesheet" href="styles.css?v=217ae630" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -63,23 +63,39 @@
           "name": "What is RealDays?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them. We started in Victoria and now welcome businesses from anywhere in Australia."
+            "text": "RealDays is a booking site for small, owner-run experiences, run by the local people who started them. Every experience so far is in Victoria."
           }
         },
         {
           "@type": "Question",
-          "name": "Is RealDays a travel agency or a booking platform?",
+          "name": "What are last-minute spots?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "RealDays is a booking platform, not an agency. You book directly with the business, and pay the price they set."
+            "text": "Spare places in a class or session in the next week, posted by the business, often below their usual price. Each spot shows the price now, the usual price and how many places are left."
           }
         },
         {
           "@type": "Question",
-          "name": "How is this different from Viator or GetYourGuide?",
+          "name": "How do I book a last-minute spot?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Big travel sites list thousands of experiences. RealDays lists fewer places on purpose. Every experience is chosen with care, run by the people who started it."
+            "text": "Tap the spot, add your name and email, and pay by card on Stripe's secure page. The price is locked when you pay. Your confirmation email has the business's mobile and email. Bookings close 2 hours before the start."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I cancel a last-minute spot?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Last-minute spots are final, so there's no refund if you cancel. If the business cancels, you get a full refund. Your rights under the Australian Consumer Law still apply."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I hear about spots first?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Join the last-minute list. We send one email a week, on Thursdays at midday, and only when there are spots. Unsubscribe any time."
           }
         },
         {
@@ -87,7 +103,15 @@
           "name": "Do I need an account to book?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Pick a date on the experience page and send a booking request with your name and email. The business confirms within 24 hours, and we email you either way. A few businesses take bookings on WhatsApp instead."
+            "text": "No. You only need your name and email. Some experiences book on the business's own website, and their Book button takes you there."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is this different from Viator or GetYourGuide?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Big travel sites list thousands of experiences. RealDays lists fewer on purpose, each run by the people who started it."
           }
         },
         {
@@ -95,15 +119,7 @@
           "name": "How do businesses get listed on RealDays?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Businesses anywhere in Australia can apply through our for-businesses page. We choose experiences we'd book ourselves, run by people who care about what they do."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What if I have questions about a booking?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Each business handles their own bookings directly. If you have questions about an experience, you can contact the business through their listing page. For questions about RealDays, use our contact form."
+            "text": "Businesses anywhere in Australia can sign up on our page for businesses and start posting last-minute spots."
           }
         }
       ]
@@ -213,8 +229,7 @@
            no business named, nothing to click but the sign-up link. -->
       <section class="rail" id="railSoonSection" aria-labelledby="railSoonTitle">
         <div class="rail-head">
-          <div><h2 class="section-title" id="railSoonTitle">Coming soon: last-minute discounts</h2><p class="section-count label">Get them first</p></div>
-          <a class="see-all" href="/last-minute/">Join the list</a>
+          <div><h2 class="section-title" id="railSoonTitle">Coming soon: last-minute discounts</h2><p class="section-count label"><a class="soon-link" href="/last-minute/">Get them first</a></p></div>
         </div>
         <div class="card-grid soon-grid">
           <div class="card sc-card soon-card" aria-hidden="true">
@@ -485,27 +500,35 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary>What is RealDays?</summary>
-          <p>RealDays is a booking site for small, owner-run experience businesses. We list unique experiences run by the local people who started them. We started in Victoria and now welcome businesses from anywhere in Australia.</p>
+          <p>RealDays is a booking site for small, owner-run experiences, run by the local people who started them. Every experience so far is in Victoria.</p>
         </details>
         <details class="faq-item">
-          <summary>Is RealDays a travel agency or a booking platform?</summary>
-          <p>RealDays is a booking platform, not an agency. You book directly with the business, and pay the price they set.</p>
+          <summary>What are last-minute spots?</summary>
+          <p>Spare places in a class or session in the next week, posted by the business, often below their usual price. Each spot shows the price now, the usual price and how many places are left.</p>
         </details>
         <details class="faq-item">
-          <summary>How is this different from Viator or GetYourGuide?</summary>
-          <p>Big travel sites list thousands of experiences. RealDays lists fewer places on purpose. Every experience is chosen with care, run by the people who started it.</p>
+          <summary>How do I book a last-minute spot?</summary>
+          <p>Tap the spot, add your name and email, and pay by card on Stripe’s secure page. The price is locked when you pay. Your confirmation email has the business’s mobile and email. Bookings close 2 hours before the start.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I cancel a last-minute spot?</summary>
+          <p>Last-minute spots are final, so there’s no refund if you cancel. If the business cancels, you get a full refund. Your rights under the Australian Consumer Law still apply.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I hear about spots first?</summary>
+          <p><a href="/last-minute/">Join the last-minute list</a>. We send one email a week, on Thursdays at midday, and only when there are spots. Unsubscribe any time.</p>
         </details>
         <details class="faq-item">
           <summary>Do I need an account to book?</summary>
-          <p>No. Pick a date on the experience page and send a booking request with your name and email. The business confirms within 24 hours, and we email you either way. A few businesses take bookings on WhatsApp instead.</p>
+          <p>No. You only need your name and email. Some experiences book on the business’s own website, and their Book button takes you there.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How is this different from Viator or GetYourGuide?</summary>
+          <p>Big travel sites list thousands of experiences. RealDays lists fewer on purpose, each run by the people who started it.</p>
         </details>
         <details class="faq-item">
           <summary>How do businesses get listed on RealDays?</summary>
-          <p>Businesses anywhere in Australia can apply through our <a href="for-business/">page for businesses</a>. We choose experiences we'd book ourselves, run by people who care about what they do.</p>
-        </details>
-        <details class="faq-item">
-          <summary>What if I have questions about a booking?</summary>
-          <p>Each business handles their own bookings directly. If you have questions about an experience, you can contact the business through their listing page. For questions about RealDays, use our contact form.</p>
+          <p>Businesses anywhere in Australia can sign up on our <a href="for-business/">page for businesses</a> and start posting last-minute spots.</p>
         </details>
       </div>
     </div>
