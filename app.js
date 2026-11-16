@@ -4,6 +4,67 @@ var CONTACT_EMAIL = 'rowena@getrealdays.com';
 // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'. Empty means the form falls back to a mail draft.
 var FORM_ENDPOINT = '';
 
+// Microsoft Clarity session recordings and heatmaps (Ro, 16 Nov 2026, project zecr8yet32).
+// Masking is set to Strict in the Clarity dashboard, so typed text is never recorded.
+// Live site only: not on local previews, Cloudflare previews, team visits (?team=1,
+// remembered for the session) or the internal design system and demo pages.
+// Disclosed on /privacy/ ("Recordings of how the site is used").
+(function () {
+  if (location.hostname !== 'getrealdays.com') return;
+  if (/^\/(design-system|demo|sitev2|preview-local)\//.test(location.pathname)) return;
+  var q = new URLSearchParams(location.search), team = q.get('team') === '1';
+  try { if (team) sessionStorage.setItem('th_team', '1'); team = team || sessionStorage.getItem('th_team') === '1'; } catch (e) {}
+  if (team) return;
+  (function (c, l, a, r, i, t, y) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+  })(window, document, 'clarity', 'script', 'zecr8yet32');
+  var page = location.pathname === '/' ? 'home' : location.pathname.split('/')[1] || 'other';
+  window.clarity('set', 'page_area', page);
+})();
+
+// Google Analytics 4 (Ro, 16 Nov 2026, stream G-DDPRJVFBYG). Live site only, as above;
+// team visits are still sent but marked traffic_type=internal so GA4 can filter them.
+// Events: booking_click (Book / Check dates / Book now: the A/B test win metric) and
+// experience_click (an experience card). When the edge Worker runs an A/B test it puts
+// window.RD_EXP = { <test id>: 'a' | 'b' } and <html data-rd-<id>> on the page; each
+// test's arm goes on every event and as a user property, and experience_impression is
+// sent on pages where the test is shown. Disclosed on /privacy/ ("Google Analytics").
+(function () {
+  var GA_ID = 'G-DDPRJVFBYG';
+  if (location.hostname !== 'getrealdays.com') return;
+  if (/^\/(design-system|demo|sitev2|preview-local)\//.test(location.pathname)) return;
+  var q = new URLSearchParams(location.search), team = q.get('team') === '1', qa = false;
+  try { if (team) sessionStorage.setItem('th_team', '1'); team = team || sessionStorage.getItem('th_team') === '1'; } catch (e) {}
+  var exp = window.RD_EXP || {}, props = {}, id;
+  for (id in exp) { props['rd_' + id] = exp[id]; if (q.get('rd_' + id)) qa = true; }
+  var s = document.createElement('script');
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  var cfg = { user_properties: props };
+  if (team || qa) cfg.traffic_type = 'internal';
+  gtag('config', GA_ID, cfg);
+  for (id in exp) {
+    if (document.documentElement.hasAttribute('data-rd-' + id)) gtag('event', 'experience_impression', { exp_variant_string: 'RD-' + id + '-' + exp[id] });
+  }
+  var BOOK = '#bookingCta,#stickyCta,.pop-book,[data-book-cta]';
+  document.addEventListener('click', function (e) {
+    var t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    var a = t.closest(BOOK), c = a ? null : t.closest('a.card');
+    if (!a && !c) return;
+    var p = { link_url: (a || c).href || '', page_path: location.pathname };
+    for (var k in exp) p['rd_' + k] = exp[k];
+    if (a) { p.cta = a.id || (a.className || '').split(' ')[0] || 'link'; gtag('event', 'booking_click', p); }
+    else { p.experience = c.getAttribute('data-title') || ''; gtag('event', 'experience_click', p); }
+  }, true);
+})();
+
 // Site-wide currency toggle. All experience prices are sourced in IDR; this converts
 // them to AUD using a live rate (frankfurter.app, free, no key) cached in localStorage,
 // with a fixed fallback rate if the fetch fails or hasn't run yet. The chosen currency
