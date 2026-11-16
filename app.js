@@ -1851,8 +1851,10 @@ var SPOT_PLACES_LEFT = true;
 
 
 // Last-minute spots sign-up on /for-business/ (Ro, 16 Nov 2026): posts the business's
-// details to the booking service's POST /auth/signup with spots: true, the same sign-up as
-// /dashboard/signup?spots=1, and the booking service emails a login link. When the booking
+// details to the booking service's POST /auth/signup with spots: true and plan: 'lite', the
+// same short sign-up as /dashboard/signup?lite=1 (Ro, 17 Nov 2026), and the booking service
+// emails a login link. The ad tags on this page (or "getrealdays / site / for-business" when
+// there are none) go with it, so sign-ups from this page can be counted. When the booking
 // service asks for its person check (Turnstile, which only runs on its own pages) or can't
 // be reached, the business carries on there with the form filled in. The details go after
 // the # so they never reach a server log, and the dashboard clears them on arrival.
@@ -1860,7 +1862,12 @@ var SPOT_PLACES_LEFT = true;
   var form = document.querySelector('form[data-spots-signup]');
   if (!form || !window.fetch) return;
   var api = realdaysSpotsApi();
-  var signupPage = api + '/dashboard/signup?spots=1';
+  var here = new URLSearchParams(location.search), source = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach(function (k) { var x = here.get(k); if (x) source[k] = x.slice(0, 200); });
+  if (!source.utm_source) source = { utm_source: 'getrealdays', utm_medium: 'site', utm_campaign: 'for-business' };
+  var pageQ = new URLSearchParams(source);
+  pageQ.set('lite', '1');
+  var signupPage = api + '/dashboard/signup?' + pageQ.toString();
   form.action = api + '/dashboard/signup';
   var login = form.querySelector('[data-spots-login]');
   if (login) login.href = api + '/dashboard/login';
@@ -1875,7 +1882,7 @@ var SPOT_PLACES_LEFT = true;
   }
   function carryOn(v, why) {
     var q = new URLSearchParams();
-    ['business_name', 'name', 'email', 'phone', 'region', 'state', 'website'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
+    ['business_name', 'name', 'email', 'phone', 'region', 'state'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
     say(why);
     setTimeout(function () { location.href = signupPage + '#' + q.toString(); }, 1200);
   }
@@ -1892,7 +1899,7 @@ var SPOT_PLACES_LEFT = true;
       }
     });
     if (first) { say(''); first.focus(); return; }
-    var body = { business_name: v.business_name, name: v.name, email: v.email, phone: v.phone, region: v.region, state: v.state, website: v.website, company_url: v.company_url, spots: true };
+    var body = { business_name: v.business_name, name: v.name, email: v.email, phone: v.phone, region: v.region, state: v.state, company_url: v.company_url, spots: true, plan: 'lite', source: source };
     btn.disabled = true;
     say('Sending...');
     fetch(api + '/auth/signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
@@ -1904,7 +1911,7 @@ var SPOT_PLACES_LEFT = true;
           form.classList.add('is-sent');
           // 201: a new business. 200: the email already has an account, so the booking service
           // sent a login link and says so in its own careful words.
-          say(r.status === 201 ? "You're signed up. Check your email for a link to log in and post your first spot. It works for 15 minutes." : (d.message || "Check your email. We've sent you a link to log in."));
+          say(r.status === 201 ? "You're signed up. Check your email for a link to log in and add your class. It works for 15 minutes." : (d.message || "Check your email. We've sent you a link to log in."));
           status.setAttribute('tabindex', '-1');
           status.focus();
           return;

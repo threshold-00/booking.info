@@ -84,8 +84,8 @@
 
   <!-- Last-minute spots first (Ro, 16 Nov 2026): the page leads with getting empty spots
        promoted, and the sign-up form sits above the fold. The form posts to the booking
-       service's POST /auth/signup with spots: true (the same sign-up as
-       /dashboard/signup?spots=1), wired in app.js (form[data-spots-signup]). The fields carry
+       service's POST /auth/signup with spots: true and plan: 'lite' (the same short sign-up
+       as /dashboard/signup?lite=1, Ro, 17 Nov 2026), wired in app.js (form[data-spots-signup]). The fields carry
        data-field, not name, so personal details never end up in a web address: without
        JavaScript the button just opens the booking service's own sign-up page. -->
   <section id="intro" class="biz-hero biz-hero--spots biz-hero--photo">
@@ -111,7 +111,6 @@
           <label><span class="label">Mobile</span><input type="tel" data-field="phone" autocomplete="tel" inputmode="tel" required /><small class="biz-signup__err" data-err="phone"></small></label>
           <label><span class="label">Suburb or town</span><input type="text" data-field="region" maxlength="80" placeholder="e.g. Red Hill" required /><small class="biz-signup__err" data-err="region"></small></label>
           <label><span class="label">State or territory</span><select data-field="state" required><option value="">Choose one</option><option value="act">ACT</option><option value="nsw">NSW</option><option value="nt">NT</option><option value="qld">QLD</option><option value="sa">SA</option><option value="tas">TAS</option><option value="vic">VIC</option><option value="wa">WA</option></select><small class="biz-signup__err" data-err="state"></small></label>
-          <label><span class="label">Your website (optional)</span><input type="text" data-field="website" inputmode="url" placeholder="yourbusiness.com.au" /><small class="biz-signup__err" data-err="website"></small></label>
         </div>
         <input type="text" data-field="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
         <input type="hidden" name="spots" value="1" />
@@ -149,7 +148,7 @@
           <div class="biz-step__shot"><img src="../assets/img/business/how-1-sign-up.jpg" width="900" height="716" alt="The sign-up form, filled in with a business name, name, email, mobile, suburb, state and website" loading="lazy" decoding="async" /></div>
           <p class="label biz-step__num">Step 1</p>
           <h3>Sign up</h3>
-          <p>Fill in the form at the top of this page. We email you a link to log in, then you set up payouts with Stripe so bookings are paid straight to your account.</p>
+          <p>Fill in the form at the top of this page and confirm your email. Then add your class and set up payouts with Stripe, so bookings are paid straight to your account.</p>
         </li>
         <li class="biz-step">
           <div class="biz-step__shot"><img src="../assets/img/business/how-2-post-a-spot.jpg" width="900" height="737" alt="Posting a spot in the dashboard: the date and time, how many spare places, the normal price and the last-minute price" loading="lazy" decoding="async" /></div>
@@ -213,7 +212,7 @@
         </details>
         <details class="faq-item">
           <summary>How do I post a last-minute spot?</summary>
-          <p>Fill in the form at the top of this page and confirm your email. Add your business details (we can fill most of them in from your website), post your first spot if you like, then set up payouts with Stripe. Your spot goes live as soon as Stripe is ready.</p>
+          <p>Fill in the form at the top of this page and confirm your email. Add your class (paste a link to its page and we fill in most of it), then set up payouts with Stripe. Your spot goes live as soon as Stripe is ready.</p>
         </details>
         <details class="faq-item">
           <summary>What does it cost?</summary>
@@ -257,25 +256,18 @@
     <div class="container grid">
       <div class="c-1-5">
         <p class="label eyebrow">For businesses</p>
-        <h2 class="section-title" id="interestedTitle">Have a question or want to get listed?</h2>
+        <h2 class="section-title" id="interestedTitle">Have a question?</h2>
         <div class="signup-founder">
           <img src="../assets/founder-portrait.png" alt="" width="40" height="40" loading="lazy" />
           <p class="label">You'll speak directly with Ro<br />[RealDays founder]</p>
         </div>
       </div>
-      <form class="c-7-12 signup-form" id="lead" data-subject="RealDays enquiry" data-success="Thanks. Ro will call you within 2 business days with a preview of your listing. Nothing goes live until you approve it.">
-        <div class="signup-form__fields">
-          <label><span class="label">Business name</span><input type="text" name="business" required /></label>
-          <label><span class="label">Your name</span><input type="text" name="name" required /></label>
-          <label><span class="label">Phone</span><input type="tel" name="phone" autocomplete="tel" required /></label>
-          <label><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
-        </div>
-        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
-        <div class="signup-form__foot">
-          <p id="leadStatus" class="form-status" role="status" aria-live="polite"></p>
-          <button type="submit" class="btn--on-dark">Get listed</button>
-        </div>
-      </form>
+      <!-- One way in (Ro, 17 Nov 2026): the old "Get listed" form (Ro calls within 2 business days)
+           is gone, so it doesn't compete with the sign-up at the top. Questions go to Ro by email. -->
+      <div class="c-7-12 biz-question">
+        <p>Questions about posting spots, fees or payouts? Email Ro at <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a>.</p>
+        <p>Ready to start? Use the <a href="#spots-signup">sign-up form</a> at the top of this page.</p>
+      </div>
     </div>
   </section>
 
@@ -298,7 +290,7 @@
   <a href="#spots-signup" class="btn">Post your empty spots</a>
 </aside>
 <script src="../assets/rough.js"></script>
-<script src="../app.js?v=b640dd74"></script>
+<script src="../app.js?v=03a7abc8"></script>
 <script>
 document.querySelectorAll('[data-tier]').forEach(function(el){
   el.addEventListener('click', function(){
