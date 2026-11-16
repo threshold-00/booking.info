@@ -1113,9 +1113,23 @@ html.is-map-locked{overflow:hidden}
 .biz-hero--spots .grid{align-items:start}
 .biz-hero--spots h1{font-size:var(--t-headline)}
 .biz-hero__copy .biz-hero__lede{margin-bottom:var(--s-4)}
-.biz-hero__points{display:grid;gap:var(--s-2);margin:0;padding:0;list-style:none;color:var(--ink)}
-.biz-hero__points li{display:flex;align-items:center;gap:var(--s-2)}
-.biz-hero__points li::before{content:"";flex:none;width:8px;height:8px;background:var(--ink)}
+/* Hero photo behind the copy and form (Ro, 16 Nov 2026): a dark wash, strongest on the left
+   where the headline sits, keeps the text readable; the form keeps its light panel. */
+.biz-hero--photo{position:relative;isolation:isolate;overflow:hidden;background:var(--ink)}
+.biz-hero__bg{position:absolute;inset:0;z-index:-2}
+.biz-hero__bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.biz-hero--photo::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(23,23,26,.86) 0%,rgba(23,23,26,.72) 45%,rgba(23,23,26,.45) 100%)}
+.biz-hero--photo .biz-hero__copy,.biz-hero--photo .biz-hero__copy h1{color:var(--paper)}
+.biz-hero--photo .biz-hero__copy .eyebrow{color:var(--paper)}
+.biz-hero--photo .biz-hero__copy .eyebrow::before{background:var(--paper)}
+.biz-hero--photo .biz-hero__lede{color:rgba(243,242,238,.86)}
+.biz-hero--photo .biz-signup{box-shadow:0 16px 48px rgba(0,0,0,.25)}
+/* The three points in their own section under the hero, each with a Material Symbols icon. */
+.biz-perks__list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-6);margin:0;padding:0;list-style:none}
+.biz-perk{display:grid;gap:var(--s-3);align-content:start}
+.biz-perk__icon{width:40px;height:40px;color:var(--ink)}
+.biz-perk p{margin:0;font-family:var(--display);font-size:var(--t-title);line-height:1.3;text-transform:none;font-weight:500;letter-spacing:0;color:var(--ink);max-width:22ch}
+@media (max-width:820px){.biz-perks__list{grid-template-columns:minmax(0,1fr);gap:var(--s-5)}.biz-perk{grid-template-columns:40px minmax(0,1fr);align-items:center;gap:var(--s-4)}.biz-perk p{max-width:none}}
 .biz-signup{position:relative;display:grid;gap:var(--s-5);padding:var(--s-6);background:var(--panel);border:var(--bw) solid var(--line)}
 .biz-signup__title{margin:0;font-size:var(--t-subhead);line-height:var(--lh-tight)}
 .biz-signup__fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--s-4) var(--s-5)}
@@ -1134,7 +1148,7 @@ html.is-map-locked{overflow:hidden}
 .biz-signup .form-status:empty{display:none}
 .biz-signup.is-sent .biz-signup__fields,.biz-signup.is-sent .biz-signup__foot{display:none}
 @media (max-width:1023px){.biz-hero--spots .grid{row-gap:var(--s-5)}}
-@media (max-width:820px){.rd #intro.biz-hero--spots{min-height:0;display:block;text-align:left;padding:var(--s-5) 0 var(--s-7)!important}.biz-hero--spots .biz-hero__lede{font-size:var(--t-small)}.biz-signup{padding:var(--s-5) var(--s-4)}.biz-hero__points{display:none}}
+@media (max-width:820px){.rd #intro.biz-hero--spots{min-height:0;display:block;text-align:left;padding:var(--s-5) 0 var(--s-7)!important}.biz-hero--spots .biz-hero__lede{font-size:var(--t-small)}.biz-signup{padding:var(--s-5) var(--s-4)}.biz-hero--photo::before{background:rgba(23,23,26,.72)}}
 /* One full-width line between the hero and "Our why" (the category strip is gone, Ro, 22 Oct 2026). */
 .biz-hero+.section{border-top:var(--bw) solid var(--line)}
 /* The same line wherever two light sections meet (How does it work? and Business pricing). */
@@ -1250,3 +1264,24 @@ html.is-map-locked{overflow:hidden}
    field in booking panels. Delete this rule to bring them back. The page stays at /gift-cards/
    (noindex) for testing with ?gift_test=1. */
 a[href*="gift-cards/"],.bp-giftbuy,#giftBox{display:none !important}
+/* Homepage "Coming soon: last-minute discounts" teaser (Ro, 16 Nov 2026): blurred photos and
+   grey bars in place of details. */
+.soon-card{pointer-events:none;user-select:none}
+.soon-card .card__media{overflow:hidden}
+.soon-card .card__media img{display:block;width:100%;height:100%;object-fit:cover;filter:blur(14px) saturate(.9);transform:scale(1.15)}
+.soon-card .card__body{display:grid;gap:var(--s-2);align-content:start}
+.soon-bar{display:block;height:12px;width:90%;background:var(--line);filter:blur(1.5px)}
+.soon-bar--short{width:60%}
+.soon-bar--price{width:35%;margin-top:var(--s-2)}
+/* /for-business/ hero, centred (Ro, 16 Nov 2026): heading, eyebrow and intro centred across the
+   hero, the sign-up form centred under them. */
+.biz-hero--centered .biz-hero__copy{grid-column:1 / -1;justify-self:center;max-width:920px;text-align:center}
+.rd .biz-hero--centered .biz-hero__copy .eyebrow{justify-content:center}
+.biz-hero--centered .biz-hero__copy h1{text-wrap:balance}
+.biz-hero--centered .biz-hero__lede{margin-left:auto;margin-right:auto}
+@media (min-width:1024px){.biz-hero--centered .biz-signup{grid-column:3 / span 8}}
+@media (max-width:767px){.soon-grid .soon-card:nth-child(5){display:none}}
+/* Homepage hero at 70% of the screen height (Ro, 16 Nov 2026), now the search panel is gone. */
+@media (min-width:821px){.rd #top{min-height:calc((100svh - var(--header-h,73px)) * .7)}}
+@media (min-width:641px) and (max-width:820px){.rd #top{min-height:calc((100svh - var(--header-h,61px)) * .7)}}
+@media (max-width:640px){.rd #top{min-height:calc((100svh - var(--header-h,61px)) * .7)}}

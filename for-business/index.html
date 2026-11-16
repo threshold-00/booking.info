@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=046c64be" />
+<link rel="stylesheet" href="../styles.css?v=bd6ae1d3" />
 <link rel="canonical" href="https://getrealdays.com/for-business/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -88,17 +88,19 @@
        /dashboard/signup?spots=1), wired in app.js (form[data-spots-signup]). The fields carry
        data-field, not name, so personal details never end up in a web address: without
        JavaScript the button just opens the booking service's own sign-up page. -->
-  <section id="intro" class="biz-hero biz-hero--spots">
+  <section id="intro" class="biz-hero biz-hero--spots biz-hero--photo biz-hero--centered">
+    <!-- Background photo (Ro, 16 Nov 2026): the site's own pottery wheel photo, no business named,
+         under a dark wash so the headline stays readable. The form keeps its light panel. -->
+    <picture class="biz-hero__bg" aria-hidden="true">
+      <source media="(max-width:820px)" srcset="../assets/photos/pottery-mobile-1080.webp" type="image/webp" />
+      <source srcset="../assets/photos/pottery-1440.webp 1440w, ../assets/photos/pottery-2400.webp 2400w" sizes="100vw" type="image/webp" />
+      <img src="../assets/photos/pottery-2400.jpg" alt="" width="2400" height="1091" fetchpriority="high" decoding="async" />
+    </picture>
     <div class="container grid">
       <div class="c-1-5 biz-hero__copy">
         <p class="label eyebrow">Last-minute spots</p>
-        <h1>Got empty spots this week? We’ll help fill them.</h1>
+        <h1>Push empty class spots that would otherwise earn nothing</h1>
         <p class="biz-hero__lede">Post a spare spot at a last-minute price. RealDays gives it its own page and shares it on our homepage, in our weekly email and on Instagram. Customers book and pay by card.</p>
-        <ul class="biz-hero__points label">
-          <li>Free to join, no monthly fee</li>
-          <li>Only pay when a spot sells: 20% of a booking you’d have missed</li>
-          <li>Post a spot in a few minutes</li>
-        </ul>
       </div>
       <form class="c-7-12 biz-signup" id="spots-signup" data-spots-signup action="https://api.getrealdays.com/dashboard/signup" method="get" novalidate aria-labelledby="spotsSignupTitle">
         <h2 class="biz-signup__title" id="spotsSignupTitle">Start posting your empty spots</h2>
@@ -119,6 +121,19 @@
         </div>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
+    </div>
+  </section>
+
+  <!-- The three hero points, moved into their own section with Material Symbols icons
+       (inline SVG, Apache 2.0) (Ro, 16 Nov 2026). -->
+  <section id="perks" class="section biz-perks" aria-labelledby="perksTitle">
+    <div class="container">
+      <h2 class="sr-only" id="perksTitle">Why post your spots on RealDays</h2>
+      <ul class="biz-perks__list">
+        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M577-623q-14-34-40-53t-62-19q-31 0-55 10.5T379-654l-42-42q21-24 48.5-38t58.5-18v-88h60v87q42 5 76.5 30.5T635-649l-58 26ZM806-56 614-248q-22 21-50.5 31T504-205v85h-60v-86q-57-8-95-45.5T295-343l60-21q14 51 45.5 76t79.5 25q26 0 50.5-6.5T570-292L57-805l43-43L849-99l-43 43Z"/></svg><p>Free to join, no monthly fee</p></li>
+        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M863-404 557-97q-9 8.5-20.25 12.75T514.25-80Q503-80 492-84.5T472-97L98-472q-8-8-13-18.96-5-10.95-5-23.04v-306q0-24.75 17.63-42.38Q115.25-880 140-880h307q12.07 0 23.39 4.87Q481.7-870.25 490-862l373 373q9.39 9 13.7 20.25 4.3 11.25 4.3 22.5t-4.5 22.75Q872-412 863-404ZM516-138l306-307-375-375H140v304l376 378ZM245-664q21 0 36.5-15.5T297-716q0-21-15.5-36.5T245-768q-21 0-36.5 15.5T193-716q0 21 15.5 36.5T245-664Zm236 185Z"/></svg><p>Only pay when a spot sells: 20% of a booking you’d have missed</p></li>
+        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M360-860v-60h240v60H360Zm90 447h60v-230h-60v230Zm30 332q-74 0-139.5-28.5T226-187q-49-49-77.5-114.5T120-441q0-74 28.5-139.5T226-695q49-49 114.5-77.5T480-801q67 0 126 22.5T711-716l51-51 42 42-51 51q36 40 61.5 97T840-441q0 74-28.5 139.5T734-187q-49 49-114.5 77.5T480-81Zm0-60q125 0 212.5-87.5T780-441q0-125-87.5-212.5T480-741q-125 0-212.5 87.5T180-441q0 125 87.5 212.5T480-141Zm0-299Z"/></svg><p>Post a spot in a few minutes</p></li>
+      </ul>
     </div>
   </section>
 
@@ -279,7 +294,7 @@
   <a href="#spots-signup" class="btn">Post your empty spots</a>
 </aside>
 <script src="../assets/rough.js"></script>
-<script src="../app.js?v=73878bcc"></script>
+<script src="../app.js?v=b640dd74"></script>
 <script>
 document.querySelectorAll('[data-tier]').forEach(function(el){
   el.addEventListener('click', function(){

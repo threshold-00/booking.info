@@ -1814,6 +1814,7 @@ var SPOT_PLACES_LEFT = true;
       var all = document.getElementById('railSpotsAll'), list = own(data.list_url);
       if (all && list && total > cards.length) { all.href = list; all.hidden = false; }
       section.hidden = false;
+      var soon = document.getElementById('railSoonSection'); if (soon) soon.hidden = true;
     })
     .catch(function () { clearTimeout(timer); });
 })();
