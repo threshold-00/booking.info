@@ -1,6 +1,6 @@
 # RealDays marketing site (formerly Threshold)
 
-Static marketing site for RealDays (renamed from Threshold, Ro, 22 Oct 2026), a booking site for small, owner-run experience businesses. The pitch: unique experiences run by the local people who started them, in Victoria, Australia. Free to join, no subscription, no setup fee. No business prices, fees or percentages appear anywhere on the public site (Ro, 14 Nov 2026; see Pricing).
+Static marketing site for RealDays (renamed from Threshold, Ro, 22 Oct 2026), a booking site for small, owner-run experience businesses. The pitch: unique experiences run by the local people who started them. Businesses anywhere in Australia can join (Ro, 16 Nov 2026). Every listing so far is in Victoria, so customer-facing location wording (homepage title and meta, the Where filter, the map, the Victoria hub and the index pages) stays Victoria until a business in another state goes live; then add that state the way category chips are added. Free to join, no subscription, no setup fee. No business prices, fees or percentages appear anywhere on the public site (Ro, 14 Nov 2026; see Pricing).
 
 User-facing copy says "RealDays" (capital R and D, no space). The domain is getrealdays.com (Ro, 23 Oct 2026); thresholdbooking.com and www 301-redirect to the same path and query on it through a Cloudflare Redirect Rule, so keep that domain renewed. The repo, file and folder names, CSS/JS identifiers and localStorage keys still say threshold; don't rename those without asking Ro.
 

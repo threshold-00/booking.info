@@ -1,7 +1,7 @@
 # RealDays
 > Unique experiences run by the local people who started them. In Victoria, Australia.
 
-RealDays is a booking site for small, owner-run experience businesses. Nothing to join and nothing a month.
+RealDays is a booking site for small, owner-run experience businesses. We started in Victoria and now welcome businesses from anywhere in Australia. Nothing to join and nothing a month.
 
 ## Pages
 - [Home](https://getrealdays.com/)
