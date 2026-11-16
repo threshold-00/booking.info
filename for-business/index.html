@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=43be6a42" />
+<link rel="stylesheet" href="../styles.css?v=89620ec3" />
 <link rel="canonical" href="https://getrealdays.com/for-business/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -132,10 +132,12 @@
         <p>She found they wanted to get both customers in the door and be able to manage enquiries without being across many different channels.</p>
       </div>
       <figure class="c-8-12 biz-media">
+        <!-- Ro asked for this photo back (16 Nov 2026). -->
         <picture>
-          <source srcset="../assets/photos/coastline-mobile-1080.webp 1080w, ../assets/photos/coastline-mobile-1620.webp 1620w" sizes="(min-width:1024px) 40vw, 100vw" type="image/webp" />
-          <img src="../assets/photos/coastline-mobile-1080.jpg" width="1080" height="1350" alt="A person standing on a rock pool inside a sea cave, cliffs and the ocean framed by the cave mouth" loading="lazy" decoding="async" />
+          <source srcset="../assets/photos/our-why-motorbikes-800.webp 800w, ../assets/photos/our-why-motorbikes-1200.webp 1200w" sizes="(min-width:1024px) 40vw, 100vw" type="image/webp" />
+          <img src="../assets/photos/our-why-motorbikes-1200.jpg" width="1200" height="1600" alt="Simone, owner of Salty Cowboy, and Ro, RealDays founder, in motocross gear beside a dirt bike on a black-sand beach in Bali" loading="lazy" decoding="async" />
         </picture>
+        <figcaption class="label">Simone [Salty Cowboy owner] + Ro [RealDays founder]</figcaption>
       </figure>
     </div>
   </section>
@@ -193,6 +195,16 @@
   </section>
 
   <section id="interested" class="on-dark band-dark section" aria-labelledby="interestedTitle">
+    <!-- "Get last-minute discounted spots first" (Ro, 15 and 16 Nov 2026): a box at the top of the footer, or above the business block where a page has one; joins the booking service's list (app.js). The full sign-up page is /last-minute/. -->
+    <div class="container footer-spots on-dark" id="spots-list">
+      <div class="footer-spots__head"><p class="label eyebrow">For customers</p><h2 class="footer-spots__title">Get last-minute discounted spots first</h2><a class="footer-spots__more" href="/last-minute/">How it works</a></div>
+      <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+        <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
+        <button type="submit" class="btn">Join the list</button>
+        <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+        <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
     <div class="container grid">
       <div class="c-1-5">
         <p class="label eyebrow">For businesses</p>
@@ -219,16 +231,6 @@
   </section>
 
   <footer>
-    <!-- "Get last-minute spots first" (Ro, 15 Nov 2026): joins the booking service's list (app.js). The consent line is stored word for word, so keep it as it is. -->
-    <div class="container footer-spots on-dark" id="spots-list">
-      <h2 class="footer-spots__title">Get last-minute spots first</h2>
-      <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
-        <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
-        <button type="submit" class="btn">Join the list</button>
-        <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
-        <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
-      </form>
-    </div>
     <div class="container label">
     <span>&copy; 2026 RealDays</span>
     <nav aria-label="Footer">

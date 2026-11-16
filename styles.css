@@ -860,13 +860,20 @@ body:not(.rd) .site-header{--gutter:20px;--container:calc(1440px - 2 * var(--gut
 @media (max-width:520px){.spots-signup__form{grid-template-columns:minmax(0,1fr)}.spots-signup__form .btn--primary,.spots-signup__form .btn{width:100%}}
 /* The same box at the top of every footer (Ro, 15 Nov 2026), on the dark footer. It sits
    in its own .container, so it undoes the footer bar's flex row and 12px text. */
-footer .container.footer-spots{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);align-items:start!important;gap:var(--s-4) var(--s-6);font-size:var(--t-body,16px)!important;letter-spacing:normal;text-transform:none;padding-bottom:var(--s-6);margin-bottom:var(--s-5);border-bottom:1px solid rgba(243,242,238,.18)}
+/* In a box (Ro, 16 Nov 2026), so it reads apart from the business block: at the top of the
+   footer, or above "Want to get listed as a business?" on the pages that have it. The box is
+   drawn on the gutters, so its content lines up with the rest of the page. */
+.container.footer-spots{position:relative;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);align-items:start!important;gap:var(--s-4) var(--s-6);font-size:var(--t-body,16px)!important;letter-spacing:normal;text-transform:none;padding:var(--s-6) calc(var(--gutter) + var(--s-6));margin-bottom:var(--s-7)}
+.container.footer-spots::before{content:"";position:absolute;inset:0 var(--gutter);border:1px solid rgba(243,242,238,.34);background:rgba(243,242,238,.05);pointer-events:none}
+.footer-spots>*{position:relative}
+.footer-spots .eyebrow{margin:0 0 var(--s-2)}
+.footer-spots__more{display:inline-block;margin-top:var(--s-3);font-family:var(--mono);font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--paper)!important;text-decoration:underline;text-underline-offset:3px}
 .footer-spots__title{margin:0;font-family:var(--display);font-weight:600;font-size:22px;line-height:1.2;color:var(--paper)}
-footer .footer-spots .spots-signup__field .label{color:rgba(243,242,238,.68)!important}
-footer .footer-spots .spots-signup__note,footer .footer-spots .spots-signup__status{color:rgba(243,242,238,.78)}
-footer .footer-spots .spots-signup__note a{color:var(--paper)!important;display:inline;min-height:0}
-footer .footer-spots .btn{background:var(--paper);color:var(--ink)!important}
-@media (max-width:820px){footer .container.footer-spots{grid-template-columns:minmax(0,1fr)}}
+footer .footer-spots .spots-signup__field .label,.footer-spots .spots-signup__field .label{color:rgba(243,242,238,.68)!important}
+.footer-spots .spots-signup__note,.footer-spots .spots-signup__status{color:rgba(243,242,238,.78)}
+.footer-spots .spots-signup__note a{color:var(--paper)!important;display:inline;min-height:0}
+.footer-spots .btn{background:var(--paper);color:var(--ink)!important}
+@media (max-width:820px){.container.footer-spots{grid-template-columns:minmax(0,1fr);padding:var(--s-5) calc(var(--gutter) + var(--s-4))}}
 
 /* Card rails ("Good for a first go", "Just added"): one row that scrolls sideways,
    inside the centred container, like Airbnb's rows (Ro, 22 Oct 2026). */

@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="../styles.css?v=43be6a42" />
+<link rel="stylesheet" href="../styles.css?v=89620ec3" />
 <link rel="canonical" href="https://getrealdays.com/booking-terms/" />
 <link rel="icon" href="../assets/favicon.svg?v=c732d6da" type="image/svg+xml" />
 <meta property="og:type" content="website" />
@@ -147,9 +147,9 @@
   </main>
 
   <footer>
-    <!-- "Get last-minute spots first" (Ro, 15 Nov 2026): joins the booking service's list (app.js). The consent line is stored word for word, so keep it as it is. -->
+    <!-- "Get last-minute discounted spots first" (Ro, 15 and 16 Nov 2026): a box at the top of the footer, or above the business block where a page has one; joins the booking service's list (app.js). The full sign-up page is /last-minute/. -->
     <div class="container footer-spots on-dark" id="spots-list">
-      <h2 class="footer-spots__title">Get last-minute spots first</h2>
+      <div class="footer-spots__head"><p class="label eyebrow">For customers</p><h2 class="footer-spots__title">Get last-minute discounted spots first</h2><a class="footer-spots__more" href="/last-minute/">How it works</a></div>
       <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
         <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
         <button type="submit" class="btn">Join the list</button>
