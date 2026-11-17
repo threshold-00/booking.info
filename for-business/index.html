@@ -109,8 +109,6 @@
           <label><span class="label">Your name</span><input type="text" data-field="name" maxlength="80" autocomplete="name" required /><small class="biz-signup__err" data-err="name"></small></label>
           <label><span class="label">Email</span><input type="email" data-field="email" autocomplete="email" inputmode="email" required /><small class="biz-signup__err" data-err="email"></small></label>
           <label><span class="label">Mobile</span><input type="tel" data-field="phone" autocomplete="tel" inputmode="tel" required /><small class="biz-signup__err" data-err="phone"></small></label>
-          <label><span class="label">Suburb or town</span><input type="text" data-field="region" maxlength="80" placeholder="e.g. Red Hill" required /><small class="biz-signup__err" data-err="region"></small></label>
-          <label><span class="label">State or territory</span><select data-field="state" required><option value="">Choose one</option><option value="act">ACT</option><option value="nsw">NSW</option><option value="nt">NT</option><option value="qld">QLD</option><option value="sa">SA</option><option value="tas">TAS</option><option value="vic">VIC</option><option value="wa">WA</option></select><small class="biz-signup__err" data-err="state"></small></label>
         </div>
         <input type="text" data-field="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
         <input type="hidden" name="spots" value="1" />
@@ -148,7 +146,7 @@
           <div class="biz-step__shot"><img src="../assets/img/business/how-1-sign-up.jpg" width="900" height="716" alt="The sign-up form, filled in with a business name, name, email, mobile, suburb, state and website" loading="lazy" decoding="async" /></div>
           <p class="label biz-step__num">Step 1</p>
           <h3>Sign up</h3>
-          <p>Fill in the form at the top of this page and confirm your email. Then add your class and set up payouts with Stripe, so bookings are paid straight to your account.</p>
+          <p>Fill in the form at the top of this page and you go straight to adding your class. Then confirm your email and set up payouts with Stripe, so bookings are paid straight to your account.</p>
         </li>
         <li class="biz-step">
           <div class="biz-step__shot"><img src="../assets/img/business/how-2-post-a-spot.jpg" width="900" height="737" alt="Posting a spot in the dashboard: the date and time, how many spare places, the normal price and the last-minute price" loading="lazy" decoding="async" /></div>
@@ -212,7 +210,7 @@
         </details>
         <details class="faq-item">
           <summary>How do I post a last-minute spot?</summary>
-          <p>Fill in the form at the top of this page and confirm your email. Add your class (paste a link to its page and we fill in most of it), then set up payouts with Stripe. Your spot goes live as soon as Stripe is ready.</p>
+          <p>Fill in the form at the top of this page and add your class straight away (paste a link to its page and we fill in most of it). Then confirm your email and set up payouts with Stripe. Your spot goes live once both are done.</p>
         </details>
         <details class="faq-item">
           <summary>What does it cost?</summary>
@@ -290,7 +288,7 @@
   <a href="#spots-signup" class="btn">Post your empty spots</a>
 </aside>
 <script src="../assets/rough.js"></script>
-<script src="../app.js?v=5518a2a6"></script>
+<script src="../app.js?v=c4e1d462"></script>
 <script>
 document.querySelectorAll('[data-tier]').forEach(function(el){
   el.addEventListener('click', function(){

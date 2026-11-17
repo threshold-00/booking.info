@@ -1882,7 +1882,7 @@ var SPOT_PLACES_LEFT = true;
   }
   function carryOn(v, why) {
     var q = new URLSearchParams();
-    ['business_name', 'name', 'email', 'phone', 'region', 'state'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
+    ['business_name', 'name', 'email', 'phone'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
     say(why);
     setTimeout(function () { location.href = signupPage + '#' + q.toString(); }, 1200);
   }
@@ -1899,7 +1899,7 @@ var SPOT_PLACES_LEFT = true;
       }
     });
     if (first) { say(''); first.focus(); return; }
-    var body = { business_name: v.business_name, name: v.name, email: v.email, phone: v.phone, region: v.region, state: v.state, company_url: v.company_url, spots: true, plan: 'lite', source: source };
+    var body = { business_name: v.business_name, name: v.name, email: v.email, phone: v.phone, company_url: v.company_url, spots: true, plan: 'lite', source: source };
     btn.disabled = true;
     say('Sending...');
     fetch(api + '/auth/signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
@@ -1919,7 +1919,7 @@ var SPOT_PLACES_LEFT = true;
           form.classList.add('is-sent');
           // 201: a new business. 200: the email already has an account, so the booking service
           // sent a login link and says so in its own careful words.
-          say(r.status === 201 ? "You're signed up. Check your email for a link to log in and add your class. It works for 15 minutes." : (d.message || "Check your email. We've sent you a link to log in."));
+          say(r.status === 201 ? "You're signed up. Check your email for a link to log in and add your class. It works for 24 hours." : (d.message || "Check your email. We've sent you a link to log in."));
           status.setAttribute('tabindex', '-1');
           status.focus();
           return;
