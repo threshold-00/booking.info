@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Get last-minute discounted spots first | RealDays</title>
-<meta name="description" content="Join the RealDays last-minute list: one email on Thursdays with spare places at small, owner-run classes, at a last-minute price. Free, and you can unsubscribe any time." />
+<meta name="description" content="Join the RealDays last-minute list: spare places at small, owner-run classes in Victoria, at a lower price. One email on Thursdays. Free, unsubscribe any time." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -25,62 +25,101 @@
 <meta name="twitter:title" content="Get last-minute discounted spots first | RealDays" />
 <meta name="twitter:description" content="One email on Thursdays with spare places at small, owner-run classes, at a last-minute price." />
 <meta name="twitter:image" content="https://getrealdays.com/assets/og-image.png" />
-<!-- The customer sign-up page for the last-minute list (Ro, 16 Nov 2026). The forms join the
+<!-- The customer sign-up page for the last-minute list (Ro, 16 Nov 2026; redesigned 17 Nov 2026:
+     photo tiles for the benefits, shorter copy, a sticky sign-up bar). Photos are free Unsplash
+     photos (Unsplash licence), saved in assets/img/last-minute/: bG5rhvRH0JM, FHZAI9c8wIk,
+     D3zfCX3FzHc, TdpSX7XAcKo, Fj5klOSDZxM. The forms join the
      booking service's list through app.js (form[data-subscribe], POST /subscribe). The weekly
      email itself is built by the booking service (src/lib/list.ts, weeklyEmail); the picture
      below is that email rendered with example spots. -->
 <style>
-  .lm-hero{padding-block:var(--s-8)}
-  .lm-hero .grid{align-items:start}
-  .lm-hero h1{margin:0 0 var(--s-4);font-size:var(--t-headline);font-weight:600;line-height:1.05;letter-spacing:-.02em}
-  .lm-lede{margin:0 0 var(--s-5);max-width:34em;font-size:var(--t-title);line-height:1.45;color:var(--ink-2)}
-  .lm-points{display:grid;gap:var(--s-2);margin:0;padding:0;list-style:none}
-  .lm-points li{display:flex;align-items:center;gap:var(--s-2)}
-  .lm-points li::before{content:"";flex:none;width:8px;height:8px;background:var(--ink)}
-  .lm-join{display:grid;gap:var(--s-5);padding:var(--s-6);background:var(--panel);border:var(--bw) solid var(--line)}
-  .lm-join h2{margin:0;font-size:var(--t-subhead);line-height:1.2}
-  .lm-join form{display:grid;gap:var(--s-4)}
-  .lm-join label{display:grid;gap:var(--s-2)}
-  .lm-join label .label{color:var(--ink-2)}
-  .rd .lm-join input{display:block;width:100%;min-height:var(--control-h);height:var(--control-h);padding:var(--s-2) 0}
-  .lm-join__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-4)}
-  .lm-join__note{margin:0;flex:1 1 220px;font-size:var(--t-small);color:var(--ink-2)}
-  .lm-join__note a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-  .rd .lm-join .btn--primary{margin-left:auto;width:auto;min-width:140px;height:44px;min-height:44px}
-  .lm-join .form-status{margin:0;color:var(--ink)}
-  .lm-join .form-status:empty{display:none}
+  /* Hero: headline, the sign-up and the photo. On phones the sign-up comes first, the photo after. */
+  .lm-hero{padding-block:var(--s-7) var(--s-8)}
+  .lm-hero .grid{align-items:center;row-gap:var(--s-6)}
+  .lm-hero h1{margin:0 0 var(--s-4);font-size:var(--t-display);font-weight:600;line-height:1;letter-spacing:-.025em}
+  .lm-lede{margin:0 0 var(--s-6);max-width:30em;font-size:var(--t-subhead);line-height:1.35;color:var(--ink-2)}
+  .lm-form{display:grid;gap:var(--s-3);max-width:520px}
+  .lm-form__row{display:flex;gap:var(--s-2)}
+  .rd .lm-form input{flex:1 1 auto;min-width:0;height:48px;min-height:48px;padding:0 var(--s-4);border:var(--bw) solid var(--ink);background:var(--paper);font-size:16px}
+  .rd .lm-form .btn--primary{flex:none;height:48px;min-height:48px;padding-inline:var(--s-5)}
+  .lm-form__label{color:var(--ink-2)}
+  .lm-form__note{margin:0;font-size:var(--t-small);color:var(--ink-2)}
+  .lm-form__note a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+  .lm-form .form-status{margin:0;font-weight:600;color:var(--ink)}
+  .lm-form .form-status:empty{display:none}
+  .lm-ticks{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin:var(--s-5) 0 0;padding:0;list-style:none;color:var(--ink-2)}
+  .lm-ticks li{display:flex;align-items:center;gap:var(--s-2)}
+  .lm-ticks svg{flex:none;width:16px;height:16px}
+  .lm-hero__photo{margin:0;aspect-ratio:4/5;overflow:hidden;background:var(--panel)}
+  .lm-hero__photo img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* Why join: four photo tiles, one benefit each. */
   .lm-why{border-top:var(--bw) solid var(--line)}
-  .lm-why h2,.lm-how h2{margin:0 0 var(--s-6);font-size:var(--t-headline);line-height:1.1}
-  .lm-benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--s-5);margin:0;padding:0;list-style:none}
-  .lm-benefits li{padding-top:var(--s-4);border-top:var(--bw) solid var(--ink)}
-  .lm-benefits h3{margin:0 0 var(--s-2);font-size:var(--t-title);line-height:1.25}
-  .lm-benefits p{margin:0;color:var(--ink-2);line-height:1.55}
+  .lm-why h2,.lm-how h2{margin:0 0 var(--s-6);font-size:var(--t-headline);line-height:1.05;letter-spacing:-.015em}
+  .lm-benefits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--grid-gap);margin:0;padding:0;list-style:none}
+  .lm-benefit img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--panel)}
+  .lm-benefit h3{margin:var(--s-4) 0 var(--s-1);font-size:var(--t-subhead);line-height:1.15;letter-spacing:-.01em}
+  .lm-benefit p{margin:0;color:var(--ink-2);line-height:1.45}
+
+  /* How it works: three steps beside the email. */
   .lm-how{border-top:var(--bw) solid var(--line)}
-  .lm-how .grid{align-items:start}
-  .lm-steps{display:grid;gap:var(--s-5);margin:0 0 var(--s-6);padding:0;list-style:none;counter-reset:step}
-  .lm-steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--s-3);counter-increment:step}
-  .lm-steps li::before{content:counter(step);font-family:var(--mono);font-size:var(--t-label);letter-spacing:.08em;line-height:28px;color:var(--ink-2)}
-  .lm-steps h3{margin:0 0 var(--s-1);font-size:var(--t-title);line-height:1.3}
-  .lm-steps p{margin:0;color:var(--ink-2);line-height:1.55}
+  .lm-how .grid{align-items:start;row-gap:var(--s-6)}
+  .lm-steps{display:grid;gap:var(--s-5);margin:0;padding:0;list-style:none;counter-reset:step}
+  .lm-steps li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:var(--s-3);align-items:baseline;counter-increment:step}
+  .lm-steps li::before{content:counter(step);display:grid;place-items:center;width:40px;height:40px;border:var(--bw) solid var(--ink);font-family:var(--mono);font-size:var(--t-label)}
+  .lm-steps h3{margin:0 0 var(--s-1);font-size:var(--t-subhead);line-height:1.2}
+  .lm-steps p{margin:0;color:var(--ink-2)}
   .lm-email{margin:0}
-  .lm-email__frame{max-height:760px;overflow:hidden;border:var(--bw) solid var(--line);background:var(--paper);-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)}
+  .lm-email__frame{max-height:520px;overflow:hidden;border:var(--bw) solid var(--line);background:var(--paper);-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
   .lm-email img{display:block;width:100%;height:auto}
   .lm-email figcaption{margin-top:var(--s-3);color:var(--ink-2)}
-  .lm-more{margin:0;color:var(--ink-2)}
-  .lm-more a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-  @media (max-width:1023px){.lm-hero .grid,.lm-how .grid{row-gap:var(--s-6)}}
-  @media (max-width:820px){.lm-hero{padding-block:var(--s-6) var(--s-7)}.lm-lede{font-size:var(--t-body)}.lm-join{padding:var(--s-5) var(--s-4)}.lm-email__frame{max-height:560px}}
+
+
+  /* Closing sign-up: the footer's two-column box, as on the homepage. */
+  .rd .lm-end .container.footer-spots{margin-bottom:0}
+
+  /* The sticky sign-up bar. */
+  .lm-sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:var(--s-3) var(--gutter) calc(var(--s-3) + env(safe-area-inset-bottom,0px));background:var(--paper-glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:var(--shadow-bar);border-top:var(--bw) solid var(--line);transform:translateY(110%);transition:transform var(--dur) var(--ease-out)}
+  .lm-sticky.on{transform:none}
+  .lm-sticky__in{display:flex;align-items:center;gap:var(--s-5);max-width:var(--container);margin:0 auto}
+  .lm-sticky__text{flex:none;margin:0;font-size:var(--t-title);font-weight:600}
+  .lm-sticky form{display:flex;align-items:center;gap:var(--s-2);flex:1 1 auto;justify-content:flex-end}
+  .rd .lm-sticky input{width:min(320px,100%);height:var(--control-h);min-height:var(--control-h);padding:0 var(--s-3);border:var(--bw) solid var(--ink);background:var(--paper);font-size:16px}
+  .lm-sticky .form-status{margin:0;font-size:var(--t-small)}
+  .lm-sticky .form-status:empty{display:none}
+  .lm-sticky__note{margin:0;font-size:var(--t-label);color:var(--ink-2);max-width:13em;line-height:1.3}
+  @media (prefers-reduced-motion:reduce){.lm-sticky{transition:none}}
+
+  @media (max-width:1023px){.lm-benefits{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--s-6)}}
+  @media (max-width:820px){
+    .lm-hero{padding-block:var(--s-5) var(--s-7)}
+    .lm-lede{font-size:var(--t-title);margin-bottom:var(--s-5)}
+    .lm-hero__photo{aspect-ratio:16/10}
+    .lm-form__row{flex-direction:column}
+    .rd .lm-form .btn--primary{width:100%}
+    .lm-benefits{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-5) var(--s-3)}
+    .lm-benefit h3{font-size:var(--t-title)}
+    .lm-benefit p{font-size:var(--t-small)}
+    .lm-email__frame{max-height:420px}
+    .lm-sticky__text{display:none}
+    .lm-sticky form{flex-wrap:wrap;row-gap:var(--s-1)}
+    .lm-sticky__note{order:3;flex:1 0 100%;max-width:none;font-size:var(--t-label)}
+    .lm-sticky .form-status{order:4;flex:1 0 100%}
+    .rd .lm-sticky input{width:auto;flex:1 1 auto;min-width:0}
+    body.rd{padding-bottom:96px}
+  }
 </style>
 </head>
 <body class="rd">
 <div>
   <header class="site-header" style="position:sticky;top:0;background:var(--paper-glass);backdrop-filter:blur(8px);z-index:20;">
     <div class="bar" style="display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:calc(var(--container) + 2 * var(--gutter));margin:0 auto;">
-      <a href="../" class="logo">RealDays.</a>
+      <a href="/" class="logo">RealDays.</a>
       <nav class="nav" id="siteNav" aria-label="Main">
-        <a href="../" class="navlink">For customers</a>
+        <a href="/#browse" class="navlink">Browse experiences</a>
+        <a href="/last-minute/" class="navlink on" aria-current="page">Last-minute spots</a>
         <a href="/gift-cards/" class="navlink">Gift cards</a>
-        <a href="../for-business/" class="navlink">For businesses</a>
+        <a href="/for-business/" class="btn-ghost">For businesses</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -93,49 +132,53 @@
     <section class="lm-hero" aria-labelledby="lmTitle">
       <div class="container grid">
         <div class="c-1-6">
-          <p class="label eyebrow">For customers</p>
+          <p class="label eyebrow">The last-minute list</p>
           <h1 id="lmTitle">Get last-minute discounted spots first</h1>
-          <p class="lm-lede">Small businesses post their spare places at classes and workshops at a last-minute price. Join the list and we'll email you the week's spots, so you hear about them while there's still room.</p>
-          <ul class="lm-points label">
-            <li>Free to join</li>
-            <li>One email a week, on Thursdays</li>
-            <li>Unsubscribe any time</li>
-          </ul>
-        </div>
-        <div class="c-8-12 lm-join" id="join">
-          <h2>Join the last-minute list</h2>
-          <form data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
-            <label><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
-            <div class="lm-join__foot">
-              <p class="lm-join__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+          <p class="lm-lede">Spare places at small, owner-run classes, at a lower price. One email, Thursdays.</p>
+          <form class="lm-form" id="join" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+            <label class="label lm-form__label" for="lmEmail">Your email</label>
+            <div class="lm-form__row">
+              <input id="lmEmail" type="email" name="email" autocomplete="email" required />
               <button type="submit" class="btn--primary">Join the list</button>
             </div>
+            <p class="lm-form__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
             <p class="form-status" role="status" aria-live="polite"></p>
           </form>
+          <ul class="lm-ticks label">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Free to join</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Victoria for now</li>
+          </ul>
         </div>
+        <figure class="c-8-12 lm-hero__photo">
+          <img src="../assets/img/last-minute/hero-cooking-pair.jpg" width="1400" height="1750" alt="Two friends laughing as they cook together at a class" fetchpriority="high" decoding="async" />
+        </figure>
       </div>
     </section>
 
     <section class="section lm-why" aria-labelledby="lmWhyTitle">
       <div class="container">
         <p class="label eyebrow">Why join</p>
-        <h2 id="lmWhyTitle">Real classes, spare places, a lower price.</h2>
+        <h2 id="lmWhyTitle">Real classes. Spare places. Lower price.</h2>
         <ul class="lm-benefits">
-          <li>
-            <h3>A last-minute price</h3>
-            <p>Each spot is priced lower than usual, and the usual price sits right next to it. Some get cheaper again closer to the start.</p>
+          <li class="lm-benefit">
+            <img src="../assets/img/last-minute/price-painting-class.jpg" width="800" height="600" alt="Friends painting together around a table at a class" loading="lazy" decoding="async" />
+            <h3>Same class, lower price</h3>
+            <p>The usual price sits right next to it.</p>
           </li>
-          <li>
-            <h3>Small, owner-run businesses</h3>
-            <p>Pottery, cooking, woodwork and more, run by the local people who started them. Every spot is a real class with a real space left in it.</p>
+          <li class="lm-benefit">
+            <img src="../assets/img/last-minute/owners-pottery-class.jpg" width="800" height="600" alt="A teacher helping a student at a pottery wheel, with the class beside them" loading="lazy" decoding="async" />
+            <h3>Run by the people who started them</h3>
+            <p>Pottery, cooking, woodwork. Small and local.</p>
           </li>
-          <li>
-            <h3>Hear about them first</h3>
-            <p>Spare places come up through the week and can go quickly. The email puts that week's spots in your inbox in one go.</p>
+          <li class="lm-benefit">
+            <img src="../assets/img/last-minute/first-flower-workshop.jpg" width="800" height="600" alt="A group making plant arrangements along a long workshop table" loading="lazy" decoding="async" />
+            <h3>First dibs, every Thursday</h3>
+            <p>The week's spare places, in your inbox at midday.</p>
           </li>
-          <li>
+          <li class="lm-benefit">
+            <img src="../assets/img/last-minute/book-clay-class.jpg" width="800" height="600" alt="A woman shaping a clay bowl at a hand-building class" loading="lazy" decoding="async" />
             <h3>Book in a minute</h3>
-            <p>Tap a spot to book and pay by card on RealDays. You can book up to 2 hours before the start.</p>
+            <p>Pay by card, up to 2 hours before it starts.</p>
           </li>
         </ul>
       </div>
@@ -144,26 +187,50 @@
     <section class="section lm-how" aria-labelledby="lmHowTitle">
       <div class="container grid">
         <div class="c-1-6">
-          <p class="label eyebrow">How the emails work</p>
-          <h2 id="lmHowTitle">One email, once a week.</h2>
+          <p class="label eyebrow">How it works</p>
+          <h2 id="lmHowTitle">One email. Once a week.</h2>
           <ol class="lm-steps">
-            <li><div><h3>Join with your email</h3><p>That's all we ask for. You're on the list straight away.</p></div></li>
-            <li><div><h3>Thursdays at midday</h3><p>We send the week's spare places, grouped by day, in time to plan your weekend. If there are no spots that week, there's no email.</p></div></li>
-            <li><div><h3>Everything on one line</h3><p>Each spot shows the class, the business, the time, how many places are left, and the price next to the usual price.</p></div></li>
-            <li><div><h3>Book this spot</h3><p>Tap it to see the details and book. The spot's page always shows what's left.</p></div></li>
-            <li><div><h3>Leave any time</h3><p>Every email has a one-click unsubscribe link.</p></div></li>
+            <li><div><h3>Join with your email</h3><p>That's all we ask for.</p></div></li>
+            <li><div><h3>Thursday, midday</h3><p>The week's spots land in your inbox. No spots, no email.</p></div></li>
+            <li><div><h3>Tap a spot and book</h3><p>Leave the list in one click, any time.</p></div></li>
           </ol>
-          <p class="lm-more">Spots are in Victoria for now. You can also see every live spot on the <a href="../">homepage</a>.</p>
         </div>
         <figure class="c-8-12 lm-email">
           <div class="lm-email__frame">
-            <img src="../assets/img/email/weekly-spots-example.jpg" width="1200" height="2406" alt="An example of the weekly email: spare places grouped by day, each with a photo, the time, places left, the price and the usual price, and a Book this spot button" loading="lazy" decoding="async" />
+            <img src="../assets/img/email/weekly-spots-example.jpg" width="1200" height="2478" alt="An example of the weekly email: spare places grouped by day, each with a photo, the time, places left, the price and the usual price, and a Book this spot button" loading="lazy" decoding="async" />
           </div>
           <figcaption class="label">The weekly email, with example spots</figcaption>
         </figure>
       </div>
     </section>
+
+    <section class="on-dark band-dark section lm-end" aria-labelledby="lmEndTitle">
+      <div class="container footer-spots on-dark">
+        <div class="footer-spots__head"><p class="label eyebrow">The last-minute list</p><h2 class="footer-spots__title" id="lmEndTitle">Something you'll actually remember doing.<br />Hear about it first.</h2></div>
+        <form class="spots-signup__form" data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+          <label class="spots-signup__field"><span class="label">Email</span><input type="email" name="email" autocomplete="email" required /></label>
+          <button type="submit" class="btn">Join the list</button>
+          <p class="spots-signup__note">One email a week with live spots. Unsubscribe any time. <a href="/privacy/#last-minute-list">Privacy</a></p>
+          <p class="form-status spots-signup__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <!-- Sticky sign-up: slides up once the hero's sign-up has scrolled away, and hides again
+       over the hero and the closing band. A second form[data-subscribe], wired by app.js. -->
+  <div class="lm-sticky" id="lmSticky" aria-hidden="true">
+    <div class="lm-sticky__in">
+      <p class="lm-sticky__text">Get last-minute spots first</p>
+      <form data-subscribe action="https://api.getrealdays.com/subscribe" method="post">
+        <label class="sr-only" for="lmStickyEmail">Email</label>
+        <input id="lmStickyEmail" type="email" name="email" autocomplete="email" placeholder="Your email" required tabindex="-1" />
+        <button type="submit" class="btn--primary" tabindex="-1">Join</button>
+        <p class="lm-sticky__note">One email a week with live spots. Unsubscribe any time.</p>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
 
   <footer>
     <div class="container label">
@@ -179,5 +246,29 @@
   </footer>
 </div>
 <script src="../app.js?v=58cbd6fc"></script>
+<script>
+// /last-minute/ (Ro, 17 Nov 2026): the sticky sign-up bar, and "Join the list" links that
+// scroll to the hero form and put the cursor in it.
+(function () {
+  var bar = document.getElementById('lmSticky'), join = document.getElementById('join'), end = document.querySelector('.lm-end');
+  if (!bar || !join || !('IntersectionObserver' in window)) return;
+  var seen = { join: true, end: false };
+  function set() {
+    var on = !seen.join && !seen.end;
+    bar.classList.toggle('on', on);
+    bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+    [].forEach.call(bar.querySelectorAll('input,button'), function (el) { el.tabIndex = on ? 0 : -1; });
+  }
+  new IntersectionObserver(function (es) { es.forEach(function (e) { seen[e.target === join ? 'join' : 'end'] = e.isIntersecting; }); set(); }).observe(join);
+  if (end) new IntersectionObserver(function (es) { seen.end = es[0].isIntersecting; set(); }).observe(end);
+  [].forEach.call(document.querySelectorAll('[data-join-link]'), function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      join.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+      setTimeout(function () { var i = document.getElementById('lmEmail'); if (i) i.focus({ preventScroll: true }); }, 400);
+    });
+  });
+})();
+</script>
 </body>
 </html>
