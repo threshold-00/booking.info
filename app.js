@@ -1822,10 +1822,42 @@ var SPOT_PLACES_LEFT = true;
 // "Get last-minute spots first" (Ro, 15 Nov 2026): posts the email to the booking
 // service's list, POST /subscribe with { email }. Without JavaScript the form posts as a
 // normal form and the booking service answers with its own page.
+// Meta (Ro, 17 Nov 2026): when someone new joins, the Pixel sends Subscribe and the booking
+// service sends the same event (same id) through the Conversions API, so the list ads can
+// optimise for sign-ups. Only real visitors on getrealdays.com (not team visits); the browser
+// sends Meta no email, only the event id and Meta's own cookies go to the booking service.
 (function () {
   var forms = document.querySelectorAll('form[data-subscribe]');
   if (!forms.length || !window.fetch) return;
   var api = realdaysSpotsApi();
+  function listEventId() {
+    var team = false;
+    try { team = new URLSearchParams(location.search).get('team') === '1' || sessionStorage.getItem('th_team') === '1'; } catch (e) {}
+    if (team || !/(^|\.)getrealdays\.com$/.test(location.hostname)) return null;
+    var r = window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
+    return 'subscribe-' + r.replace(/[^A-Za-z0-9-]/g, '');
+  }
+  // The ad's tags (Ro, 17 Nov 2026), kept for the visit so a sign-up on a later page still
+  // counts for the ad that brought the visitor; the booking service saves them with a new member.
+  function adTags() {
+    var here = new URLSearchParams(location.search), t = {}, got = false;
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach(function (k) { var x = here.get(k); if (x) { t[k] = x.slice(0, 200); got = true; } });
+    try {
+      if (got) sessionStorage.setItem('rd_list_src', JSON.stringify(t));
+      else t = JSON.parse(sessionStorage.getItem('rd_list_src') || 'null');
+    } catch (e) {}
+    return t && typeof t === 'object' && Object.keys(t).length ? t : null;
+  }
+  var tags = adTags();
+  function cookie(name) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  function pixel() {
+    var a = [].slice.call(arguments);
+    if (window.RealDaysPixel) window.RealDaysPixel.apply(null, a);
+    else (window._rdpx = window._rdpx || []).push(a);
+  }
   [].forEach.call(forms, function (form) {
     form.action = api + '/subscribe';
     var input = form.querySelector('input[type="email"]'), status = form.querySelector('.form-status'), btn = form.querySelector('button[type="submit"]');
@@ -1836,9 +1868,20 @@ var SPOT_PLACES_LEFT = true;
       if (!email || !input.checkValidity()) { say('Check the email address and try again.'); input.focus(); return; }
       btn.disabled = true;
       say('Sending...');
-      fetch(api + '/subscribe', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: email }) })
+      var payload = { email: email }, eventId = listEventId();
+      if (tags) payload.source = tags;
+      if (eventId) {
+        payload.event_id = eventId;
+        payload.page = location.origin + location.pathname;
+        var fbp = cookie('_fbp'), fbc = cookie('_fbc');
+        if (fbp) payload.fbp = fbp;
+        if (fbc) payload.fbc = fbc;
+      }
+      fetch(api + '/subscribe', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) {
           if (r.status === 200 || r.status === 201) { say("You're on the list."); input.value = ''; }
+          // Meta Subscribe (Ro, 17 Nov 2026), only for someone new to the list (201, not 200).
+          if (r.status === 201 && eventId) pixel('track', 'Subscribe', { content_name: 'last-minute-list' }, eventId);
           else if (r.status === 400) say('Check the email address and try again.');
           else if (r.status === 429) say('Please try again in a few minutes.');
           else say("That didn't send. Try again.");
