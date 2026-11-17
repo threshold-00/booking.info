@@ -389,16 +389,15 @@ var exploreMap = (function () {
 })();
 
 // Mobile menu (640px and under): the same full-screen panel on every page, built here
-// so generated pages get it too. Two groups styled alike, Explore and For businesses,
-// then the currency picker. It goes inside #siteNav, which the hamburger opens as the
+// so generated pages get it too. Three links, the same as the desktop nav (Ro, 17 Nov
+// 2026): Browse experiences, Last-minute spots, For businesses. It goes inside #siteNav, which the hamburger opens as the
 // overlay; the desktop links in #siteNav are hidden while it's open (styles.css).
 // Runs before the currency code binds its pickers on DOMContentLoaded.
 (function () {
   var nav = document.getElementById('siteNav');
   if (!nav || nav.querySelector('.menu-panel')) return;
   var groups = [
-    ['Explore', [['Browse experiences', '/#browse'], ['Last-minute spots', '/last-minute/'], ['Gift cards', '/gift-cards/'], ['FAQ', '/#faq']]],
-    ['For businesses', [['List your business', '/for-business/'], ['Talk to us', '/for-business/#interested']]]
+    [null, [['Browse experiences', '/#browse'], ['Last-minute spots', '/last-minute/'], ['For businesses', '/for-business/']]]
   ];
   var here = location.pathname.replace(/index\.html$/, '');
   var panel = document.createElement('div');
@@ -408,8 +407,8 @@ var exploreMap = (function () {
     box.className = 'menu-group';
     label.className = 'menu-group__label';
     label.id = 'menuGroup' + n;
-    label.textContent = g[0];
-    ul.setAttribute('aria-labelledby', label.id);
+    label.textContent = g[0] || '';
+    if (g[0]) ul.setAttribute('aria-labelledby', label.id); else ul.setAttribute('aria-label', 'Menu');
     g[1].forEach(function (l) {
       var li = document.createElement('li'), a = document.createElement('a');
       a.href = l[1];
@@ -418,7 +417,7 @@ var exploreMap = (function () {
       li.appendChild(a);
       ul.appendChild(li);
     });
-    box.appendChild(label);
+    if (g[0]) box.appendChild(label);
     box.appendChild(ul);
     panel.appendChild(box);
   });
