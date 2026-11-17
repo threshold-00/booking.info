@@ -1882,7 +1882,7 @@ var SPOT_PLACES_LEFT = true;
   }
   function carryOn(v, why) {
     var q = new URLSearchParams();
-    ['business_name', 'name', 'email', 'phone'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
+    ['business_name', 'name', 'email'].forEach(function (k) { if (v[k]) q.set(k, v[k]); });
     say(why);
     setTimeout(function () { location.href = signupPage + '#' + q.toString(); }, 1200);
   }
@@ -1899,7 +1899,7 @@ var SPOT_PLACES_LEFT = true;
       }
     });
     if (first) { say(''); first.focus(); return; }
-    var body = { business_name: v.business_name, name: v.name, email: v.email, phone: v.phone, company_url: v.company_url, spots: true, plan: 'lite', source: source };
+    var body = { business_name: v.business_name, name: v.name, email: v.email, company_url: v.company_url, spots: true, plan: 'lite', source: source };
     btn.disabled = true;
     say('Sending...');
     fetch(api + '/auth/signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
