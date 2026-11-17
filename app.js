@@ -1149,13 +1149,28 @@ var mapPanel = (function () {
     scrollToFilters();
     if (countEl) countEl.focus({ preventScroll: true });
   });
-  // Phones, filter nav stuck: "Filters" brings the full filters back into view.
-  var filtersBtn = $('filtersBtn');
-  if (filtersBtn) filtersBtn.addEventListener('click', function () {
-    scrollToFilters();
-    var first = chipRow && chipRow.querySelector('.chip:not([hidden])');
-    if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 400);
-  });
+  // Phones (Ro, 17 Nov 2026): the filters start collapsed to one row; "Filters" opens and
+  // closes the rest, and counts the filters that are on ("Filters (2)").
+  var filtersBtn = $('filtersBtn'), filterNavEl = $('filterNav'), filtersCount = $('filtersCount');
+  if (filtersBtn && filterNavEl) {
+    filtersBtn.addEventListener('click', function () {
+      var open = !filterNavEl.classList.contains('is-open');
+      filterNavEl.classList.toggle('is-open', open);
+      filtersBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    var countFilters = function () {
+      var n = filterNavEl.querySelectorAll('.cat-chip[aria-pressed="true"]:not([data-cat=""]), .who-chip[aria-pressed="true"]').length;
+      ['locationSelect', 'durationSelect'].forEach(function (id) { var el = $(id); if (el && el.value) n++; });
+      if (filtersCount) filtersCount.textContent = n ? ' (' + n + ')' : '';
+    };
+    // Chips change aria-pressed however they're set (a tap, the hero search, the address),
+    // and the dropdowns fire change.
+    if (window.MutationObserver) new MutationObserver(countFilters).observe(filterNavEl, { subtree: true, attributes: true, attributeFilter: ['aria-pressed'] });
+    filterNavEl.addEventListener('change', countFilters);
+    window.addEventListener('popstate', function () { setTimeout(countFilters, 0); });
+    countFilters();
+    setTimeout(countFilters, 0);
+  }
 
   // "View on map": opens the panel and adds map=1 to the address, so the back button
   // closes it. Closing pops that entry when it's the one we added.

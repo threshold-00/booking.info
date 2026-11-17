@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=217ae630" />
+<link rel="stylesheet" href="styles.css?v=eb6a8bbf" />
 <!-- Map tiles: connect early so "View on map" fills in faster. -->
 <link rel="preconnect" href="https://tile.openstreetmap.org" />
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -194,7 +194,7 @@
           </div>
         </div>
         <div class="fn-row fn-row--bottom">
-          <button type="button" class="btn--secondary fn-filters" id="filtersBtn">Filters</button>
+          <button type="button" class="btn--secondary fn-filters" id="filtersBtn" aria-expanded="false" aria-controls="filterNav">Filters<span class="fn-filters__count" id="filtersCount"></span></button>
           <div class="fn-group fn-where">
             <label class="label fn-label" for="locationSelect" id="locationLabel">Where</label>
             <span class="select-wrap fn-select"><select id="locationSelect" class="location-select pill-select"><option value="">Anywhere</option><option value="mornington">Victoria</option></select></span>
@@ -588,6 +588,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=2c17670a"></script>
+<script src="app.js?v=86e03816"></script>
 </body>
 </html>

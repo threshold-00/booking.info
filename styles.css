@@ -1289,3 +1289,26 @@ a[href*="gift-cards/"],.bp-giftbuy,#giftBox{display:none !important}
 @media (min-width:1024px){.price-cta{display:flex;justify-content:flex-end;align-items:center}}
 .soon-link{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .soon-link:hover,.soon-link:focus-visible{color:var(--ink-2)}
+/* Phones, collapsed filters (Ro, 17 Nov 2026): one row (Filters, Sort by, map) until
+   Filters is tapped; then Where, How long and Reset, and the What and Situation chips,
+   open under it. The button counts the filters that are on. Stuck or not, the same. */
+@media (max-width:767px){
+  .rd .fn-filters{display:inline-flex!important}
+  .fn-filters__count:empty{display:none}
+  .filter-nav .fn-row--bottom,.filter-nav.is-stuck .fn-row--bottom{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;align-items:end}
+  .filter-nav .fn-row--bottom{order:-1}
+  .filter-nav .fn-filters{grid-column:1;grid-row:1}
+  .filter-nav .fn-sort{grid-column:2;grid-row:1}
+  .filter-nav .fn-map{grid-column:3;grid-row:1}
+  .filter-nav .fn-where{grid-column:1;grid-row:2}
+  .filter-nav .fn-long{grid-column:2;grid-row:2}
+  .filter-nav .fn-reset{grid-column:3;grid-row:2}
+  .rd .filter-nav .fn-map-label{display:none}
+  .filter-nav:not(.is-open) .fn-row--top,.filter-nav:not(.is-open) .fn-where,.filter-nav:not(.is-open) .fn-long,.filter-nav:not(.is-open) .fn-reset{display:none!important}
+  .filter-nav.is-open.is-stuck .fn-row--top{display:flex}
+  .filter-nav.is-open.is-stuck .fn-where,.filter-nav.is-open.is-stuck .fn-long{display:block}
+  .filter-nav.is-open.is-stuck .fn-reset{display:inline-flex}
+  .filter-nav.is-open.is-stuck{max-height:calc(100svh - var(--header-h,61px));overflow-y:auto}
+  .filter-nav.is-stuck .fn-help,.filter-nav.is-stuck #horseSub{display:none!important}
+  .filter-nav{padding-block:var(--s-3)}
+}
