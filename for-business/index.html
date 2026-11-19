@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fill your empty spots with RealDays | Last-minute spots for businesses</title>
-<meta name="description" content="Got empty spots in a class or session this week? Post them on RealDays at a last-minute price and we share them with customers. Free to join." />
+<title>List your experiences on RealDays | Free until 1 January 2027</title>
+<meta name="description" content="A new marketplace where people in Victoria find and book local experiences. Free to list until 1 January 2027, and we feature new businesses on our Instagram and in our ads." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -16,14 +16,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="RealDays" />
 <meta property="og:url" content="https://getrealdays.com/for-business/" />
-<meta property="og:title" content="Fill your empty spots with RealDays | Last-minute spots for businesses" />
-<meta property="og:description" content="Got empty spots in a class or session this week? Post them on RealDays at a last-minute price and we share them with customers. Free to join." />
+<meta property="og:title" content="List your experiences on RealDays | Free until 1 January 2027" />
+<meta property="og:description" content="A new marketplace where people in Victoria find and book local experiences. Free to list until 1 January 2027, and we feature new businesses on our Instagram and in our ads." />
 <meta property="og:image" content="https://getrealdays.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Fill your empty spots with RealDays | Last-minute spots for businesses" />
-<meta name="twitter:description" content="Got empty spots in a class or session this week? Post them on RealDays at a last-minute price and we share them with customers. Free to join." />
+<meta name="twitter:title" content="List your experiences on RealDays | Free until 1 January 2027" />
+<meta name="twitter:description" content="A new marketplace where people in Victoria find and book local experiences. Free to list until 1 January 2027, and we feature new businesses on our Instagram and in our ads." />
 <meta name="twitter:image" content="https://getrealdays.com/assets/og-image.png" />
 <script type="application/ld+json">
 {
@@ -83,8 +83,11 @@
     </div>
   </header>
 
-  <!-- Last-minute spots first (Ro, 16 Nov 2026): the page leads with getting empty spots
-       promoted, and the sign-up form sits above the fold. The form posts to the booking
+  <!-- The marketplace pitch (Ro, 19 Nov 2026, replacing the 16 Nov last-minute spots lead), in the
+       playbook's order (section 2.4): a marketplace for experiences, free to list until 1 January
+       2027, featured on our Instagram and in our ads, keep your own booking tool; spots come last.
+       The sign-up form still sits above the fold. It builds the business's first class in the
+       next 7 days, so the box says so, with "email Ro a link" for everyone else. The form posts to the booking
        service's POST /auth/signup with spots: true and plan: 'lite' (the same short sign-up
        as /dashboard/signup?lite=1, Ro, 17 Nov 2026), wired in app.js (form[data-spots-signup]). The fields carry
        data-field, not name, so personal details never end up in a web address: without
@@ -99,12 +102,12 @@
     </picture>
     <div class="container grid">
       <div class="c-1-5 biz-hero__copy">
-        <p class="label eyebrow">Last-minute spots</p>
-        <h1>Push empty class spots that would otherwise earn nothing</h1>
-        <p class="biz-hero__lede">Post a spare spot at a last-minute price. RealDays gives it its own page and shares it on our homepage, in our weekly email and on Instagram. Customers book and pay by card.</p>
+        <p class="label eyebrow">For businesses</p>
+        <h1>List your experiences on RealDays</h1>
+        <p class="biz-hero__lede">A new marketplace where people in Victoria find and book local experiences. It’s free to list until 1 January 2027, and we feature new businesses on our Instagram and in our ads. Keep your own booking tool and website: this is more people finding you.</p>
       </div>
       <form class="c-7-12 biz-signup" id="spots-signup" data-spots-signup action="https://api.getrealdays.com/dashboard/signup" method="get" novalidate aria-labelledby="spotsSignupTitle">
-        <h2 class="biz-signup__title" id="spotsSignupTitle">Start posting your empty spots</h2>
+        <h2 class="biz-signup__title" id="spotsSignupTitle">Start with one class</h2>
         <div class="biz-signup__fields">
           <label><span class="label">Business name</span><input type="text" data-field="business_name" maxlength="80" autocomplete="organization" required /><small class="biz-signup__err" data-err="business_name"></small></label>
           <label><span class="label">Your name</span><input type="text" data-field="name" maxlength="80" autocomplete="name" required /><small class="biz-signup__err" data-err="name"></small></label>
@@ -113,52 +116,54 @@
         <input type="text" data-field="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
         <input type="hidden" name="spots" value="1" />
         <div class="biz-signup__foot">
-          <p class="biz-signup__note">We’ll email you a link to log in and post your first spot. No passwords. <a href="https://api.getrealdays.com/dashboard/login" data-spots-login>Already signed up? Log in</a></p>
+          <p class="biz-signup__note">Next you add a class you’re running in the next 7 days: paste a link to its page and we fill in most of it. No passwords. <a href="https://api.getrealdays.com/dashboard/login" data-spots-login>Already signed up? Log in</a></p>
           <button type="submit" class="btn--primary">Sign up</button>
         </div>
+        <p class="biz-signup__note">No class that soon? Email Ro a link to your experience at <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a> and we’ll set up your listing for you to check.</p>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
 
-  <!-- The three hero points, moved into their own section with Material Symbols icons
-       (inline SVG, Apache 2.0) (Ro, 16 Nov 2026). -->
+  <!-- The three points with Material Symbols icons (inline SVG, 48px optical size, Apache 2.0)
+       (Ro, 16 Nov 2026; handshake first). Since 19 Nov 2026 they carry hooks 2 to 4 of the
+       playbook: free to list, featured, keep your own booking tool (megaphone and calendar added). -->
   <section id="perks" class="section biz-perks" aria-labelledby="perksTitle">
     <div class="container">
-      <h2 class="sr-only" id="perksTitle">Why post your spots on RealDays</h2>
+      <h2 class="sr-only" id="perksTitle">Why list on RealDays</h2>
       <ul class="biz-perks__list">
-        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M475-140q5 0 11.5-2.5T497-149l337-338q13-13 19.5-29.67Q860-533.33 860-550q0-17-6.5-34T834-614L654-794q-13-13-30-19.5t-34-6.5q-16.67 0-33.33 6.5Q540-807 527-794l-18 18 81 82q13 14 23 32.5t10 40.5q0 38-29.5 67T526-525q-25 0-41.5-7.5t-30.19-21.34L381-627 200-446q-5 5-7 10.53-2 5.52-2 11.84 0 12.63 8.5 21.13 8.5 8.5 21.17 8.5 6.33 0 11.83-3t9.5-7l138-138 42 42-137 137q-5 5-7 11t-2 12q0 12 9 21t21 9q6 0 11.5-2.5t9.5-6.5l138-138 42 42-137 137q-4 4-6.5 10.33-2.5 6.34-2.5 12.67 0 12 9 21t21 9q6 0 11-2t10-7l138-138 42 42-138 138q-5 5-7 11t-2 11q0 14 8 22t22 8Zm.06 60Q442-80 416-104.5t-31-60.62Q351-170 328-193t-28-57q-34-5-56.5-28.5T216-335q-37-5-61-30t-24-60q0-17 6.72-34.05Q144.45-476.1 157-489l224-224 110 110q8 8 17.33 12.5 9.34 4.5 18.67 4.5 13 0 24.5-11.5t11.5-24.65q0-5.85-3.5-13.35T548-651L405-794q-13-13-30-19.5t-34-6.5q-16.67 0-33.33 6.5-16.67 6.5-29.61 19.36L126-642q-14 14-19.5 29.5t-6.5 35q-1 19.5 7.5 38T128-506l-43 43q-20-22-32.5-53T40-579q0-30 11.5-57.5T84-685l151-151q22-22 49.79-32.5 27.8-10.5 57-10.5 29.21 0 56.71 10.5T448-836l18 18 18-18q22-22 49.79-32.5 27.8-10.5 57-10.5 29.21 0 56.71 10.5T697-836l179 179q22 22 33 50.03 11 28.04 11 57 0 28.97-11 56.47T876-444L539-107q-13 13-29.53 20t-34.41 7ZM377-626Z"/></svg><p>Free to join, no monthly fee</p></li>
-        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M863-404 557-97q-9 8.5-20.25 12.75T514.25-80Q503-80 492-84.5T472-97L98-472q-8-8-13-18.96-5-10.95-5-23.04v-306q0-24.75 17.63-42.38Q115.25-880 140-880h307q12.07 0 23.39 4.87Q481.7-870.25 490-862l373 373q9.39 9 13.7 20.25 4.3 11.25 4.3 22.5t-4.5 22.75Q872-412 863-404ZM516-138l306-307-375-375H140v304l376 378ZM245-664q21 0 36.5-15.5T297-716q0-21-15.5-36.5T245-768q-21 0-36.5 15.5T193-716q0 21 15.5 36.5T245-664Zm236 185Z"/></svg><p>Only pay when a spot sells: 20% of a booking you’d have missed</p></li>
-        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M360-860v-60h240v60H360Zm90 447h60v-230h-60v230Zm30 332q-74 0-139.5-28.5T226-187q-49-49-77.5-114.5T120-441q0-74 28.5-139.5T226-695q49-49 114.5-77.5T480-801q67 0 126 22.5T711-716l51-51 42 42-51 51q36 40 61.5 97T840-441q0 74-28.5 139.5T734-187q-49 49-114.5 77.5T480-81Zm0-60q125 0 212.5-87.5T780-441q0-125-87.5-212.5T480-741q-125 0-212.5 87.5T180-441q0 125 87.5 212.5T480-141Zm0-299Z"/></svg><p>Post a spot in a few minutes</p></li>
+        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M475-140q5 0 11.5-2.5T497-149l337-338q13-13 19.5-29.67Q860-533.33 860-550q0-17-6.5-34T834-614L654-794q-13-13-30-19.5t-34-6.5q-16.67 0-33.33 6.5Q540-807 527-794l-18 18 81 82q13 14 23 32.5t10 40.5q0 38-29.5 67T526-525q-25 0-41.5-7.5t-30.19-21.34L381-627 200-446q-5 5-7 10.53-2 5.52-2 11.84 0 12.63 8.5 21.13 8.5 8.5 21.17 8.5 6.33 0 11.83-3t9.5-7l138-138 42 42-137 137q-5 5-7 11t-2 12q0 12 9 21t21 9q6 0 11.5-2.5t9.5-6.5l138-138 42 42-137 137q-4 4-6.5 10.33-2.5 6.34-2.5 12.67 0 12 9 21t21 9q6 0 11-2t10-7l138-138 42 42-138 138q-5 5-7 11t-2 11q0 14 8 22t22 8Zm.06 60Q442-80 416-104.5t-31-60.62Q351-170 328-193t-28-57q-34-5-56.5-28.5T216-335q-37-5-61-30t-24-60q0-17 6.72-34.05Q144.45-476.1 157-489l224-224 110 110q8 8 17.33 12.5 9.34 4.5 18.67 4.5 13 0 24.5-11.5t11.5-24.65q0-5.85-3.5-13.35T548-651L405-794q-13-13-30-19.5t-34-6.5q-16.67 0-33.33 6.5-16.67 6.5-29.61 19.36L126-642q-14 14-19.5 29.5t-6.5 35q-1 19.5 7.5 38T128-506l-43 43q-20-22-32.5-53T40-579q0-30 11.5-57.5T84-685l151-151q22-22 49.79-32.5 27.8-10.5 57-10.5 29.21 0 56.71 10.5T448-836l18 18 18-18q22-22 49.79-32.5 27.8-10.5 57-10.5 29.21 0 56.71 10.5T697-836l179 179q22 22 33 50.03 11 28.04 11 57 0 28.97-11 56.47T876-444L539-107q-13 13-29.53 20t-34.41 7ZM377-626Z"/></svg><p>Free to list until 1 January 2027</p></li>
+        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M730-450v-60h150v60H730Zm50 290-121-90 36-48 121 90-36 48Zm-82-503-36-48 118-89 36 48-118 89ZM210-200v-160h-70q-24.75 0-42.37-17.63Q80-395.25 80-420v-120q0-24.75 17.63-42.38Q115.25-600 140-600h180l200-120v480L320-360h-50v160h-60Zm250-146v-268l-124 74H140v120h196l124 74Zm100 0v-268q27 24 43.5 58.5T620-480q0 41-16.5 75.5T560-346ZM300-480Z"/></svg><p>Featured on our Instagram and in our ads</p></li>
+        <li class="biz-perk"><svg class="biz-perk__icon" viewBox="0 -960 960 960" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M433-228 295-365l42-42 96 94 184-184 42 43-226 226ZM180-80q-24 0-42-18t-18-42v-620q0-24 18-42t42-18h65v-60h65v60h340v-60h65v60h65q24 0 42 18t18 42v620q0 24-18 42t-42 18H180Zm0-60h600v-430H180v430Zm0-490h600v-130H180v130Zm0 0v-130 130Z"/></svg><p>Keep your own booking tool and website</p></li>
       </ul>
     </div>
   </section>
 
-  <!-- How it works (Ro, 16 Nov 2026): the three steps, with screenshots of the real sign-up form,
-       the dashboard's release form and a spot page, taken from a local test copy with example
-       details ("Your Studio"). Spots go up to 7 days ahead. -->
+  <!-- How it works (Ro, 16 Nov 2026; words for the marketplace pitch 19 Nov 2026): the three steps,
+       with screenshots of the real sign-up form, the dashboard's class form and a class page, taken
+       from a local test copy with example details ("Your Studio"). Classes go up to 7 days ahead. -->
   <section id="how-it-works" class="section biz-how" aria-labelledby="howTitle">
     <div class="container">
       <p class="label eyebrow">How it works</p>
-      <h2 class="biz-how__title" id="howTitle">Three steps to a fuller class.</h2>
+      <h2 class="biz-how__title" id="howTitle">Three steps to get on RealDays.</h2>
       <ol class="biz-steps">
         <li class="biz-step">
-          <div class="biz-step__shot"><img src="../assets/img/business/how-1-sign-up.jpg" width="900" height="716" alt="The sign-up form, filled in with a business name, name, email, mobile, suburb, state and website" loading="lazy" decoding="async" /></div>
+          <div class="biz-step__shot"><img src="../assets/img/business/how-1-sign-up.jpg" width="900" height="518" alt="The sign-up form, filled in with a business name, your name and email" loading="lazy" decoding="async" /></div>
           <p class="label biz-step__num">Step 1</p>
           <h3>Sign up</h3>
-          <p>Fill in the form at the top of this page and you go straight to adding your class. Then confirm your email and set up payouts with Stripe, so bookings are paid straight to your account.</p>
+          <p>Fill in the form at the top of this page and you go straight to adding a class you’re running in the next 7 days. Then confirm your email and set up payouts with Stripe, so bookings are paid straight to your account.</p>
         </li>
         <li class="biz-step">
           <div class="biz-step__shot"><img src="../assets/img/business/how-2-post-a-spot.jpg" width="900" height="737" alt="Posting a spot in the dashboard: the date and time, how many spare places, the normal price and the last-minute price" loading="lazy" decoding="async" /></div>
           <p class="label biz-step__num">Step 2</p>
-          <h3>Post a class that looks quiet</h3>
-          <p>Add the spare places in a class that isn't full, at a last-minute price. We suggest posting it about a week out, so there's time to fill it.</p>
+          <h3>Add your class</h3>
+          <p>Paste the link to the class on your website and we fill in most of it. You choose how many places and the price, and you can take a place back any time.</p>
         </li>
         <li class="biz-step">
           <div class="biz-step__shot"><img src="../assets/img/business/how-3-spot-page.jpg" width="900" height="757" alt="The spot's own page on RealDays, with its photo, time, price, the usual price and places left" loading="lazy" decoding="async" /></div>
           <p class="label biz-step__num">Step 3</p>
-          <h3>We fill the spot</h3>
-          <p>We give it its own page and share it on our homepage, in our weekly email and on Instagram. Customers book and pay on RealDays. If a place doesn't sell, you pay nothing.</p>
+          <h3>We send people your way</h3>
+          <p>It gets its own page on RealDays, and we feature new businesses on our Instagram and in our ads. Customers book and pay on RealDays, and we email you each booking. If nothing books, you pay nothing.</p>
         </li>
       </ol>
     </div>
@@ -187,11 +192,13 @@
   <section id="pricing" class="section" aria-labelledby="pricingTitle">
     <div class="container">
       <p class="label eyebrow">Business pricing</p>
-      <!-- Wording: Ro, 16 Nov 2026 ("its just 20% on whatever booking comes through RealDays"). The 20% shows on this page only; no fee rate on customer pages. -->
-      <h2 class="price-head" id="pricingTitle" tabindex="-1">Free to join. You only pay when we bring you customers.</h2>
+      <!-- Pricing (Ro, 19 Nov 2026, replacing the 16 Nov 20%): free to list until 1 January 2027, then
+           15% of each booking RealDays brings, nothing on the business's own bookings. Stripe's card
+           fee is said once, plainly, never emphasised. The fee shows on business pages only, never on customer pages. -->
+      <h2 class="price-head" id="pricingTitle" tabindex="-1">Free to list until 1 January 2027.</h2>
       <div class="grid">
         <div class="c-1-6 price-copy">
-          <p>No monthly fee and no setup fee. Just 20% of any booking that comes through RealDays.</p>
+          <p>Until then, the only cost is Stripe’s card fee on bookings made through RealDays. From 1&nbsp;January&nbsp;2027 it’s 15% of each booking we bring you, which covers the card fee, so a $120 booking sends you $102. Nothing on bookings you take yourself, no monthly fee and <span style="white-space:nowrap">no lock-in</span>.</p>
         </div>
         <div class="c-7-12 price-cta">
           <a href="#spots-signup" class="btn--primary">Sign up</a>
@@ -206,35 +213,39 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary>What is RealDays?</summary>
-          <p>A booking site for small, owner-run class and experience businesses. You post spare places in a class that isn’t full, at a last-minute price, and we put them in front of customers who want something to do this week. Businesses anywhere in Australia can join.</p>
-        </details>
-        <details class="faq-item">
-          <summary>How do I post a last-minute spot?</summary>
-          <p>Fill in the form at the top of this page and add your class straight away (paste a link to its page and we fill in most of it). Then confirm your email and set up payouts with Stripe. Your spot goes live once both are done.</p>
+          <p>A new marketplace where people in Victoria find and book local experiences from small, owner-run businesses: adventures, creative workshops, and food and drink classes. Businesses anywhere in Australia can join.</p>
         </details>
         <details class="faq-item">
           <summary>What does it cost?</summary>
-          <p>Free to join, with no monthly fee and no setup fee. You only pay when a spot sells: our fee comes out of that booking and covers the card fees, so there’s nothing to pay up front and nothing if a place doesn’t sell. The fees are in your terms.</p>
+          <p>Nothing to list until 1 January 2027. Until then, bookings made through RealDays carry only Stripe’s card fee. From 1 January 2027 it’s 15% of each booking we bring you, including GST. It covers the card fee, so you don’t pay both. There’s nothing on bookings you take yourself, no monthly fee, no setup fee and no lock-in. It’s all in your terms.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I keep my own booking tool?</summary>
+          <p>Yes. Keep your own booking tool and website, and keep taking bookings there. RealDays is more people finding you. When someone books on RealDays, they pay on RealDays and we email you their details straight away.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I get on RealDays?</summary>
+          <p>Fill in the form at the top of this page and add a class you’re running in the next 7 days (paste a link to its page and we fill in most of it). Then confirm your email and set up payouts with Stripe. Your class goes live once both are done. Or email Ro a link to your experience at <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a> and we’ll set up your listing for you to check.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How will people find me?</summary>
+          <p>On getrealdays.com and in our weekly email to people who asked for it, and we feature new businesses on our Instagram and in our ads. We’re new, so we can’t promise how many bookings that brings.</p>
         </details>
         <details class="faq-item">
           <summary>How do I get paid?</summary>
-          <p>Customers pay by card on RealDays when they book. The money goes to your own Stripe account, less our fee.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Which classes should I post?</summary>
-          <p>Any class in the next 7 days that has places left and looks unlikely to fill. We suggest posting about a week out, so there’s time to sell them. You choose how many places to release.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Can I set the price?</summary>
-          <p>Yes. You set your normal price and the last-minute price, and you can add up to two drops that kick in closer to the start. Customers see the price as, for example, $130 per person, usually $170. The price is locked when they pay.</p>
+          <p>Customers pay by card on RealDays when they book. We send your share to your own Stripe account the day after the class, and Stripe pays it into your bank, usually within a few business days.</p>
         </details>
         <details class="faq-item">
           <summary>Do I have to accept each booking?</summary>
-          <p>No. A spot booking is confirmed as soon as the customer pays, so only release places you can take. Bookings close 2 hours before the start. You get the customer’s name, email and mobile.</p>
+          <p>No. A booking for a class you add here is confirmed as soon as the customer pays, so only add places you can take. Bookings close 2 hours before the start. You get the customer’s name, email and mobile.</p>
         </details>
         <details class="faq-item">
           <summary>What if someone cancels?</summary>
-          <p>Last-minute spots are final for customers, so there’s no refund if they cancel. If you have to cancel, the customer gets a full refund.</p>
+          <p>Bookings for a class you add here are final for customers, so there’s no refund if they cancel. If you have to cancel, the customer gets a full refund.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What are last-minute spots?</summary>
+          <p>An extra you can use if it suits you: a quiet class’s spare places, up to 7 days ahead, at a last-minute price you set. It can be your normal price. You can also add up to two lower prices that start closer to the class. Customers see the price as, for example, $130 per person, usually $170.</p>
         </details>
       </div>
     </div>
@@ -263,8 +274,8 @@
       <!-- One way in (Ro, 17 Nov 2026): the old "Get listed" form (Ro calls within 2 business days)
            is gone, so it doesn't compete with the sign-up at the top. Questions go to Ro by email. -->
       <div class="c-7-12 biz-question">
-        <p>Questions about posting spots, fees or payouts? Email Ro at <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a>.</p>
-        <p>Ready to start? Use the <a href="#spots-signup">sign-up form</a> at the top of this page.</p>
+        <p>Questions about listing, fees or payouts? Email Ro at <a href="mailto:rowena@getrealdays.com">rowena@getrealdays.com</a>.</p>
+        <p>Ready to start? Use the <a href="#spots-signup">sign-up form</a> at the top of this page, or send Ro a link to your experience and we’ll set up your listing for you to check.</p>
       </div>
     </div>
   </section>
@@ -284,8 +295,8 @@
   </footer>
 </div>
 
-<aside class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" id="businessStickyBar" aria-label="Post your empty spots">
-  <a href="#spots-signup" class="btn">Post your empty spots</a>
+<aside class="mobile-sticky-bar mobile-sticky-bar--dark on-dark" id="businessStickyBar" aria-label="List your business">
+  <a href="#spots-signup" class="btn">List your business</a>
 </aside>
 <script src="../assets/rough.js"></script>
 <script src="../app.js?v=86e03816"></script>
