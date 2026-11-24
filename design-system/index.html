@@ -9,8 +9,8 @@
 <link rel="preload" href="/assets/fonts/neuehaas-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/neuehaas-600.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="/assets/tokens.css?v=2cf6efff" />
-<link rel="stylesheet" href="/assets/components.css?v=861a24d9" />
+<link rel="stylesheet" href="/assets/tokens.css?v=a24563fd" />
+<link rel="stylesheet" href="/assets/components.css?v=1b7a5662" />
 <link rel="stylesheet" href="/design-system/brand.css" />
 <style>
   @font-face{font-family:'Neue Haas';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/neuehaas-400.woff2') format('woff2')}
@@ -148,15 +148,15 @@
       </div>
 
       <h3 class="t-title">Type scale</h3>
-      <p class="ds-section__intro">Two layers. The :root values apply to pages outside body.rd (the demos, the hubs, the case study). body.rd, the homepage and /for-business/, overrides display, title, body and small, and the specimens below render at those values because this page carries class="rd". Headings (h1 to h3) have letter-spacing 0. Neue Haas has only a 400 and a 600 face: a weight of 500 falls back to 400, so only 400 and 600 are documented. Chivo Mono is the only mono and it is always uppercase, weight 400.</p>
+      <p class="ds-section__intro">One scale on every page (Ro, 20 Nov 2026): seven sizes, each with one job, and nothing else. Leading opens up as text gets smaller. Neue Haas is a display cut and sits tight at small sizes, so its tracking is a touch positive and never negative (Ro: headings looked tight). Neue Haas has only a 400 and a 600 face: a weight of 500 falls back to 400. Chivo Mono is the only mono and it is always uppercase, weight 400. Use the tokens or the .t-* classes; never type a px size. At most three sizes on one screen (design principles, section 3).</p>
       <div style="margin-bottom:var(--s-7);">
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-display<br />body.rd 40&ndash;72px (clamp(2.5rem,1.6rem + 3.8vw,4.5rem)) &middot; :root 36&ndash;72px<br />lh 1.1 &middot; ls 0 &middot; 600<br />Hero h1: lh 1.18, ls .01em. Business hero h1: ls -.01em</div><div style="font-family:var(--display);font-size:var(--t-display);font-weight:var(--w-strong);letter-spacing:0;line-height:1.1;">Something you'll actually remember doing.</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-headline<br />28&ndash;44px &middot; lh 1.1 &middot; ls 0 &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-headline);font-weight:var(--w-strong);letter-spacing:0;line-height:1.1;">List with RealDays.</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-subhead<br />20&ndash;24px &middot; lh 1.15 &middot; ls 0 &middot; 600</div><div style="font-family:var(--display);font-size:var(--t-subhead);font-weight:var(--w-strong);letter-spacing:0;line-height:1.15;">Horse experiences</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-title<br />body.rd 17px &middot; :root 16&ndash;17px<br />lh 1.25 to 1.3 &middot; ls 0 &middot; 600 (FAQ questions 400)</div><div style="font-family:var(--display);font-size:var(--t-title);font-weight:var(--w-strong);letter-spacing:0;line-height:1.3;">Guided horse ride through rice fields to the beach</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-body<br />body.rd 16px &middot; :root 14px<br />lh 1.5 to 1.6 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-body);line-height:1.5;">A guided ride out along the rice fields, village roads and down to the beach. Salty Cowboy's grooms come with you the whole way, on foot.</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-small<br />body.rd 14px &middot; :root 13px<br />lh 1.4 &middot; 400</div><div style="font-family:var(--display);font-size:var(--t-small);line-height:1.4;">Per person, up to 5 riders</div></div>
-        <div class="ds-specimen"><div class="ds-specimen__meta">--t-label (floor)<br />12px &middot; lh 18px (1.5 in blocks) &middot; ls .08em (0.96px)<br />uppercase Chivo Mono &middot; 400</div><div class="label">Check dates with Salty Cowboy</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-display &middot; .t-display<br />40&ndash;72px &middot; lh 1.15 (--lh-display) &middot; ls .01em (--ls-heading) &middot; 600<br />The homepage and /last-minute/ hero headings only</div><div class="t-display">Something you'll actually remember doing.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-headline &middot; .t-headline<br />28&ndash;44px &middot; lh 1.2 (--lh-heading) &middot; ls .01em &middot; 600<br />Page titles (h1) and the big section headings on /for-business/ and /last-minute/</div><div class="t-headline">Make a stool you'll keep for life, in the Indigo Valley</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-subhead &middot; .t-subhead<br />20&ndash;24px &middot; lh 1.2 &middot; ls .01em &middot; 600<br />Section headings: homepage rows, listing page sections, footer boxes, index page rows</div><div class="t-subhead">New in regional Victoria</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-title &middot; .t-title<br />18px &middot; lh 1.3 (--lh-title) &middot; ls .01em (--ls-text) &middot; 600 (FAQ questions 400)<br />Small headings, FAQ questions, the booking button, page intros (.lede, 16px on phones)</div><div class="t-title">How is this different from Viator or GetYourGuide?</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-body &middot; .t-body<br />16px &middot; lh 1.6 for reading (--lh-body), 1.5 in UI (--lh-small) &middot; ls .01em &middot; 400<br />All reading text, form fields, card titles (600, lh 1.3)</div><div class="t-body">RealDays started in 2026 with a simple aim: help small, owner-run experience businesses get back to doing the work they love.</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-small &middot; .t-small<br />14px &middot; lh 1.5 &middot; ls .02em (--ls-small) &middot; 400<br />Card details, notes, captions, help text. Sentence-case text is never smaller.</div><div class="t-small">From Wed 11 Nov, 11am &middot; Elizabeth Peddey &middot; Melbourne</div></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--t-label (floor) &middot; .label<br />12px &middot; lh 1.4 (--lh-label), 18px in controls &middot; ls .08em (--ls-label)<br />Uppercase Chivo Mono &middot; 400: nav, buttons, tags, eyebrows, form labels</div><div class="label">See the classes</div></div>
       </div>
 
       <h3 class="t-title">The 12px mono specimen, large and real size</h3>

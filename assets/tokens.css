@@ -1,5 +1,5 @@
-/* RealDays design tokens. Mirrors styles.css body.rd layer. Update both together.
-   Last synced to live getrealdays.com on 26 Oct 2026. */
+/* RealDays design tokens. Mirrors the :root tokens in styles.css. Update both together.
+   Last synced on 20 Nov 2026 (one type scale for every page, Ro). */
 :root{
   /* 4.1 fonts. Chivo Mono is the only mono; all mono text is uppercase. Neue Haas has
      400 and 600 only (no 500 face: a 500 falls back to 400). */
@@ -8,24 +8,26 @@
   --font-body:var(--display);
   --w-regular:400;--w-strong:600;--w-mono:400;
 
-  /* 4.2 type scale. These are the :root values (pages outside body.rd). The .rd block
-     below overrides display, title, body and small for the homepage and /for-business/. */
-  --t-display:clamp(2.25rem,1.318rem + 3.978vw,4.5rem);
+  /* 4.2 type scale: one scale on every page (Ro, 20 Nov 2026), seven sizes. */
+  --t-display:clamp(2.5rem,1.6rem + 3.8vw,4.5rem);
   --t-headline:clamp(1.75rem,1.336rem + 1.768vw,2.75rem);
   --t-subhead:clamp(1.25rem,1.146rem + .442vw,1.5rem);
-  --t-title:clamp(1rem,.974rem + .11vw,1.0625rem);
-  --t-body:.875rem;
-  --t-small:.8125rem;
+  --t-title:1.125rem;
+  --t-body:1rem;
+  --t-small:.875rem;
   --t-label:.75rem;
   --t-min:12px;      /* smallest text on new or changed components: captions, credits, breadcrumbs, footer links, booking labels */
 
-  --lh-tight:1.1;--lh-body:1.5;
+  /* Leading opens up as text gets smaller. --lh-tight is the old name for the display leading. */
+  --lh-display:1.15;--lh-heading:1.2;--lh-title:1.3;--lh-body:1.6;--lh-small:1.5;--lh-label:1.4;--lh-tight:var(--lh-display);
 
-  /* 4.3 letter-spacing. Headings h1 to h3 are 0. Labels are .08em. */
-  --ls-display:0;
-  --ls-headline:0;
-  --ls-subhead:0;
-  --ls-title:0;
+  /* 4.3 letter-spacing. Neue Haas is a display cut and sits tight at small sizes: a touch
+     positive, never negative (Ro, 20 Nov 2026: headings looked tight). Mono labels .08em. */
+  --ls-heading:.01em;--ls-text:.01em;--ls-small:.02em;
+  --ls-display:var(--ls-heading);
+  --ls-headline:var(--ls-heading);
+  --ls-subhead:var(--ls-heading);
+  --ls-title:var(--ls-text);
   --ls-mono:.08em;
   --ls-label:.08em;
   --ls-blurb:.02em; /* retired for body text: multi-line copy is Neue Haas, sentence case (Ro, 22 Oct 2026) */
@@ -127,9 +129,6 @@
 @media (min-width:768px){:root{--gutter:32px;--cards-per-row:3}}
 @media (min-width:1200px){:root{--gutter:48px;--cards-per-row:5;--section-y:var(--s-9)}}
 
-/* body.rd overrides (homepage and /for-business/): the live type scale. The DS page
-   carries class="rd" so every specimen renders at these values. */
-.rd{--t-display:clamp(2.5rem,1.6rem + 3.8vw,4.5rem);--t-title:1.0625rem;--t-body:1rem;--t-small:.875rem}
 /* /for-business/ spacing: 80px under 768, 96px from 768, 128px from 1200. */
 .rd.biz{--section-y:calc(var(--s-8) + var(--s-4))}
 @media (min-width:768px){.rd.biz{--section-y:var(--s-9)}}
