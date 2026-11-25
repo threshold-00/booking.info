@@ -225,34 +225,22 @@
         </div>
         <div class="card-grid" id="railSpots"></div>
       </section>
-      <!-- Coming soon teaser (Ro, 16 Nov 2026): blurred cards with no details, shown until the
-           live Last-minute spots rail above has spots (app.js hides it then). Generic site photos,
-           no business named, nothing to click but the sign-up link. -->
+      <!-- Last-minute discounts row (Ro, 25 Nov 2026, as on 23 Nov with Tamara's Kitchen): Dash Finishing
+           School's chocolate workshop card, no blurred placeholder cards. app.js hides it once the
+           live Last-minute spots rail above has spots. -->
       <section class="rail" id="railSoonSection" aria-labelledby="railSoonTitle">
         <div class="rail-head">
-          <div><h2 class="section-title" id="railSoonTitle">Coming soon: last-minute discounts</h2><p class="section-count label"><a class="soon-link" href="/last-minute/">Get them first</a></p></div>
+          <div><h2 class="section-title" id="railSoonTitle">Last-minute discounts</h2><p class="section-count label"><a class="soon-link" href="/last-minute/">Get them first</a></p></div>
         </div>
         <div class="card-grid soon-grid">
-          <div class="card sc-card soon-card" aria-hidden="true">
-            <div class="card__media"><img src="/assets/img/gift-cards/clay-800.webp" alt="" loading="lazy" decoding="async" /></div>
-            <div class="card__body"><span class="soon-bar"></span><span class="soon-bar soon-bar--short"></span><span class="soon-bar soon-bar--price"></span></div>
+          <a class="card sc-card" href="/dash-finishing-school/" aria-label="Make your own handmade chocolates in Malvern, Dash Finishing School" data-duration="180">
+          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/dash-finishing-school/card-bark-800.avif" /><img src="/assets/img/demo/dash-finishing-school/card-bark-800.webp" alt="Dark chocolate bark with almonds, broken into pieces and tied with string" width="800" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
+          <div class="card__body">
+            <h3 class="card__title">Make your own handmade chocolates in Malvern</h3>
+            <p class="card__loc">3 hr &middot; Dash Finishing School &middot; Melbourne</p>
+            <div class="card__meta card__row"><p class="card__price">$179 AUD</p></div>
           </div>
-          <div class="card sc-card soon-card" aria-hidden="true">
-            <div class="card__media"><img src="/assets/img/gift-cards/cooking-800.webp" alt="" loading="lazy" decoding="async" /></div>
-            <div class="card__body"><span class="soon-bar"></span><span class="soon-bar soon-bar--short"></span><span class="soon-bar soon-bar--price"></span></div>
-          </div>
-          <div class="card sc-card soon-card" aria-hidden="true">
-            <div class="card__media"><img src="/assets/img/gift-cards/woodwork-800.webp" alt="" loading="lazy" decoding="async" /></div>
-            <div class="card__body"><span class="soon-bar"></span><span class="soon-bar soon-bar--short"></span><span class="soon-bar soon-bar--price"></span></div>
-          </div>
-          <div class="card sc-card soon-card" aria-hidden="true">
-            <div class="card__media"><img src="/assets/photos/coastline-1440.webp" alt="" loading="lazy" decoding="async" /></div>
-            <div class="card__body"><span class="soon-bar"></span><span class="soon-bar soon-bar--short"></span><span class="soon-bar soon-bar--price"></span></div>
-          </div>
-          <div class="card sc-card soon-card" aria-hidden="true">
-            <div class="card__media"><img src="/assets/photos/surfboards.webp" alt="" loading="lazy" decoding="async" /></div>
-            <div class="card__body"><span class="soon-bar"></span><span class="soon-bar soon-bar--short"></span><span class="soon-bar soon-bar--price"></span></div>
-          </div>
+        </a>
         </div>
       </section>
       <section class="rail" aria-labelledby="railLiveTitle">
@@ -383,6 +371,14 @@
           <button type="button" id="clearFilters" class="link-btn">Clear filters</button>
         </div>
         <div class="card-grid" id="browseGrid" data-mobile-cap>
+        <a class="card sc-card" data-live href="/dash-finishing-school/" aria-label="Make your own handmade chocolates in Malvern, Dash Finishing School" data-title="Make your own handmade chocolates in Malvern" data-business="Dash Finishing School" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="179" data-type="" data-rank="0" data-keywords="dash finishing school chocolate making workshop class truffles tempering ganache bark christmas gift malvern melbourne" data-duration="180">
+          <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/dash-finishing-school/card-bark-800.avif" /><img src="/assets/img/demo/dash-finishing-school/card-bark-800.webp" alt="Dark chocolate bark with almonds, broken into pieces and tied with string" width="800" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
+          <div class="card__body">
+            <h3 class="card__title">Make your own handmade chocolates in Malvern</h3>
+            <p class="card__loc">3 hr &middot; Dash Finishing School &middot; Melbourne</p>
+            <div class="card__meta card__row"><p class="card__price">$179 AUD</p></div>
+          </div>
+        </a>
         <a class="card sc-card" data-live href="/elizabeth-peddey/" aria-label="Cook Mediterranean summer food over four Wednesdays, Elizabeth Peddey School of Cookery" data-title="Cook Mediterranean summer food over four Wednesdays" data-business="Elizabeth Peddey School of Cookery" data-region="mornington" data-cat="food" data-situation="solo duo group" data-sort-aud="185" data-type="" data-rank="0" data-keywords="elizabeth peddey school of cookery cooking class course mediterranean summer food elwood melbourne lunch wednesday wine">
           <div class="card__media"><picture style="display:block;height:100%;"><source type="image/avif" srcset="/assets/img/demo/elizabeth-peddey/class-800.avif" /><img src="/assets/img/demo/elizabeth-peddey/class-800.webp" alt="Students in green aprons preparing leafy greens together at a kitchen bench" width="800" height="533" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;" /></picture></div>
           <div class="card__body">
@@ -588,6 +584,6 @@
 </div>
 <script src="assets/rough.js"></script>
 <script src="assets/leaflet/leaflet.js"></script>
-<script src="app.js?v=86e03816"></script>
+<script src="app.js?v=db26033d"></script>
 </body>
 </html>

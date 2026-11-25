@@ -198,6 +198,7 @@ var exploreMap = (function () {
   var pins = [
     { business: 'Indigo Woodworks', emoji: '🪵', place: 'Indigo Valley', region: 'mornington', lat: -36.0860, lng: 146.8480 },
     { business: 'Adventure Flight Co', emoji: '✈️', place: 'Moorabbin Airport', region: 'mornington', lat: -37.9758, lng: 145.1022 },
+    { business: 'Dash Finishing School', emoji: '🍫', place: 'Malvern', region: 'mornington', lat: -37.8570, lng: 145.0340 },
     { business: 'Elizabeth Peddey School of Cookery', emoji: '🍋', place: 'Elwood', region: 'mornington', lat: -37.8830, lng: 144.9880 },
     { business: 'Suigeneris Atelier', emoji: '🧵', place: 'Mulgrave', region: 'mornington', lat: -37.9280, lng: 145.1740 }, // Mulgrave's centre: the studio address is private
     { business: 'Peachy Keen Ceramics', emoji: '🏺', place: 'Mount Eliza', region: 'mornington', lat: -38.1890, lng: 145.0920 },
